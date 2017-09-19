@@ -36,6 +36,9 @@ namespace gfoidl.DataCompression
             return false;
         }
         //---------------------------------------------------------------------
+        public static bool operator ==(DataPoint a, DataPoint b) => a.Equals(b);
+        public static bool operator !=(DataPoint a, DataPoint b) => !a.Equals(b);
+        //---------------------------------------------------------------------
         public override int GetHashCode()
         {
             const int primeA = 414_584_089;

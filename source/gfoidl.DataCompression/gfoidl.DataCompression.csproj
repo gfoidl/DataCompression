@@ -10,12 +10,26 @@
         <PackageProjectUrl>https://bitbucket.org/gfoidl/datacompression</PackageProjectUrl>
         <RepositoryUrl>https://bitbucket.org/gfoidl/datacompression</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <Description>
-            Provides several data-compression algorithms:
+        <Description>Provides several data-compression algorithms:
 
-            * error band elimination
-            * swinging door algorithm
+* error band elimination
+* swinging door algorithm
         </Description>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Update="Strings.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Strings.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 
 </Project>
