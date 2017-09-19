@@ -19,5 +19,19 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
             Assert.AreEqual(dt, actual.Time);
             Assert.AreEqual(value, actual.Value);
         }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Implicit_conversion___OK()
+        {
+            var dt       = new DateTime(1982, 7, 22, 23, 35, 40);
+            double value = Math.PI;
+
+            var sut = new DataPoint(dt, value);
+
+            (DateTime Time, double Value) actual = sut;
+
+            Assert.AreEqual(dt, actual.Time);
+            Assert.AreEqual(value, actual.Value);
+        }
     }
 }

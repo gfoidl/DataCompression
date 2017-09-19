@@ -50,5 +50,9 @@ namespace gfoidl.DataCompression
                 return hash;
             }
         }
+        //---------------------------------------------------------------------
+        public static implicit operator DataPoint((double, double) tuple)   => new DataPoint(tuple);
+        public static implicit operator DataPoint((DateTime, double) tuple) => new DataPoint(tuple.Item1, tuple.Item2);
+        public static implicit operator (DateTime, double) (DataPoint dp)   => dp.ToTimeValue();
     }
 }
