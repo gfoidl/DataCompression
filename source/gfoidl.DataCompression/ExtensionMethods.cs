@@ -8,6 +8,21 @@ namespace gfoidl.DataCompression
     /// </summary>
     public static class ExtensionMethods
     {
+        /// <summary>
+        /// A filter that performs no compression.
+        /// </summary>
+        /// <param name="data">Input data</param>
+        /// <returns>The unmodified input data.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="data" /> is <c>null</c>
+        /// </exception>
+        public static IEnumerable<DataPoint> NoCompression(this IEnumerable<DataPoint> data)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            var compression = new NoCompression();
+            return compression.Process(data);
+        }
         //---------------------------------------------------------------------
         /// <summary>
         /// A filter that performs dead band compression.
@@ -30,7 +45,7 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         /// <summary>
-        ///  A filter that performs dead band compression.
+        /// A filter that performs dead band compression.
         /// </summary>
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
