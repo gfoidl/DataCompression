@@ -21,11 +21,11 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         public DataPoint(DateTime time, double value)
         {
-            this.X = time.ToOADate();
+            this.X = time.Ticks;
             this.Y = value;
         }
         //---------------------------------------------------------------------
-        public (DateTime Time, double Value) ToTimeValue() => (DateTime.FromOADate(this.X), this.Y);
+        public (DateTime Time, double Value) ToTimeValue() => (new DateTime((long)this.X), this.Y);
         //---------------------------------------------------------------------
         public bool Equals(DataPoint other) => this.X == other.X && this.Y == other.Y;
         //---------------------------------------------------------------------
@@ -53,6 +53,8 @@ namespace gfoidl.DataCompression
                 return hash;
             }
         }
+        //---------------------------------------------------------------------
+        public override string ToString() => $"({this.X}, {this.Y})";
         //---------------------------------------------------------------------
         public static implicit operator DataPoint((double, double) tuple)   => new DataPoint(tuple);
         public static implicit operator DataPoint((DateTime, double) tuple) => new DataPoint(tuple.Item1, tuple.Item2);
