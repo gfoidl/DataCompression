@@ -45,7 +45,7 @@ namespace gfoidl.DataCompression
         public DeadBandCompression(double instrumentPrecision, double? maxDeltaX = null)
         {
             this.InstrumentPrecision = instrumentPrecision;
-            this.MaxDeltaX = maxDeltaX;
+            this.MaxDeltaX           = maxDeltaX;
         }
         //---------------------------------------------------------------------
         /// <summary>
