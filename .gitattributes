@@ -69,3 +69,4 @@ Dockerfile          text eol=lf
 *.dbml              filter=tabs2spaces
 *.tex               filter=tabs2spaces
 *.conf              filter=tabs2spaces
+*.plt               filter=tabs2spaces
