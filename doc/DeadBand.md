@@ -1,5 +1,7 @@
 # Dead band
 
+[TOC]
+
 ## Purpose
 
 Filtering noise caused by measure- or device-errors (i.e. instrument precision).
@@ -24,8 +26,25 @@ When a value is outside of the dead band, that value and the previous value are 
 
 ## Examples
 
+### Trend
+
 ![](./images/dead-band_trend.png)
+
+### Max Delta
+
 ![](./images/dead-band_maxDelta.png)
+
+### Error and Statistics
+
+![](./images/dead-band_error.png)
+
+| Data | # datapoints | average | sigma | skewness | kurtosis |  
+| -- | -- | -- | -- | -- | -- |  
+| raw | 1000 | 19.6584 | 0.1960 | -0.0330 | 2.3442 |  
+| compressed | 490 | 19.6623 | 0.2007 | -0.1021 | 2.4672 |  
+
+As can bee seen statistics didn't change significantally, but the recorded datapoints was
+reduced -- by filtering noise -- by 51%.
 
 ## Literature
 
