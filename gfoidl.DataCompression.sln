@@ -25,7 +25,28 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FA237ECE-D45A-4B49-885E-D75414AF1A7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Tests", "tests\gfoidl.DataCompression.Tests\gfoidl.DataCompression.Tests.csproj", "{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Tests", "tests\gfoidl.DataCompression.Tests\gfoidl.DataCompression.Tests.csproj", "{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{F4F7883D-A56E-4FAF-B52A-994795FB2200}"
+	ProjectSection(SolutionItems) = preProject
+		doc\DeadBand.md = doc\DeadBand.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127EF4-21CC-4AE9-AAF1-D7B5F52C3F52}"
+	ProjectSection(SolutionItems) = preProject
+		doc\images\dead-band_maxDelta.png = doc\images\dead-band_maxDelta.png
+		doc\images\dead-band_trend.png = doc\images\dead-band_trend.png
+		doc\images\DeadBand_01.jpg = doc\images\DeadBand_01.jpg
+		doc\images\DeadBand_02.png = doc\images\DeadBand_02.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{ACB7B17E-4060-4D2D-9497-1FBBA65A1540}"
+	ProjectSection(SolutionItems) = preProject
+		doc\data\dead-band_trend.plt = doc\data\dead-band_trend.plt
+		doc\data\dead-band_trend_compressed.csv = doc\data\dead-band_trend_compressed.csv
+		doc\data\dead-band_trend_raw.csv = doc\data\dead-band_trend_raw.csv
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +69,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{29272C88-B76B-4304-80DF-B3BBAF5597FF} = {268A95A5-C460-4DE4-8FC5-BE0E893FE53B}
 		{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B} = {FA237ECE-D45A-4B49-885E-D75414AF1A7A}
+		{A5127EF4-21CC-4AE9-AAF1-D7B5F52C3F52} = {F4F7883D-A56E-4FAF-B52A-994795FB2200}
+		{ACB7B17E-4060-4D2D-9497-1FBBA65A1540} = {F4F7883D-A56E-4FAF-B52A-994795FB2200}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}

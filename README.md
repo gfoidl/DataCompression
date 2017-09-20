@@ -6,5 +6,5 @@
 
 ## Algorithms
 
-* Swinging Door Algorithm
+* [Dead band](./doc/DeadBand.md)  
 
