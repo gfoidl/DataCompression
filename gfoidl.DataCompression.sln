@@ -14,12 +14,80 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{5EC3A886-352D-490B-90F0-F0EEA56C959F}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		bitbucket-pipelines.yml = bitbucket-pipelines.yml
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{268A95A5-C460-4DE4-8FC5-BE0E893FE53B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression", "source\gfoidl.DataCompression\gfoidl.DataCompression.csproj", "{29272C88-B76B-4304-80DF-B3BBAF5597FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FA237ECE-D45A-4B49-885E-D75414AF1A7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Tests", "tests\gfoidl.DataCompression.Tests\gfoidl.DataCompression.Tests.csproj", "{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{F4F7883D-A56E-4FAF-B52A-994795FB2200}"
+	ProjectSection(SolutionItems) = preProject
+		doc\DeadBand.md = doc\DeadBand.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127EF4-21CC-4AE9-AAF1-D7B5F52C3F52}"
+	ProjectSection(SolutionItems) = preProject
+		doc\images\dead-band_error.png = doc\images\dead-band_error.png
+		doc\images\dead-band_maxDelta.png = doc\images\dead-band_maxDelta.png
+		doc\images\dead-band_trend.png = doc\images\dead-band_trend.png
+		doc\images\DeadBand_01.jpg = doc\images\DeadBand_01.jpg
+		doc\images\DeadBand_02.png = doc\images\DeadBand_02.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{ACB7B17E-4060-4D2D-9497-1FBBA65A1540}"
+	ProjectSection(SolutionItems) = preProject
+		doc\data\dead-band_trend.plt = doc\data\dead-band_trend.plt
+		doc\data\dead-band_trend_compressed.csv = doc\data\dead-band_trend_compressed.csv
+		doc\data\dead-band_trend_raw.csv = doc\data\dead-band_trend_raw.csv
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand", "demos\gfoidl.DataCompression.Demos.DeadBand\gfoidl.DataCompression.Demos.DeadBand.csproj", "{28907718-5258-47D9-BBFA-2B3F86E7E3C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand.Stats", "demos\gfoidl.DataCompression.Demos.DeadBand.Stats\gfoidl.DataCompression.Demos.DeadBand.Stats.csproj", "{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29272C88-B76B-4304-80DF-B3BBAF5597FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29272C88-B76B-4304-80DF-B3BBAF5597FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29272C88-B76B-4304-80DF-B3BBAF5597FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29272C88-B76B-4304-80DF-B3BBAF5597FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28907718-5258-47D9-BBFA-2B3F86E7E3C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28907718-5258-47D9-BBFA-2B3F86E7E3C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28907718-5258-47D9-BBFA-2B3F86E7E3C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28907718-5258-47D9-BBFA-2B3F86E7E3C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{29272C88-B76B-4304-80DF-B3BBAF5597FF} = {268A95A5-C460-4DE4-8FC5-BE0E893FE53B}
+		{B4E33EBE-7C68-45F3-B5A5-1FDB79CCDF1B} = {FA237ECE-D45A-4B49-885E-D75414AF1A7A}
+		{A5127EF4-21CC-4AE9-AAF1-D7B5F52C3F52} = {F4F7883D-A56E-4FAF-B52A-994795FB2200}
+		{ACB7B17E-4060-4D2D-9497-1FBBA65A1540} = {F4F7883D-A56E-4FAF-B52A-994795FB2200}
+		{28907718-5258-47D9-BBFA-2B3F86E7E3C4} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}

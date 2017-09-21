@@ -1,0 +1,23 @@
+version: 0.1.{build}.0
+pull_requests:
+  do_not_increment_build_number: true
+image: Visual Studio 2017
+clone_depth: 1
+clone_folder: c:\projects\gfoidl
+environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+build_script:
+- cmd: >-
+    dotnet restore
+
+    dotnet build -c Release --no-restore
+
+    dotnet pack -o c:\projects\gfoidl\NuGet-Packed --no-build -c Release source\gfoidl.DataCompression
+test_script:
+- cmd: dotnet test -c Release --no-build tests\gfoidl.DataCompression.Tests\gfoidl.DataCompression.Tests.csproj
+artifacts:
+- path: NuGet-Packed\*.nupkg
+  name: NuGet
+on_finish:
+- cmd: dir .\NuGet-Packed
