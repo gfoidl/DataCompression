@@ -13,5 +13,5 @@ set key bottom right
 #set datafile separator ";"
 
 # replot is also possible for the second plot
-plot    'coolant-temp.csv' with linespoints title 'raw', \
-        'coolant-temp_compressed.csv' with linespoints title 'compressed'
+plot    'coolant-temp.csv'              with linespoints title 'raw', \
+        'coolant-temp_compressed.csv'   with linespoints title 'compressed'

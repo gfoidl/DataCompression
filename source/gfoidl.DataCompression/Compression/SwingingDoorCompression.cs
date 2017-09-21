@@ -76,12 +76,23 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
         {
-            throw new NotImplementedException();
+            if (!dataEnumerator.MoveNext()) yield break;
+
+            DataPoint snapShot = dataEnumerator.Current;
+            DataPoint lastArchived = snapShot;
+            DataPoint incoming = snapShot;      // sentinel, null would be possible but to much work around
+            yield return snapShot;
         }
         //---------------------------------------------------------------------
         private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
         {
-            throw new NotImplementedException();
+            if (data.Count < 2)
+            {
+                foreach (var dp in data)
+                    yield return dp;
+
+                yield break;
+            }
         }
     }
 }

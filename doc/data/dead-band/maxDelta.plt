@@ -13,5 +13,5 @@ set key bottom right
 #set datafile separator ";"
 
 # replot is also possible for the second plot
-plot    'dead-band_maxDelta_raw.csv' with linespoints title 'raw', \
-        'dead-band_maxDelta_compressed.csv' with linespoints title 'compressed'
+plot    'maxDelta_raw.csv'          with linespoints title 'raw', \
+        'maxDelta_compressed.csv'   with linespoints title 'compressed'
