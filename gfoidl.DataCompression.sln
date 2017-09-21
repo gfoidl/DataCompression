@@ -78,6 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swinging-door", "swinging-d
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Demos.SwingingDoor", "demos\gfoidl.DataCompression.Demos.SwingingDoor\gfoidl.DataCompression.Demos.SwingingDoor.csproj", "{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Demos.SwingingDoor.Stats", "demos\gfoidl.DataCompression.Demos.SwingingDoor.Stats\gfoidl.DataCompression.Demos.SwingingDoor.Stats.csproj", "{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,10 @@ Global
 		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{BE1AA93D-4AA2-4E1B-A1D1-1414354A7EA9} = {ACB7B17E-4060-4D2D-9497-1FBBA65A1540}
 		{FBC97E83-38B4-4F39-A44A-3029A92A5511} = {ACB7B17E-4060-4D2D-9497-1FBBA65A1540}
 		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}

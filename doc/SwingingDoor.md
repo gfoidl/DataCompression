@@ -41,11 +41,11 @@ Therefore maintaining the trend in the data.
 
 | Data | # datapoints | average | sigma | skewness | kurtosis |  
 | -- | -- | -- | -- | -- | -- |  
-| raw | 1000 | 19.6584 | 0.1960 | -0.0330 | 2.3442 |  
-| compressed | 490 | 19.6623 | 0.2007 | -0.1021 | 2.4672 |  
+| raw | 1000 | 19.2854 | 1.2968 | -2.1689 | 7.0397 |  
+| compressed | 418 | 19.2833 | 1.2984 | -2.1682 | 7.0428 |  
 
 As can bee seen statistics didn't change significantally, but the recorded datapoints was
-reduced -- by filtering noise -- by 51%.
+reduced -- by filtering noise -- by 58%.
 
 ## Literature
 

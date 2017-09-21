@@ -224,3 +224,5 @@ _Pvt_Extensions
 /demos/gfoidl.DataCompression.Demos.DeadBand.Stats/data/error.png
 /demos/gfoidl.DataCompression.Demos.SwingingDoor/data/coolant-temp.png
 /demos/gfoidl.DataCompression.Demos.SwingingDoor/data/coolant-temp_compressed.csv
+/demos/gfoidl.DataCompression.Demos.SwingingDoor.Stats/data/error.png
+/demos/gfoidl.DataCompression.Demos.SwingingDoor.Stats/data/*.csv
