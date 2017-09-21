@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
+namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
     [TestFixture]
     public class ProcessCore
@@ -12,7 +12,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void Data_given_as_IEnumerable___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForTrend();
             var expected = ExpectedForTrend().ToList();
 
@@ -24,7 +24,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void Data_given_as_IList___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForTrend().ToList();
             var expected = ExpectedForTrend().ToList();
 
@@ -36,7 +36,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void Data_IEnumerable_with_maxDeltaX___OK()
         {
-            var sut      = new DeadBandCompression(0.1, 4d);
+            var sut      = new SwingingDoorCompression(1d, 6d);
             var data     = RawDataForMaxDelta();
             var expected = ExpectedForMaxDelta().ToList();
 
@@ -48,7 +48,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void Data_IList_with_maxDeltaX___OK()
         {
-            var sut      = new DeadBandCompression(0.1, 4d);
+            var sut      = new SwingingDoorCompression(1d, 6d);
             var data     = RawDataForMaxDelta().ToList();
             var expected = ExpectedForMaxDelta().ToList();
 
@@ -60,7 +60,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void One_DataPoint_IEnumerable___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(1);
             var expected = RawDataForMaxDelta().Take(1).ToList();
 
@@ -72,7 +72,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void One_DataPoint_IList___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(1).ToList();
             var expected = RawDataForMaxDelta().Take(1).ToList();
 
@@ -84,7 +84,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void Two_DataPoint_IEnumerable___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(2);
             var expected = RawDataForMaxDelta().Take(2).ToList();
 
@@ -96,7 +96,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public void Two_DataPoint_IList___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(2).ToList();
             var expected = RawDataForMaxDelta().Take(2).ToList();
 
@@ -105,9 +105,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()     => _ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForTrend()    => _ser.Read("../../../../../doc/data/dead-band/trend_compressed.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta()  => _ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForMaxDelta() => _ser.Read("../../../../../doc/data/dead-band/maxDelta_compressed.csv");
+        private static IEnumerable<DataPoint> RawDataForTrend()     => _ser.Read("../../../../../doc/data/swinging-door/trend_raw.csv");
+        private static IEnumerable<DataPoint> ExpectedForTrend()    => _ser.Read("../../../../../doc/data/swinging-door/trend_compressed.csv");
+        private static IEnumerable<DataPoint> RawDataForMaxDelta()  => _ser.Read("../../../../../doc/data/swinging-door/maxDelta_raw.csv");
+        private static IEnumerable<DataPoint> ExpectedForMaxDelta() => _ser.Read("../../../../../doc/data/swinging-door/maxDelta_compressed.csv");
     }
 }

@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{F4F7883D-A56
 	ProjectSection(SolutionItems) = preProject
 		doc\DeadBand.md = doc\DeadBand.md
 		README.md = README.md
+		doc\SwingingDoor.md = doc\SwingingDoor.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127EF4-21CC-4AE9-AAF1-D7B5F52C3F52}"
@@ -40,20 +41,44 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127E
 		doc\images\dead-band_trend.png = doc\images\dead-band_trend.png
 		doc\images\DeadBand_01.jpg = doc\images\DeadBand_01.jpg
 		doc\images\DeadBand_02.png = doc\images\DeadBand_02.png
+		doc\images\swinging-door_01.png = doc\images\swinging-door_01.png
+		doc\images\swinging-door_02.png = doc\images\swinging-door_02.png
+		doc\images\swinging-door_error.png = doc\images\swinging-door_error.png
+		doc\images\swinging-door_maxDelta.png = doc\images\swinging-door_maxDelta.png
+		doc\images\swinging-door_trend.png = doc\images\swinging-door_trend.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{ACB7B17E-4060-4D2D-9497-1FBBA65A1540}"
-	ProjectSection(SolutionItems) = preProject
-		doc\data\dead-band_trend.plt = doc\data\dead-band_trend.plt
-		doc\data\dead-band_trend_compressed.csv = doc\data\dead-band_trend_compressed.csv
-		doc\data\dead-band_trend_raw.csv = doc\data\dead-band_trend_raw.csv
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand", "demos\gfoidl.DataCompression.Demos.DeadBand\gfoidl.DataCompression.Demos.DeadBand.csproj", "{28907718-5258-47D9-BBFA-2B3F86E7E3C4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand.Stats", "demos\gfoidl.DataCompression.Demos.DeadBand.Stats\gfoidl.DataCompression.Demos.DeadBand.Stats.csproj", "{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dead-band", "dead-band", "{BE1AA93D-4AA2-4E1B-A1D1-1414354A7EA9}"
+	ProjectSection(SolutionItems) = preProject
+		doc\data\dead-band\maxDelta.plt = doc\data\dead-band\maxDelta.plt
+		doc\data\dead-band\maxDelta_compressed.csv = doc\data\dead-band\maxDelta_compressed.csv
+		doc\data\dead-band\maxDelta_raw.csv = doc\data\dead-band\maxDelta_raw.csv
+		doc\data\dead-band\trend.plt = doc\data\dead-band\trend.plt
+		doc\data\dead-band\trend_compressed.csv = doc\data\dead-band\trend_compressed.csv
+		doc\data\dead-band\trend_raw.csv = doc\data\dead-band\trend_raw.csv
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swinging-door", "swinging-door", "{FBC97E83-38B4-4F39-A44A-3029A92A5511}"
+	ProjectSection(SolutionItems) = preProject
+		doc\data\swinging-door\maxDelta.plt = doc\data\swinging-door\maxDelta.plt
+		doc\data\swinging-door\maxDelta_compressed.csv = doc\data\swinging-door\maxDelta_compressed.csv
+		doc\data\swinging-door\maxDelta_raw.csv = doc\data\swinging-door\maxDelta_raw.csv
+		doc\data\swinging-door\trend.plt = doc\data\swinging-door\trend.plt
+		doc\data\swinging-door\trend_compressed.csv = doc\data\swinging-door\trend_compressed.csv
+		doc\data\swinging-door\trend_raw.csv = doc\data\swinging-door\trend_raw.csv
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Demos.SwingingDoor", "demos\gfoidl.DataCompression.Demos.SwingingDoor\gfoidl.DataCompression.Demos.SwingingDoor.csproj", "{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Demos.SwingingDoor.Stats", "demos\gfoidl.DataCompression.Demos.SwingingDoor.Stats\gfoidl.DataCompression.Demos.SwingingDoor.Stats.csproj", "{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +102,14 @@ Global
 		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +121,10 @@ Global
 		{ACB7B17E-4060-4D2D-9497-1FBBA65A1540} = {F4F7883D-A56E-4FAF-B52A-994795FB2200}
 		{28907718-5258-47D9-BBFA-2B3F86E7E3C4} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
 		{2859C6F2-0DB8-408D-8E30-25CD68E2EB4A} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{BE1AA93D-4AA2-4E1B-A1D1-1414354A7EA9} = {ACB7B17E-4060-4D2D-9497-1FBBA65A1540}
+		{FBC97E83-38B4-4F39-A44A-3029A92A5511} = {ACB7B17E-4060-4D2D-9497-1FBBA65A1540}
+		{42F09005-5F2C-4D14-A2DF-9F48860E4FF4} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}

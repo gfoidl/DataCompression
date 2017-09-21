@@ -13,5 +13,5 @@ set yrange [0.2:1.5]
 #set datafile separator ";"
 
 # replot is also possible for the second plot
-plot    'dead-band_trend_raw.csv' with linespoints title 'raw', \
-        'dead-band_trend_compressed.csv' with linespoints title 'compressed'
+plot    'trend_raw.csv'         with linespoints title 'raw', \
+        'trend_compressed.csv'  with linespoints title 'compressed'

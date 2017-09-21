@@ -10,5 +10,14 @@ namespace gfoidl.DataCompression
 
             return (b.Y - a.Y) / (b.X - a.X);
         }
+        //---------------------------------------------------------------------
+        public static DataPoint CalculatePoint(this DataPoint a, double gradient, double x)
+        {
+            if (a.X == x) return a;
+
+            double y = a.Y + gradient * (x - a.X);
+
+            return (x, y);
+        }
     }
 }
