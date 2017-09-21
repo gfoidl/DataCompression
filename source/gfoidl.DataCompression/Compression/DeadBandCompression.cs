@@ -66,46 +66,46 @@ namespace gfoidl.DataCompression
         /// <returns>The compressed / filtered data.</returns>
         protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
         {
-            if (data is IList<DataPoint> list) return this.Process(list);
+            if (data is IList<DataPoint> list) return this.ProcessCore(list);
 
-            return ProcessCore(data.GetEnumerator());
-            //---------------------------------------------------------------------
-            IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
-            {
-                if (!dataEnumerator.MoveNext()) yield break;
-
-                DataPoint snapShot     = dataEnumerator.Current;
-                DataPoint lastArchived = snapShot;
-                DataPoint incoming     = snapShot;          // sentinel, null would be possible but to much work around
-                yield return snapShot;
-
-                (double Min, double Max) bounding = this.GetBounding(snapShot);
-
-                while (dataEnumerator.MoveNext())
-                {
-                    incoming    = dataEnumerator.Current;
-                    var archive = this.IsPointToArchive(incoming, bounding, lastArchived);
-
-                    if (!archive.Archive)
-                    {
-                        snapShot = incoming;
-                        continue;
-                    }
-
-                    if (!archive.MaxDelta)
-                        yield return snapShot;
-
-                    yield return incoming;
-
-                    this.UpdatePoints(ref snapShot, ref lastArchived, ref bounding, incoming, archive.MaxDelta);
-                }
-
-                if (incoming != lastArchived)
-                    yield return incoming;
-            }
+            return this.ProcessCore(data.GetEnumerator());
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> Process(IList<DataPoint> data)
+        private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
+        {
+            if (!dataEnumerator.MoveNext()) yield break;
+
+            DataPoint snapShot     = dataEnumerator.Current;
+            DataPoint lastArchived = snapShot;
+            DataPoint incoming     = snapShot;      // sentinel, null would be possible but to much work around
+            yield return snapShot;
+
+            (double Min, double Max) bounding = this.GetBounding(snapShot);
+
+            while (dataEnumerator.MoveNext())
+            {
+                incoming    = dataEnumerator.Current;
+                var archive = this.IsPointToArchive(incoming, bounding, lastArchived);
+
+                if (!archive.Archive)
+                {
+                    snapShot = incoming;
+                    continue;
+                }
+
+                if (!archive.MaxDelta)
+                    yield return snapShot;
+
+                yield return incoming;
+
+                this.UpdatePoints(ref snapShot, ref lastArchived, ref bounding, incoming, archive.MaxDelta);
+            }
+
+            if (incoming != lastArchived)
+                yield return incoming;
+        }
+        //---------------------------------------------------------------------
+        private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
         {
             if (data.Count < 2)
             {

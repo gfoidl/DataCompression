@@ -61,5 +61,49 @@ namespace gfoidl.DataCompression
             var compression = new DeadBandCompression(instrumentPrecision, maxTime);
             return compression.Process(data);
         }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// A filter that performs swinging door compression.
+        /// </summary>
+        /// <param name="data">Input data</param>
+        /// <param name="compressionDeviation">
+        /// (Absolut) Compression deviation applied to the y values to calculate the
+        /// min and max slopes.
+        /// </param>
+        /// <param name="maxDeltaX">
+        /// Length of x before for sure a value gets recoreded. See <see cref="SwingingDoorCompression.MaxDeltaX" />.
+        /// </param>
+        /// <returns>swinging door compressed / filtered data.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="data" /> is <c>null</c>
+        /// </exception>
+        public static IEnumerable<DataPoint> SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, double? maxDeltaX = null)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            var compression = new SwingingDoorCompression(compressionDeviation, maxDeltaX);
+            return compression.Process(data);
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// A filter that performs swinging door compression.
+        /// </summary>
+        /// <param name="data">Input data</param>
+        /// <param name="compressionDeviation">
+        /// (Absolut) Compression deviation applied to the y values to calculate the
+        /// min and max slopes.
+        /// </param>
+        /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
+        /// <returns>swinging door compressed / filtered data.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="data" /> is <c>null</c>
+        /// </exception>
+        public static IEnumerable<DataPoint> SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, TimeSpan maxTime)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            var compression = new SwingingDoorCompression(compressionDeviation, maxTime);
+            return compression.Process(data);
+        }
     }
 }
