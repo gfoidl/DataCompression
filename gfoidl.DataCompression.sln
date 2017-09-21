@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{F4F7883D-A56
 	ProjectSection(SolutionItems) = preProject
 		doc\DeadBand.md = doc\DeadBand.md
 		README.md = README.md
+		doc\SwingingDoor.md = doc\SwingingDoor.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127EF4-21CC-4AE9-AAF1-D7B5F52C3F52}"
@@ -40,6 +41,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127E
 		doc\images\dead-band_trend.png = doc\images\dead-band_trend.png
 		doc\images\DeadBand_01.jpg = doc\images\DeadBand_01.jpg
 		doc\images\DeadBand_02.png = doc\images\DeadBand_02.png
+		doc\images\swinging-door_01.png = doc\images\swinging-door_01.png
+		doc\images\swinging-door_02.png = doc\images\swinging-door_02.png
+		doc\images\swinging-door_error.png = doc\images\swinging-door_error.png
 		doc\images\swinging-door_maxDelta.png = doc\images\swinging-door_maxDelta.png
 		doc\images\swinging-door_trend.png = doc\images\swinging-door_trend.png
 	EndProjectSection

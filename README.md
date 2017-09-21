@@ -7,4 +7,5 @@
 ## Algorithms
 
 * [Dead band](./doc/DeadBand.md)  
+* [Swinging Door](./doc/SwingingDoor.md)
 
