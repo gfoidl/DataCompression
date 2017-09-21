@@ -69,6 +69,19 @@ namespace gfoidl.DataCompression
         public bool Equals(DataPoint other) => this.X == other.X && this.Y == other.Y;
         //---------------------------------------------------------------------
         /// <summary>
+        /// Tests if the given <see cref="DataPoint" /> is equal to this one.
+        /// </summary>
+        /// <param name="other">The <see cref="DataPoint" /> to compare with this one.</param>
+        /// <param name="allowedDelta">The allowed tolerance.</param>
+        /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
+        public bool Equals(DataPoint other, double allowedDelta)
+        {
+            return
+                Math.Abs(this.X - other.X) < allowedDelta &&
+                Math.Abs(this.Y - other.Y) < allowedDelta;
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Tests if the given <see cref="object" /> is equal to this one.
         /// </summary>
         /// <param name="obj">The object to compare with this one.</param>
