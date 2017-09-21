@@ -17,6 +17,10 @@
         </Description>
     </PropertyGroup>
 
+    <PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">
+        <DocumentationFile>bin\$(Configuration)\netstandard2.0\gfoidl.DataCompression.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <Compile Update="Strings.Designer.cs">
             <DesignTime>True</DesignTime>

@@ -6,7 +6,7 @@ namespace gfoidl.DataCompression
     /// <summary>
     /// Defines the interface for the compression algorithms.
     /// </summary>
-    public abstract class Compression
+    public abstract class Compression : ICompression
     {
         /// <summary>
         /// Performs the compression / filtering of the input data.

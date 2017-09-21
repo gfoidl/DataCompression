@@ -59,6 +59,11 @@ namespace gfoidl.DataCompression
         : this(instrumentPrecision, maxTime.Ticks)
         { }
         //---------------------------------------------------------------------
+        /// <summary>
+        /// Implementation of the compression / filtering.
+        /// </summary>
+        /// <param name="data">Input data</param>
+        /// <returns>The compressed / filtered data.</returns>
         protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
         {
             if (data is IList<DataPoint> list) return this.Process(list);
