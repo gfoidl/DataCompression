@@ -47,7 +47,7 @@ namespace gfoidl.DataCompression
         public SwingingDoorCompression(double compressionDeviation, double? maxDeltaX = null)
         {
             this.CompressionDeviation = compressionDeviation;
-            this.MaxDeltaX = maxDeltaX;
+            this.MaxDeltaX            = maxDeltaX;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -78,10 +78,35 @@ namespace gfoidl.DataCompression
         {
             if (!dataEnumerator.MoveNext()) yield break;
 
-            DataPoint snapShot = dataEnumerator.Current;
-            DataPoint lastArchived = snapShot;
-            DataPoint incoming = snapShot;      // sentinel, null would be possible but to much work around
-            yield return snapShot;
+            DataPoint lastArchived = dataEnumerator.Current;
+            yield return lastArchived;
+
+            DataPoint snapShot                       = lastArchived;
+            DataPoint incoming                       = snapShot;
+            (double SlopeMax, double SlopeMin) slope = default;
+            this.OpenNewDoor(ref lastArchived, ref snapShot, lastArchived, ref slope);
+
+            while (dataEnumerator.MoveNext())
+            {
+                incoming    = dataEnumerator.Current;
+                var archive = this.IsPointToArchive(lastArchived, slope, incoming);
+
+                if (!archive.Archive)
+                {
+                    this.CloseTheDoor(lastArchived, ref snapShot, incoming, ref slope);
+                    continue;
+                }
+
+                if (!archive.MaxDelta)
+                    yield return snapShot;
+
+                yield return incoming;
+
+                this.OpenNewDoor(ref lastArchived, ref snapShot, incoming, ref slope);
+            }
+
+            if (incoming != lastArchived)
+                yield return incoming;
         }
         //---------------------------------------------------------------------
         private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
@@ -93,6 +118,72 @@ namespace gfoidl.DataCompression
 
                 yield break;
             }
+
+            DataPoint lastArchived = data[0];
+            yield return lastArchived;
+
+            DataPoint snapShot                       = default;
+            DataPoint incoming                       = default;
+            (double SlopeMax, double SlopeMin) slope = default;
+            this.OpenNewDoor(ref lastArchived, ref snapShot, lastArchived, ref slope);
+
+            for (int i = 1; i < data.Count; ++i)
+            {
+                incoming    = data[i];
+                var archive = this.IsPointToArchive(lastArchived, slope, incoming);
+
+                if (!archive.Archive)
+                {
+                    this.CloseTheDoor(lastArchived, ref snapShot, incoming, ref slope);
+                    continue;
+                }
+
+                if (!archive.MaxDelta)
+                    yield return snapShot;
+
+                yield return incoming;
+
+                this.OpenNewDoor(ref lastArchived, ref snapShot, incoming, ref slope);
+            }
+
+            if (incoming != lastArchived)
+                yield return incoming;
+        }
+        //---------------------------------------------------------------------
+        private (bool Archive, bool MaxDelta) IsPointToArchive(DataPoint lastArchived, (double slopeMax, double slopeMin) slope, DataPoint incoming)
+        {
+            if ((incoming.X - lastArchived.X) >= (this.MaxDeltaX ?? double.MaxValue)) return (true, true);
+
+            // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
+            // Obviously, the result should be the same ;-)
+            double slopeToIncoming = lastArchived.Gradient(incoming);
+
+            return (slopeToIncoming < slope.slopeMin || slope.slopeMax < slopeToIncoming, false);
+        }
+        //---------------------------------------------------------------------
+        private void CloseTheDoor(
+            DataPoint     lastArchived,
+            ref DataPoint snapShot,
+            DataPoint     incoming,
+            ref (double SlopeMax, double SlopeMin) slope)
+        {
+            double upperSlope = lastArchived.Gradient((incoming.X, incoming.Y + this.CompressionDeviation));
+            double lowerSlope = lastArchived.Gradient((incoming.X, incoming.Y - this.CompressionDeviation));
+
+            slope.SlopeMax = Math.Min(slope.SlopeMax, upperSlope);
+            slope.SlopeMin = Math.Max(slope.SlopeMin, lowerSlope);
+            snapShot       = incoming;
+        }
+        //---------------------------------------------------------------------
+        private void OpenNewDoor(
+            ref DataPoint lastArchived,
+            ref DataPoint snapShot,
+            DataPoint     incoming,
+            ref (double SlopeMax, double SlopeMin) slope)
+        {
+            lastArchived = incoming;
+            snapShot     = lastArchived;
+            slope        = (double.PositiveInfinity, double.NegativeInfinity);
         }
     }
 }

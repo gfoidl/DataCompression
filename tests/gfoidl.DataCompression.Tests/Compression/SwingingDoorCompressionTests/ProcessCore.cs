@@ -36,7 +36,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         [Test]
         public void Data_IEnumerable_with_maxDeltaX___OK()
         {
-            var sut      = new SwingingDoorCompression(1d, 2d);
+            var sut      = new SwingingDoorCompression(1d, 6d);
             var data     = RawDataForMaxDelta();
             var expected = ExpectedForMaxDelta().ToList();
 
@@ -48,7 +48,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         [Test]
         public void Data_IList_with_maxDeltaX___OK()
         {
-            var sut      = new SwingingDoorCompression(1d, 2d);
+            var sut      = new SwingingDoorCompression(1d, 6d);
             var data     = RawDataForMaxDelta().ToList();
             var expected = ExpectedForMaxDelta().ToList();
 

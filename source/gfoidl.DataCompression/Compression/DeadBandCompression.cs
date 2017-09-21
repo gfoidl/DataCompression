@@ -77,7 +77,7 @@ namespace gfoidl.DataCompression
 
             DataPoint snapShot     = dataEnumerator.Current;
             DataPoint lastArchived = snapShot;
-            DataPoint incoming     = snapShot;      // sentinel, null would be possible but to much work around
+            DataPoint incoming     = snapShot;      // sentinel, nullable would be possible but to much work around
             yield return snapShot;
 
             (double Min, double Max) bounding = this.GetBounding(snapShot);
@@ -85,7 +85,7 @@ namespace gfoidl.DataCompression
             while (dataEnumerator.MoveNext())
             {
                 incoming    = dataEnumerator.Current;
-                var archive = this.IsPointToArchive(incoming, bounding, lastArchived);
+                var archive = this.IsPointToArchive(lastArchived, bounding, incoming);
 
                 if (!archive.Archive)
                 {
@@ -98,7 +98,7 @@ namespace gfoidl.DataCompression
 
                 yield return incoming;
 
-                this.UpdatePoints(ref snapShot, ref lastArchived, ref bounding, incoming, archive.MaxDelta);
+                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, archive.MaxDelta, ref bounding);
             }
 
             if (incoming != lastArchived)
@@ -125,7 +125,7 @@ namespace gfoidl.DataCompression
             for (int i = 1; i < data.Count; ++i)
             {
                 incoming    = data[i];
-                var archive = this.IsPointToArchive(incoming, bounding, lastArchived);
+                var archive = this.IsPointToArchive(lastArchived, bounding, incoming);
 
                 if (!archive.Archive)
                 {
@@ -138,7 +138,7 @@ namespace gfoidl.DataCompression
 
                 yield return incoming;
 
-                this.UpdatePoints(ref snapShot, ref lastArchived, ref bounding, incoming, archive.MaxDelta);
+                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, archive.MaxDelta, ref bounding);
             }
 
             yield return incoming;
@@ -152,7 +152,7 @@ namespace gfoidl.DataCompression
             return (min, max);
         }
         //---------------------------------------------------------------------
-        private (bool Archive, bool MaxDelta) IsPointToArchive(DataPoint incoming, (double Min, double Max) bounding, DataPoint lastArchived)
+        private (bool Archive, bool MaxDelta) IsPointToArchive(DataPoint lastArchived, (double Min, double Max) bounding, DataPoint incoming)
         {
             if ((incoming.X - lastArchived.X) >= (this.MaxDeltaX ?? double.MaxValue)) return (true, true);
 
@@ -162,9 +162,9 @@ namespace gfoidl.DataCompression
         private void UpdatePoints(
             ref DataPoint snapShot,
             ref DataPoint lastArchived,
-            ref (double,  double) bounding,
             DataPoint     incoming,
-            bool          maxDelta)
+            bool          maxDelta,
+            ref (double, double) bounding)
         {
             snapShot     = incoming;
             lastArchived = incoming;
