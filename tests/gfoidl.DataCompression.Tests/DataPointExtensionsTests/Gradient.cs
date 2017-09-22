@@ -13,7 +13,7 @@ namespace gfoidl.DataCompression.Tests.DataPointExtensionsTests
             var a = new DataPoint(1, 1);
             var b = a;
 
-            Assert.Throws<ArgumentException>(() => a.Gradient(b));
+            Assert.Throws<ArgumentException>(() => a.Gradient(b, false));
         }
         //---------------------------------------------------------------------
         [Test]
@@ -28,6 +28,7 @@ namespace gfoidl.DataCompression.Tests.DataPointExtensionsTests
         //---------------------------------------------------------------------
         private static IEnumerable<TestCaseData> A_and_B_given___OK_TestCases()
         {
+            yield return new TestCaseData((0d, 0d), (0d, 0d)).Returns(0d);
             yield return new TestCaseData((0d, 0d), (1d, 1d)).Returns(1d);
             yield return new TestCaseData((0d, 0d), (1d, -1d)).Returns(-1d);
             yield return new TestCaseData((0d, 0d), (1d, 0d)).Returns(0d);
