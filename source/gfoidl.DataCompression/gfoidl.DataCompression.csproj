@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup Label="Package">
-        <PackageTags>data compression swinging-door-algorithm error-band</PackageTags>
+        <PackageTags>data compression swinging-door-algorithm dead-band-filtering swinging-door swinging</PackageTags>
         <PackageProjectUrl>https://bitbucket.org/gfoidl/datacompression</PackageProjectUrl>
         <RepositoryUrl>https://bitbucket.org/gfoidl/datacompression</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
