@@ -9,3 +9,12 @@
 * [Dead band](./doc/DeadBand.md)  
 * [Swinging Door](./doc/SwingingDoor.md)
 
+## Demos
+
+See `./demos` for code.
+
+![](./doc/images/demo_01.png)
+
+![](./doc/images/demo_02.png)
+
+![](./doc/images/demo_03.png)

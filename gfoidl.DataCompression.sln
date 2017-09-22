@@ -41,6 +41,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A5127E
 		doc\images\dead-band_trend.png = doc\images\dead-band_trend.png
 		doc\images\DeadBand_01.jpg = doc\images\DeadBand_01.jpg
 		doc\images\DeadBand_02.png = doc\images\DeadBand_02.png
+		doc\images\demo_01.png = doc\images\demo_01.png
+		doc\images\demo_02.png = doc\images\demo_02.png
+		doc\images\demo_03.png = doc\images\demo_03.png
 		doc\images\swinging-door_01.png = doc\images\swinging-door_01.png
 		doc\images\swinging-door_02.png = doc\images\swinging-door_02.png
 		doc\images\swinging-door_error.png = doc\images\swinging-door_error.png
@@ -80,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.SwingingDoor.Stats", "demos\gfoidl.DataCompression.Demos.SwingingDoor.Stats\gfoidl.DataCompression.Demos.SwingingDoor.Stats.csproj", "{CA7CE85B-B676-4F4A-8B40-978BB87E78A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Demos.LiveData", "demos\gfoidl.DataCompression.Demos.LiveData\gfoidl.DataCompression.Demos.LiveData.csproj", "{76F6F753-4F3F-4AC3-9DB0-324176F9A143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.LiveData", "demos\gfoidl.DataCompression.Demos.LiveData\gfoidl.DataCompression.Demos.LiveData.csproj", "{76F6F753-4F3F-4AC3-9DB0-324176F9A143}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
