@@ -5,41 +5,24 @@
 image:
     name: microsoft/dotnet:2.0.0-sdk
 
-clone:
-    depth: 1
+# Not good for BuildNumber
+#clone:
+#    depth: 1
 
 pipelines:
     tags:
         v*:
             - step:
                 script:
-                    - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
-                    - export BuildNumber=$(git log --oneline | wc -l)
-                    - dotnet restore
-                    - dotnet build -c Release --no-restore
-                    - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
-                    - dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$NAME"
-                    - dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY -t 60 ./NuGet-Packed/*.nupkg
-                    - ls -l ./NuGet-Packed
-    branches:
-        master:
-            - step:
-                script:
-                    - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
-                    - export BuildNumber=$(git log --oneline | wc -l)
-                    - export VersionSuffix="preview-$BITBUCKET_BUILD_NUMBER"
-                    - dotnet restore
-                    - dotnet build -c Release --no-restore
-                    - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
-                    - dotnet pack -o "$(pwd)/NuGet-Packed" --no-build -c Release "source/$NAME"
-                    - dotnet nuget push --source $MYGET_FEED --api-key $MYGET_KEY -t 60 ./NuGet-Packed/*.nupkg
-                    - ls -l ./NuGet-Packed
+                    - chmod ugo+x ./build.sh
+                    - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+                    - export TAG_NAME=$BITBUCKET_TAG
+                    - ./build.sh
+
     default:
         - step:
             script:
-                - echo "Branch -> $BITBUCKET_BRANCH    Commit -> $BITBUCKET_COMMIT"
-                - export BuildNumber=$(git log --oneline | wc -l)
-                - export VersionSuffix="preview-$BITBUCKET_BUILD_NUMBER"
-                - dotnet restore
-                - dotnet build -c Release --no-restore
-                - find tests -name *.csproj | xargs -n1 dotnet test -c Release --no-build
+                - chmod ugo+x ./build.sh
+                - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+                - export BRANCH_NAME=$BITBUCKET_BRANCH
+                - ./build.sh

@@ -9,10 +9,11 @@ env:
 os:
     - linux
 git:
-    depth: 1
+    depth: 3
 before_script:
-    - dotnet restore
+    - chmod ugo+x ./build.sh
 script:
-    - dotnet build -c Release --no-restore
-after_success:
-    - find tests -name *.csproj | xargs -n1 dotnet test --no-build -c Release
+    - export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
+    - export BRANCH_NAME=$(if [[ -n "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then echo "$TRAVIS_PULL_REQUEST_BRANCH"; else echo "$TRAVIS_BRANCH"; fi)
+    - export TAG_NAME=$TRAVIS_TAG
+    - ./build.sh
