@@ -15,7 +15,12 @@ build_script:
 
     dotnet pack -o c:\projects\gfoidl\NuGet-Packed --no-build -c Release source\gfoidl.DataCompression
 test_script:
-- cmd: dotnet test -c Release --no-build tests\gfoidl.DataCompression.Tests\gfoidl.DataCompression.Tests.csproj
+- ps: >-
+    dotnet test -c Release --no-build --logger "trx;LogFileName=testresult.xml" tests\gfoidl.DataCompression.Tests\gfoidl.DataCompression.Tests.csproj
+    
+    $wc = New-Object 'System.Net.WebClient'
+    
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", "C:\projects\gfoidl\tests\gfoidl.DataCompression.Tests\TestResults\testresult.xml")
 artifacts:
 - path: NuGet-Packed\*.nupkg
   name: NuGet
