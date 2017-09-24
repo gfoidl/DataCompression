@@ -105,9 +105,55 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
+        [Test]
+        public void MinDeltaX_IEnumerable___OK()
+        {
+            var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
+            var data     = RawMinDeltaX();
+            var expected = ExpectedMinDeltaX().ToList();
+
+            var actual = sut.Process(data).ToList();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void MinDeltaX_IList___OK()
+        {
+            var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
+            var data     = RawMinDeltaX().ToList();
+            var expected = ExpectedMinDeltaX().ToList();
+
+            var actual = sut.Process(data).ToList();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
         private static IEnumerable<DataPoint> RawDataForTrend()     => _ser.Read("../../../../../doc/data/swinging-door/trend_raw.csv");
         private static IEnumerable<DataPoint> ExpectedForTrend()    => _ser.Read("../../../../../doc/data/swinging-door/trend_compressed.csv");
         private static IEnumerable<DataPoint> RawDataForMaxDelta()  => _ser.Read("../../../../../doc/data/swinging-door/maxDelta_raw.csv");
         private static IEnumerable<DataPoint> ExpectedForMaxDelta() => _ser.Read("../../../../../doc/data/swinging-door/maxDelta_compressed.csv");
+        //---------------------------------------------------------------------
+        private static IEnumerable<DataPoint> RawMinDeltaX()
+        {
+            yield return (0d, 2d);
+            yield return (1d, 2d);
+            yield return (2d, 2d);
+            yield return (3d, 2d);
+            yield return (4d, 2d);
+            yield return (5d, 10d);
+            yield return (6d, 10d);
+            yield return (7d, 10d);
+            yield return (8d, 10d);
+            yield return (9d, 10d);
+        }
+        //---------------------------------------------------------------------
+        private static IEnumerable<DataPoint> ExpectedMinDeltaX()
+        {
+            yield return (0d, 2d);
+            yield return (4d, 2d);
+            yield return (6d, 10d);
+            yield return (9d, 10d);
+        }
     }
 }
