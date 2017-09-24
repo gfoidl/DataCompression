@@ -111,6 +111,13 @@ namespace gfoidl.DataCompression
                 if (!archive.MaxDelta)
                     yield return snapShot;
 
+                if (this.MinDeltaX.HasValue)
+                    while (dataEnumerator.MoveNext())
+                    {
+                        incoming = dataEnumerator.Current;
+                        if ((incoming.X - snapShot.X) > this.MinDeltaX.Value) break;
+                    }
+
                 yield return incoming;
 
                 this.OpenNewDoor(ref lastArchived, ref snapShot, incoming, ref slope);
@@ -151,6 +158,13 @@ namespace gfoidl.DataCompression
 
                 if (!archive.MaxDelta)
                     yield return snapShot;
+
+                if (this.MinDeltaX.HasValue)
+                    for (; i < data.Count; ++i)
+                    {
+                        incoming = data[i];
+                        if ((incoming.X - snapShot.X) > this.MinDeltaX.Value) break;
+                    }
 
                 yield return incoming;
 
