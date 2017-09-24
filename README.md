@@ -1,6 +1,6 @@
-| Master | latest commit |  
-| -- | -- |  
-| [![Build status](https://ci.appveyor.com/api/projects/status/6u91hjy3x3s6vqda/branch/master?svg=true)](https://ci.appveyor.com/project/GntherFoidl/datacompression/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/6u91hjy3x3s6vqda?svg=true)](https://ci.appveyor.com/project/GntherFoidl/datacompression) |  
+| AppVeyor |  Travis CI | NuGet | MyGet |  
+| -- | -- | -- | -- |  
+| [![AppVeyor](https://img.shields.io/appveyor/ci/GntherFoidl/datacompression.svg?style=flat-square)]() | [![Travis](https://img.shields.io/travis/gfoidl/DataCompression.svg?style=flat-square)]() | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)]() | [![MyGet Pre Release](https://img.shields.io/myget/gfoidl/vpre/gfoidl.DataCompression.svg?style=flat-square)]() |  
 
 # gfoidl.DataCompression
 
