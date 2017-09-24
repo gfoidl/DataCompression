@@ -35,6 +35,11 @@ namespace gfoidl.DataCompression
         public double? MaxDeltaX { get; }
         //---------------------------------------------------------------------
         /// <summary>
+        /// Length of x/time within no value gets recorded (after the last archived value)
+        /// </summary>
+        public double? MinDeltaX { get; }
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Creates a new instance of swinging door compression.
         /// </summary>
         /// <param name="compressionDeviation">
@@ -42,12 +47,17 @@ namespace gfoidl.DataCompression
         /// min and max slopes. Cf. CompDev in documentation.
         /// </param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX"/>.
+        /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX" />.
         /// </param>
-        public SwingingDoorCompression(double compressionDeviation, double? maxDeltaX = null)
+        /// <param name="minDeltaX">
+        /// Length of x/time within no value gets recorded (after the last archived value).
+        /// See <see cref="MinDeltaX" />.
+        /// </param>
+        public SwingingDoorCompression(double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
         {
             this.CompressionDeviation = compressionDeviation;
             this.MaxDeltaX            = maxDeltaX;
+            this.MinDeltaX            = minDeltaX;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -58,8 +68,9 @@ namespace gfoidl.DataCompression
         /// min and max slopes. Cf. CompDev in documentation.
         /// </param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
-        public SwingingDoorCompression(double compressionDeviation, TimeSpan maxTime)
-            : this(compressionDeviation, maxTime.Ticks)
+        /// <param name="minTime">Length of time within no value gets recorded (after the last archived value)</param>
+        public SwingingDoorCompression(double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
+            : this(compressionDeviation, maxTime.Ticks, minTime?.Ticks)
         { }
         //---------------------------------------------------------------------
         /// <summary>
