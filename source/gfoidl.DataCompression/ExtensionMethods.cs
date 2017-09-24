@@ -75,7 +75,7 @@ namespace gfoidl.DataCompression
         /// </param>
         /// <param name="minDeltaX">
         /// Length of x/time within no value gets recorded (after the last archived value).
-        /// See <see cref="MinDeltaX" />.
+        /// See <see cref="SwingingDoorCompression.MinDeltaX" />.
         /// </param>
         /// <returns>swinging door compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
