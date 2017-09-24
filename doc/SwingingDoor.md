@@ -24,6 +24,7 @@ Therefore maintaining the trend in the data.
 | -- | -- |  
 | CompDev | (absolut) compression deviation |   
 | ExMax | length of x/time before for sure a value gets recoreded |  
+| ExMin | length of x/time within no value gets recorded (after the last archived value) |  
 
 ## Examples
 
