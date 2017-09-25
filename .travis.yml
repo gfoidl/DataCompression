@@ -8,6 +8,8 @@ env:
         - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 os:
     - linux
+git:
+    depth: 3
 before_script:
     - chmod ugo+x ./build.sh
 script:

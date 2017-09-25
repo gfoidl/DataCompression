@@ -36,7 +36,9 @@ pack() {
     set +x
 }
 
-export BuildNumber=$(git log --oneline | wc -l)
+# ci tools clone usually to depth 50, so this is not good
+#export BuildNumber=$(git log --oneline | wc -l)
+export BuildNumber=$CI_BUILD_NUMBER
 echo "BuildNumber: $BuildNumber"
 
 if [[ -n "$TAG_NAME" ]]; then
