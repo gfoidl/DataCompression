@@ -1,0 +1,85 @@
+version: 2
+defaults: &defaults
+    working_directory: ~/repo
+    docker:
+        - image: microsoft/dotnet:2.0.0-sdk
+          environment:
+            DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+            DOTNET_CLI_TELEMETRY_OPTOUT: 1
+jobs:
+    build_and_test:
+        <<: *defaults
+        steps:
+            - checkout
+            - run:
+                name: build
+                command: |
+                    chmod ugo+x ./build.sh
+                    ./build.sh build
+            - run:
+                name: test
+                command: ./build.sh test
+            - run:
+                name: test results
+                command: |
+                    find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
+                    rm tests/TestResults/*.trx
+                when: always
+            - persist_to_workspace:
+                root: .
+                paths:
+                    - source/**/bin
+                    - tests/**/bin
+            - store_test_results:
+                path: tests/TestResults
+            - store_artifacts:
+                path: tests/TestResults
+    deploy_nuget:
+        <<: *defaults
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - run:
+                name: deploy to NuGet
+                command: |
+                    chmod ugo+x ./build.sh
+                    ./build.sh deploy nuget
+    deploy_myget:
+        <<: *defaults
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - run:
+                name: deploy to MyGet
+                command: |
+                    chmod ugo+x ./build.sh
+                    ./build.sh deploy myget
+        
+workflows:
+    version: 2
+    build_test_deploy:
+        jobs:
+            - build_and_test:
+                filters:
+                    tags:
+                        only: /^v[0-9]\.[0-9]\.[0-9]$/
+            - deploy_nuget:
+                requires:
+                    - build_and_test
+                filters:
+                    branches:
+                        ignore: /.*/
+                    tags:
+                        only: /^v[0-9]\.[0-9]\.[0-9]$/
+                context: org-global
+            - deploy_myget:
+                requires:
+                    - build_and_test
+                filters:
+                    branches:
+                        only: master
+                    tags:
+                        only: /^v[0-9]\.[0-9]\.[0-9]$/
+                context: org-global

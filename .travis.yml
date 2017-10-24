@@ -8,12 +8,14 @@ env:
         - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 os:
     - linux
+    - osx
+osx_image: xcode8.2
 git:
     depth: 3
 before_script:
     - chmod ugo+x ./build.sh
 script:
-    - export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
-    - export BRANCH_NAME=$(if [[ -n "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then echo "$TRAVIS_PULL_REQUEST_BRANCH"; else echo "$TRAVIS_BRANCH"; fi)
-    - export TAG_NAME=$TRAVIS_TAG
-    - ./build.sh
+    - ./build.sh build
+    - ./build.sh test
+after_success:
+    - ./build.sh deploy myget
