@@ -5,9 +5,8 @@
 image:
     name: microsoft/dotnet:2.0.0-sdk
 
-# Not good for BuildNumber
-#clone:
-#    depth: 1
+clone:
+    depth: 1
 
 pipelines:
     tags:
@@ -15,14 +14,20 @@ pipelines:
             - step:
                 script:
                     - chmod ugo+x ./build.sh
-                    - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
-                    - export TAG_NAME=$BITBUCKET_TAG
-                    - ./build.sh
-
+                    - ./build.sh build
+                    - ./build.sh test
+                    #- ./build.sh deploy nuget
+    branches:
+        master:
+            - step:
+                script:
+                    - chmod ugo+x ./build.sh
+                    - ./build.sh build
+                    - ./build.sh test
+                    #- ./build.sh deploy myget
     default:
         - step:
             script:
                 - chmod ugo+x ./build.sh
-                - export CI_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
-                - export BRANCH_NAME=$BITBUCKET_BRANCH
-                - ./build.sh
+                - ./build.sh build
+                - ./build.sh test
