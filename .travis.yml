@@ -8,8 +8,6 @@ env:
         - DOTNET_CLI_TELEMETRY_OPTOUT: 1
 os:
     - linux
-    - osx
-osx_image: xcode8.2
 git:
     depth: 3
 before_script:
