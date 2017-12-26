@@ -2,7 +2,7 @@ version: 2
 defaults: &defaults
     working_directory: ~/repo
     docker:
-        - image: microsoft/dotnet:2.0.0-sdk
+        - image: microsoft/dotnet:2.0.4-sdk-2.1.3
           environment:
             DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
             DOTNET_CLI_TELEMETRY_OPTOUT: 1
@@ -11,19 +11,20 @@ jobs:
         <<: *defaults
         steps:
             - checkout
+            - run: chmod ugo+x ./build.sh
             - run:
                 name: build
-                command: |
-                    chmod ugo+x ./build.sh
-                    ./build.sh build
+                command: ./build.sh build
             - run:
                 name: test
                 command: ./build.sh test
             - run:
                 name: test results
                 command: |
-                    find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
-                    rm tests/TestResults/*.trx
+                    if [[ -d "tests/TestResults" ]]; then
+                        find tests/TestResults -name "*.trx" | xargs -n1 dotnet .circleci/trx2junit.dll
+                        rm tests/TestResults/*.trx
+                    fi
                 when: always
             - persist_to_workspace:
                 root: .
