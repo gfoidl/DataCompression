@@ -5,23 +5,27 @@ namespace gfoidl.DataCompression
     /// <summary>
     /// A (x,y) point.
     /// </summary>
-    public struct DataPoint : IEquatable<DataPoint>
+    public readonly struct DataPoint : IEquatable<DataPoint>
     {
+        private static readonly DataPoint _origin = new DataPoint();
+        //---------------------------------------------------------------------
         /// <summary>
         /// x value
         /// </summary>
         public double X { get; }
         //---------------------------------------------------------------------
-            /// <summary>
-            /// y value
-            /// </summary>
+        /// <summary>
+        /// y value
+        /// </summary>
         public double Y { get; }
+        //---------------------------------------------------------------------
+        public static ref readonly DataPoint Origin => ref _origin;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new <see cref="DataPoint" />
         /// </summary>
         /// <param name="point">A tuple of (x,y)</param>
-        public DataPoint((double x, double y) point)
+        public DataPoint(in (double x, double y) point)
         {
             this.X = point.x;
             this.Y = point.y;
@@ -32,7 +36,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="x">x value</param>
         /// <param name="y">y value</param>
-        public DataPoint(double x, double y)
+        public DataPoint(in double x, in double y)
         {
             this.X = x;
             this.Y = y;
@@ -45,7 +49,7 @@ namespace gfoidl.DataCompression
         /// time value -- is converted to <see cref="X" /> by using <see cref="DateTime.Ticks" />
         /// </param>
         /// <param name="value"></param>
-        public DataPoint(DateTime time, double value)
+        public DataPoint(in DateTime time, in double value)
         {
             this.X = time.Ticks;
             this.Y = value;
@@ -74,7 +78,7 @@ namespace gfoidl.DataCompression
         /// <param name="other">The <see cref="DataPoint" /> to compare with this one.</param>
         /// <param name="allowedDelta">The allowed tolerance.</param>
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
-        public bool Equals(DataPoint other, double allowedDelta)
+        public bool Equals(in DataPoint other, in double allowedDelta)
         {
             return
                 Math.Abs(this.X - other.X) < allowedDelta &&
@@ -86,12 +90,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="obj">The object to compare with this one.</param>
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is DataPoint other) return this.Equals(other);
-
-            return false;
-        }
+        public override bool Equals(object obj) => obj is DataPoint other && this.Equals(other);
         //---------------------------------------------------------------------
         /// <summary>
         /// Tests for equality between the given <see cref="DataPoint" />s.
@@ -135,7 +134,6 @@ namespace gfoidl.DataCompression
         /// A string that represents the current object in the form (x,y).
         /// </returns>
         public override string ToString() => $"({this.X}, {this.Y})";
-
         //---------------------------------------------------------------------
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static implicit operator DataPoint((double, double) tuple)   => new DataPoint(tuple);

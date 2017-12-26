@@ -42,7 +42,7 @@ namespace gfoidl.DataCompression
         /// <param name="maxDeltaX">
         /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX"/>.
         /// </param>
-        public DeadBandCompression(double instrumentPrecision, double? maxDeltaX = null)
+        public DeadBandCompression(in double instrumentPrecision, in double? maxDeltaX = null)
         {
             this.InstrumentPrecision = instrumentPrecision;
             this.MaxDeltaX           = maxDeltaX;
@@ -55,23 +55,33 @@ namespace gfoidl.DataCompression
         /// (Absolut) precision of the instrument. Cf. ExDev in documentation.
         /// </param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
-        public DeadBandCompression(double instrumentPrecision, TimeSpan maxTime)
+        public DeadBandCompression(in double instrumentPrecision, in TimeSpan maxTime)
         : this(instrumentPrecision, maxTime.Ticks)
         { }
         //---------------------------------------------------------------------
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
+        protected override IEnumerable<DataPoint> ProcessCore<TList>(in TList data)
         {
-            if (data is IList<DataPoint> list) return this.ProcessCore(list);
-
-            return this.ProcessCore(data.GetEnumerator());
+            if (data is List<DataPoint> list)
+            {
+                var wrapper = new ListWrapper(list);
+                return this.ProcessCoreImpl(wrapper);
+            }
+            else if (data is DataPoint[] array)
+            {
+                var wrapper = new ArrayWrapper(array);
+                return this.ProcessCoreImpl(wrapper);
+            }
+            else
+                return this.ProcessCoreImpl(data.GetEnumerator());
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
+        private IEnumerable<DataPoint> ProcessCoreImpl(IEnumerator<DataPoint> dataEnumerator)
         {
             if (!dataEnumerator.MoveNext()) yield break;
 
@@ -84,28 +94,28 @@ namespace gfoidl.DataCompression
 
             while (dataEnumerator.MoveNext())
             {
-                incoming    = dataEnumerator.Current;
-                var archive = this.IsPointToArchive(lastArchived, bounding, incoming);
+                incoming                = dataEnumerator.Current;
+                var (archive, maxDelta) = this.IsPointToArchive(lastArchived, bounding, incoming);
 
-                if (!archive.Archive)
+                if (!archive)
                 {
                     snapShot = incoming;
                     continue;
                 }
 
-                if (!archive.MaxDelta)
+                if (!maxDelta)
                     yield return snapShot;
 
                 yield return incoming;
 
-                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, archive.MaxDelta, ref bounding);
+                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, maxDelta, ref bounding);
             }
 
             if (incoming != lastArchived)
                 yield return incoming;
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
+        private IEnumerable<DataPoint> ProcessCoreImpl<TList>(TList data) where TList : IList<DataPoint>
         {
             if (data.Count < 2)
             {
@@ -122,29 +132,30 @@ namespace gfoidl.DataCompression
 
             (double Min, double Max) bounding = this.GetBounding(snapShot);
 
-            for (int i = 1; i < data.Count; ++i)
+            int n = data.Count;
+            for (int i = 1; i < n; ++i)
             {
-                incoming    = data[i];
-                var archive = this.IsPointToArchive(lastArchived, bounding, incoming);
+                incoming                = data[i];
+                var (archive, maxDelta) = this.IsPointToArchive(lastArchived, bounding, incoming);
 
-                if (!archive.Archive)
+                if (!archive)
                 {
                     snapShot = incoming;
                     continue;
                 }
 
-                if (!archive.MaxDelta)
+                if (!maxDelta)
                     yield return snapShot;
 
                 yield return incoming;
 
-                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, archive.MaxDelta, ref bounding);
+                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, maxDelta, ref bounding);
             }
 
             yield return incoming;
         }
         //---------------------------------------------------------------------
-        private (double Min, double Max) GetBounding(DataPoint snapShot)
+        private (double Min, double Max) GetBounding(in DataPoint snapShot)
         {
             double min = snapShot.Y - this.InstrumentPrecision;
             double max = snapShot.Y + this.InstrumentPrecision;
@@ -152,7 +163,7 @@ namespace gfoidl.DataCompression
             return (min, max);
         }
         //---------------------------------------------------------------------
-        private (bool Archive, bool MaxDelta) IsPointToArchive(DataPoint lastArchived, (double Min, double Max) bounding, DataPoint incoming)
+        private (bool archive, bool maxDelta) IsPointToArchive(in DataPoint lastArchived, in (double Min, double Max) bounding, in DataPoint incoming)
         {
             if ((incoming.X - lastArchived.X) >= (this.MaxDeltaX ?? double.MaxValue)) return (true, true);
 
@@ -162,7 +173,7 @@ namespace gfoidl.DataCompression
         private void UpdatePoints(
             ref DataPoint snapShot,
             ref DataPoint lastArchived,
-            DataPoint     incoming,
+            in DataPoint incoming,
             bool          maxDelta,
             ref (double, double) bounding)
         {

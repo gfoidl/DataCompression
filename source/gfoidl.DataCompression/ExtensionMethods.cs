@@ -11,14 +11,15 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// A filter that performs no compression.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The unmodified input data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static IEnumerable<DataPoint> NoCompression(this IEnumerable<DataPoint> data)
+        public static IEnumerable<DataPoint> NoCompression<TList>(this TList data) where TList : IEnumerable<DataPoint>
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
 
             var compression = new NoCompression();
             return compression.Process(data);
@@ -27,6 +28,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// A filter that performs dead band compression.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxDeltaX">
@@ -36,9 +38,10 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static IEnumerable<DataPoint> DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, double? maxDeltaX = null)
+        public static IEnumerable<DataPoint> DeadBandCompression<TList>(this TList data, double instrumentPrecision, double? maxDeltaX = null)
+            where TList : IEnumerable<DataPoint>
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
 
             var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX);
             return compression.Process(data);
@@ -47,6 +50,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// A filter that performs dead band compression.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
@@ -54,9 +58,10 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static IEnumerable<DataPoint> DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, TimeSpan maxTime)
+        public static IEnumerable<DataPoint> DeadBandCompression<TList>(this TList data, double instrumentPrecision, TimeSpan maxTime)
+            where TList : IEnumerable<DataPoint>
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
 
             var compression = new DeadBandCompression(instrumentPrecision, maxTime);
             return compression.Process(data);
@@ -65,6 +70,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// A filter that performs swinging door compression.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <param name="compressionDeviation">
         /// (Absolut) Compression deviation applied to the y values to calculate the
@@ -81,9 +87,10 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static IEnumerable<DataPoint> SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
+        public static IEnumerable<DataPoint> SwingingDoorCompression<TList>(this TList data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
+            where TList : IEnumerable<DataPoint>
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
 
             var compression = new SwingingDoorCompression(compressionDeviation, maxDeltaX, minDeltaX);
             return compression.Process(data);
@@ -92,6 +99,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// A filter that performs swinging door compression.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <param name="compressionDeviation">
         /// (Absolut) Compression deviation applied to the y values to calculate the
@@ -103,9 +111,10 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static IEnumerable<DataPoint> SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
+        public static IEnumerable<DataPoint> SwingingDoorCompression<TList>(this TList data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
+            where TList : IEnumerable<DataPoint>
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
 
             var compression = new SwingingDoorCompression(compressionDeviation, maxTime, minTime);
             return compression.Process(data);
