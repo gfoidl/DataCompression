@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>SwingingDoorCompressionBenchmarks</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.11, OS=Windows 7 SP1 (6.1.7601.0)
+Processor=Intel Core i7-3610QM CPU 2.30GHz (Ivy Bridge), ProcessorCount=8
+Frequency=2241064 Hz, Resolution=446.2166 ns, Timer=TSC
+.NET Core SDK=2.1.2
+  [Host]     : .NET Core 2.0.3 (Framework 4.6.25815.02), 64bit RyuJIT
+  DefaultJob : .NET Core 2.0.3 (Framework 4.6.25815.02), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>N</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>Scaled</th><th>ScaledSD</th>
+</tr>
+</thead><tbody><tr><td>IEnumerable</td><td>1000</td><td>61.52 us</td><td>0.5802 us</td><td>0.5143 us</td><td>61.25 us</td><td>1.00</td><td>0.00</td>
+</tr><tr><td> List</td><td>1000</td><td>53.71 us</td><td>1.2556 us</td><td>1.1745 us</td><td>53.05 us</td><td>0.87</td><td>0.02</td>
+</tr><tr><td>Array</td><td>1000</td><td>46.42 us</td><td>0.8306 us</td><td>0.7770 us</td><td>46.45 us</td><td>0.75</td><td>0.01</td>
+</tr><tr><td>IEnumerable</td><td>10000</td><td>631.51 us</td><td>2.0497 us</td><td>1.7116 us</td><td>630.91 us</td><td>1.00</td><td>0.00</td>
+</tr><tr><td> List</td><td>10000</td><td>538.04 us</td><td>0.5200 us</td><td>0.4342 us</td><td>538.05 us</td><td>0.85</td><td>0.00</td>
+</tr><tr><td>Array</td><td>10000</td><td>486.82 us</td><td>39.3617 us</td><td>73.9308 us</td><td>447.74 us</td><td>0.77</td><td>0.12</td>
+</tr></tbody></table>
+</body>
+</html>

@@ -22,7 +22,6 @@ namespace gfoidl.DataCompression
 
             return this.ProcessCore(data);
         }
-
         //---------------------------------------------------------------------
         /// <summary>
         /// Implementation of the compression / filtering.
