@@ -1,8 +1,8 @@
 {
-	"profiles": {
-		"gfoidl.DataCompression.Benchmarks": {
-			"commandName": "Project",
-			"commandLineArgs": "SwingingDoorCompressionBenchmarks"
-		}
-	}
+    "profiles": {
+        "gfoidl.DataCompression.Benchmarks": {
+            "commandName": "Project",
+            "commandLineArgs": "GradientBenchmarks"
+        }
+    }
 }
