@@ -25,7 +25,7 @@ namespace gfoidl.DataCompression
         /// Creates a new <see cref="DataPoint" />
         /// </summary>
         /// <param name="point">A tuple of (x,y)</param>
-        public DataPoint((double x, double y) point)
+        public DataPoint(in (double x, double y) point)
         {
             this.X = point.x;
             this.Y = point.y;
@@ -36,7 +36,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="x">x value</param>
         /// <param name="y">y value</param>
-        public DataPoint(double x, double y)
+        public DataPoint(in double x, in double y)
         {
             this.X = x;
             this.Y = y;
@@ -49,7 +49,7 @@ namespace gfoidl.DataCompression
         /// time value -- is converted to <see cref="X" /> by using <see cref="DateTime.Ticks" />
         /// </param>
         /// <param name="value"></param>
-        public DataPoint(DateTime time, double value)
+        public DataPoint(in DateTime time, in double value)
         {
             this.X = time.Ticks;
             this.Y = value;
@@ -78,7 +78,7 @@ namespace gfoidl.DataCompression
         /// <param name="other">The <see cref="DataPoint" /> to compare with this one.</param>
         /// <param name="allowedDelta">The allowed tolerance.</param>
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
-        public bool Equals(DataPoint other, double allowedDelta)
+        public bool Equals(in DataPoint other, in double allowedDelta)
         {
             return
                 Math.Abs(this.X - other.X) < allowedDelta &&

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace gfoidl.DataCompression
+﻿namespace gfoidl.DataCompression
 {
     internal static class DataPointExtensions
     {
@@ -9,7 +7,7 @@ namespace gfoidl.DataCompression
             if (a == b)
             {
                 if (return0OnEquality) return 0;
-                throw new ArgumentException(Strings.Gradient_A_eq_B, nameof(b));
+                ThrowHelper.ThrowArgument(Strings.Gradient_A_eq_B, nameof(b));
             }
 
             return (b.Y - a.Y) / (b.X - a.X);

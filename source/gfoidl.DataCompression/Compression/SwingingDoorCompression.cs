@@ -53,7 +53,7 @@ namespace gfoidl.DataCompression
         /// Length of x/time within no value gets recorded (after the last archived value).
         /// See <see cref="MinDeltaX" />.
         /// </param>
-        public SwingingDoorCompression(double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
+        public SwingingDoorCompression(in double compressionDeviation, in double? maxDeltaX = null, in double? minDeltaX = null)
         {
             this.CompressionDeviation = compressionDeviation;
             this.MaxDeltaX            = maxDeltaX;
@@ -69,23 +69,33 @@ namespace gfoidl.DataCompression
         /// </param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
         /// <param name="minTime">Length of time within no value gets recorded (after the last archived value)</param>
-        public SwingingDoorCompression(double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
+        public SwingingDoorCompression(in double compressionDeviation, in TimeSpan maxTime, in TimeSpan? minTime)
             : this(compressionDeviation, maxTime.Ticks, minTime?.Ticks)
         { }
         //---------------------------------------------------------------------
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
+        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
+        protected override IEnumerable<DataPoint> ProcessCore<TList>(in TList data)
         {
-            if (data is IList<DataPoint> list) return this.ProcessCore(list);
-
-            return this.ProcessCore(data.GetEnumerator());
+            if (data is List<DataPoint> list)
+            {
+                var wrapper = new ListWrapper(list);
+                return this.ProcessCoreImpl(wrapper);
+            }
+            else if (data is DataPoint[] array)
+            {
+                var wrapper = new ArrayWrapper(array);
+                return this.ProcessCoreImpl(wrapper);
+            }
+            else
+                return this.ProcessCoreImpl(data.GetEnumerator());
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
+        private IEnumerable<DataPoint> ProcessCoreImpl(IEnumerator<DataPoint> dataEnumerator)
         {
             if (!dataEnumerator.MoveNext()) yield break;
 
@@ -99,16 +109,16 @@ namespace gfoidl.DataCompression
 
             while (dataEnumerator.MoveNext())
             {
-                incoming    = dataEnumerator.Current;
-                var archive = this.IsPointToArchive(lastArchived, slope, incoming);
+                incoming                = dataEnumerator.Current;
+                var (archive, maxDelta) = this.IsPointToArchive(lastArchived, slope, incoming);
 
-                if (!archive.Archive)
+                if (!archive)
                 {
                     this.CloseTheDoor(lastArchived, ref snapShot, incoming, ref slope);
                     continue;
                 }
 
-                if (!archive.MaxDelta)
+                if (!maxDelta)
                     yield return snapShot;
 
                 if (this.MinDeltaX.HasValue)
@@ -127,7 +137,7 @@ namespace gfoidl.DataCompression
                 yield return incoming;
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
+        private IEnumerable<DataPoint> ProcessCoreImpl<TList>(TList data) where TList : IList<DataPoint>
         {
             if (data.Count < 2)
             {
@@ -145,18 +155,19 @@ namespace gfoidl.DataCompression
             (double SlopeMax, double SlopeMin) slope = default;
             this.OpenNewDoor(ref lastArchived, ref snapShot, lastArchived, ref slope);
 
-            for (int i = 1; i < data.Count; ++i)
+            int n = data.Count;
+            for (int i = 1; i < n; ++i)
             {
-                incoming    = data[i];
-                var archive = this.IsPointToArchive(lastArchived, slope, incoming);
+                incoming                = data[i];
+                var (archive, maxDelta) = this.IsPointToArchive(lastArchived, slope, incoming);
 
-                if (!archive.Archive)
+                if (!archive)
                 {
                     this.CloseTheDoor(lastArchived, ref snapShot, incoming, ref slope);
                     continue;
                 }
 
-                if (!archive.MaxDelta)
+                if (!maxDelta)
                     yield return snapShot;
 
                 if (this.MinDeltaX.HasValue)
@@ -175,7 +186,7 @@ namespace gfoidl.DataCompression
                 yield return incoming;
         }
         //---------------------------------------------------------------------
-        private (bool Archive, bool MaxDelta) IsPointToArchive(DataPoint lastArchived, (double slopeMax, double slopeMin) slope, DataPoint incoming)
+        private (bool archive, bool maxDelta) IsPointToArchive(in DataPoint lastArchived, in (double slopeMax, double slopeMin) slope, in DataPoint incoming)
         {
             if ((incoming.X - lastArchived.X) >= (this.MaxDeltaX ?? double.MaxValue)) return (true, true);
 
@@ -187,9 +198,9 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         private void CloseTheDoor(
-            DataPoint     lastArchived,
+            in DataPoint lastArchived,
             ref DataPoint snapShot,
-            DataPoint     incoming,
+            in DataPoint incoming,
             ref (double SlopeMax, double SlopeMin) slope)
         {
             double upperSlope = lastArchived.Gradient((incoming.X, incoming.Y + this.CompressionDeviation));
@@ -203,7 +214,7 @@ namespace gfoidl.DataCompression
         private void OpenNewDoor(
             ref DataPoint lastArchived,
             ref DataPoint snapShot,
-            DataPoint     incoming,
+            in DataPoint incoming,
             ref (double SlopeMax, double SlopeMin) slope)
         {
             lastArchived = incoming;
