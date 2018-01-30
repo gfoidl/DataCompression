@@ -78,14 +78,14 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
+        protected override IEnumerable<DataPoint> ProcessCore<TList>(in TList data)
         {
-            if (data is IList<DataPoint> list) return this.ProcessCore(list);
+            if (data is IList<DataPoint> list) return this.ProcessCoreImpl(list);
 
-            return this.ProcessCore(data.GetEnumerator());
+            return this.ProcessCoreImpl(data.GetEnumerator());
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
+        private IEnumerable<DataPoint> ProcessCoreImpl(IEnumerator<DataPoint> dataEnumerator)
         {
             if (!dataEnumerator.MoveNext()) yield break;
 
@@ -127,7 +127,7 @@ namespace gfoidl.DataCompression
                 yield return incoming;
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
+        private IEnumerable<DataPoint> ProcessCoreImpl(IList<DataPoint> data)
         {
             if (data.Count < 2)
             {
