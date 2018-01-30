@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace gfoidl.DataCompression
 {
@@ -69,6 +70,66 @@ namespace gfoidl.DataCompression
         public (DateTime Time, double Value) ToTimeValue() => (new DateTime((long)this.X), this.Y);
         //---------------------------------------------------------------------
         /// <summary>
+        /// Calculates the gradient from this <see cref="DataPoint" /> to the
+        /// <see cref="DataPoint" /> given with <paramref name="b" />.
+        /// </summary>
+        /// <param name="b">The second <see cref="DataPoint" />.</param>
+        /// <param name="return0OnEquality">
+        /// When <c>true</c> and <c>this.X == b.X</c> then <c>0</c> is returned,
+        /// otherwise an <see cref="ArgumentException" /> is thrown.
+        /// </param>
+        /// <returns>The gradient from this to <paramref name="b" />.</returns>
+        /// <exception cref="ArgumentException">
+        /// Is thrown when <c>this.X == b.X</c>, and <paramref name="return0OnEquality"/> 
+        /// is <c>false</c>.
+        /// </exception>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double Gradient(in DataPoint b, bool return0OnEquality = true)
+        {
+            if (this.X == b.X)
+                return this.GradientEquality(b, return0OnEquality);
+
+            return (b.Y - this.Y) / (b.X - this.X);
+        }
+        //---------------------------------------------------------------------
+        // Uncommon code-path
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private double GradientEquality(in DataPoint b, bool return0OnEquality)
+        {
+            if (return0OnEquality)
+            {
+                if (this.Y == b.Y)
+                    return 0;
+                else
+                {
+                    return this.Y < b.Y
+                        ? double.PositiveInfinity
+                        : double.NegativeInfinity;
+                }
+            }
+            else
+                throw new ArgumentException(Strings.Gradient_A_eq_B, nameof(b));
+        }
+
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Calculates the y-value of a point given by the current <see cref="DataPoint" />,
+        /// the <paramref name="gradient" /> and an abscissa value <paramref name="x" />.
+        /// </summary>
+        /// <param name="gradient">The gradient.</param>
+        /// <param name="x">The abscissa value.</param>
+        /// <returns>The point's y-value.</returns>
+        /// <remarks>
+        /// <c>y = this.Y + gradient * (x - this.X)</c>
+        /// </remarks>
+        public double CalculatePoint(double gradient, double x)
+        {
+            if (this.X == x) return this.Y;
+
+            return this.Y + gradient * (x - this.X);
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Tests if the given <see cref="DataPoint" /> is equal to this one.
         /// </summary>
         /// <param name="other">The <see cref="DataPoint" /> to compare with this one.</param>
@@ -83,8 +144,7 @@ namespace gfoidl.DataCompression
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
         public bool Equals(DataPoint other, double allowedDelta)
         {
-            return
-                Math.Abs(this.X - other.X) < allowedDelta
+            return Math.Abs(this.X - other.X) < allowedDelta
                 && Math.Abs(this.Y - other.Y) < allowedDelta;
         }
         //---------------------------------------------------------------------
