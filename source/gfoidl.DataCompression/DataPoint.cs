@@ -5,17 +5,24 @@ namespace gfoidl.DataCompression
     /// <summary>
     /// A (x,y) point.
     /// </summary>
-    public struct DataPoint : IEquatable<DataPoint>
+    public readonly struct DataPoint : IEquatable<DataPoint>
     {
+        private static readonly DataPoint _origin = new DataPoint();
+        //---------------------------------------------------------------------
         /// <summary>
         /// x value
         /// </summary>
         public double X { get; }
         //---------------------------------------------------------------------
-            /// <summary>
-            /// y value
-            /// </summary>
+        /// <summary>
+        /// y value
+        /// </summary>
         public double Y { get; }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// The Origin, a <see cref="DataPoint" /> with (0, 0).
+        /// </summary>
+        public static ref readonly DataPoint Origin => ref _origin;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new <see cref="DataPoint" />
@@ -77,8 +84,8 @@ namespace gfoidl.DataCompression
         public bool Equals(DataPoint other, double allowedDelta)
         {
             return
-                Math.Abs(this.X - other.X) < allowedDelta &&
-                Math.Abs(this.Y - other.Y) < allowedDelta;
+                Math.Abs(this.X - other.X) < allowedDelta
+                && Math.Abs(this.Y - other.Y) < allowedDelta;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -86,12 +93,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="obj">The object to compare with this one.</param>
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is DataPoint other) return this.Equals(other);
-
-            return false;
-        }
+        public override bool Equals(object obj) => obj is DataPoint other && this.Equals(other);
         //---------------------------------------------------------------------
         /// <summary>
         /// Tests for equality between the given <see cref="DataPoint" />s.
@@ -135,7 +137,6 @@ namespace gfoidl.DataCompression
         /// A string that represents the current object in the form (x,y).
         /// </returns>
         public override string ToString() => $"({this.X}, {this.Y})";
-
         //---------------------------------------------------------------------
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static implicit operator DataPoint((double, double) tuple)   => new DataPoint(tuple);
