@@ -20,9 +20,9 @@ namespace gfoidl.DataCompression.Tests.DataPointExtensionsTests
         {
             DataPoint a = (42, 42);
 
-            DataPoint actual = a.CalculatePoint(gradient, a.X);
+            double actual = a.CalculatePoint(gradient, a.X);
 
-            Assert.AreEqual(a, actual);
+            Assert.AreEqual(a.Y, actual);
         }
         //---------------------------------------------------------------------
         [Test]
@@ -31,10 +31,9 @@ namespace gfoidl.DataCompression.Tests.DataPointExtensionsTests
         {
             DataPoint a = (1d, 1d);
 
-            DataPoint actual = a.CalculatePoint(gradient, x);
+            double actual = a.CalculatePoint(gradient, x);
 
-            Assert.AreEqual(expected.X, actual.X, 1e-6, "x");
-            Assert.AreEqual(expected.Y, actual.Y, 1e-6, "y");
+            Assert.AreEqual(expected.Y, actual, 1e-6, "y");
         }
         //---------------------------------------------------------------------
         private static IEnumerable<TestCaseData> Point_gradient_x_given___correct_Point_returned_TestCases()
