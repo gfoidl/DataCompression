@@ -10,9 +10,8 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
-        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IEnumerable<DataPoint> ProcessCore<TList>(in TList data) => data;
+        protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data) => data;
     }
 }

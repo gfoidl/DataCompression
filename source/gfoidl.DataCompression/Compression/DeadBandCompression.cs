@@ -62,17 +62,16 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
-        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IEnumerable<DataPoint> ProcessCore<TList>(in TList data)
+        protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
         {
-            if (data is IList<DataPoint> list) return this.ProcessCoreImpl(list);
+            if (data is IList<DataPoint> list) return this.ProcessCore(list);
 
-            return this.ProcessCoreImpl(data.GetEnumerator());
+            return this.ProcessCore(data.GetEnumerator());
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCoreImpl(IEnumerator<DataPoint> dataEnumerator)
+        private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
         {
             if (!dataEnumerator.MoveNext()) yield break;
 
@@ -106,7 +105,7 @@ namespace gfoidl.DataCompression
                 yield return incoming;
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCoreImpl(IList<DataPoint> data)
+        private IEnumerable<DataPoint> ProcessCore(IList<DataPoint> data)
         {
             if (data.Count < 2)
             {
