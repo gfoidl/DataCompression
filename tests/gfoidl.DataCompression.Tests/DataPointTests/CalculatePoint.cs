@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace gfoidl.DataCompression.Tests.DataPointExtensionsTests
+namespace gfoidl.DataCompression.Tests.DataPointTests
 {
     [TestFixture]
     public class CalculatePoint
