@@ -10,15 +10,14 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Performs the compression / filtering of the input data.
         /// </summary>
-        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>.
         /// </exception>
-        public IEnumerable<DataPoint> Process<TList>(in TList data) where TList : IEnumerable<DataPoint>
+        public IEnumerable<DataPoint> Process(IEnumerable<DataPoint> data)
         {
-            if (EqualityComparer<TList>.Default.Equals(data, default)) ThrowHelper.ThrowArgumentNull(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
 
             return this.ProcessCore(data);
         }
@@ -26,9 +25,8 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
-        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected abstract IEnumerable<DataPoint> ProcessCore<TList>(in TList data) where TList : IEnumerable<DataPoint>;
+        protected abstract IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data);
     }
 }
