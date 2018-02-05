@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace gfoidl.DataCompression
@@ -83,13 +84,20 @@ namespace gfoidl.DataCompression
         /// Is thrown when <c>this.X == b.X</c>, and <paramref name="return0OnEquality"/> 
         /// is <c>false</c>.
         /// </exception>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerStepThrough]
         public double Gradient(in DataPoint b, bool return0OnEquality = true)
         {
-            if (this.X == b.X)
-                return this.GradientEquality(b, return0OnEquality);
+            if (this.X == b.X) return this.GradientEquality(b, return0OnEquality);
 
             return (b.Y - this.Y) / (b.X - this.X);
+        }
+        //---------------------------------------------------------------------
+        [DebuggerStepThrough]
+        internal double Gradient(in DataPoint b, double deltaY, bool return0OnEquality = true)
+        {
+            if (this.X == b.X) return this.GradientEquality(b, return0OnEquality);
+
+            return (b.Y + deltaY - this.Y) / (b.X - this.X);
         }
         //---------------------------------------------------------------------
         // Uncommon code-path
