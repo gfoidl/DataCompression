@@ -118,85 +118,10 @@ namespace gfoidl.DataCompression
                     : new IndexedIterator<IList<DataPoint>>(this, ilist);
             }
 
-            return this.ProcessCore(data.GetEnumerator());
-        }
-        //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCore(IEnumerator<DataPoint> dataEnumerator)
-        {
-            if (!dataEnumerator.MoveNext()) yield break;
-
-            DataPoint lastArchived = dataEnumerator.Current;
-            yield return lastArchived;
-
-            DataPoint snapShot                       = lastArchived;
-            DataPoint incoming                       = snapShot;
-            (double SlopeMax, double SlopeMin) slope = default;
-            this.OpenNewDoor(ref lastArchived, ref snapShot, lastArchived, ref slope);
-
-            while (dataEnumerator.MoveNext())
-            {
-                incoming    = dataEnumerator.Current;
-                var archive = this.IsPointToArchive(lastArchived, slope, incoming);
-
-                if (!archive.Archive)
-                {
-                    this.CloseTheDoor(lastArchived, ref snapShot, incoming, ref slope);
-                    continue;
-                }
-
-                if (!archive.MaxDelta)
-                    yield return snapShot;
-
-                if (this.MinDeltaX.HasValue)
-                    while (dataEnumerator.MoveNext())
-                    {
-                        incoming = dataEnumerator.Current;
-                        if ((incoming.X - snapShot.X) > this.MinDeltaX.Value) break;
-                    }
-
-                yield return incoming;
-
-                this.OpenNewDoor(ref lastArchived, ref snapShot, incoming, ref slope);
-            }
-
-            if (incoming != lastArchived)
-                yield return incoming;
-        }
-        //---------------------------------------------------------------------
-        private (bool Archive, bool MaxDelta) IsPointToArchive(DataPoint lastArchived, (double slopeMax, double slopeMin) slope, DataPoint incoming)
-        {
-            if ((incoming.X - lastArchived.X) >= (this.MaxDeltaX ?? double.MaxValue)) return (true, true);
-
-            // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
-            // Obviously, the result should be the same ;-)
-            double slopeToIncoming = lastArchived.Gradient(incoming);
-
-            return (slopeToIncoming < slope.slopeMin || slope.slopeMax < slopeToIncoming, false);
-        }
-        //---------------------------------------------------------------------
-        private void CloseTheDoor(
-            DataPoint lastArchived,
-            ref DataPoint snapShot,
-            DataPoint incoming,
-            ref (double SlopeMax, double SlopeMin) slope)
-        {
-            double upperSlope = lastArchived.Gradient((incoming.X, incoming.Y + this.CompressionDeviation));
-            double lowerSlope = lastArchived.Gradient((incoming.X, incoming.Y - this.CompressionDeviation));
-
-            slope.SlopeMax = Math.Min(slope.SlopeMax, upperSlope);
-            slope.SlopeMin = Math.Max(slope.SlopeMin, lowerSlope);
-            snapShot       = incoming;
-        }
-        //---------------------------------------------------------------------
-        private void OpenNewDoor(
-            ref DataPoint lastArchived,
-            ref DataPoint snapShot,
-            DataPoint incoming,
-            ref (double SlopeMax, double SlopeMin) slope)
-        {
-            lastArchived = incoming;
-            snapShot     = lastArchived;
-            slope        = (double.PositiveInfinity, double.NegativeInfinity);
+            IEnumerator<DataPoint> enumerator = data.GetEnumerator();
+            return enumerator.MoveNext()
+                ? new EnumerableIterator(this, enumerator)
+                : DataPointIterator.Empty;
         }
         //---------------------------------------------------------------------
         private abstract class SwingingDoorCompressionIterator : DataPointIterator
@@ -228,7 +153,7 @@ namespace gfoidl.DataCompression
                     _archive.MaxDelta = false;
                 }
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected void CloseTheDoor(in DataPoint lastArchived, in DataPoint incoming)
             {
@@ -238,11 +163,104 @@ namespace gfoidl.DataCompression
                 if (upperSlope < _slope.Max) _slope.Max = upperSlope;
                 if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             protected void OpenNewDoor()
             {
                 _slope.Max = double.PositiveInfinity;
                 _slope.Min = double.NegativeInfinity;
+            }
+        }
+        //---------------------------------------------------------------------
+        private sealed class EnumerableIterator : SwingingDoorCompressionIterator
+        {
+            private readonly IEnumerator<DataPoint> _enumerator;
+            private DataPoint                       _snapShot;
+            private DataPoint                       _lastArchived;
+            private DataPoint                       _incoming;
+            //-----------------------------------------------------------------
+            public EnumerableIterator(SwingingDoorCompression swingingDoorCompression, IEnumerator<DataPoint> enumerator)
+                : base(swingingDoorCompression)
+                => _enumerator = enumerator;
+            //-----------------------------------------------------------------
+            public override DataPointIterator Clone() => new EnumerableIterator(_swingingDoorCompression, _enumerator);
+            //-----------------------------------------------------------------
+            public override bool MoveNext()
+            {
+                switch (_state)
+                {
+                    default:
+                        this.Dispose();
+                        return false;
+                    case 0:
+                        _snapShot     = _enumerator.Current;
+                        _lastArchived = _snapShot;
+                        _incoming     = _snapShot;
+                        _current      = _snapShot;
+                        this.OpenNewDoor();
+                        _state        = 1;
+                        return true;
+                    case 1:
+                        while (_enumerator.MoveNext())
+                        {
+                            _incoming       = _enumerator.Current;
+                            this.IsPointToArchive(_lastArchived, _incoming);
+                            ref var archive = ref _archive;
+
+                            if (!archive.Archive)
+                            {
+                                this.CloseTheDoor(_lastArchived, _incoming);
+                                _snapShot = _incoming;
+                                continue;
+                            }
+
+                            if (!archive.MaxDelta)
+                            {
+                                _current = _snapShot;
+                                _state   = 2;
+                                return true;
+                            }
+
+                            goto case 2;
+                        }
+
+                        _state = -1;
+                        if (_incoming != _lastArchived)
+                        {
+                            _current = _incoming;
+                            return true;
+                        }
+                        return false;
+                    case 2:
+                        if (_swingingDoorCompression.MinDeltaX.HasValue)
+                        {
+                            double snapShot_x = _snapShot.X;
+                            double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
+
+                            while (_enumerator.MoveNext())
+                            {
+                                _incoming = _enumerator.Current;
+                                if ((_incoming.X - snapShot_x) > minDeltaX)
+                                    break;
+                            }
+                        }
+
+                        _current = _incoming;
+                        _state   = 1;
+                        this.OpenNewDoor(_incoming);
+                        return true;
+                    case DisposedState:
+                        ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
+                        return false;
+                }
+            }
+            //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private void OpenNewDoor(in DataPoint incoming)
+            {
+                _lastArchived = incoming;
+                _snapShot     = incoming;
+
+                this.OpenNewDoor();
             }
         }
         //---------------------------------------------------------------------
