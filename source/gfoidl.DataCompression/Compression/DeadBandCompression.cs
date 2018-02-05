@@ -98,89 +98,140 @@ namespace gfoidl.DataCompression
                     : new IndexedIterator<ListWrapper<DataPoint>>(this, new ListWrapper<DataPoint>(list));
             }
 
-            return this.ProcessCoreImpl(data.GetEnumerator());
+            IEnumerator<DataPoint> enumerator = data.GetEnumerator();
+            return enumerator.MoveNext()
+                ? new EnumerableIterator(this, enumerator)
+                : DataPointIterator.Empty;
         }
         //---------------------------------------------------------------------
-        private IEnumerable<DataPoint> ProcessCoreImpl(IEnumerator<DataPoint> dataEnumerator)
+        private abstract class DeadBandCompressionIterator : DataPointIterator
         {
-            if (!dataEnumerator.MoveNext()) yield break;
-
-            DataPoint snapShot     = dataEnumerator.Current;
-            DataPoint lastArchived = snapShot;
-            DataPoint incoming     = snapShot;      // sentinel, nullable would be possible but to much work around
-            yield return snapShot;
-
-            (double Min, double Max) bounding = this.GetBounding(snapShot);
-
-            while (dataEnumerator.MoveNext())
+            protected readonly DeadBandCompression  _deadBandCompression;
+            protected (double Min, double Max)      _bounding;
+            protected (bool Archive, bool MaxDelta) _archive;
+            //-----------------------------------------------------------------
+            protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
+                => _deadBandCompression = deadBandCompression;
+        }
+        //---------------------------------------------------------------------
+        private sealed class EnumerableIterator : DeadBandCompressionIterator
+        {
+            private readonly IEnumerator<DataPoint> _enumerator;
+            private DataPoint                       _snapShot;
+            private DataPoint                       _lastArchived;
+            private DataPoint                       _incoming;
+            //-----------------------------------------------------------------
+            public EnumerableIterator(DeadBandCompression deadBandCompression, IEnumerator<DataPoint> enumerator)
+                : base(deadBandCompression)
+                => _enumerator = enumerator;
+            //-----------------------------------------------------------------
+            public override DataPointIterator Clone() => new EnumerableIterator(_deadBandCompression, _enumerator);
+            //-----------------------------------------------------------------
+            public override bool MoveNext()
             {
-                incoming    = dataEnumerator.Current;
-                var archive = this.IsPointToArchive(lastArchived, bounding, incoming);
-
-                if (!archive.Archive)
+                switch (_state)
                 {
-                    snapShot = incoming;
-                    continue;
+                    default:
+                        this.Dispose();
+                        return false;
+                    case 0:
+                        _snapShot     = _enumerator.Current;
+                        _lastArchived = _snapShot;
+                        _incoming     = _snapShot;      // sentinel, nullable would be possible but to much work around
+                        _current      = _snapShot;
+                        this.GetBounding();
+                        _state        = 1;
+                        return true;
+                    case 1:
+                        while (_enumerator.MoveNext())
+                        {
+                            _incoming       = _enumerator.Current;
+                            ref var archive = ref this.IsPointToArchive(_incoming);
+
+                            if (!archive.Archive)
+                            {
+                                _snapShot = _incoming;
+                                continue;
+                            }
+
+                            if (!archive.MaxDelta)
+                            {
+                                _current = _snapShot;
+                                _state   = 2;
+                                return true;
+                            }
+
+                            goto case 2;
+                        }
+
+                        _state = -1;
+                        if (_incoming != _lastArchived)
+                        {
+                            _current = _incoming;
+                            return true;
+                        }
+                        return false;
+                    case 2:
+                        _current = _incoming;
+                        _state   = 1;
+                        this.UpdatePoints();
+                        return true;
+                    case DisposedState:
+                        ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
+                        return false;
+                }
+            }
+            //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private void GetBounding()
+            {
+                // Produces better code than updating _bouding directly
+                ref (double Min, double Max) bounding = ref _bounding;
+                double instrumentPrecision            = _deadBandCompression.InstrumentPrecision;
+
+                bounding.Min = _snapShot.Y - instrumentPrecision;
+                bounding.Max = _snapShot.Y + instrumentPrecision;
+            }
+            //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
+            {
+                ref (bool Archive, bool MaxDelta) archive = ref _archive;
+
+                if ((incoming.X - _lastArchived.X) >= (_deadBandCompression._maxDeltaX))
+                {
+                    archive.Archive  = true;
+                    archive.MaxDelta = true;
+                }
+                else
+                {
+                    archive.Archive  = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
+                    archive.MaxDelta = false;
                 }
 
-                if (!archive.MaxDelta)
-                    yield return snapShot;
-
-                yield return incoming;
-
-                this.UpdatePoints(ref snapShot, ref lastArchived, incoming, archive.MaxDelta, ref bounding);
+                return ref archive;
             }
+            //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private void UpdatePoints()
+            {
+                _snapShot     = _incoming;
+                _lastArchived = _incoming;
 
-            if (incoming != lastArchived)
-                yield return incoming;
+                if (!_archive.MaxDelta) this.GetBounding();
+            }
         }
         //---------------------------------------------------------------------
-        private (double Min, double Max) GetBounding(in DataPoint snapShot)
+        private sealed class IndexedIterator<TList> : DeadBandCompressionIterator where TList : IList<DataPoint>
         {
-            double min = snapShot.Y - this.InstrumentPrecision;
-            double max = snapShot.Y + this.InstrumentPrecision;
-
-            return (min, max);
-        }
-        //---------------------------------------------------------------------
-        private (bool Archive, bool MaxDelta) IsPointToArchive(
-            in DataPoint lastArchived,
-            in (double Min, double Max) bounding,
-            in DataPoint incoming)
-        {
-            if ((incoming.X - lastArchived.X) >= (_maxDeltaX)) return (true, true);
-
-            return (incoming.Y < bounding.Min || bounding.Max < incoming.Y, false);
-        }
-        //---------------------------------------------------------------------
-        private void UpdatePoints(
-            ref DataPoint snapShot,
-            ref DataPoint lastArchived,
-            in DataPoint incoming,
-            bool maxDelta,
-            ref (double, double) bounding)
-        {
-            snapShot     = incoming;
-            lastArchived = incoming;
-
-            if (!maxDelta) bounding = this.GetBounding(snapShot);
-        }
-        //---------------------------------------------------------------------
-        private sealed class IndexedIterator<TList> : DataPointIterator where TList : IList<DataPoint>
-        {
-            private readonly DeadBandCompression  _deadBandCompression;
-            private readonly TList                _source;
-            private int                           _snapShotIndex;
-            private int                           _lastArchivedIndex;
-            private int                           _incomingIndex;
-            private (double Min, double Max)      _bounding;
-            private (bool Archive, bool MaxDelta) _archive;
+            private readonly TList _source;
+            private int            _snapShotIndex;
+            private int            _lastArchivedIndex;
+            private int            _incomingIndex;
             //-----------------------------------------------------------------
             public IndexedIterator(DeadBandCompression deadBandCompression, TList source)
-            {
-                _deadBandCompression = deadBandCompression;
-                _source              = source;
-            }
+                : base(deadBandCompression)
+                => _source = source;
             //-----------------------------------------------------------------
             public override DataPointIterator Clone() => new IndexedIterator<TList>(_deadBandCompression, _source);
             //-----------------------------------------------------------------
