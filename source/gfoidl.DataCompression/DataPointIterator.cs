@@ -38,12 +38,12 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Gets the current item.
         /// </summary>
-        public virtual DataPoint Current => _current;
+        public DataPoint Current => _current;
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets the current item by reference.
         /// </summary>
-        public virtual ref DataPoint CurrentByRef => ref _current;
+        public ref DataPoint CurrentByRef => ref _current;
         //---------------------------------------------------------------------
         private static EmptyIterator _emptyIterator;
         /// <summary>

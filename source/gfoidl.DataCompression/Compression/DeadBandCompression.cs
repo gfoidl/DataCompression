@@ -173,20 +173,8 @@ namespace gfoidl.DataCompression
             private int                           _snapShotIndex;
             private int                           _lastArchivedIndex;
             private int                           _incomingIndex;
-            private int                           _currentIndex;
             private (double Min, double Max)      _bounding;
             private (bool Archive, bool MaxDelta) _archive;
-            //---------------------------------------------------------------------
-            public override DataPoint Current => _source[_currentIndex];
-            //---------------------------------------------------------------------
-            public override ref DataPoint CurrentByRef
-            {
-                get
-                {
-                    _current = this.Current;
-                    return ref _current;
-                }
-            }
             //-----------------------------------------------------------------
             public IndexedIterator(DeadBandCompression deadBandCompression, TList source)
             {
@@ -207,7 +195,7 @@ namespace gfoidl.DataCompression
                         _snapShotIndex     = 0;
                         _lastArchivedIndex = 0;
                         _incomingIndex     = default;
-                        _currentIndex      = 0;
+                        _current           = _source[0];
 
                         if (_source.Count < 2)
                         {
@@ -220,12 +208,17 @@ namespace gfoidl.DataCompression
                         _incomingIndex = 1;
                         return true;
                     case 1:
-                        int count         = _source.Count;
+                        TList source      = _source;
                         int snapShotIndex = _snapShotIndex;
                         int incomingIndex = _incomingIndex;
 
-                        while (incomingIndex < count)
+                        while (true)
                         {
+                            // Actually a while loop, but so the range check can be eliminated
+                            // https://github.com/dotnet/coreclr/issues/15476
+                            if ((uint)incomingIndex >= (uint)source.Count || (uint)snapShotIndex >= (uint)source.Count)
+                                break;
+
                             ref var archive = ref this.IsPointToArchive(incomingIndex);
 
                             if (!archive.Archive)
@@ -236,8 +229,8 @@ namespace gfoidl.DataCompression
 
                             if (!archive.MaxDelta)
                             {
-                                _currentIndex  = snapShotIndex;
-                                _state         = 2;
+                                _current = source[snapShotIndex];
+                                _state = 2;
                                 _snapShotIndex = snapShotIndex;
                                 _incomingIndex = incomingIndex;
                                 return true;
@@ -248,12 +241,12 @@ namespace gfoidl.DataCompression
                             goto case 2;
                         }
 
-                        _currentIndex = incomingIndex - 1;
-                        _state        = -1;
+                        _current = source[incomingIndex - 1];
+                        _state   = -1;
                         return true;
                     case 2:
-                        _currentIndex = _incomingIndex;
-                        _state        = 1;
+                        _current = _source[_incomingIndex];
+                        _state   = 1;
                         this.UpdatePoints();
                         _incomingIndex++;
                         return true;
