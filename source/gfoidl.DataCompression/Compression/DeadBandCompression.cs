@@ -257,8 +257,6 @@ namespace gfoidl.DataCompression
                         this.UpdatePoints();
                         _incomingIndex++;
                         return true;
-                    case 3:
-
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
                         return false;
