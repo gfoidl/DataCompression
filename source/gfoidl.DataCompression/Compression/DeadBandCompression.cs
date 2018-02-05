@@ -65,7 +65,6 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
-        /// <typeparam name="TList">The type of the enumeration / list.</typeparam>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
         protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
@@ -98,6 +97,13 @@ namespace gfoidl.DataCompression
                     : new IndexedIterator<ListWrapper<DataPoint>>(this, new ListWrapper<DataPoint>(list));
             }
 
+            if (data is IList<DataPoint> ilist)
+            {
+                return ilist.Count == 0
+                    ? DataPointIterator.Empty
+                    : new IndexedIterator<IList<DataPoint>>(this, ilist);
+            }
+
             IEnumerator<DataPoint> enumerator = data.GetEnumerator();
             return enumerator.MoveNext()
                 ? new EnumerableIterator(this, enumerator)
@@ -112,6 +118,18 @@ namespace gfoidl.DataCompression
             //-----------------------------------------------------------------
             protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
                 => _deadBandCompression = deadBandCompression;
+            //---------------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            protected void GetBounding(in DataPoint snapShot)
+            {
+                double y = snapShot.Y;
+
+                // Produces better code than updating _bouding directly
+                ref (double Min, double Max) bounding = ref _bounding;
+
+                bounding.Min = y - _deadBandCompression.InstrumentPrecision;
+                bounding.Max = y + _deadBandCompression.InstrumentPrecision;
+            }
         }
         //---------------------------------------------------------------------
         private sealed class EnumerableIterator : DeadBandCompressionIterator
@@ -139,7 +157,7 @@ namespace gfoidl.DataCompression
                         _lastArchived = _snapShot;
                         _incoming     = _snapShot;      // sentinel, nullable would be possible but to much work around
                         _current      = _snapShot;
-                        this.GetBounding();
+                        this.GetBounding(_snapShot);
                         _state        = 1;
                         return true;
                     case 1:
@@ -183,17 +201,6 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void GetBounding()
-            {
-                // Produces better code than updating _bouding directly
-                ref (double Min, double Max) bounding = ref _bounding;
-                double instrumentPrecision            = _deadBandCompression.InstrumentPrecision;
-
-                bounding.Min = _snapShot.Y - instrumentPrecision;
-                bounding.Max = _snapShot.Y + instrumentPrecision;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
             {
                 ref (bool Archive, bool MaxDelta) archive = ref _archive;
@@ -215,10 +222,10 @@ namespace gfoidl.DataCompression
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void UpdatePoints()
             {
-                _snapShot     = _incoming;
                 _lastArchived = _incoming;
+                _snapShot     = _incoming;
 
-                if (!_archive.MaxDelta) this.GetBounding();
+                if (!_archive.MaxDelta) this.GetBounding(_snapShot);
             }
         }
         //---------------------------------------------------------------------
@@ -254,7 +261,7 @@ namespace gfoidl.DataCompression
                             return true;
                         }
 
-                        this.GetBounding(0);
+                        this.GetBounding(_current);
                         _state         = 1;
                         _incomingIndex = 1;
                         return true;
@@ -308,18 +315,6 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void GetBounding(int snapShotIndex)
-            {
-                double y = _source[snapShotIndex].Y;
-
-                // Produces better code than updating _bouding directly
-                ref (double Min, double Max) bounding = ref _bounding;
-
-                bounding.Min = y - _deadBandCompression.InstrumentPrecision;
-                bounding.Max = y + _deadBandCompression.InstrumentPrecision;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private ref (bool Archive, bool MaxDelta) IsPointToArchive(int incomingIndex)
             {
                 TList source     = _source;
@@ -347,13 +342,14 @@ namespace gfoidl.DataCompression
                 return ref archive;
             }
             //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void UpdatePoints()
             {
                 int incoming       = _incomingIndex;
                 _snapShotIndex     = incoming;
                 _lastArchivedIndex = incoming;
 
-                if (!_archive.MaxDelta) this.GetBounding(incoming);
+                if (!_archive.MaxDelta) this.GetBounding(_source[incoming]);
             }
         }
     }
