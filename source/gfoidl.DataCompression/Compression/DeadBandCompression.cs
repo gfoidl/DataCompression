@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using gfoidl.DataCompression.Wrappers;
+using gfoidl.Stochastics.Builders;
 
 namespace gfoidl.DataCompression
 {
@@ -106,7 +107,7 @@ namespace gfoidl.DataCompression
 
             IEnumerator<DataPoint> enumerator = data.GetEnumerator();
             return enumerator.MoveNext()
-                ? new EnumerableIterator(this, enumerator)
+                ? new EnumerableIterator(this, data, enumerator)
                 : DataPointIterator.Empty;
         }
         //---------------------------------------------------------------------
@@ -120,9 +121,9 @@ namespace gfoidl.DataCompression
                 => _deadBandCompression = deadBandCompression;
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void GetBounding(in DataPoint snapShot)
+            protected void GetBounding(in DataPoint dataPoint)
             {
-                double y = snapShot.Y;
+                double y = dataPoint.Y;
 
                 // Produces better code than updating _bouding directly
                 ref (double Min, double Max) bounding = ref _bounding;
@@ -134,16 +135,23 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private sealed class EnumerableIterator : DeadBandCompressionIterator
         {
+            private readonly IEnumerable<DataPoint> _source;
             private readonly IEnumerator<DataPoint> _enumerator;
             private DataPoint                       _snapShot;
             private DataPoint                       _lastArchived;
             private DataPoint                       _incoming;
             //-----------------------------------------------------------------
-            public EnumerableIterator(DeadBandCompression deadBandCompression, IEnumerator<DataPoint> enumerator)
+            public EnumerableIterator(
+                DeadBandCompression deadBandCompression,
+                IEnumerable<DataPoint> source,
+                IEnumerator<DataPoint> enumerator)
                 : base(deadBandCompression)
-                => _enumerator = enumerator;
+            {
+                _source     = source;
+                _enumerator = enumerator;
+            }
             //-----------------------------------------------------------------
-            public override DataPointIterator Clone() => new EnumerableIterator(_deadBandCompression, _enumerator);
+            public override DataPointIterator Clone() => new EnumerableIterator(_deadBandCompression, _source, _enumerator);
             //-----------------------------------------------------------------
             public override bool MoveNext()
             {
@@ -192,12 +200,55 @@ namespace gfoidl.DataCompression
                     case 2:
                         _current = _incoming;
                         _state   = 1;
-                        this.UpdatePoints();
+                        this.UpdatePoints(_incoming, ref _snapShot);
                         return true;
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
                         return false;
                 }
+            }
+            //-----------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray()
+            {
+                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+
+                if (!enumerator.MoveNext())
+                    return Array.Empty<DataPoint>();
+
+                DataPoint snapShot = enumerator.Current;
+                _lastArchived      = snapShot;
+                DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.Add(snapShot);
+                this.GetBounding(snapShot);
+
+                while (enumerator.MoveNext())
+                {
+                    incoming        = enumerator.Current;
+                    ref var archive = ref this.IsPointToArchive(incoming);
+
+                    if (!archive.Archive)
+                    {
+                        snapShot = incoming;
+                        continue;
+                    }
+
+                    if (!archive.MaxDelta)
+                        arrayBuilder.Add(snapShot);
+
+                    arrayBuilder.Add(incoming);
+                    this.UpdatePoints(incoming, ref snapShot);
+                }
+
+                if (incoming != _lastArchived)          // sentinel-check
+                    arrayBuilder.Add(incoming);
+
+                return arrayBuilder.ToArray();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -220,12 +271,12 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void UpdatePoints()
+            private void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
             {
-                _lastArchived = _incoming;
-                _snapShot     = _incoming;
+                _lastArchived = incoming;
+                snapShot      = incoming;
 
-                if (!_archive.MaxDelta) this.GetBounding(_snapShot);
+                if (!_archive.MaxDelta) this.GetBounding(snapShot);
             }
         }
         //---------------------------------------------------------------------
@@ -305,13 +356,59 @@ namespace gfoidl.DataCompression
                     case 2:
                         _current = _source[_incomingIndex];
                         _state   = 1;
-                        this.UpdatePoints();
+                        this.UpdatePoints(_incomingIndex, _current, ref _snapShotIndex);
                         _incomingIndex++;
                         return true;
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
                         return false;
                 }
+            }
+            //-----------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray()
+            {
+                TList source      = _source;
+                int snapShotIndex = 0;
+
+                if ((uint)snapShotIndex >= (uint)source.Count)
+                    return Array.Empty<DataPoint>();
+
+                DataPoint snapShot = source[snapShotIndex];
+
+                if (source.Count < 2)
+                    return new[] { snapShot };
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.Add(snapShot);
+                this.GetBounding(snapShot);
+
+                int incomingIndex = 1;
+                for (; incomingIndex < source.Count; ++incomingIndex)
+                {
+                    ref var archive = ref this.IsPointToArchive(incomingIndex);
+
+                    if (!archive.Archive)
+                    {
+                        snapShotIndex = incomingIndex;
+                        continue;
+                    }
+
+                    if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
+                        arrayBuilder.Add(source[snapShotIndex]);
+
+                    arrayBuilder.Add(source[incomingIndex]);
+                    this.UpdatePoints(incomingIndex, source[incomingIndex], ref snapShotIndex);
+                }
+
+                incomingIndex--;
+                if ((uint)incomingIndex < (uint)source.Count)
+                    arrayBuilder.Add(source[incomingIndex]);
+
+                return arrayBuilder.ToArray();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -343,13 +440,12 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void UpdatePoints()
+            private void UpdatePoints(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
             {
-                int incoming       = _incomingIndex;
-                _snapShotIndex     = incoming;
-                _lastArchivedIndex = incoming;
+                snapShotIndex      = incomingIndex;
+                _lastArchivedIndex = incomingIndex;
 
-                if (!_archive.MaxDelta) this.GetBounding(_source[incoming]);
+                if (!_archive.MaxDelta) this.GetBounding(incoming);
             }
         }
     }

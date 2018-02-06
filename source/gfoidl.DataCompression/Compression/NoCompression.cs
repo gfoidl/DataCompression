@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using gfoidl.Stochastics.Builders;
 
 namespace gfoidl.DataCompression
 {
@@ -13,15 +14,20 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
-            => new EnumerableIterator(data.GetEnumerator());
+            => new EnumerableIterator(data);
         //---------------------------------------------------------------------
         private sealed class EnumerableIterator : DataPointIterator
         {
+            private readonly IEnumerable<DataPoint> _enumerable;
             private readonly IEnumerator<DataPoint> _enumerator;
             //-----------------------------------------------------------------
-            public EnumerableIterator(IEnumerator<DataPoint> enumerator) => _enumerator = enumerator;
+            public EnumerableIterator(IEnumerable<DataPoint> enumerable)
+            {
+                _enumerable = enumerable;
+                _enumerator = enumerable.GetEnumerator();
+            }
             //-----------------------------------------------------------------
-            public override DataPointIterator Clone() => new EnumerableIterator(_enumerator);
+            public override DataPointIterator Clone() => new EnumerableIterator(_enumerable);
             //-----------------------------------------------------------------
             public override bool MoveNext()
             {
@@ -32,6 +38,14 @@ namespace gfoidl.DataCompression
                 }
 
                 return false;
+            }
+            //-----------------------------------------------------------------
+            public override DataPoint[] ToArray()
+            {
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.AddRange(_enumerable);
+
+                return arrayBuilder.ToArray();
             }
         }
     }
