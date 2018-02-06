@@ -120,9 +120,9 @@ namespace gfoidl.DataCompression
                 => _deadBandCompression = deadBandCompression;
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void GetBounding(in DataPoint snapShot)
+            protected void GetBounding(in DataPoint dataPoint)
             {
-                double y = snapShot.Y;
+                double y = dataPoint.Y;
 
                 // Produces better code than updating _bouding directly
                 ref (double Min, double Max) bounding = ref _bounding;
@@ -198,6 +198,15 @@ namespace gfoidl.DataCompression
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
                         return false;
                 }
+            }
+            //-----------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray()
+            {
+                throw new NotImplementedException();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -312,6 +321,15 @@ namespace gfoidl.DataCompression
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
                         return false;
                 }
+            }
+            //-----------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray()
+            {
+                throw new NotImplementedException();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

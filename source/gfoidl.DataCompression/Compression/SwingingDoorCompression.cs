@@ -253,6 +253,15 @@ namespace gfoidl.DataCompression
                         return false;
                 }
             }
+            //---------------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray()
+            {
+                throw new NotImplementedException();
+            }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void OpenNewDoor(in DataPoint incoming)
@@ -366,6 +375,15 @@ namespace gfoidl.DataCompression
                         _incomingIndex = incomingIndex + 1;
                         return true;
                 }
+            }
+            //---------------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray()
+            {
+                throw new NotImplementedException();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
