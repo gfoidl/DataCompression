@@ -23,8 +23,10 @@ namespace gfoidl.DataCompression
         protected const int DisposedState = -3;
         //---------------------------------------------------------------------
         private readonly int _threadId;
+#pragma warning disable CS1591
         protected int        _state;
         protected DataPoint  _current;
+#pragma warning restore CS1591
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates an instance of <see cref="DataPointIterator" />.
