@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using gfoidl.DataCompression.Wrappers;
+using gfoidl.Stochastics.Builders;
 
 namespace gfoidl.DataCompression
 {
@@ -120,7 +121,7 @@ namespace gfoidl.DataCompression
 
             IEnumerator<DataPoint> enumerator = data.GetEnumerator();
             return enumerator.MoveNext()
-                ? new EnumerableIterator(this, enumerator)
+                ? new EnumerableIterator(this, data, enumerator)
                 : DataPointIterator.Empty;
         }
         //---------------------------------------------------------------------
@@ -173,16 +174,23 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private sealed class EnumerableIterator : SwingingDoorCompressionIterator
         {
+            private readonly IEnumerable<DataPoint> _source;
             private readonly IEnumerator<DataPoint> _enumerator;
             private DataPoint                       _snapShot;
             private DataPoint                       _lastArchived;
             private DataPoint                       _incoming;
             //-----------------------------------------------------------------
-            public EnumerableIterator(SwingingDoorCompression swingingDoorCompression, IEnumerator<DataPoint> enumerator)
+            public EnumerableIterator(
+                SwingingDoorCompression swingingDoorCompression,
+                IEnumerable<DataPoint> source,
+                IEnumerator<DataPoint> enumerator)
                 : base(swingingDoorCompression)
-                => _enumerator = enumerator;
+            {
+                _source     = source;
+                _enumerator = enumerator;
+            }
             //-----------------------------------------------------------------
-            public override DataPointIterator Clone() => new EnumerableIterator(_swingingDoorCompression, _enumerator);
+            public override DataPointIterator Clone() => new EnumerableIterator(_swingingDoorCompression, _source, _enumerator);
             //-----------------------------------------------------------------
             public override bool MoveNext()
             {
@@ -194,7 +202,7 @@ namespace gfoidl.DataCompression
                     case 0:
                         _snapShot     = _enumerator.Current;
                         _lastArchived = _snapShot;
-                        _incoming     = _snapShot;
+                        _incoming     = _snapShot;      // sentinel, nullable would be possible but to much work around
                         _current      = _snapShot;
                         this.OpenNewDoor();
                         _state        = 1;
@@ -260,7 +268,56 @@ namespace gfoidl.DataCompression
             /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
-                throw new NotImplementedException();
+                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+
+                if (!enumerator.MoveNext())
+                    return Array.Empty<DataPoint>();
+
+                DataPoint snapShot = enumerator.Current;
+                _lastArchived      = snapShot;
+                DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.Add(snapShot);
+                this.OpenNewDoor(incoming);
+
+                while (enumerator.MoveNext())
+                {
+                    incoming        = enumerator.Current;
+                    this.IsPointToArchive(_lastArchived, incoming);
+                    ref var archive = ref _archive;
+
+                    if (!archive.Archive)
+                    {
+                        this.CloseTheDoor(_lastArchived, incoming);
+                        snapShot = incoming;
+                        continue;
+                    }
+
+                    if (!archive.MaxDelta)
+                        arrayBuilder.Add(snapShot);
+
+                    if (_swingingDoorCompression.MinDeltaX.HasValue)
+                    {
+                        double snapShot_x = snapShot.X;
+                        double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
+
+                        while (enumerator.MoveNext())
+                        {
+                            incoming = enumerator.Current;
+                            if ((incoming.X - snapShot_x) > minDeltaX)
+                                break;
+                        }
+                    }
+
+                    arrayBuilder.Add(incoming);
+                    this.OpenNewDoor(incoming);
+                }
+
+                if (incoming != _lastArchived)
+                    arrayBuilder.Add(incoming);
+
+                return arrayBuilder.ToArray();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -383,7 +440,58 @@ namespace gfoidl.DataCompression
             /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
-                throw new NotImplementedException();
+                TList source      = _source;
+                int snapShotIndex = 0;
+
+                if ((uint)snapShotIndex >= (uint)source.Count)
+                    return Array.Empty<DataPoint>();
+
+                DataPoint snapShot = source[snapShotIndex];
+
+                if (source.Count < 2)
+                    return new[] { snapShot };
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.Add(snapShot);
+                this.OpenNewDoor(0);
+
+                int incomingIndex = 1;
+                for (; incomingIndex < source.Count; ++incomingIndex)
+                {
+                    ref var archive = ref this.IsPointToArchive(incomingIndex);
+
+                    if (!archive.Archive)
+                    {
+                        this.CloseTheDoor(incomingIndex);
+                        snapShotIndex = incomingIndex;
+                        continue;
+                    }
+
+                    if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
+                        arrayBuilder.Add(source[snapShotIndex]);
+
+                    if (_swingingDoorCompression.MinDeltaX.HasValue)
+                    {
+                        double snapShot_x = source[snapShotIndex].X;
+                        double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
+
+                        for (; incomingIndex < source.Count; ++incomingIndex)
+                        {
+                            DataPoint incoming = source[incomingIndex];
+                            if ((incoming.X - snapShot_x) > minDeltaX)
+                                break;
+                        }
+                    }
+
+                    arrayBuilder.Add(source[incomingIndex]);
+                    this.OpenNewDoor(incomingIndex);
+                }
+
+                incomingIndex--;
+                if (incomingIndex != _lastArchivedIndex && (uint)incomingIndex < (uint)source.Count)
+                    arrayBuilder.Add(source[incomingIndex]);
+
+                return arrayBuilder.ToArray();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
