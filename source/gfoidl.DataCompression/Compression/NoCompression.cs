@@ -47,6 +47,8 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList() => new List<DataPoint>(_enumerable);
         }
     }
 }

@@ -208,10 +208,6 @@ namespace gfoidl.DataCompression
                 }
             }
             //-----------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
@@ -219,12 +215,35 @@ namespace gfoidl.DataCompression
                 if (!enumerator.MoveNext())
                     return Array.Empty<DataPoint>();
 
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                this.BuildCollection(enumerator, ref arrayBuilder);
+
+                DataPoint[] array = arrayBuilder.ToArray();
+                return array;
+            }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList()
+            {
+                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+
+                if (!enumerator.MoveNext())
+                    return new List<DataPoint>();
+
+                var listBuilder = new ListBuilder<DataPoint>(true);
+                this.BuildCollection(enumerator, ref listBuilder);
+
+                List<DataPoint> list = listBuilder.ToList();
+                return list;
+            }
+            //---------------------------------------------------------------------
+            public void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
+                where TBuilder : ICollectionBuilder<DataPoint>
+            {
                 DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
                 DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
 
-                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                arrayBuilder.Add(snapShot);
+                builder.Add(snapShot);
                 this.GetBounding(snapShot);
 
                 while (enumerator.MoveNext())
@@ -239,16 +258,14 @@ namespace gfoidl.DataCompression
                     }
 
                     if (!archive.MaxDelta)
-                        arrayBuilder.Add(snapShot);
+                        builder.Add(snapShot);
 
-                    arrayBuilder.Add(incoming);
+                    builder.Add(incoming);
                     this.UpdatePoints(incoming, ref snapShot);
                 }
 
                 if (incoming != _lastArchived)          // sentinel-check
-                    arrayBuilder.Add(incoming);
-
-                return arrayBuilder.ToArray();
+                    builder.Add(incoming);
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -364,26 +381,50 @@ namespace gfoidl.DataCompression
                         return false;
                 }
             }
-            //-----------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            //---------------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
-                TList source      = _source;
-                int snapShotIndex = 0;
+                TList source = _source;
+                int index    = 0;
 
-                if ((uint)snapShotIndex >= (uint)source.Count)
+                if (source.Count == 0)
                     return Array.Empty<DataPoint>();
-
-                DataPoint snapShot = source[snapShotIndex];
-
-                if (source.Count < 2)
-                    return new[] { snapShot };
+                else if (source.Count == 1 && (uint)index < (uint)source.Count)
+                    return new[] { source[0] };
 
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                arrayBuilder.Add(snapShot);
+                this.BuildCollection(source, ref arrayBuilder);
+
+                DataPoint[] array = arrayBuilder.ToArray();
+                return array;
+            }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList()
+            {
+                TList source = _source;
+                int index    = 0;
+
+                if (source.Count == 0)
+                    return new List<DataPoint>();
+                else if (source.Count == 1 && (uint)index < (uint)source.Count)
+                    return new List<DataPoint> { source[0] };
+
+                var listBuilder = new ListBuilder<DataPoint>(true);
+                this.BuildCollection(source, ref listBuilder);
+
+                List<DataPoint> list = listBuilder.ToList();
+                return list;
+            }
+            //-----------------------------------------------------------------
+            private void BuildCollection<TBuilder>(TList source, ref TBuilder builder)
+                where TBuilder : ICollectionBuilder<DataPoint>
+            {
+                int snapShotIndex = 0;
+
+                if ((uint)snapShotIndex >= (uint)source.Count) return;
+
+                DataPoint snapShot = source[snapShotIndex];
+                builder.Add(snapShot);
                 this.GetBounding(snapShot);
 
                 int incomingIndex = 1;
@@ -398,17 +439,15 @@ namespace gfoidl.DataCompression
                     }
 
                     if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
-                        arrayBuilder.Add(source[snapShotIndex]);
+                        builder.Add(source[snapShotIndex]);
 
-                    arrayBuilder.Add(source[incomingIndex]);
+                    builder.Add(source[incomingIndex]);
                     this.UpdatePoints(incomingIndex, source[incomingIndex], ref snapShotIndex);
                 }
 
                 incomingIndex--;
                 if ((uint)incomingIndex < (uint)source.Count)
-                    arrayBuilder.Add(source[incomingIndex]);
-
-                return arrayBuilder.ToArray();
+                    builder.Add(source[incomingIndex]);
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
