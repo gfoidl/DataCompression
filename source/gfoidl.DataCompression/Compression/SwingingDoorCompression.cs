@@ -446,8 +446,14 @@ namespace gfoidl.DataCompression
                 this.OpenNewDoor(0);
 
                 int incomingIndex = 1;
-                for (; incomingIndex < source.Count; ++incomingIndex)
+
+                // Is actually a for loop, but the JIT doesn't elide the bound check
+                // due to SkipMinDeltaX. I.e. w/o SkipMinDeltaX the bound check gets 
+                // eliminated.
+                while (true)
                 {
+                    if ((uint)incomingIndex >= (uint)source.Count) break;
+
                     _incoming       = source[incomingIndex];
                     this.IsPointToArchive(_incoming, _lastArchived);
                     ref var archive = ref _archive;
@@ -455,7 +461,7 @@ namespace gfoidl.DataCompression
                     if (!archive.Archive)
                     {
                         this.CloseTheDoor(_incoming, _lastArchived);
-                        snapShotIndex = incomingIndex;
+                        snapShotIndex = incomingIndex++;
                         continue;
                     }
 
@@ -467,6 +473,8 @@ namespace gfoidl.DataCompression
 
                     arrayBuilder.Add(_incoming);
                     this.OpenNewDoor(incomingIndex);
+
+                    incomingIndex++;
                 }
 
                 incomingIndex--;
