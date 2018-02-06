@@ -149,9 +149,9 @@ namespace gfoidl.DataCompression
                 => _swingingDoorCompression = swingingDoorCompression;
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void IsPointToArchive()
+            protected void IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
             {
-                if ((_incoming.X - _lastArchived.X) >= (_swingingDoorCompression._maxDeltaX))
+                if ((incoming.X - lastArchived.X) >= (_swingingDoorCompression._maxDeltaX))
                 {
                     _archive.Archive  = true;
                     _archive.MaxDelta = true;
@@ -160,7 +160,7 @@ namespace gfoidl.DataCompression
                 {
                     // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
                     // Obviously, the result should be the same ;-)
-                    double slopeToIncoming = _lastArchived.Gradient(_incoming);
+                    double slopeToIncoming = lastArchived.Gradient(incoming);
 
                     _archive.Archive  = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
                     _archive.MaxDelta = false;
@@ -168,10 +168,10 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void CloseTheDoor()
+            protected void CloseTheDoor(in DataPoint incoming, in DataPoint lastArchived)
             {
-                double upperSlope = _lastArchived.Gradient(_incoming, _swingingDoorCompression.CompressionDeviation);
-                double lowerSlope = _lastArchived.Gradient(_incoming, -_swingingDoorCompression.CompressionDeviation);
+                double upperSlope = lastArchived.Gradient(incoming, _swingingDoorCompression.CompressionDeviation);
+                double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
 
                 if (upperSlope < _slope.Max) _slope.Max = upperSlope;
                 if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
@@ -222,12 +222,12 @@ namespace gfoidl.DataCompression
                         while (_enumerator.MoveNext())
                         {
                             _incoming       = _enumerator.Current;
-                            this.IsPointToArchive();
+                            this.IsPointToArchive(_incoming, _lastArchived);
                             ref var archive = ref _archive;
 
                             if (!archive.Archive)
                             {
-                                this.CloseTheDoor();
+                                this.CloseTheDoor(_incoming, _lastArchived);
                                 _snapShot = _incoming;
                                 continue;
                             }
@@ -285,12 +285,12 @@ namespace gfoidl.DataCompression
                 while (enumerator.MoveNext())
                 {
                     _incoming       = enumerator.Current;
-                    this.IsPointToArchive();
+                    this.IsPointToArchive(_incoming, _lastArchived);
                     ref var archive = ref _archive;
 
                     if (!archive.Archive)
                     {
-                        this.CloseTheDoor();
+                        this.CloseTheDoor(_incoming, _lastArchived);
                         snapShot = _incoming;
                         continue;
                     }
@@ -376,14 +376,13 @@ namespace gfoidl.DataCompression
                             if ((uint)incomingIndex >= (uint)source.Count || (uint)snapShotIndex >= (uint)source.Count)
                                 break;
 
-                            _incoming = source[incomingIndex];
-
-                            this.IsPointToArchive();
+                            _incoming       = source[incomingIndex];
+                            this.IsPointToArchive(_incoming, _lastArchived);
                             ref var archive = ref _archive;
 
                             if (!archive.Archive)
                             {
-                                this.CloseTheDoor();
+                                this.CloseTheDoor(_incoming, _lastArchived);
                                 snapShotIndex = incomingIndex++;
                                 continue;
                             }
@@ -449,13 +448,13 @@ namespace gfoidl.DataCompression
                 int incomingIndex = 1;
                 for (; incomingIndex < source.Count; ++incomingIndex)
                 {
-                    _incoming = source[incomingIndex];
-                    this.IsPointToArchive();
+                    _incoming       = source[incomingIndex];
+                    this.IsPointToArchive(_incoming, _lastArchived);
                     ref var archive = ref _archive;
 
                     if (!archive.Archive)
                     {
-                        this.CloseTheDoor();
+                        this.CloseTheDoor(_incoming, _lastArchived);
                         snapShotIndex = incomingIndex;
                         continue;
                     }
