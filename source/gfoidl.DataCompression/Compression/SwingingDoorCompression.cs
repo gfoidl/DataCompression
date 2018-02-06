@@ -81,7 +81,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IEnumerable<DataPoint> ProcessCore(IEnumerable<DataPoint> data)
+        protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
         {
             if (data is ArrayWrapper<DataPoint> arrayWrapper)
             {
