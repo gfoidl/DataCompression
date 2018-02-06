@@ -134,12 +134,17 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private abstract class SwingingDoorCompressionIterator : DataPointIterator
         {
+            protected static readonly (double Max, double Min) _newDoor = (double.PositiveInfinity, double.NegativeInfinity);
+            //---------------------------------------------------------------------
             protected readonly SwingingDoorCompression _swingingDoorCompression;
             protected (double Max, double Min)         _slope;
             protected (bool Archive, bool MaxDelta)    _archive;
             protected DataPoint                        _lastArchived;
             protected DataPoint                        _incoming;
             //-----------------------------------------------------------------
+            // Force static readonly fields to be initialized
+            static SwingingDoorCompressionIterator() { }
+            //---------------------------------------------------------------------
             protected SwingingDoorCompressionIterator(SwingingDoorCompression swingingDoorCompression)
                 => _swingingDoorCompression = swingingDoorCompression;
             //-----------------------------------------------------------------
@@ -176,9 +181,7 @@ namespace gfoidl.DataCompression
             protected void OpenNewDoor()
             {
                 _lastArchived = _incoming;
-
-                _slope.Max = double.PositiveInfinity;
-                _slope.Min = double.NegativeInfinity;
+                _slope        = _newDoor;
             }
         }
         //---------------------------------------------------------------------
