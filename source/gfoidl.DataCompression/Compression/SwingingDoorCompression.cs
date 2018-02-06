@@ -263,10 +263,6 @@ namespace gfoidl.DataCompression
                 }
             }
             //---------------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
@@ -313,6 +309,8 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList() => throw new NotImplementedException();
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
             private void SkipMinDeltaX(in DataPoint snapShot)
@@ -429,10 +427,6 @@ namespace gfoidl.DataCompression
                 }
             }
             //---------------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
                 TList source      = _source;
@@ -493,6 +487,8 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList() => throw new NotImplementedException();
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void OpenNewDoor(int incomingIndex, in DataPoint incoming)

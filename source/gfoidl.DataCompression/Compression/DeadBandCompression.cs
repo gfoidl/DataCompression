@@ -208,10 +208,6 @@ namespace gfoidl.DataCompression
                 }
             }
             //-----------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
@@ -250,6 +246,8 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList() => throw new NotImplementedException();
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
@@ -365,10 +363,6 @@ namespace gfoidl.DataCompression
                 }
             }
             //-----------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
                 TList source      = _source;
@@ -410,6 +404,8 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList() => throw new NotImplementedException();
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private ref (bool Archive, bool MaxDelta) IsPointToArchive(int incomingIndex)

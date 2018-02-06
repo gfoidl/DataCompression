@@ -98,6 +98,12 @@ namespace gfoidl.DataCompression
         public abstract DataPoint[] ToArray();
         //---------------------------------------------------------------------
         /// <summary>
+        /// Returns a list of the compressed <see cref="DataPoint" />s.
+        /// </summary>
+        /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
+        public abstract List<DataPoint> ToList();
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Resets the enumerator and its state.
         /// </summary>
         public virtual void Dispose()
@@ -132,6 +138,12 @@ namespace gfoidl.DataCompression
             /// </summary>
             /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray() => Array.Empty<DataPoint>();
+            //---------------------------------------------------------------------
+            /// <summary>
+            /// Returns a list of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
+            public override List<DataPoint> ToList() => new List<DataPoint>();
         }
     }
 }
