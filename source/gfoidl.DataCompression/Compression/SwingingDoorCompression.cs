@@ -23,7 +23,7 @@ namespace gfoidl.DataCompression
         /// </remarks>
         public double CompressionDeviation { get; }
         //---------------------------------------------------------------------
-        private double _maxDeltaX;
+        private readonly double _maxDeltaX;
         /// <summary>
         /// Length of x before for sure a value gets recorded.
         /// </summary>
@@ -38,10 +38,12 @@ namespace gfoidl.DataCompression
         /// </remarks>
         public double? MaxDeltaX => _maxDeltaX == double.MaxValue ? (double?)null : _maxDeltaX;
         //---------------------------------------------------------------------
+        private readonly bool   _minDeltaXHasValue;
+        private readonly double _minDeltaX;
         /// <summary>
         /// Length of x/time within no value gets recorded (after the last archived value)
         /// </summary>
-        public double? MinDeltaX { get; }
+        public double? MinDeltaX => _minDeltaXHasValue ? _minDeltaX : (double?)null;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of swinging door compression.
@@ -61,7 +63,12 @@ namespace gfoidl.DataCompression
         {
             this.CompressionDeviation = compressionDeviation;
             _maxDeltaX                = maxDeltaX ?? double.MaxValue;
-            this.MinDeltaX            = minDeltaX;
+
+            if (minDeltaX.HasValue)
+            {
+                _minDeltaXHasValue = true;
+                _minDeltaX         = minDeltaX.Value;
+            }
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -240,18 +247,8 @@ namespace gfoidl.DataCompression
                         }
                         return false;
                     case 2:
-                        if (_swingingDoorCompression.MinDeltaX.HasValue)
-                        {
-                            double snapShot_x = _snapShot.X;
-                            double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
-
-                            while (_enumerator.MoveNext())
-                            {
-                                _incoming = _enumerator.Current;
-                                if ((_incoming.X - snapShot_x) > minDeltaX)
-                                    break;
-                            }
-                        }
+                        if (_swingingDoorCompression._minDeltaXHasValue)
+                            this.SkipMinDeltaX(_snapShot);
 
                         _current = _incoming;
                         _state   = 1;
@@ -298,18 +295,8 @@ namespace gfoidl.DataCompression
                     if (!archive.MaxDelta)
                         arrayBuilder.Add(snapShot);
 
-                    if (_swingingDoorCompression.MinDeltaX.HasValue)
-                    {
-                        double snapShot_x = snapShot.X;
-                        double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
-
-                        while (enumerator.MoveNext())
-                        {
-                            _incoming = enumerator.Current;
-                            if ((_incoming.X - snapShot_x) > minDeltaX)
-                                break;
-                        }
-                    }
+                    if (_swingingDoorCompression._minDeltaXHasValue)
+                        this.SkipMinDeltaX(snapShot);
 
                     arrayBuilder.Add(_incoming);
                     this.OpenNewDoor();
@@ -319,6 +306,21 @@ namespace gfoidl.DataCompression
                     arrayBuilder.Add(_incoming);
 
                 return arrayBuilder.ToArray();
+            }
+            //---------------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            private void SkipMinDeltaX(in DataPoint snapShot)
+            {
+                double snapShot_x = snapShot.X;
+                double minDeltaX  = _swingingDoorCompression._minDeltaX;
+
+                while (_enumerator.MoveNext())
+                {
+                    _incoming = _enumerator.Current;
+
+                    if ((_incoming.X - snapShot_x) > minDeltaX)
+                        break;
+                }
             }
         }
         //---------------------------------------------------------------------
@@ -406,23 +408,12 @@ namespace gfoidl.DataCompression
                         }
                         return false;
                     case 2:
-                        source        = _source;
                         incomingIndex = _incomingIndex;
 
-                        if (_swingingDoorCompression.MinDeltaX.HasValue)
-                        {
-                            double snapShot_x = source[_snapShotIndex].X;
-                            double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
+                        if (_swingingDoorCompression._minDeltaXHasValue)
+                            incomingIndex = this.SkipMinDeltaX(_source, _snapShotIndex, incomingIndex);
 
-                            for (; incomingIndex < source.Count; ++incomingIndex)
-                            {
-                                DataPoint incoming = source[incomingIndex];
-                                if ((incoming.X - snapShot_x) > minDeltaX)
-                                    break;
-                            }
-                        }
-
-                        _current       = source[incomingIndex];
+                        _current       = _source[incomingIndex];
                         _state         = 1;
                         this.OpenNewDoor(incomingIndex);
                         _incomingIndex = incomingIndex + 1;
@@ -455,7 +446,7 @@ namespace gfoidl.DataCompression
                 int incomingIndex = 1;
                 for (; incomingIndex < source.Count; ++incomingIndex)
                 {
-                    _incoming       = source[incomingIndex];
+                    _incoming = source[incomingIndex];
                     this.IsPointToArchive();
                     ref var archive = ref _archive;
 
@@ -469,21 +460,8 @@ namespace gfoidl.DataCompression
                     if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
                         arrayBuilder.Add(source[snapShotIndex]);
 
-                    if (_swingingDoorCompression.MinDeltaX.HasValue)
-                    {
-                        double snapShot_x = source[snapShotIndex].X;
-                        double minDeltaX  = _swingingDoorCompression.MinDeltaX.Value;
-
-                        for (; incomingIndex < source.Count; ++incomingIndex)
-                        {
-                            DataPoint incoming = source[incomingIndex];
-                            if ((incoming.X - snapShot_x) > minDeltaX)
-                            {
-                                _incoming = incoming;
-                                break;
-                            }
-                        }
-                    }
+                    if (_swingingDoorCompression._minDeltaXHasValue)
+                        incomingIndex = this.SkipMinDeltaX(source, snapShotIndex, incomingIndex);
 
                     arrayBuilder.Add(_incoming);
                     this.OpenNewDoor(incomingIndex);
@@ -502,6 +480,32 @@ namespace gfoidl.DataCompression
                 _lastArchivedIndex = incomingIndex;
 
                 this.OpenNewDoor();
+            }
+            //---------------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            private int SkipMinDeltaX(TList source, int snapShotIndex, int incomingIndex)
+            {
+                if ((uint)snapShotIndex < (uint)source.Count)
+                {
+                    double snapShot_x = source[snapShotIndex].X;
+                    double minDeltaX  = _swingingDoorCompression._minDeltaX;
+
+                    // A for loop won't elide the bound checks, although incomingIndex < source.Count
+                    // Sometimes the JIT shows huge room for improvement ;-)
+                    while (true)
+                    {
+                        if ((uint)incomingIndex >= (uint)source.Count) break;
+
+                        _incoming = source[incomingIndex];
+
+                        if ((_incoming.X - snapShot_x) > minDeltaX)
+                            break;
+
+                        incomingIndex++;
+                    }
+                }
+
+                return incomingIndex;
             }
         }
     }
