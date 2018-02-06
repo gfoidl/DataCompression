@@ -449,11 +449,12 @@ namespace gfoidl.DataCompression
             public override DataPoint[] ToArray()
             {
                 TList source = _source;
+                int index    = 0;
 
                 if (source.Count == 0)
                     return Array.Empty<DataPoint>();
-                else if (source.Count == 1)
-                    return new[] { source[0] };
+                else if (source.Count == 1 && (uint)index < (uint)source.Count)
+                    return new[] { source[index] };
 
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
                 this.BuildCollection(source, ref arrayBuilder);
@@ -465,10 +466,11 @@ namespace gfoidl.DataCompression
             public override List<DataPoint> ToList()
             {
                 TList source = _source;
+                int index    = 0;
 
                 if (source.Count == 0)
                     return new List<DataPoint>();
-                else if (source.Count == 1)
+                else if (source.Count == 1 && (uint)index < (uint)source.Count)
                     return new List<DataPoint> { source[0] };
 
                 var listBuilder = new ListBuilder<DataPoint>(true);
