@@ -270,12 +270,35 @@ namespace gfoidl.DataCompression
                 if (!enumerator.MoveNext())
                     return Array.Empty<DataPoint>();
 
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                this.BuildCollection(enumerator, ref arrayBuilder);
+
+                DataPoint[] array = arrayBuilder.ToArray();
+                return array;
+            }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList()
+            {
+                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+
+                if (!enumerator.MoveNext())
+                    return new List<DataPoint>();
+
+                var listBuilder = new ListBuilder<DataPoint>(true);
+                this.BuildCollection(enumerator, ref listBuilder);
+
+                List<DataPoint> list = listBuilder.ToList();
+                return list;
+            }
+            //---------------------------------------------------------------------
+            private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
+                where TBuilder : ICollectionBuilder<DataPoint>
+            {
                 DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
                 DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
 
-                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                arrayBuilder.Add(snapShot);
+                builder.Add(snapShot);
                 this.OpenNewDoor(snapShot);
 
                 while (enumerator.MoveNext())
@@ -292,7 +315,7 @@ namespace gfoidl.DataCompression
                     }
 
                     if (!archive.MaxDelta)
-                        arrayBuilder.Add(snapShot);
+                        builder.Add(snapShot);
 
                     if (_swingingDoorCompression._minDeltaXHasValue)
                     {
@@ -300,17 +323,13 @@ namespace gfoidl.DataCompression
                         incoming = _incoming;
                     }
 
-                    arrayBuilder.Add(incoming);
+                    builder.Add(incoming);
                     this.OpenNewDoor(incoming);
                 }
 
                 if (incoming != _lastArchived)          // sentinel-check
-                    arrayBuilder.Add(incoming);
-
-                return arrayBuilder.ToArray();
+                    builder.Add(incoming);
             }
-            //---------------------------------------------------------------------
-            public override List<DataPoint> ToList() => throw new NotImplementedException();
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
             private void SkipMinDeltaX(in DataPoint snapShot)
@@ -429,21 +448,48 @@ namespace gfoidl.DataCompression
             //---------------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
-                TList source      = _source;
+                TList source = _source;
+
+                if (source.Count == 0)
+                    return Array.Empty<DataPoint>();
+                else if (source.Count == 1)
+                    return new[] { source[0] };
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                this.BuildCollection(source, ref arrayBuilder);
+
+                DataPoint[] array = arrayBuilder.ToArray();
+                return array;
+            }
+            //---------------------------------------------------------------------
+            public override List<DataPoint> ToList()
+            {
+                TList source = _source;
+
+                if (source.Count == 0)
+                    return new List<DataPoint>();
+                else if (source.Count == 1)
+                    return new List<DataPoint> { source[0] };
+
+                var listBuilder = new ListBuilder<DataPoint>(true);
+                this.BuildCollection(source, ref listBuilder);
+
+                List<DataPoint> list = listBuilder.ToList();
+                return list;
+            }
+            //---------------------------------------------------------------------
+            private void BuildCollection<TBuilder>(TList source, ref TBuilder builder)
+                where TBuilder : ICollectionBuilder<DataPoint>
+            {
                 int snapShotIndex = 0;
 
-                if ((uint)snapShotIndex >= (uint)source.Count)
-                    return Array.Empty<DataPoint>();
+                if ((uint)snapShotIndex >= (uint)source.Count) return;
 
                 // Is actually the snapshot, but this in an optimization for OpenNewDoor
                 _incoming              = source[snapShotIndex];
                 ref DataPoint snapShot = ref _incoming;
 
-                if (source.Count < 2)
-                    return new[] { snapShot };
-
-                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                arrayBuilder.Add(snapShot);
+                builder.Add(snapShot);
                 this.OpenNewDoor(0, snapShot);
 
                 int incomingIndex = 1;
@@ -467,7 +513,7 @@ namespace gfoidl.DataCompression
                     }
 
                     if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
-                        arrayBuilder.Add(source[snapShotIndex]);
+                        builder.Add(source[snapShotIndex]);
 
                     if (_swingingDoorCompression._minDeltaXHasValue)
                     {
@@ -475,7 +521,7 @@ namespace gfoidl.DataCompression
                         incoming      = _incoming;
                     }
 
-                    arrayBuilder.Add(incoming);
+                    builder.Add(incoming);
                     this.OpenNewDoor(incomingIndex, incoming);
 
                     incomingIndex++;
@@ -483,12 +529,8 @@ namespace gfoidl.DataCompression
 
                 incomingIndex--;
                 if (incomingIndex != _lastArchivedIndex && (uint)incomingIndex < (uint)source.Count)
-                    arrayBuilder.Add(source[incomingIndex]);
-
-                return arrayBuilder.ToArray();
+                    builder.Add(source[incomingIndex]);
             }
-            //---------------------------------------------------------------------
-            public override List<DataPoint> ToList() => throw new NotImplementedException();
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void OpenNewDoor(int incomingIndex, in DataPoint incoming)
