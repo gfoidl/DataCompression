@@ -3,18 +3,20 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
+        <PackageLicenseUrl>https://github.com/gfoidl/DataCompression/blob/master/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
     <PropertyGroup Label="Package">
-        <PackageTags>data compression swinging-door-algorithm dead-band-filtering swinging-door swinging</PackageTags>
-        <PackageProjectUrl>https://bitbucket.org/gfoidl/datacompression</PackageProjectUrl>
-        <RepositoryUrl>https://bitbucket.org/gfoidl/datacompression</RepositoryUrl>
+        <PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
+        <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <Description>Provides several data-compression algorithms:
 
 * error band elimination
 * swinging door algorithm
         </Description>
+        <Copyright>Copyright © Foidl Günther 2017-2018</Copyright>
     </PropertyGroup>
 
     <PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">
