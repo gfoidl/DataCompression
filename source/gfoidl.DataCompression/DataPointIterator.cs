@@ -92,6 +92,12 @@ namespace gfoidl.DataCompression
         public abstract bool MoveNext();
         //---------------------------------------------------------------------
         /// <summary>
+        /// Returns an array of the compressed <see cref="DataPoint" />s.
+        /// </summary>
+        /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+        public abstract DataPoint[] ToArray();
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Resets the enumerator and its state.
         /// </summary>
         public virtual void Dispose()
@@ -120,6 +126,12 @@ namespace gfoidl.DataCompression
             /// <c>false</c> if the enumerator has passed the end of the collection.
             /// </returns>
             public override bool MoveNext() => false;
+            //---------------------------------------------------------------------
+            /// <summary>
+            /// Returns an array of the compressed <see cref="DataPoint" />s.
+            /// </summary>
+            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+            public override DataPoint[] ToArray() => Array.Empty<DataPoint>();
         }
     }
 }
