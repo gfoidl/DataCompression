@@ -485,10 +485,7 @@ namespace gfoidl.DataCompression
 
                 if ((uint)snapShotIndex >= (uint)source.Count) return;
 
-                // Is actually the snapshot, but this in an optimization for OpenNewDoor
-                _incoming              = source[snapShotIndex];
-                ref DataPoint snapShot = ref _incoming;
-
+                DataPoint snapShot = source[snapShotIndex];
                 builder.Add(snapShot);
                 this.OpenNewDoor(0, snapShot);
 
