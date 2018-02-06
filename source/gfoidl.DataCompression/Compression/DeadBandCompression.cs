@@ -107,7 +107,7 @@ namespace gfoidl.DataCompression
 
             IEnumerator<DataPoint> enumerator = data.GetEnumerator();
             return enumerator.MoveNext()
-                ? new EnumerableIterator(this, enumerator)
+                ? new EnumerableIterator(this, data, enumerator)
                 : DataPointIterator.Empty;
         }
         //---------------------------------------------------------------------
@@ -135,16 +135,23 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private sealed class EnumerableIterator : DeadBandCompressionIterator
         {
+            private readonly IEnumerable<DataPoint> _source;
             private readonly IEnumerator<DataPoint> _enumerator;
             private DataPoint                       _snapShot;
             private DataPoint                       _lastArchived;
             private DataPoint                       _incoming;
             //-----------------------------------------------------------------
-            public EnumerableIterator(DeadBandCompression deadBandCompression, IEnumerator<DataPoint> enumerator)
+            public EnumerableIterator(
+                DeadBandCompression deadBandCompression,
+                IEnumerable<DataPoint> source,
+                IEnumerator<DataPoint> enumerator)
                 : base(deadBandCompression)
-                => _enumerator = enumerator;
+            {
+                _source     = source;
+                _enumerator = enumerator;
+            }
             //-----------------------------------------------------------------
-            public override DataPointIterator Clone() => new EnumerableIterator(_deadBandCompression, _enumerator);
+            public override DataPointIterator Clone() => new EnumerableIterator(_deadBandCompression, _source, _enumerator);
             //-----------------------------------------------------------------
             public override bool MoveNext()
             {
@@ -207,7 +214,12 @@ namespace gfoidl.DataCompression
             /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
-                DataPoint snapShot = _enumerator.Current;
+                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+
+                if (!enumerator.MoveNext())
+                    return Array.Empty<DataPoint>();
+
+                DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
                 DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
 
@@ -215,9 +227,9 @@ namespace gfoidl.DataCompression
                 arrayBuilder.Add(snapShot);
                 this.GetBounding(snapShot);
 
-                while (_enumerator.MoveNext())
+                while (enumerator.MoveNext())
                 {
-                    incoming        = _enumerator.Current;
+                    incoming        = enumerator.Current;
                     ref var archive = ref this.IsPointToArchive(incoming);
 
                     if (!archive.Archive)
