@@ -178,9 +178,9 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void OpenNewDoor()
+            protected void OpenNewDoor(in DataPoint incoming)
             {
-                _lastArchived = _incoming;
+                _lastArchived = incoming;
                 _slope        = _newDoor;
             }
         }
@@ -215,7 +215,7 @@ namespace gfoidl.DataCompression
                         _lastArchived = _snapShot;
                         _incoming     = _snapShot;          // sentinel, nullable would be possible but to much work around
                         _current      = _snapShot;
-                        this.OpenNewDoor();
+                        this.OpenNewDoor(_incoming);
                         _state        = 1;
                         return true;
                     case 1:
@@ -255,7 +255,7 @@ namespace gfoidl.DataCompression
 
                         _current = _incoming;
                         _state   = 1;
-                        this.OpenNewDoor();
+                        this.OpenNewDoor(_incoming);
                         return true;
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
@@ -276,22 +276,22 @@ namespace gfoidl.DataCompression
 
                 DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
-                _incoming          = snapShot;          // sentinel, nullable would be possible but to much work around
+                DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
 
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
                 arrayBuilder.Add(snapShot);
-                this.OpenNewDoor();
+                this.OpenNewDoor(snapShot);
 
                 while (enumerator.MoveNext())
                 {
-                    _incoming       = enumerator.Current;
-                    this.IsPointToArchive(_incoming, _lastArchived);
-                    ref var archive = ref _archive;
+                    incoming = enumerator.Current;
+                    this.IsPointToArchive(incoming, _lastArchived);
+                    ref var archive    = ref _archive;
 
                     if (!archive.Archive)
                     {
-                        this.CloseTheDoor(_incoming, _lastArchived);
-                        snapShot = _incoming;
+                        this.CloseTheDoor(incoming, _lastArchived);
+                        snapShot = incoming;
                         continue;
                     }
 
@@ -299,14 +299,17 @@ namespace gfoidl.DataCompression
                         arrayBuilder.Add(snapShot);
 
                     if (_swingingDoorCompression._minDeltaXHasValue)
+                    {
                         this.SkipMinDeltaX(snapShot);
+                        incoming = _incoming;
+                    }
 
-                    arrayBuilder.Add(_incoming);
-                    this.OpenNewDoor();
+                    arrayBuilder.Add(incoming);
+                    this.OpenNewDoor(incoming);
                 }
 
-                if (_incoming != _lastArchived)          // sentinel-check
-                    arrayBuilder.Add(_incoming);
+                if (incoming != _lastArchived)          // sentinel-check
+                    arrayBuilder.Add(incoming);
 
                 return arrayBuilder.ToArray();
             }
@@ -319,10 +322,13 @@ namespace gfoidl.DataCompression
 
                 while (_enumerator.MoveNext())
                 {
-                    _incoming = _enumerator.Current;
+                    DataPoint tmp = _enumerator.Current;
 
-                    if ((_incoming.X - snapShot_x) > minDeltaX)
+                    if ((tmp.X - snapShot_x) > minDeltaX)
+                    {
+                        _incoming = tmp;
                         break;
+                    }
                 }
             }
         }
@@ -360,7 +366,7 @@ namespace gfoidl.DataCompression
                             return true;
                         }
 
-                        this.OpenNewDoor(0);
+                        this.OpenNewDoor(0, _incoming);
                         _state         = 1;
                         _incomingIndex = 1;
                         return true;
@@ -417,7 +423,7 @@ namespace gfoidl.DataCompression
 
                         _current       = _source[incomingIndex];
                         _state         = 1;
-                        this.OpenNewDoor(incomingIndex);
+                        this.OpenNewDoor(incomingIndex, _incoming);
                         _incomingIndex = incomingIndex + 1;
                         return true;
                 }
@@ -436,14 +442,15 @@ namespace gfoidl.DataCompression
                     return Array.Empty<DataPoint>();
 
                 // Is actually the snapshot, but this in an optimization for OpenNewDoor
-                _incoming = source[snapShotIndex];
+                _incoming              = source[snapShotIndex];
+                ref DataPoint snapShot = ref _incoming;
 
                 if (source.Count < 2)
-                    return new[] { _incoming };
+                    return new[] { snapShot };
 
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                arrayBuilder.Add(_incoming);
-                this.OpenNewDoor(0);
+                arrayBuilder.Add(snapShot);
+                this.OpenNewDoor(0, snapShot);
 
                 int incomingIndex = 1;
 
@@ -454,13 +461,13 @@ namespace gfoidl.DataCompression
                 {
                     if ((uint)incomingIndex >= (uint)source.Count) break;
 
-                    _incoming       = source[incomingIndex];
-                    this.IsPointToArchive(_incoming, _lastArchived);
-                    ref var archive = ref _archive;
+                    DataPoint incoming = source[incomingIndex];
+                    this.IsPointToArchive(incoming, _lastArchived);
+                    ref var archive    = ref _archive;
 
                     if (!archive.Archive)
                     {
-                        this.CloseTheDoor(_incoming, _lastArchived);
+                        this.CloseTheDoor(incoming, _lastArchived);
                         snapShotIndex = incomingIndex++;
                         continue;
                     }
@@ -469,10 +476,13 @@ namespace gfoidl.DataCompression
                         arrayBuilder.Add(source[snapShotIndex]);
 
                     if (_swingingDoorCompression._minDeltaXHasValue)
+                    {
                         incomingIndex = this.SkipMinDeltaX(source, snapShotIndex, incomingIndex);
+                        incoming      = _incoming;
+                    }
 
-                    arrayBuilder.Add(_incoming);
-                    this.OpenNewDoor(incomingIndex);
+                    arrayBuilder.Add(incoming);
+                    this.OpenNewDoor(incomingIndex, incoming);
 
                     incomingIndex++;
                 }
@@ -485,11 +495,11 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void OpenNewDoor(int incomingIndex)
+            private void OpenNewDoor(int incomingIndex, in DataPoint incoming)
             {
                 _lastArchivedIndex = incomingIndex;
 
-                this.OpenNewDoor();
+                this.OpenNewDoor(incoming);
             }
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
@@ -506,10 +516,13 @@ namespace gfoidl.DataCompression
                     {
                         if ((uint)incomingIndex >= (uint)source.Count) break;
 
-                        _incoming = source[incomingIndex];
+                        DataPoint incoming = source[incomingIndex];
 
-                        if ((_incoming.X - snapShot_x) > minDeltaX)
+                        if ((incoming.X - snapShot_x) > minDeltaX)
+                        {
+                            _incoming = incoming;
                             break;
+                        }
 
                         incomingIndex++;
                     }
