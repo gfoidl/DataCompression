@@ -200,7 +200,7 @@ namespace gfoidl.DataCompression
                     case 2:
                         _current = _incoming;
                         _state   = 1;
-                        this.UpdatePoints();
+                        this.UpdatePoints(_incoming, ref _snapShot);
                         return true;
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
@@ -242,14 +242,10 @@ namespace gfoidl.DataCompression
                         arrayBuilder.Add(snapShot);
 
                     arrayBuilder.Add(incoming);
-
-                    snapShot      = incoming;
-                    _lastArchived = incoming;
-
-                    if (!_archive.MaxDelta) this.GetBounding(snapShot);
+                    this.UpdatePoints(incoming, ref snapShot);
                 }
 
-                if (incoming != _lastArchived)
+                if (incoming != _lastArchived)          // sentinel-check
                     arrayBuilder.Add(incoming);
 
                 return arrayBuilder.ToArray();
@@ -275,12 +271,12 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void UpdatePoints()
+            private void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
             {
-                _lastArchived = _incoming;
-                _snapShot     = _incoming;
+                _lastArchived = incoming;
+                snapShot      = incoming;
 
-                if (!_archive.MaxDelta) this.GetBounding(_snapShot);
+                if (!_archive.MaxDelta) this.GetBounding(snapShot);
             }
         }
         //---------------------------------------------------------------------
@@ -360,7 +356,7 @@ namespace gfoidl.DataCompression
                     case 2:
                         _current = _source[_incomingIndex];
                         _state   = 1;
-                        this.UpdatePoints();
+                        this.UpdatePoints(_incomingIndex, _current, ref _snapShotIndex);
                         _incomingIndex++;
                         return true;
                     case DisposedState:
@@ -405,11 +401,7 @@ namespace gfoidl.DataCompression
                         arrayBuilder.Add(source[snapShotIndex]);
 
                     arrayBuilder.Add(source[incomingIndex]);
-
-                    snapShotIndex      = incomingIndex;
-                    _lastArchivedIndex = incomingIndex;
-
-                    if (!archive.MaxDelta) this.GetBounding(source[incomingIndex]);
+                    this.UpdatePoints(incomingIndex, source[incomingIndex], ref snapShotIndex);
                 }
 
                 incomingIndex--;
@@ -448,13 +440,12 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void UpdatePoints()
+            private void UpdatePoints(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
             {
-                int incoming       = _incomingIndex;
-                _snapShotIndex     = incoming;
-                _lastArchivedIndex = incoming;
+                snapShotIndex      = incomingIndex;
+                _lastArchivedIndex = incomingIndex;
 
-                if (!_archive.MaxDelta) this.GetBounding(_source[incoming]);
+                if (!_archive.MaxDelta) this.GetBounding(incoming);
             }
         }
     }
