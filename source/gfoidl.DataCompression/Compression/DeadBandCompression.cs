@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using gfoidl.DataCompression.Wrappers;
+using gfoidl.Stochastics.Builders;
 
 namespace gfoidl.DataCompression
 {
@@ -206,7 +207,40 @@ namespace gfoidl.DataCompression
             /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
-                throw new NotImplementedException();
+                DataPoint snapShot = _enumerator.Current;
+                _lastArchived      = snapShot;
+                DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.Add(snapShot);
+                this.GetBounding(snapShot);
+
+                while (_enumerator.MoveNext())
+                {
+                    incoming        = _enumerator.Current;
+                    ref var archive = ref this.IsPointToArchive(incoming);
+
+                    if (!archive.Archive)
+                    {
+                        snapShot = incoming;
+                        continue;
+                    }
+
+                    if (!archive.MaxDelta)
+                        arrayBuilder.Add(snapShot);
+
+                    arrayBuilder.Add(incoming);
+
+                    snapShot      = incoming;
+                    _lastArchived = incoming;
+
+                    if (!_archive.MaxDelta) this.GetBounding(snapShot);
+                }
+
+                if (incoming != _lastArchived)
+                    arrayBuilder.Add(incoming);
+
+                return arrayBuilder.ToArray();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -329,7 +363,48 @@ namespace gfoidl.DataCompression
             /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
             public override DataPoint[] ToArray()
             {
-                throw new NotImplementedException();
+                TList source      = _source;
+                int snapShotIndex = 0;
+
+                if ((uint)snapShotIndex >= (uint)source.Count)
+                    return Array.Empty<DataPoint>();
+
+                DataPoint snapShot = source[snapShotIndex];
+
+                if (source.Count < 2)
+                    return new[] { snapShot };
+
+                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                arrayBuilder.Add(snapShot);
+                this.GetBounding(snapShot);
+
+                int incomingIndex = 1;
+                for (; incomingIndex < source.Count; ++incomingIndex)
+                {
+                    ref var archive = ref this.IsPointToArchive(incomingIndex);
+
+                    if (!archive.Archive)
+                    {
+                        snapShotIndex = incomingIndex;
+                        continue;
+                    }
+
+                    if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
+                        arrayBuilder.Add(source[snapShotIndex]);
+
+                    arrayBuilder.Add(source[incomingIndex]);
+
+                    snapShotIndex      = incomingIndex;
+                    _lastArchivedIndex = incomingIndex;
+
+                    if (!archive.MaxDelta) this.GetBounding(source[incomingIndex]);
+                }
+
+                incomingIndex--;
+                if ((uint)incomingIndex < (uint)source.Count)
+                    arrayBuilder.Add(source[incomingIndex]);
+
+                return arrayBuilder.ToArray();
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
