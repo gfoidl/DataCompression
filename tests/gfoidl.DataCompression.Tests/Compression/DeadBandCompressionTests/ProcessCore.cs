@@ -16,7 +16,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForTrend();
             var expected = ExpectedForTrend().ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -28,7 +30,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForTrend().ToList();
             var expected = ExpectedForTrend().ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -40,7 +44,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForTrend().ToList().AsReadOnly();
             var expected = ExpectedForTrend().ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -52,7 +58,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta();
             var expected = ExpectedForMaxDelta().ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -64,7 +72,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().ToList();
             var expected = ExpectedForMaxDelta().ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -76,7 +86,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().ToList().AsReadOnly();
             var expected = ExpectedForMaxDelta().ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -88,7 +100,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().Take(1);
             var expected = RawDataForMaxDelta().Take(1).ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -100,7 +114,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().Take(1).ToList();
             var expected = RawDataForMaxDelta().Take(1).ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -112,7 +128,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().Take(1).ToList().AsReadOnly();
             var expected = RawDataForMaxDelta().Take(1).ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -124,7 +142,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().Take(2);
             var expected = RawDataForMaxDelta().Take(2).ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -136,7 +156,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().Take(2).ToList();
             var expected = RawDataForMaxDelta().Take(2).ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -148,7 +170,9 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var data     = RawDataForMaxDelta().Take(2).ToList().AsReadOnly();
             var expected = RawDataForMaxDelta().Take(2).ToList();
 
-            var actual = sut.Process(data).ToList();
+            var actual = new List<DataPoint>();
+            foreach (DataPoint dp in sut.Process(data))
+                actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
         }
