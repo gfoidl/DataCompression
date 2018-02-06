@@ -24,10 +24,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="gfoidl.Stochastics" Version="1.1.0-preview-1" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Compile Update="Strings.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>

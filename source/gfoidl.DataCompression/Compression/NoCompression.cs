@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using gfoidl.Stochastics.Builders;
+using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
 {

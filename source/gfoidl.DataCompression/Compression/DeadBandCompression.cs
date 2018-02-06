@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using gfoidl.DataCompression.Builders;
 using gfoidl.DataCompression.Wrappers;
-using gfoidl.Stochastics.Builders;
 
 namespace gfoidl.DataCompression
 {
