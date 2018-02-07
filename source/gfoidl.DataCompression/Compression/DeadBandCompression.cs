@@ -457,7 +457,7 @@ namespace gfoidl.DataCompression
                 int lastArchived = _lastArchivedIndex;
 
                 if ((uint)incomingIndex >= (uint)source.Count || (uint)lastArchived >= (uint)source.Count)
-                    ThrowHelper.ThrowArgumentOutOfRange("incomingIndex or lastArchived");
+                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.ShouldNotHappen);
 
                 double lastArchived_x = source[lastArchived].X;
                 DataPoint incoming    = source[incomingIndex];
