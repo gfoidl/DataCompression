@@ -87,9 +87,12 @@ namespace gfoidl.DataCompression
         [DebuggerStepThrough]
         public double Gradient(in DataPoint b, bool return0OnEquality = true)
         {
-            if (this.X == b.X) return this.GradientEquality(b, return0OnEquality);
+            double deltaY = b.Y - this.Y;
+            double deltaX = b.X - this.X;
 
-            return (b.Y - this.Y) / (b.X - this.X);
+            if (deltaX == 0d) return this.GradientEquality(b, return0OnEquality);
+
+            return deltaY / deltaX;
         }
         //---------------------------------------------------------------------
         [DebuggerStepThrough]
