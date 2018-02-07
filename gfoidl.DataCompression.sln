@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{5EC3A886
 		bitbucket-pipelines.yml = bitbucket-pipelines.yml
 		build.sh = build.sh
 		Directory.Build.props = Directory.Build.props
-		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{268A95A5-C460-4DE4-8FC5-BE0E893FE53B}"
