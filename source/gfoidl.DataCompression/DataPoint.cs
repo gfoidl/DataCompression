@@ -87,17 +87,23 @@ namespace gfoidl.DataCompression
         [DebuggerStepThrough]
         public double Gradient(in DataPoint b, bool return0OnEquality = true)
         {
-            if (this.X == b.X) return this.GradientEquality(b, return0OnEquality);
+            double delta_y = b.Y - this.Y;
+            double delta_x = b.X - this.X;
 
-            return (b.Y - this.Y) / (b.X - this.X);
+            if (delta_x == 0d) return this.GradientEquality(b, return0OnEquality);
+
+            return delta_y / delta_x;
         }
         //---------------------------------------------------------------------
         [DebuggerStepThrough]
         internal double Gradient(in DataPoint b, double deltaY, bool return0OnEquality = true)
         {
-            if (this.X == b.X) return this.GradientEquality(b, return0OnEquality);
+            double delta_y = b.Y + deltaY - this.Y;
+            double delta_x = b.X - this.X;
 
-            return (b.Y + deltaY - this.Y) / (b.X - this.X);
+            if (delta_x == 0d) return this.GradientEquality(b, return0OnEquality);
+
+            return delta_y / delta_x;
         }
         //---------------------------------------------------------------------
         // Uncommon code-path
@@ -132,9 +138,12 @@ namespace gfoidl.DataCompression
         /// </remarks>
         public double CalculatePoint(double gradient, double x)
         {
-            if (this.X == x) return this.Y;
+            double y = this.Y;
+            x       -= this.X;
 
-            return this.Y + gradient * (x - this.X);
+            if (x == 0) return y;
+
+            return y + gradient * x;
         }
         //---------------------------------------------------------------------
         /// <summary>
