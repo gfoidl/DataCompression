@@ -18,7 +18,7 @@ namespace gfoidl.DataCompression
         /// </exception>
         public static DataPointIterator NoCompression(this IEnumerable<DataPoint> data)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.Argument.data);
 
             var compression = new NoCompression();
             return compression.Process(data);
@@ -38,7 +38,7 @@ namespace gfoidl.DataCompression
         /// </exception>
         public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, double? maxDeltaX = null)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.Argument.data);
 
             var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX);
             return compression.Process(data);
@@ -56,7 +56,7 @@ namespace gfoidl.DataCompression
         /// </exception>
         public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, TimeSpan maxTime)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.Argument.data);
 
             var compression = new DeadBandCompression(instrumentPrecision, maxTime);
             return compression.Process(data);
@@ -83,7 +83,7 @@ namespace gfoidl.DataCompression
         /// </exception>
         public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.Argument.data);
 
             var compression = new SwingingDoorCompression(compressionDeviation, maxDeltaX, minDeltaX);
             return compression.Process(data);
@@ -105,7 +105,7 @@ namespace gfoidl.DataCompression
         /// </exception>
         public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(nameof(data));
+            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.Argument.data);
 
             var compression = new SwingingDoorCompression(compressionDeviation, maxTime, minTime);
             return compression.Process(data);

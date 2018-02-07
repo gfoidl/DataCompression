@@ -120,4 +120,9 @@
   <data name="Gradient_A_eq_B" xml:space="preserve">
     <value>Datapoints a and b must not be equal for calculation of the gradient</value>
   </data>
+  <data name="Should_not_happen" xml:space="preserve">
+    <value>This state should not happen. Please file a bug in https://github.com/gfoidl/DataCompression/issues/new 
+
+Thank you!</value>
+  </data>
 </root>

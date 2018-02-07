@@ -68,5 +68,16 @@ namespace gfoidl.DataCompression {
                 return ResourceManager.GetString("Gradient_A_eq_B", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This state should not happen. Please file a bug in https://github.com/gfoidl/DataCompression/issues/new 
+        ///
+        ///Thank you!.
+        /// </summary>
+        internal static string Should_not_happen {
+            get {
+                return ResourceManager.GetString("Should_not_happen", resourceCulture);
+            }
+        }
     }
 }
