@@ -138,9 +138,12 @@ namespace gfoidl.DataCompression
         /// </remarks>
         public double CalculatePoint(double gradient, double x)
         {
-            if (this.X == x) return this.Y;
+            double y = this.Y;
+            x       -= this.X;
 
-            return this.Y + gradient * (x - this.X);
+            if (x == 0) return y;
+
+            return y + gradient * x;
         }
         //---------------------------------------------------------------------
         /// <summary>
