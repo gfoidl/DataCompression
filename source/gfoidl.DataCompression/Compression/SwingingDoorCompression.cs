@@ -257,8 +257,11 @@ namespace gfoidl.DataCompression
                         _state   = 1;
                         this.OpenNewDoor(_incoming);
                         return true;
+                    case InitialState:
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
                         return false;
                 }
             }
@@ -443,6 +446,12 @@ namespace gfoidl.DataCompression
                         this.OpenNewDoor(incomingIndex, _incoming);
                         _incomingIndex = incomingIndex + 1;
                         return true;
+                    case InitialState:
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        return false;
+                    case DisposedState:
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
+                        return false;
                 }
             }
             //---------------------------------------------------------------------

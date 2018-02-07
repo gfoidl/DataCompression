@@ -202,8 +202,11 @@ namespace gfoidl.DataCompression
                         _state   = 1;
                         this.UpdatePoints(_incoming, ref _snapShot);
                         return true;
+                    case InitialState:
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
                         return false;
                 }
             }
@@ -376,8 +379,11 @@ namespace gfoidl.DataCompression
                         this.UpdatePoints(_incomingIndex, _current, ref _snapShotIndex);
                         _incomingIndex++;
                         return true;
+                    case InitialState:
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(nameof(DataPointIterator));
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
                         return false;
                 }
             }
