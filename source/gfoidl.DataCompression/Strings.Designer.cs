@@ -61,6 +61,18 @@ namespace gfoidl.DataCompression {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have called &apos;MoveNext&apos; on the instance of &apos;DataPointIterator&apos; without getting the enumerator first. To get the enumerator call &apos;GetEnumerator&apos; on the &apos;DataPointIterator&apos; and use this instance.
+        ///
+        ///&apos;DataPointIterator&apos; is an enumerable and iterator in one. This saves an object on the heap, hence it is a performance optimization.
+        ///When the &apos;DataPointIterator&apos; as enumerable is &quot;fresh&quot;, i.e. its state is as initialized, a call to &apos;GetEnumerator&apos; will just return the same object. Only when the (internal) state [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetEnumerator_must_be_called_first {
+            get {
+                return ResourceManager.GetString("GetEnumerator_must_be_called_first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datapoints a and b must not be equal for calculation of the gradient.
         /// </summary>
         internal static string Gradient_A_eq_B {

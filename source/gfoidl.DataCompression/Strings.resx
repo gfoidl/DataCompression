@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GetEnumerator_must_be_called_first" xml:space="preserve">
+    <value>You have called 'MoveNext' on the instance of 'DataPointIterator' without getting the enumerator first. To get the enumerator call 'GetEnumerator' on the 'DataPointIterator' and use this instance.
+
+'DataPointIterator' is an enumerable and iterator in one. This saves an object on the heap, hence it is a performance optimization.
+When the 'DataPointIterator' as enumerable is "fresh", i.e. its state is as initialized, a call to 'GetEnumerator' will just return the same object. Only when the (internal) state changed, a clone (hence a new object) will be returned.
+
+So in order to set the (internal) state for enumerating, a call to `GetEnumerator` is needed. This has the logic to return this or create a clone based on the current state.</value>
+  </data>
   <data name="Gradient_A_eq_B" xml:space="preserve">
     <value>Datapoints a and b must not be equal for calculation of the gradient</value>
   </data>
