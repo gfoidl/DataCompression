@@ -258,10 +258,10 @@ namespace gfoidl.DataCompression
                         this.OpenNewDoor(_incoming);
                         return true;
                     case InitialState:
-                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                         return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                         return false;
                 }
             }
@@ -447,10 +447,10 @@ namespace gfoidl.DataCompression
                         _incomingIndex = incomingIndex + 1;
                         return true;
                     case InitialState:
-                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                         return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                         return false;
                 }
             }

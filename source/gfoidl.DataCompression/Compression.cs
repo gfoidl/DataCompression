@@ -17,7 +17,7 @@ namespace gfoidl.DataCompression
         /// </exception>
         public DataPointIterator Process(IEnumerable<DataPoint> data)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.Argument.data);
+            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             return this.ProcessCore(data);
         }

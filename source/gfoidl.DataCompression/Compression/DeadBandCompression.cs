@@ -203,10 +203,10 @@ namespace gfoidl.DataCompression
                         this.UpdatePoints(_incoming, ref _snapShot);
                         return true;
                     case InitialState:
-                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                         return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                         return false;
                 }
             }
@@ -380,10 +380,10 @@ namespace gfoidl.DataCompression
                         _incomingIndex++;
                         return true;
                     case InitialState:
-                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                        ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                         return false;
                     case DisposedState:
-                        ThrowHelper.ThrowIfDisposed(ThrowHelper.Argument.iterator);
+                        ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                         return false;
                 }
             }
@@ -463,7 +463,7 @@ namespace gfoidl.DataCompression
                 int lastArchived = _lastArchivedIndex;
 
                 if ((uint)incomingIndex >= (uint)source.Count || (uint)lastArchived >= (uint)source.Count)
-                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.ShouldNotHappen);
+                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.Should_not_happen);
 
                 double lastArchived_x = source[lastArchived].X;
                 DataPoint incoming    = source[incomingIndex];
