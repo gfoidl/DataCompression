@@ -32,7 +32,7 @@ namespace gfoidl.DataCompression
             public override bool MoveNext()
             {
                 if (_state == InitialState)
-                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.Reason.CallGetEnumeratorBeforeMoveNext);
+                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
 
                 if (_enumerator.MoveNext())
                 {

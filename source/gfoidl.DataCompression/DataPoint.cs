@@ -122,7 +122,10 @@ namespace gfoidl.DataCompression
                 }
             }
             else
-                throw new ArgumentException(Strings.Gradient_A_eq_B, nameof(b));
+            {
+                ThrowHelper.ThrowArgument(ThrowHelper.ExceptionResource.Gradient_A_eq_B);
+                return 0;
+            }
         }
 
         //---------------------------------------------------------------------
