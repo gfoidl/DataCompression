@@ -1,6 +1,6 @@
-| CircleCi | NuGet | MyGet |
-| -- | -- | -- |
-| [![CircleCI](https://circleci.com/gh/gfoidl/DataCompression/tree/master.svg?style=svg)](https://circleci.com/gh/gfoidl/DataCompression/tree/master) | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)](https://www.nuget.org/packages/gfoidl.DataCompression/) | [![MyGet Pre Release](https://img.shields.io/myget/gfoidl/vpre/gfoidl.DataCompression.svg?style=flat-square)](https://www.myget.org/feed/gfoidl/package/nuget/gfoidl.DataCompression) |
+| CircleCi | CodeCov | NuGet | MyGet |
+| -- | -- | -- | -- |
+| [![CircleCI](https://circleci.com/gh/gfoidl/DataCompression/tree/master.svg?style=svg)](https://circleci.com/gh/gfoidl/DataCompression/tree/master) | [![codecov](https://codecov.io/gh/gfoidl/DataCompression/branch/master/graph/badge.svg)](https://codecov.io/gh/gfoidl/DataCompression) | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)](https://www.nuget.org/packages/gfoidl.DataCompression/) | [![MyGet Pre Release](https://img.shields.io/myget/gfoidl/vpre/gfoidl.DataCompression.svg?style=flat-square)](https://www.myget.org/feed/gfoidl/package/nuget/gfoidl.DataCompression) |
 
 # gfoidl.DataCompression
 
