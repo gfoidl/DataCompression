@@ -24,7 +24,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var sut  = new DeadBandCompression(0.1);
             var data = Empty();
 
-            var iterator = sut.ProcessAsync(data);
+            var iterator = sut.ProcessAsync(data).GetAsyncEnumerator();
 
             Assert.IsFalse(await iterator.MoveNextAsync());
             //-----------------------------------------------------------------

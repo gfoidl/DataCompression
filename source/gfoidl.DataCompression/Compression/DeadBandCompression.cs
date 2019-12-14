@@ -124,7 +124,7 @@ namespace gfoidl.DataCompression
             {
                 double y = dataPoint.Y;
 
-                // Produces better code than updating _bouding directly
+                // Produces better code than updating _bounding directly
                 ref (double Min, double Max) bounding = ref _bounding;
 
                 bounding.Min = y - _deadBandCompression.InstrumentPrecision;
