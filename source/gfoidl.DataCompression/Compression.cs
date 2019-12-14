@@ -23,7 +23,7 @@ namespace gfoidl.DataCompression
             return this.ProcessCore(data);
         }
         //---------------------------------------------------------------------
-#if NETCOREAPP
+#if NETSTANDARD2_1
         /// <summary>
         /// Performs the compression / filtering of the input data.
         /// </summary>
@@ -44,7 +44,7 @@ namespace gfoidl.DataCompression
         /// <returns>The compressed / filtered data.</returns>
         protected abstract DataPointIterator ProcessCore(IEnumerable<DataPoint> data);
         //---------------------------------------------------------------------
-#if NETCOREAPP
+#if NETSTANDARD2_1
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>

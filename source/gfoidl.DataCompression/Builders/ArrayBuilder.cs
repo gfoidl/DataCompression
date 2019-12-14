@@ -137,7 +137,7 @@ namespace gfoidl.DataCompression.Builders
                 T[] buffer = this.GetBuffer(i);
                 int toCopy = Math.Min(count, buffer.Length);
 
-#if NETCOREAPP
+#if NETSTANDARD2_1
                 buffer.AsSpan(0, toCopy).CopyTo(array.AsSpan(arrayIndex));
 #else
                 Array.Copy(buffer, 0, array, arrayIndex, toCopy);

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
@@ -18,7 +19,7 @@ namespace gfoidl.DataCompression
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
             => new EnumerableIterator(data);
         //---------------------------------------------------------------------
-#if NETCOREAPP
+#if NETSTANDARD2_1
         /// <summary>
         /// Implementation of the compression / filtering.
         /// </summary>
@@ -28,11 +29,11 @@ namespace gfoidl.DataCompression
             IAsyncEnumerable<DataPoint> data,
             [EnumeratorCancellation] CancellationToken ct)
         {
-            await foreach (DataPoint dataPoint in data)
-            {
-                if (ct.IsCancellationRequested)
-                    break;
+            ct.ThrowIfCancellationRequested();
 
+            await foreach (DataPoint dataPoint in data.WithCancellation(ct).ConfigureAwait(false))
+            {
+                ct.ThrowIfCancellationRequested();
                 yield return dataPoint;
             }
         }

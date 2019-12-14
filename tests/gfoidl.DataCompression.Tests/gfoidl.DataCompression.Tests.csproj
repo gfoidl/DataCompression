@@ -8,4 +8,8 @@
         <ProjectReference Include="..\..\source\gfoidl.DataCompression\gfoidl.DataCompression.csproj" />
     </ItemGroup>
 
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <Compile Remove="**\*Async*.cs" />
+    </ItemGroup>
+
 </Project>

@@ -15,7 +15,7 @@ namespace gfoidl.DataCompression
         /// <returns>The compressed / filtered data.</returns>
         DataPointIterator Process(IEnumerable<DataPoint>? data);
         //---------------------------------------------------------------------
-#if NETCOREAPP
+#if NETSTANDARD2_1
         /// <summary>
         /// Performs the compression / filtering of the input data.
         /// </summary>

@@ -112,7 +112,7 @@ namespace gfoidl.DataCompression
             return compression.Process(data);
         }
         //---------------------------------------------------------------------
-#if NETCOREAPP
+#if NETSTANDARD2_1
         /// <summary>
         /// A filter that performs no compression.
         /// </summary>
