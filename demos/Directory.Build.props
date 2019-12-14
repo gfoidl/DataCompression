@@ -1,0 +1,18 @@
+﻿<Project>
+
+    <Import Project="../Directory.Build.props" />
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <StandardTfm>netcoreapp3.0</StandardTfm>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\source\gfoidl.DataCompression\gfoidl.DataCompression.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="data\*" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+</Project>

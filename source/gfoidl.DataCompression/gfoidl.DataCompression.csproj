@@ -1,41 +1,40 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
-        <PackageLicenseUrl>https://github.com/gfoidl/DataCompression/blob/master/LICENSE</PackageLicenseUrl>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<PackageLicenseUrl>https://github.com/gfoidl/DataCompression/blob/master/LICENSE</PackageLicenseUrl>
+	</PropertyGroup>
 
-    <PropertyGroup Label="Package">
-        <PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
-        <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <Description>Provides several data-compression algorithms:
+	<PropertyGroup Label="Package">
+		<PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
+		<PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>Provides several data-compression algorithms:
 
 * error band elimination
 * swinging door algorithm
-        </Description>
-        <Copyright>Copyright © Foidl Günther 2017-2018</Copyright>
-    </PropertyGroup>
+		</Description>
+		<Copyright>Copyright © Foidl Günther 2017-2018</Copyright>
+	</PropertyGroup>
 
-    <PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">
-        <DocumentationFile>bin\$(Configuration)\netstandard2.0\gfoidl.DataCompression.xml</DocumentationFile>
-    </PropertyGroup>
+	<PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\gfoidl.DataCompression.xml</DocumentationFile>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <Compile Update="Strings.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Strings.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Strings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Strings.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-    <ItemGroup>
-        <EmbeddedResource Update="Strings.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-    </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Strings.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>
