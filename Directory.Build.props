@@ -8,9 +8,18 @@
         <Authors>gfoidl</Authors>
         <Company>Foidl Günther</Company>
         <Product>gfoidl.DataCompression</Product>
-        <Copyright>Copyright © Foidl Günther 2017</Copyright>
+        <Copyright>Copyright © Foidl Günther 2017-2019</Copyright>
         <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
         <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber).$(VersionPatch)</AssemblyVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <StandardTfms>netcoreapp3.0</StandardTfms>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)NuGet-Packed</PackageOutputPath>
     </PropertyGroup>
 
     <Target Name="VersionInfo" BeforeTargets="BeforeBuild">

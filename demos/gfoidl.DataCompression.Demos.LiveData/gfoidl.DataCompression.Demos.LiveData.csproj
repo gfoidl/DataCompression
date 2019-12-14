@@ -1,16 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp2.0</TargetFramework>
+        <TargetFramework>$(StandardTfm)</TargetFramework>
     </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\source\gfoidl.DataCompression\gfoidl.DataCompression.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="data\*" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
 
 </Project>
