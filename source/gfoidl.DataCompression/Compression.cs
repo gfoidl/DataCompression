@@ -29,7 +29,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        public IAsyncEnumerable<DataPoint> ProcessAsync(IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default)
+        public DataPointAsyncIterator ProcessAsync(IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -50,7 +50,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected abstract IAsyncEnumerable<DataPoint> ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct);
+        protected abstract DataPointAsyncIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct);
 #endif
     }
 }

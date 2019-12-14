@@ -28,7 +28,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
-        public async Task Cancellation_after_two_items___OK()
+        public void Cancellation_after_two_items___OK()
         {
             var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
@@ -37,7 +37,8 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             var actual = new List<DataPoint>();
             int idx    = 0;
-            try
+
+            Assert.ThrowsAsync<OperationCanceledException>(async () =>
             {
                 await foreach (DataPoint dp in sut.ProcessAsync(data, cts.Token))
                 {
@@ -46,8 +47,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
                     if (idx == 2) cts.Cancel();
                 }
-            }
-            catch (OperationCanceledException) { }
+            });
 
             CollectionAssert.AreEqual(actual, expected);
         }

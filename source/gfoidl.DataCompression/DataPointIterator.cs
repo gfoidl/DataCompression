@@ -10,23 +10,9 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// The state at creation is set to <see cref="InitialState" />.
     /// </remarks>
-    public abstract class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
+    public abstract class DataPointIterator : DataPointIteratorBase, IEnumerable<DataPoint>, IEnumerator<DataPoint>
     {
-        /// <summary>
-        /// The initial state of the iterator.
-        /// </summary>
-        protected const int InitialState = -2;
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// The state when the iterator is disposed.
-        /// </summary>
-        protected const int DisposedState = -3;
-        //---------------------------------------------------------------------
         private readonly int _threadId;
-#pragma warning disable CS1591
-        protected int        _state;
-        protected DataPoint  _current;
-#pragma warning restore CS1591
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates an instance of <see cref="DataPointIterator" />.
@@ -34,18 +20,7 @@ namespace gfoidl.DataCompression
         protected DataPointIterator()
         {
             _threadId = Environment.CurrentManagedThreadId;
-            _state    = InitialState;
         }
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Gets the current item.
-        /// </summary>
-        public DataPoint Current => _current;
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Gets the current item by reference.
-        /// </summary>
-        public ref DataPoint CurrentByRef => ref _current;
         //---------------------------------------------------------------------
         private static EmptyIterator? s_emptyIterator;
         /// <summary>

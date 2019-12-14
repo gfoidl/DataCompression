@@ -20,18 +20,9 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override async IAsyncEnumerable<DataPoint> ProcessAsyncCore(
-            IAsyncEnumerable<DataPoint> data,
-            [EnumeratorCancellation] CancellationToken ct)
+        protected override DataPointAsyncIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
         {
-            ct.ThrowIfCancellationRequested();
-
-            await foreach (DataPoint dataPoint in data.WithCancellation(ct).ConfigureAwait(false))
-            {
-                ct.ThrowIfCancellationRequested();
-
-                yield break;
-            }
+            throw new NotImplementedException();
         }
     }
 }

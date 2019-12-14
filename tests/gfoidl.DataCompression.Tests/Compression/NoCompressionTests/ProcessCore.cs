@@ -4,11 +4,8 @@ using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 {
-    [TestFixture]
-    public class ProcessCore
+    public class ProcessCore : Base
     {
-        private static readonly DataPointSerializer s_ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public void Data_given_as_IEnumerable___OK()
         {
@@ -176,8 +173,5 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()    => s_ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta() => s_ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
     }
 }

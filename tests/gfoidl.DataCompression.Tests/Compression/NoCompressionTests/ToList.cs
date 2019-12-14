@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 {
-    [TestFixture]
-    public class ToList
+    public class ToList : Base
     {
-        private static readonly DataPointSerializer s_ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public void Data_given_as_IEnumerable___OK()
         {
@@ -154,7 +150,7 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
-        public void IEnumerable_iterated_and_ToArray___OK()
+        public void IEnumerable_iterated_and_ToList___OK()
         {
             var sut      = new NoCompression();
             var data     = RawDataForTrend();
@@ -165,13 +161,13 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             DataPointIterator enumerator = dataPointIterator.GetEnumerator();
             enumerator.MoveNext();
             enumerator.MoveNext();
-            var actual = dataPointIterator.ToArray();
+            var actual = dataPointIterator.ToList();
 
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
-        public void List_iterated_and_ToArray___OK()
+        public void List_iterated_and_ToList___OK()
         {
             var sut      = new NoCompression();
             var data     = RawDataForTrend().ToList();
@@ -182,12 +178,9 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             DataPointIterator enumerator = dataPointIterator.GetEnumerator();
             enumerator.MoveNext();
             enumerator.MoveNext();
-            var actual = dataPointIterator.ToArray();
+            var actual = dataPointIterator.ToList();
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()    => s_ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta() => s_ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
     }
 }

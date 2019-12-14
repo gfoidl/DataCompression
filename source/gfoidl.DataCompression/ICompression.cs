@@ -21,7 +21,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        IAsyncEnumerable<DataPoint> ProcessAsync(IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default);
+        DataPointAsyncIterator ProcessAsync(IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default);
 #endif
     }
 }

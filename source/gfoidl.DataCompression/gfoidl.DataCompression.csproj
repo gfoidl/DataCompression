@@ -24,7 +24,7 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-        <Compile Remove="Compression\*.Async.cs" />
+        <Compile Remove="**\*Async*cs" />
     </ItemGroup>
 
     <ItemGroup>
