@@ -89,9 +89,6 @@ namespace gfoidl.DataCompression
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
 
-                if (!enumerator.MoveNext())
-                    return Array.Empty<DataPoint>();
-
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
                 this.BuildCollection(enumerator, ref arrayBuilder);
 
@@ -102,9 +99,6 @@ namespace gfoidl.DataCompression
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
 
-                if (!enumerator.MoveNext())
-                    return new List<DataPoint>();
-
                 var listBuilder = new ListBuilder<DataPoint>(true);
                 this.BuildCollection(enumerator, ref listBuilder);
 
@@ -114,6 +108,7 @@ namespace gfoidl.DataCompression
             public void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
                 where TBuilder : ICollectionBuilder<DataPoint>
             {
+                enumerator.MoveNext();
                 DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
                 DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around

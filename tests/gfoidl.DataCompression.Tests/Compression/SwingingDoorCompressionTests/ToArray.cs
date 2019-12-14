@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using gfoidl.DataCompression.Wrappers;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
@@ -8,6 +10,35 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
     public class ToArray
     {
         private static readonly DataPointSerializer _ser = new DataPointSerializer();
+        //---------------------------------------------------------------------
+        [Test]
+        public void Empty_IEnumerable___empty_result()
+        {
+            var sut  = new SwingingDoorCompression(1d);
+            var data = Empty();
+
+            var actual = sut.Process(data);
+
+            Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
+            Assert.AreEqual(0, actual.ToList().Count);
+            //-----------------------------------------------------------------
+            static IEnumerable<DataPoint> Empty()
+            {
+                yield break;
+            }
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Empty_Array___empty_result()
+        {
+            var sut  = new SwingingDoorCompression(1d);
+            var data = new DataPoint[0];
+
+            var actual = sut.Process(data);
+
+            Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
+            Assert.AreEqual(0, actual.ToList().Count);
+        }
         //---------------------------------------------------------------------
         [Test]
         public void Data_given_as_IEnumerable___OK()
@@ -22,10 +53,10 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
-        public void Data_given_as_List___OK()
+        public void Data_given_as_IList___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend().ToList();
+            var data     = RawDataForTrend() .ToList().AsReadOnly();
             var expected = ExpectedForTrend().ToList();
 
             var actual = sut.Process(data).ToArray();
@@ -34,10 +65,46 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
-        public void Data_given_as_IList___OK()
+        public void Data_given_as_List___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend().ToList().AsReadOnly();
+            var data     = RawDataForTrend() .ToList();
+            var expected = ExpectedForTrend().ToList();
+
+            var actual = sut.Process(data).ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Data_given_as_Array___OK()
+        {
+            var sut      = new SwingingDoorCompression(1d);
+            var data     = RawDataForTrend() .ToArray();
+            var expected = ExpectedForTrend().ToList();
+
+            var actual = sut.Process(data).ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Data_given_as_ListWrapper___OK()
+        {
+            var sut      = new SwingingDoorCompression(1d);
+            var data     = new ListWrapper<DataPoint>(RawDataForTrend().ToList());
+            var expected = ExpectedForTrend().ToList();
+
+            var actual = sut.Process(data).ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Data_given_as_ArrayWrapper___OK()
+        {
+            var sut      = new SwingingDoorCompression(1d);
+            var data     = new ArrayWrapper<DataPoint>(RawDataForTrend().ToArray());
             var expected = ExpectedForTrend().ToList();
 
             var actual = sut.Process(data).ToArray();
