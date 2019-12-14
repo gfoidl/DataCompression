@@ -5,18 +5,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
+namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 {
-    public class ToArrayAsync : Base
+    public class ToListAsync : Base
     {
         [Test]
         public async Task Data_given_as_IAsyncEnumerable___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().ToList();
+            var expected = ExpectedForTrend().ToList();
 
-            var actual = await sut.ProcessAsync(data).ToArrayAsync();
+            var actual = await sut.ProcessAsync(data).ToListAsync();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -24,19 +24,19 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
         [Test]
         public async Task Data_IAsyncEnumerable_with_maxDeltaX___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForMaxDeltaAsync();
-            var expected = RawDataForMaxDelta().ToList();
+            var expected = ExpectedForMaxDelta().ToList();
 
-            var actual = await sut.ProcessAsync(data).ToArrayAsync();
+            var actual = await sut.ProcessAsync(data).ToListAsync();
 
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
-        public async Task IAsyncEnumerable_iterated_and_ToArray___OK()
+        public async Task IEnumerable_iterated_and_ToList___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
             var expected = RawDataForTrend().ToList();
 
@@ -45,7 +45,7 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             DataPointAsyncIterator enumerator = dataPointIterator.GetAsyncEnumerator();
             await enumerator.MoveNextAsync();
             await enumerator.MoveNextAsync();
-            var actual                        = await dataPointIterator.ToArrayAsync();
+            var actual = await dataPointIterator.ToListAsync();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -53,7 +53,7 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
         [Test]
         public async Task Cancellation___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
             var expected = RawDataForTrend().Take(2).ToList();
 
@@ -68,8 +68,8 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             actual.Add(enumerator.Current);
             cts.Cancel();
 
-            DataPoint[] res = null;
-            Assert.ThrowsAsync<OperationCanceledException>(async () => res = await dataPointIterator.ToArrayAsync());
+            List<DataPoint> res = null;
+            Assert.ThrowsAsync<OperationCanceledException>(async () => res = await dataPointIterator.ToListAsync());
 
             CollectionAssert.AreEqual(expected, actual);
             Assert.IsNull(res);

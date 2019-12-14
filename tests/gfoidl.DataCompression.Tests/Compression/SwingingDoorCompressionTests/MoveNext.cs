@@ -5,11 +5,8 @@ using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
-    [TestFixture]
-    public class MoveNext
+    public class MoveNext : Base
     {
-        private static readonly DataPointSerializer s_ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public void Enumerable_MoveNext_without_GetEnumerator___throws_InvalidOperation()
         {
@@ -58,7 +55,5 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             Assert.IsFalse(iterator.MoveNext());
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend() => s_ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
     }
 }

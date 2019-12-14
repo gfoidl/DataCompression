@@ -5,16 +5,33 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
+namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 {
     public class ToArrayAsync : Base
     {
         [Test]
+        public async Task Empty_IAsyncEnumerable___empty_result()
+        {
+            var sut  = new DeadBandCompression(0.1);
+            var data = Empty();
+
+            var actual = sut.ProcessAsync(data);
+
+            Assert.AreEqual(0, (await actual.ToListAsync()).Count);
+            //-----------------------------------------------------------------
+            static async IAsyncEnumerable<DataPoint> Empty()
+            {
+                await Task.Yield();
+                yield break;
+            }
+        }
+        //---------------------------------------------------------------------
+        [Test]
         public async Task Data_given_as_IAsyncEnumerable___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().ToList();
+            var expected = ExpectedForTrend().ToList();
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();
 
@@ -24,9 +41,9 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
         [Test]
         public async Task Data_IAsyncEnumerable_with_maxDeltaX___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1, 4d);
             var data     = RawDataForMaxDeltaAsync();
-            var expected = RawDataForMaxDelta().ToList();
+            var expected = ExpectedForMaxDelta().ToList();
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();
 
@@ -34,11 +51,11 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
-        public async Task IAsyncEnumerable_iterated_and_ToArray___OK()
+        public async Task IEnumerable_iterated_and_ToArray___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().ToList();
+            var expected = ExpectedForTrend().ToList();
 
             DataPointAsyncIterator dataPointIterator = sut.ProcessAsync(data);
 
@@ -53,9 +70,9 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
         [Test]
         public async Task Cancellation___OK()
         {
-            var sut      = new NoCompression();
+            var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().Take(2).ToList();
+            var expected = ExpectedForTrend().Take(2).ToList();
 
             DataPointAsyncIterator dataPointIterator = sut.ProcessAsync(data);
             var cts                                  = new CancellationTokenSource();

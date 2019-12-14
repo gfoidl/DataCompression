@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 {
-    [TestFixture]
-    public class ProcessAsyncCore
+    public class ProcessAsyncCore : Base
     {
-        private static readonly DataPointSerializer s_ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public async Task Data_given_as_IAsyncEnumerable___OK()
         {
@@ -64,31 +60,6 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
                 actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
-        }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../doc/data/dead-band/trend_compressed.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("../../../../../doc/data/dead-band/maxDelta_compressed.csv");
-        //---------------------------------------------------------------------
-        private static async IAsyncEnumerable<DataPoint> RawDataForTrendAsync([EnumeratorCancellation] CancellationToken ct = default)
-        {
-            foreach (DataPoint dp in RawDataForTrend())
-            {
-                ct.ThrowIfCancellationRequested();
-                await Task.Yield();
-                yield return dp;
-            }
-        }
-        //---------------------------------------------------------------------
-        private static async IAsyncEnumerable<DataPoint> RawDataForMaxDeltaAsync([EnumeratorCancellation] CancellationToken ct = default)
-        {
-            foreach (DataPoint dp in RawDataForMaxDelta())
-            {
-                ct.ThrowIfCancellationRequested();
-                await Task.Yield();
-                yield return dp;
-            }
         }
     }
 }
