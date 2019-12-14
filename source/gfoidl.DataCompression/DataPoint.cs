@@ -9,7 +9,7 @@ namespace gfoidl.DataCompression
     /// </summary>
     public readonly struct DataPoint : IEquatable<DataPoint>
     {
-        private static readonly DataPoint _origin = new DataPoint();
+        private static readonly DataPoint s_origin = new DataPoint();
         //---------------------------------------------------------------------
         /// <summary>
         /// x value
@@ -24,7 +24,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// The Origin, a <see cref="DataPoint" /> with (0, 0).
         /// </summary>
-        public static ref readonly DataPoint Origin => ref _origin;
+        public static ref readonly DataPoint Origin => ref s_origin;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new <see cref="DataPoint" />
@@ -81,7 +81,7 @@ namespace gfoidl.DataCompression
         /// </param>
         /// <returns>The gradient from this to <paramref name="b" />.</returns>
         /// <exception cref="ArgumentException">
-        /// Is thrown when <c>this.X == b.X</c>, and <paramref name="return0OnEquality"/> 
+        /// Is thrown when <c>this.X == b.X</c>, and <paramref name="return0OnEquality"/>
         /// is <c>false</c>.
         /// </exception>
         [DebuggerStepThrough]
@@ -113,7 +113,9 @@ namespace gfoidl.DataCompression
             if (return0OnEquality)
             {
                 if (this.Y == b.Y)
+                {
                     return 0;
+                }
                 else
                 {
                     return this.Y < b.Y
@@ -127,7 +129,6 @@ namespace gfoidl.DataCompression
                 return 0;
             }
         }
-
         //---------------------------------------------------------------------
         /// <summary>
         /// Calculates the y-value of a point given by the current <see cref="DataPoint" />,
@@ -173,7 +174,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="obj">The object to compare with this one.</param>
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
-        public override bool Equals(object obj) => obj is DataPoint other && this.Equals(other);
+        public override bool Equals(object? obj) => obj is DataPoint other && this.Equals(other);
         //---------------------------------------------------------------------
         /// <summary>
         /// Tests for equality between the given <see cref="DataPoint" />s.
@@ -197,6 +198,9 @@ namespace gfoidl.DataCompression
         /// <returns>A 32-bit signed integer hash code.</returns>
         public override int GetHashCode()
         {
+#if NETCOREAPP
+            return HashCode.Combine(this.X, this.Y);
+#else
             const int primeA = 414_584_089;
             const int primeB = 534_448_147;
 
@@ -208,6 +212,7 @@ namespace gfoidl.DataCompression
 
                 return hash;
             }
+#endif
         }
         //---------------------------------------------------------------------
         /// <summary>

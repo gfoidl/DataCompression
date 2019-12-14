@@ -15,12 +15,13 @@ namespace gfoidl.DataCompression.Builders
     {
         private const int StartCapacity   = 4;
         private const int ResizeThreshold = 8;
-        private readonly int _maxCapacity;
-        private T[]          _firstBuffer;
-        private List<T[]>    _buffers;
-        private T[]          _currentBuffer;
-        private int          _index;
-        private int          _count;
+        private readonly int       _maxCapacity;
+        private readonly List<T[]> _buffers;
+
+        private T[] _firstBuffer;
+        private T[] _currentBuffer;
+        private int _index;
+        private int _count;
         //---------------------------------------------------------------------
         public ArrayBuilder(bool initialize) : this(int.MaxValue) { }
         //---------------------------------------------------------------------
@@ -31,7 +32,7 @@ namespace gfoidl.DataCompression.Builders
             _buffers     = new List<T[]>();
         }
         //---------------------------------------------------------------------
-        public int Count => _count;
+        public readonly int Count => _count;
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(T item)
@@ -66,28 +67,34 @@ namespace gfoidl.DataCompression.Builders
                 return;
             }
 
-            using (IEnumerator<T> enumerator = items.GetEnumerator())
+            using IEnumerator<T> enumerator = items!.GetEnumerator();
+            T[] destination                 = _currentBuffer;
+            int index                       = _index;
+
+            // Continuously read in items from the enumerator, updating _count
+            // and _index when we run out of space.
+            while (enumerator.MoveNext())
             {
-                T[] destination = _currentBuffer;
-                int index       = _index;
+                T item = enumerator.Current;
 
-                // Continuously read in items from the enumerator, updating _count
-                // and _index when we run out of space.
-                while (enumerator.MoveNext())
-                {
-                    T item = enumerator.Current;
+                if ((uint)index >= (uint)destination.Length)
+                    this.AddWithBufferAllocation(item, ref destination, ref index);
+                else
+                    destination[index] = item;
 
-                    if ((uint)index >= (uint)destination.Length)
-                        this.AddWithBufferAllocation(item, ref destination, ref index);
-                    else
-                        destination[index] = item;
+                index++;
+            }
 
-                    index++;
-                }
-
-                // Final update to _count and _index.
-                _count += index - _index;
-                _index = index;
+            // Final update to _count and _index.
+            _count += index - _index;
+            _index  = index;
+        }
+        //---------------------------------------------------------------------
+        private void AddRange(T[] array)
+        {
+            for (int i = 0; i < array.Length; ++i)
+            {
+                this.Add(array[i]);
             }
         }
         //---------------------------------------------------------------------
@@ -95,15 +102,15 @@ namespace gfoidl.DataCompression.Builders
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void AddWithBufferAllocation(T item, ref T[] destination, ref int index)
         {
-            _count += index - _index;
-            _index  = index;
-            AllocateBuffer();
-            destination = _currentBuffer;
-            index       = _index;
+            _count               += index - _index;
+            _index                = index;
+            this.AllocateBuffer();
+            destination           = _currentBuffer;
+            index                 = _index;
             _currentBuffer[index] = item;
         }
         //---------------------------------------------------------------------
-        public T[] ToArray()
+        public readonly T[] ToArray()
         {
             if (this.TryMove(out T[] array))
                 return array;
@@ -114,14 +121,13 @@ namespace gfoidl.DataCompression.Builders
             return array;
         }
         //---------------------------------------------------------------------
-        private bool TryMove(out T[] array)
+        private readonly bool TryMove(out T[] array)
         {
             array = _firstBuffer;
-
             return _count == _firstBuffer.Length;
         }
         //---------------------------------------------------------------------
-        private void CopyTo(T[] array)
+        private readonly void CopyTo(T[] array)
         {
             int arrayIndex = 0;
             int count      = _count;
@@ -130,7 +136,12 @@ namespace gfoidl.DataCompression.Builders
             {
                 T[] buffer = this.GetBuffer(i);
                 int toCopy = Math.Min(count, buffer.Length);
+
+#if NETCOREAPP
+                buffer.AsSpan(0, toCopy).CopyTo(array.AsSpan(arrayIndex));
+#else
                 Array.Copy(buffer, 0, array, arrayIndex, toCopy);
+#endif
 
                 count      -= toCopy;
                 arrayIndex += toCopy;
@@ -139,7 +150,7 @@ namespace gfoidl.DataCompression.Builders
         //---------------------------------------------------------------------
         private void AllocateBuffer()
         {
-            if ((uint)_count < (uint)ResizeThreshold)
+            if ((uint)_count < ResizeThreshold)
             {
                 int newCapacity = Math.Min(_count == 0 ? StartCapacity : _count * 2, _maxCapacity);
                 _currentBuffer  = new T[newCapacity];
@@ -168,7 +179,7 @@ namespace gfoidl.DataCompression.Builders
             }
         }
         //---------------------------------------------------------------------
-        private T[] GetBuffer(int index)
+        private readonly T[] GetBuffer(int index)
         {
             return index == 0
                 ? _firstBuffer

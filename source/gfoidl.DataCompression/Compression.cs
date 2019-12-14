@@ -15,9 +15,9 @@ namespace gfoidl.DataCompression
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>.
         /// </exception>
-        public DataPointIterator Process(IEnumerable<DataPoint> data)
+        public DataPointIterator Process(IEnumerable<DataPoint>? data)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             return this.ProcessCore(data);
         }

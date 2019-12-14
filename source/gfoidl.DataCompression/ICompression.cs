@@ -12,6 +12,6 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        DataPointIterator Process(IEnumerable<DataPoint> data);
+        DataPointIterator Process(IEnumerable<DataPoint>? data);
     }
 }

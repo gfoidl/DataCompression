@@ -16,9 +16,9 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator NoCompression(this IEnumerable<DataPoint> data)
+        public static DataPointIterator NoCompression(this IEnumerable<DataPoint>? data)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             var compression = new NoCompression();
             return compression.Process(data);
@@ -36,9 +36,9 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, double? maxDeltaX = null)
+        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX);
             return compression.Process(data);
@@ -54,9 +54,9 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, TimeSpan maxTime)
+        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             var compression = new DeadBandCompression(instrumentPrecision, maxTime);
             return compression.Process(data);
@@ -81,9 +81,9 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
+        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint>? data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             var compression = new SwingingDoorCompression(compressionDeviation, maxDeltaX, minDeltaX);
             return compression.Process(data);
@@ -103,9 +103,9 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
+        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
         {
-            if (data == null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
             var compression = new SwingingDoorCompression(compressionDeviation, maxTime, minTime);
             return compression.Process(data);

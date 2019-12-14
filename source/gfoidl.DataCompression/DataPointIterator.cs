@@ -47,11 +47,11 @@ namespace gfoidl.DataCompression
         /// </summary>
         public ref DataPoint CurrentByRef => ref _current;
         //---------------------------------------------------------------------
-        private static EmptyIterator _emptyIterator;
+        private static EmptyIterator? s_emptyIterator;
         /// <summary>
         /// Returns an <see cref="EmptyIterator" />.
         /// </summary>
-        public static DataPointIterator Empty => _emptyIterator ?? (_emptyIterator = new EmptyIterator());
+        public static DataPointIterator Empty => s_emptyIterator ?? (s_emptyIterator = new EmptyIterator());
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         object IEnumerator.Current                                    => this.Current;
@@ -116,7 +116,7 @@ namespace gfoidl.DataCompression
         /// An <see cref="DataPointIterator" /> that represents an empty 
         /// collection.
         /// </summary>
-        public class EmptyIterator : DataPointIterator
+        public sealed class EmptyIterator : DataPointIterator
         {
             /// <summary>
             /// Clones the <see cref="DataPointIterator" />.

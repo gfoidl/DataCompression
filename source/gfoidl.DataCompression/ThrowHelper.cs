@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace gfoidl.DataCompression
 {
     internal static class ThrowHelper
     {
-        public static void ThrowArgumentNull(ExceptionArgument argument)       => throw new ArgumentNullException(GetArgumentName(argument));
-        public static void ThrowArgumentOutOfRange(ExceptionArgument argument) => throw new ArgumentOutOfRangeException(GetArgumentName(argument));
-        public static void ThrowArgument(ExceptionResource resource)           => throw new ArgumentException(GetResourceText(resource));
-        public static void ThrowNotSupported()                                 => throw new NotSupportedException();
-        public static void ThrowIfDisposed(ExceptionArgument argument)         => throw new ObjectDisposedException(argument.ToString());
-        public static void ThrowInvalidOperation(ExceptionResource resource)   => throw new InvalidOperationException(GetResourceText(resource));
+        [DoesNotReturn] public static void ThrowArgumentNull(ExceptionArgument argument)       => throw new ArgumentNullException(GetArgumentName(argument));
+        [DoesNotReturn] public static void ThrowArgumentOutOfRange(ExceptionArgument argument) => throw new ArgumentOutOfRangeException(GetArgumentName(argument));
+        [DoesNotReturn] public static void ThrowArgument(ExceptionResource resource)           => throw new ArgumentException(GetResourceText(resource));
+        [DoesNotReturn] public static void ThrowNotSupported()                                 => throw new NotSupportedException();
+        [DoesNotReturn] public static void ThrowIfDisposed(ExceptionArgument argument)         => throw new ObjectDisposedException(argument.ToString());
+        [DoesNotReturn] public static void ThrowInvalidOperation(ExceptionResource resource)   => throw new InvalidOperationException(GetResourceText(resource));
         //---------------------------------------------------------------------
         private static string GetArgumentName(ExceptionArgument argument)
         {
@@ -31,7 +32,12 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         private static string GetResourceText(ExceptionResource resource)
-            => Strings.ResourceManager.GetString(GetResourceName(resource), Strings.Culture);
+        {
+            string? tmp = Strings.ResourceManager.GetString(GetResourceName(resource), Strings.Culture);
+
+            Debug.Assert(tmp != null);
+            return tmp!;
+        }
         //---------------------------------------------------------------------
         public enum ExceptionArgument
         {
@@ -47,3 +53,12 @@ namespace gfoidl.DataCompression
         }
     }
 }
+//-----------------------------------------------------------------------------
+#if !NETCOREAPP
+namespace System.Diagnostics.CodeAnalysis
+{
+    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
+    internal sealed class DoesNotReturnAttribute : Attribute
+    { }
+}
+#endif

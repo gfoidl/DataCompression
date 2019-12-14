@@ -28,13 +28,14 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
         //---------------------------------------------------------------------
         private static IEnumerable<TestCaseData> A_and_B_given___OK_TestCases()
         {
-            yield return new TestCaseData((0d, 0d), (0d, 0d)).Returns(0d);
-            yield return new TestCaseData((0d, 0d), (1d, 1d)).Returns(1d);
-            yield return new TestCaseData((0d, 0d), (1d, -1d)).Returns(-1d);
-            yield return new TestCaseData((0d, 0d), (1d, 0d)).Returns(0d);
-            yield return new TestCaseData((0d, 0d), (-1d, 0d)).Returns(0d);
-            yield return new TestCaseData((0d, 0d), (0d, 1d)).Returns(double.PositiveInfinity);
-            yield return new TestCaseData((0d, 0d), (0d, -1d)).Returns(double.NegativeInfinity);
+            yield return new TestCaseData((0d, 0d), ( 0d,  0d)).Returns(0d);
+            yield return new TestCaseData((0d, 0d), ( 1d,  1d)).Returns(1d);
+            yield return new TestCaseData((0d, 0d), ( 1d, -1d)).Returns(-1d);
+            yield return new TestCaseData((0d, 0d), ( 1d,  0d)).Returns(0d);
+            yield return new TestCaseData((0d, 0d), (-1d,  0d)).Returns(0d);
+            yield return new TestCaseData((0d, 0d), ( 0d,  1d)).Returns(double.PositiveInfinity);
+            yield return new TestCaseData((0d, 0d), ( 0d, -1d)).Returns(double.NegativeInfinity);
+            yield return new TestCaseData((0d, 0d), ( 4d,  3d)).Returns(3d / 4d);
         }
     }
 }
