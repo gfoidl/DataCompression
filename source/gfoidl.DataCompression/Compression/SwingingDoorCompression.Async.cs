@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using gfoidl.DataCompression.Wrappers;
 
 namespace gfoidl.DataCompression
@@ -19,9 +20,18 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override IAsyncEnumerable<DataPoint> ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
+        protected override async IAsyncEnumerable<DataPoint> ProcessAsyncCore(
+            IAsyncEnumerable<DataPoint> data,
+            [EnumeratorCancellation] CancellationToken ct)
         {
-            throw new NotImplementedException();
+            ct.ThrowIfCancellationRequested();
+
+            await foreach (DataPoint dataPoint in data.WithCancellation(ct).ConfigureAwait(false))
+            {
+                ct.ThrowIfCancellationRequested();
+
+                yield break;
+            }
         }
     }
 }
