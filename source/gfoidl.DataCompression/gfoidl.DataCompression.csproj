@@ -23,6 +23,10 @@
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\gfoidl.DataCompression.xml</DocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <Compile Remove="Compression\*.Async.cs" />
+    </ItemGroup>
+
     <ItemGroup>
         <Compile Update="Strings.Designer.cs">
             <DesignTime>True</DesignTime>
