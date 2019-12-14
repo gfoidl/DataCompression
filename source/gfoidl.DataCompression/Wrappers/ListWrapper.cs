@@ -5,11 +5,11 @@ using System.Collections.Generic;
 namespace gfoidl.DataCompression.Wrappers
 {
 #pragma warning disable CS1591
-    public struct ListWrapper<T> : IList<T>
+    public readonly struct ListWrapper<T> : IList<T>
     {
         private readonly List<T> _list;
         //---------------------------------------------------------------------
-        public ListWrapper(List<T> list) => _list = list;
+        public ListWrapper(List<T>? list) => _list = list ?? throw new ArgumentNullException(nameof(list));
         //---------------------------------------------------------------------
         public T this[int index]
         {

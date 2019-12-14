@@ -22,25 +22,35 @@ namespace gfoidl.DataCompression
         /// or <c>null</c> when the first column should be parsed as <see cref="System.Double" />.
         /// </param>
         /// <returns>The <see cref="DataPoint" />s read from the csv file</returns>
-        public IEnumerable<DataPoint> Read(string csvFile, char? separator = null, bool firstLineIsHeader = true, string dateTimeFormat = null)
+        public IEnumerable<DataPoint> Read(string? csvFile, char? separator = null, bool firstLineIsHeader = true, string? dateTimeFormat = null)
         {
-            char sep = separator ?? '\t';
+            if (csvFile is null) throw new ArgumentNullException(nameof(csvFile));
 
-            using (StreamReader sr = File.OpenText(csvFile))
+            return ReadCore();
+            //-----------------------------------------------------------------
+            IEnumerable<DataPoint> ReadCore()
             {
+                char sep              = separator ?? '\t';
+                using StreamReader sr = File.OpenText(csvFile);
+
                 if (firstLineIsHeader) sr.ReadLine();
 
                 while (!sr.EndOfStream)
                 {
-                    string[] cols = sr.ReadLine().Split(sep);
+                    string? line = sr.ReadLine();
+                    if (line == null) break;
+
+                    string[] cols = line.Split(sep);
                     double x      = default;
 
                     if (dateTimeFormat == null)
+                    {
                         x = double.Parse(cols[0], NumberStyles.Any, CultureInfo.InvariantCulture);
+                    }
                     else
                     {
                         DateTime dt = DateTime.ParseExact(cols[0], dateTimeFormat, CultureInfo.InvariantCulture);
-                        x           = dt.Ticks;
+                        x = dt.Ticks;
                     }
 
                     double y = double.Parse(cols[1], NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -61,20 +71,29 @@ namespace gfoidl.DataCompression
         /// A custom <see cref="DateTime" /> format string, that is used to write the first column,
         /// or <c>null</c> when the first column should be written as <see cref="System.Double" />.
         /// </param>
-        public void Write(string csvFile, IEnumerable<DataPoint> data, char? separator = null, (string X, string Y)? header = null, string dateTimeFormat = null)
+        public void Write(string? csvFile, IEnumerable<DataPoint>? data, char? separator = null, (string X, string Y)? header = null, string? dateTimeFormat = null)
         {
-            char sep = separator ?? '\t';
+            if (csvFile is null) throw new ArgumentNullException(nameof(csvFile));
+            if (data    is null) throw new ArgumentNullException(nameof(data));
 
-            using (StreamWriter sw = File.CreateText(csvFile))
+            char sep              = separator ?? '\t';
+            using StreamWriter sw = File.CreateText(csvFile);
+
+            if (header.HasValue)
             {
-                if (header.HasValue)
-                    sw.WriteLine($"# {header.Value.X}{sep}{header.Value.Y}");
+                sw.WriteLine($"# {header.Value.X}{sep}{header.Value.Y}");
+            }
 
-                foreach (DataPoint dp in data)
-                    if (dateTimeFormat == null)
-                        sw.WriteLine(Invariant($"{dp.X}{sep}{dp.Y}"));
-                    else
-                        sw.WriteLine($"{dp.ToTimeValue().Time.ToString(dateTimeFormat)}{sep}{Invariant($"{dp.Y}")}");
+            foreach (DataPoint dp in data)
+            {
+                if (dateTimeFormat == null)
+                {
+                    sw.WriteLine(Invariant($"{dp.X}{sep}{dp.Y}"));
+                }
+                else
+                {
+                    sw.WriteLine($"{dp.ToTimeValue().Time.ToString(dateTimeFormat)}{sep}{Invariant($"{dp.Y}")}");
+                }
             }
         }
     }

@@ -10,6 +10,6 @@ namespace gfoidl.DataCompression.Builders
         //---------------------------------------------------------------------
         public void Add(T item) => _list.Add(item);
         //---------------------------------------------------------------------
-        public List<T> ToList() => _list;
+        public readonly List<T> ToList() => _list;
     }
 }

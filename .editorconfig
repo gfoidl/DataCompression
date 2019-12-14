@@ -218,3 +218,6 @@ dotnet_naming_style.static_field.required_prefix = s_
 dotnet_naming_style.static_field.required_suffix = 
 dotnet_naming_style.static_field.word_separator = 
 dotnet_naming_style.static_field.capitalization = camel_case
+
+# CA1063: Implement IDisposable Correctly
+dotnet_diagnostic.CA1063.severity = none

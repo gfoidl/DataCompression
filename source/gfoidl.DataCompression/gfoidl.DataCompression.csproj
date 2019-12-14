@@ -1,21 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
-        <PackageLicenseUrl>https://github.com/gfoidl/DataCompression/blob/master/LICENSE</PackageLicenseUrl>
+        <TargetFrameworks>netcoreapp3.0;netstandard2.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <PropertyGroup Label="Package">
         <PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
         <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
         <RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/gfoidl/DataCompression/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryType>git</RepositoryType>
         <Description>Provides several data-compression algorithms:
 
 * error band elimination
 * swinging door algorithm
         </Description>
-        <Copyright>Copyright © Foidl Günther 2017-2018</Copyright>
     </PropertyGroup>
 
     <PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">

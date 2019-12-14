@@ -21,6 +21,19 @@ namespace gfoidl.DataCompression.Tests.Builders.ArrayBuilderTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
+        [Test]
+        public void Array___correct_result()
+        {
+            int[] expected = Getvalues().ToArray();
+            var sut        = new ArrayBuilder<int>(true);
+
+            sut.AddRange(expected);
+
+            int[] actual = sut.ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
         private static IEnumerable<int> Getvalues()
         {
             yield return 0;

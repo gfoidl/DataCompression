@@ -52,6 +52,12 @@ namespace gfoidl.DataCompression
             }
             //---------------------------------------------------------------------
             public override List<DataPoint> ToList() => new List<DataPoint>(_enumerable);
+            //---------------------------------------------------------------------
+            public override void Dispose()
+            {
+                base.Dispose();
+                _enumerator.Dispose();
+            }
         }
     }
 }
