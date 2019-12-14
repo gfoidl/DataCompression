@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using gfoidl.DataCompression.Builders;
 
@@ -115,9 +116,9 @@ namespace gfoidl.DataCompression
                 TList source    = _source;
                 const int index = 0;
 
-                if (source.Count == 0)
-                    return Array.Empty<DataPoint>();
-                else if (source.Count == 1 && (uint)index < (uint)source.Count)
+                Debug.Assert(source.Count > 0);
+
+                if (source.Count == 1 && (uint)index < (uint)source.Count)
                     return new[] { source[index] };
 
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
@@ -131,9 +132,9 @@ namespace gfoidl.DataCompression
                 TList source    = _source;
                 const int index = 0;
 
-                if (source.Count == 0)
-                    return new List<DataPoint>();
-                else if (source.Count == 1 && (uint)index < (uint)source.Count)
+                Debug.Assert(source.Count > 0);
+
+                if (source.Count == 1 && (uint)index < (uint)source.Count)
                     return new List<DataPoint> { source[0] };
 
                 var listBuilder = new ListBuilder<DataPoint>(true);

@@ -32,6 +32,33 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             Assert.Throws<InvalidOperationException>(() => iterator.MoveNext());
         }
         //---------------------------------------------------------------------
+        [Test]
+        public void Empty_IEnumerable___empty_result()
+        {
+            var sut  = new SwingingDoorCompression(1);
+            var data = Empty();
+
+            var iterator = sut.Process(data);
+
+            Assert.IsFalse(iterator.MoveNext());
+            //-----------------------------------------------------------------
+            static IEnumerable<DataPoint> Empty()
+            {
+                yield break;
+            }
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Empty_Array___empty_result()
+        {
+            var sut  = new SwingingDoorCompression(1);
+            var data = new DataPoint[0];
+
+            var iterator = sut.Process(data);
+
+            Assert.IsFalse(iterator.MoveNext());
+        }
+        //---------------------------------------------------------------------
         private static IEnumerable<DataPoint> RawDataForTrend() => _ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
     }
 }
