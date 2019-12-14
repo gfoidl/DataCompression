@@ -25,8 +25,10 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
             var other = new DataPoint(x, y);
 
             bool actual = sut.Equals(other);
+            Assert.IsTrue(actual, "Equals");
 
-            Assert.IsTrue(actual);
+            actual = sut == other;
+            Assert.IsTrue(actual, "==");
         }
         //---------------------------------------------------------------------
         [Test]
@@ -49,8 +51,10 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
             var other = new DataPoint(1e-150, 1e-150);
 
             bool actual = sut.Equals(other);
+            Assert.IsFalse(actual, "Equals");
 
-            Assert.IsFalse(actual);
+            actual = sut == other;
+            Assert.IsFalse(actual, "==");
         }
         //---------------------------------------------------------------------
         [Test]
@@ -62,6 +66,17 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
             bool actual = sut.Equals(other);
 
             Assert.IsFalse(actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Test_with_allowedDelta()
+        {
+            var sut   = new DataPoint(3, 3);
+            var other = new DataPoint(3.1, 2.9);
+
+            bool actual = sut.Equals(other, 0.1001);
+
+            Assert.IsTrue(actual);
         }
     }
 }

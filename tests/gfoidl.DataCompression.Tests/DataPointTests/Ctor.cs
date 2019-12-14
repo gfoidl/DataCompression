@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.DataPointTests
 {
@@ -27,6 +28,17 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
 
             Assert.AreEqual(x, actual.X, Constants.Epsilon);
             Assert.AreEqual(y, actual.Y, Constants.Epsilon);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Tuple_with_DateTime_implicit___correct_property_values()
+        {
+            (DateTime Now, double Y) tuple = (DateTime.Now, 1.23);
+
+            DataPoint actual = tuple;
+
+            Assert.AreEqual(tuple.Now.Ticks, actual.X);
+            Assert.AreEqual(tuple.Y, actual.Y);
         }
     }
 }

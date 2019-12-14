@@ -116,7 +116,7 @@ namespace gfoidl.DataCompression
         /// An <see cref="DataPointIterator" /> that represents an empty 
         /// collection.
         /// </summary>
-        public sealed class EmptyIterator : DataPointIterator
+        private sealed class EmptyIterator : DataPointIterator
         {
             /// <summary>
             /// Clones the <see cref="DataPointIterator" />.

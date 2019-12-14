@@ -126,7 +126,7 @@ namespace gfoidl.DataCompression
             else
             {
                 ThrowHelper.ThrowArgument(ThrowHelper.ExceptionResource.Gradient_A_eq_B);
-                return 0;
+                throw null;
             }
         }
         //---------------------------------------------------------------------

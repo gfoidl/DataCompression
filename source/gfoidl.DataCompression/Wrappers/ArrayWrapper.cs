@@ -19,17 +19,17 @@ namespace gfoidl.DataCompression.Wrappers
         //---------------------------------------------------------------------
         public int Count => _array.Length;
         //---------------------------------------------------------------------
-        public bool IsReadOnly                        => throw new NotImplementedException();
-        public void Add(T item)                       => throw new NotImplementedException();
-        public void Clear()                           => throw new NotImplementedException();
-        public bool Contains(T item)                  => throw new NotImplementedException();
-        public void CopyTo(T[] array, int arrayIndex) => throw new NotImplementedException();
-        public IEnumerator<T> GetEnumerator()         => throw new NotImplementedException();
-        public int IndexOf(T item)                    => throw new NotImplementedException();
-        public void Insert(int index, T item)         => throw new NotImplementedException();
-        public bool Remove(T item)                    => throw new NotImplementedException();
-        public void RemoveAt(int index)               => throw new NotImplementedException();
-        IEnumerator IEnumerable.GetEnumerator()       => throw new NotImplementedException();
+        public bool IsReadOnly                        => throw new NotSupportedException();
+        public void Add(T item)                       => throw new NotSupportedException();
+        public void Clear()                           => throw new NotSupportedException();
+        public bool Contains(T item)                  => throw new NotSupportedException();
+        public void CopyTo(T[] array, int arrayIndex) => throw new NotSupportedException();
+        public IEnumerator<T> GetEnumerator()         => throw new NotSupportedException();
+        public int IndexOf(T item)                    => throw new NotSupportedException();
+        public void Insert(int index, T item)         => throw new NotSupportedException();
+        public bool Remove(T item)                    => throw new NotSupportedException();
+        public void RemoveAt(int index)               => throw new NotSupportedException();
+        IEnumerator IEnumerable.GetEnumerator()       => throw new NotSupportedException();
     }
 #pragma warning restore CS1591
 }
