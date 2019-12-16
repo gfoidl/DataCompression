@@ -99,7 +99,7 @@ namespace gfoidl.DataCompression
                         return false;
                 }
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
                 TList source = _source;
@@ -113,7 +113,7 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override List<DataPoint> ToList()
             {
                 TList source = _source;

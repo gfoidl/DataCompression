@@ -110,7 +110,7 @@ namespace gfoidl.DataCompression
                         return false;
                 }
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
                 TList source    = _source;
@@ -126,7 +126,7 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override List<DataPoint> ToList()
             {
                 TList source    = _source;
@@ -142,7 +142,7 @@ namespace gfoidl.DataCompression
 
                 return listBuilder.ToList();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             private void BuildCollection<TBuilder>(TList source, ref TBuilder builder)
                 where TBuilder : ICollectionBuilder<DataPoint>
             {
@@ -201,7 +201,7 @@ namespace gfoidl.DataCompression
 
                 this.OpenNewDoor(incoming);
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
             private int SkipMinDeltaX(TList source, int snapShotIndex, int incomingIndex)
             {

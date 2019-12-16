@@ -24,7 +24,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         [Test]
         public async Task Data_IAsyncEnumerable_with_maxDeltaX___OK()
         {
-            var sut      = new DeadBandCompression(0.1);
+            var sut      = new DeadBandCompression(0.1, 4d);
             var data     = RawDataForMaxDeltaAsync();
             var expected = ExpectedForMaxDelta().ToList();
 
@@ -38,7 +38,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         {
             var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().ToList();
+            var expected = ExpectedForTrend().ToList();
 
             DataPointAsyncIterator dataPointIterator = sut.ProcessAsync(data);
 
@@ -55,7 +55,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         {
             var sut      = new DeadBandCompression(0.1);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().Take(2).ToList();
+            var expected = ExpectedForTrend().Take(2).ToList();
 
             DataPointAsyncIterator dataPointIterator = sut.ProcessAsync(data);
             var cts                                  = new CancellationTokenSource();

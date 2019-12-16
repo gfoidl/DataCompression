@@ -27,8 +27,8 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         public void Cancellation_after_two_items___OK()
         {
             var sut      = new DeadBandCompression(0.1);
-            var data     = RawDataForTrendAsync();
-            var expected = ExpectedForTrend().Take(2).ToList();
+            var data     = KnownSequenceAsync();
+            var expected = KnownSequence().Take(2).ToList();
             var cts      = new CancellationTokenSource();
 
             var actual = new List<DataPoint>();

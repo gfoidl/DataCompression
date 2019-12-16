@@ -130,7 +130,7 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private abstract class SwingingDoorCompressionIterator : DataPointIterator
         {
-            protected static readonly (double Max, double Min) _newDoor = (double.PositiveInfinity, double.NegativeInfinity);
+            protected static readonly (double Max, double Min) s_newDoor = (double.PositiveInfinity, double.NegativeInfinity);
             //---------------------------------------------------------------------
             protected readonly SwingingDoorCompression _swingingDoorCompression;
             protected (double Max, double Min)         _slope;
@@ -163,7 +163,7 @@ namespace gfoidl.DataCompression
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected void CloseTheDoor(in DataPoint incoming, in DataPoint lastArchived)
             {
-                double upperSlope = lastArchived.Gradient(incoming, _swingingDoorCompression.CompressionDeviation);
+                double upperSlope = lastArchived.Gradient(incoming,  _swingingDoorCompression.CompressionDeviation);
                 double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
 
                 if (upperSlope < _slope.Max) _slope.Max = upperSlope;
@@ -174,7 +174,7 @@ namespace gfoidl.DataCompression
             protected void OpenNewDoor(in DataPoint incoming)
             {
                 _lastArchived = incoming;
-                _slope        = _newDoor;
+                _slope        = s_newDoor;
             }
         }
     }

@@ -144,7 +144,7 @@ namespace gfoidl.DataCompression
             {
                 ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-                if ((incoming.X - _lastArchived.X) >= (_deadBandCompression._maxDeltaX))
+                if ((incoming.X - _lastArchived.X) >= _deadBandCompression._maxDeltaX)
                 {
                     archive.Archive  = true;
                     archive.MaxDelta = true;

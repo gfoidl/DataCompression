@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using gfoidl.DataCompression.Builders;
 
@@ -88,7 +87,7 @@ namespace gfoidl.DataCompression
                         return false;
                 }
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
@@ -98,7 +97,7 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override List<DataPoint> ToList()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
@@ -108,7 +107,7 @@ namespace gfoidl.DataCompression
 
                 return listBuilder.ToList();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
                 where TBuilder : ICollectionBuilder<DataPoint>
             {
@@ -150,7 +149,7 @@ namespace gfoidl.DataCompression
                 if (incoming != _lastArchived)          // sentinel-check
                     builder.Add(incoming);
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
             private void SkipMinDeltaX(in DataPoint snapShot)
             {

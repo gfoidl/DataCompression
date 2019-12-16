@@ -38,7 +38,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         {
             var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().ToList();
+            var expected = ExpectedForTrend().ToList();
 
             DataPointAsyncIterator dataPointIterator = sut.ProcessAsync(data);
 
@@ -55,7 +55,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         {
             var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().Take(2).ToList();
+            var expected = ExpectedForTrend().Take(2).ToList();
 
             DataPointAsyncIterator dataPointIterator = sut.ProcessAsync(data);
             var cts                                  = new CancellationTokenSource();
