@@ -112,6 +112,9 @@ namespace gfoidl.DataCompression.Builders
         //---------------------------------------------------------------------
         public readonly T[] ToArray()
         {
+            if (_count == 0)
+                return Array.Empty<T>();
+
             if (this.TryMove(out T[] array))
                 return array;
 

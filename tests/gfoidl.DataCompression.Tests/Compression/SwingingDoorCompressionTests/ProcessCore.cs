@@ -94,8 +94,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void One_DataPoint_IEnumerable___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForMaxDelta().Take(1);
-            var expected = RawDataForMaxDelta().Take(1).ToList();
+            var data     = KnownSequence().Take(1);
+            var expected = KnownSequence().Take(1).ToList();
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -108,8 +108,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void One_DataPoint_List___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForMaxDelta().Take(1).ToList();
-            var expected = RawDataForMaxDelta().Take(1).ToList();
+            var data     = KnownSequence().Take(1).ToList();
+            var expected = KnownSequence().Take(1).ToList();
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -122,8 +122,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void One_DataPoint_IList___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForMaxDelta().Take(1).ToList().AsReadOnly();
-            var expected = RawDataForMaxDelta().Take(1).ToList();
+            var data     = KnownSequence().Take(1).ToList().AsReadOnly();
+            var expected = KnownSequence().Take(1).ToList();
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -136,8 +136,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void Two_DataPoint_IEnumerable___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForMaxDelta().Take(2);
-            var expected = RawDataForMaxDelta().Take(2).ToList();
+            var data     = KnownSequence().Take(2);
+            var expected = KnownSequence().Take(2).ToList();
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -150,8 +150,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void Two_DataPoint_List___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForMaxDelta().Take(2).ToList();
-            var expected = RawDataForMaxDelta().Take(2).ToList();
+            var data     = KnownSequence().Take(2).ToList();
+            var expected = KnownSequence().Take(2).ToList();
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -164,8 +164,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void Two_DataPoint_IList___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForMaxDelta().Take(2).ToList().AsReadOnly();
-            var expected = RawDataForMaxDelta().Take(2).ToList();
+            var data     = KnownSequence().Take(2).ToList().AsReadOnly();
+            var expected = KnownSequence().Take(2).ToList();
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))

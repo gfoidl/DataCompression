@@ -18,11 +18,6 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
             Assert.AreEqual(0, actual.ToList().Count);
-            //-----------------------------------------------------------------
-            static IEnumerable<DataPoint> Empty()
-            {
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]

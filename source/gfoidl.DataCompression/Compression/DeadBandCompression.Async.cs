@@ -63,10 +63,6 @@ namespace gfoidl.DataCompression
                     default:
                         await this.DisposeAsync().ConfigureAwait(false);
                         return false;
-                    case -1:
-                        await _enumerator.MoveNextAsync().ConfigureAwait(false);
-                        _state = 0;
-                        return true;
                     case 0:
                         _snapShot = _enumerator.Current;
                         _lastArchived = _snapShot;

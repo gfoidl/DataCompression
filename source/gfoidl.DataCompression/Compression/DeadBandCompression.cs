@@ -104,10 +104,7 @@ namespace gfoidl.DataCompression
                     : new IndexedIterator<IList<DataPoint>>(this, ilist);
             }
 
-            IEnumerator<DataPoint> enumerator = data.GetEnumerator();
-            return enumerator.MoveNext()
-                ? new EnumerableIterator(this, data, enumerator)
-                : DataPointIterator.Empty;
+            return new EnumerableIterator(this, data);
         }
         //---------------------------------------------------------------------
         private abstract class DeadBandCompressionIterator : DataPointIterator

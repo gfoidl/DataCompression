@@ -32,7 +32,7 @@ namespace gfoidl.DataCompression
                     case 0:
                         _snapShotIndex     = 0;
                         _lastArchivedIndex = 0;
-                        _incomingIndex     = default;
+                        _incomingIndex     = 0;
                         _current           = _source[0];
                         _incoming          = _current;
 
@@ -69,7 +69,7 @@ namespace gfoidl.DataCompression
                                 continue;
                             }
 
-                            if (!archive.MaxDelta)
+                            if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex)
                             {
                                 _current       = source[snapShotIndex];
                                 _state         = 2;

@@ -6,14 +6,14 @@
     public abstract class DataPointIteratorBase
     {
         /// <summary>
-        /// The initial state of the iterator.
-        /// </summary>
-        protected const int InitialState = -2;
-        //---------------------------------------------------------------------
-        /// <summary>
         /// The state when the iterator is disposed.
         /// </summary>
         protected const int DisposedState = -3;
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// The initial state of the iterator.
+        /// </summary>
+        protected const int InitialState = -2;
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         protected int       _state = InitialState;

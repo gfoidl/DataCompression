@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
 
 #if NETCOREAPP
 using System.Runtime.CompilerServices;
@@ -9,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 {
-    [TestFixture]
-    public abstract class Base
+    public abstract class Base : Compression.Base
     {
         private static readonly DataPointSerializer s_ser = new DataPointSerializer();
         //---------------------------------------------------------------------

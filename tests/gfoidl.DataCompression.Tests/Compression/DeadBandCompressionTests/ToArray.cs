@@ -18,11 +18,6 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
             Assert.AreEqual(0, actual.ToList().Count);
-            //-----------------------------------------------------------------
-            static IEnumerable<DataPoint> Empty()
-            {
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]
@@ -35,6 +30,18 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
             Assert.AreEqual(0, actual.ToList().Count);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void KnownData_given_as_IEnumerable___OK()
+        {
+            var sut      = new DeadBandCompression(0.1);
+            var data     = KnownSequence();
+            var expected = KnownSequence().ToList();
+
+            var actual = sut.Process(data).ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]

@@ -16,11 +16,11 @@ namespace gfoidl.DataCompression
             public EnumerableIterator(
                 SwingingDoorCompression swingingDoorCompression,
                 IEnumerable<DataPoint> source,
-                IEnumerator<DataPoint> enumerator)
+                IEnumerator<DataPoint>? enumerator = null)
                 : base(swingingDoorCompression)
             {
                 _source     = source;
-                _enumerator = enumerator;
+                _enumerator = enumerator ?? source.GetEnumerator();
             }
             //-----------------------------------------------------------------
             public override DataPointIterator Clone() => new EnumerableIterator(_swingingDoorCompression, _source, _enumerator);
@@ -29,10 +29,8 @@ namespace gfoidl.DataCompression
             {
                 switch (_state)
                 {
-                    default:
-                        this.Dispose();
-                        return false;
                     case 0:
+                        if (!_enumerator.MoveNext()) return false;
                         _snapShot     = _enumerator.Current;
                         _lastArchived = _snapShot;
                         _incoming     = _snapShot;          // sentinel, nullable would be possible but to much work around
@@ -54,7 +52,7 @@ namespace gfoidl.DataCompression
                                 continue;
                             }
 
-                            if (!archive.MaxDelta)
+                            if (!archive.MaxDelta && _lastArchived != _snapShot)
                             {
                                 _current = _snapShot;
                                 _state   = 2;
@@ -85,6 +83,9 @@ namespace gfoidl.DataCompression
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                         return false;
+                    default:
+                        this.Dispose();
+                        return false;
                 }
             }
             //---------------------------------------------------------------------
@@ -111,7 +112,8 @@ namespace gfoidl.DataCompression
             private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
                 where TBuilder : ICollectionBuilder<DataPoint>
             {
-                enumerator.MoveNext();
+                if (!enumerator.MoveNext()) return;
+
                 DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
                 DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
@@ -132,7 +134,7 @@ namespace gfoidl.DataCompression
                         continue;
                     }
 
-                    if (!archive.MaxDelta)
+                    if (!archive.MaxDelta && _lastArchived != snapShot)
                         builder.Add(snapShot);
 
                     if (_swingingDoorCompression._minDeltaXHasValue)

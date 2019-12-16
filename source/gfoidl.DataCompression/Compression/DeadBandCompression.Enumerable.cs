@@ -17,11 +17,11 @@ namespace gfoidl.DataCompression
             public EnumerableIterator(
                 DeadBandCompression deadBandCompression,
                 IEnumerable<DataPoint> source,
-                IEnumerator<DataPoint> enumerator)
+                IEnumerator<DataPoint>? enumerator = null)
                 : base(deadBandCompression)
             {
                 _source     = source;
-                _enumerator = enumerator;
+                _enumerator = enumerator ?? source.GetEnumerator();
             }
             //-----------------------------------------------------------------
             public override DataPointIterator Clone() => new EnumerableIterator(_deadBandCompression, _source, _enumerator);
@@ -30,13 +30,11 @@ namespace gfoidl.DataCompression
             {
                 switch (_state)
                 {
-                    default:
-                        this.Dispose();
-                        return false;
                     case 0:
+                        if (!_enumerator.MoveNext()) return false;
                         _snapShot     = _enumerator.Current;
                         _lastArchived = _snapShot;
-                        _incoming     = _snapShot;      // sentinel, nullable would be possible but to much work around
+                        _incoming     = _snapShot;          // sentinel, nullable would be possible but to much work around
                         _current      = _snapShot;
                         this.GetBounding(_snapShot);
                         _state        = 1;
@@ -53,7 +51,7 @@ namespace gfoidl.DataCompression
                                 continue;
                             }
 
-                            if (!archive.MaxDelta)
+                            if (!archive.MaxDelta && _lastArchived != _snapShot)
                             {
                                 _current = _snapShot;
                                 _state   = 2;
@@ -64,7 +62,7 @@ namespace gfoidl.DataCompression
                         }
 
                         _state = -1;
-                        if (_incoming != _lastArchived)
+                        if (_incoming != _lastArchived)     // sentinel-check
                         {
                             _current = _incoming;
                             return true;
@@ -80,6 +78,9 @@ namespace gfoidl.DataCompression
                         return false;
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
+                        return false;
+                    default:
+                        this.Dispose();
                         return false;
                 }
             }
@@ -107,7 +108,8 @@ namespace gfoidl.DataCompression
             public void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
                 where TBuilder : ICollectionBuilder<DataPoint>
             {
-                enumerator.MoveNext();
+                if (!enumerator.MoveNext()) return;
+
                 DataPoint snapShot = enumerator.Current;
                 _lastArchived      = snapShot;
                 DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
@@ -126,7 +128,7 @@ namespace gfoidl.DataCompression
                         continue;
                     }
 
-                    if (!archive.MaxDelta)
+                    if (!archive.MaxDelta && _lastArchived != snapShot)
                         builder.Add(snapShot);
 
                     builder.Add(incoming);

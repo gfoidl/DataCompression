@@ -25,13 +25,10 @@ namespace gfoidl.DataCompression
             {
                 switch (_state)
                 {
-                    default:
-                        this.Dispose();
-                        return false;
                     case 0:
                         _snapShotIndex     = 0;
                         _lastArchivedIndex = 0;
-                        _incomingIndex     = default;
+                        _incomingIndex     = 0;
                         _current           = _source[0];
 
                         if (_source.Count < 2)
@@ -64,7 +61,7 @@ namespace gfoidl.DataCompression
                                 continue;
                             }
 
-                            if (!archive.MaxDelta)
+                            if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex)
                             {
                                 _current       = source[snapShotIndex];
                                 _state         = 2;
@@ -78,9 +75,13 @@ namespace gfoidl.DataCompression
                             goto case 2;
                         }
 
-                        _current = source[incomingIndex - 1];
-                        _state   = -1;
-                        return true;
+                        _state = -1;
+                        if (incomingIndex - 1 != _lastArchivedIndex)   // sentinel-check
+                        {
+                            _current = source[incomingIndex - 1];
+                            return true;
+                        }
+                        return false;
                     case 2:
                         _current = _source[_incomingIndex];
                         _state   = 1;
@@ -93,17 +94,18 @@ namespace gfoidl.DataCompression
                     case DisposedState:
                         ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                         return false;
+                    default:
+                        this.Dispose();
+                        return false;
                 }
             }
             //---------------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
-                TList source    = _source;
-                const int index = 0;
+                TList source = _source;
 
                 Debug.Assert(source.Count > 0);
-
-                if (source.Count == 1 && (uint)index < (uint)source.Count)
+                if (source.Count == 1 && 0 < (uint)source.Count)
                     return new[] { source[0] };
 
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
@@ -114,12 +116,10 @@ namespace gfoidl.DataCompression
             //---------------------------------------------------------------------
             public override List<DataPoint> ToList()
             {
-                TList source    = _source;
-                const int index = 0;
+                TList source = _source;
 
                 Debug.Assert(source.Count > 0);
-
-                if (source.Count == 1 && (uint)index < (uint)source.Count)
+                if (source.Count == 1 && 0 < (uint)source.Count)
                     return new List<DataPoint> { source[0] };
 
                 var listBuilder = new ListBuilder<DataPoint>(true);
@@ -171,12 +171,12 @@ namespace gfoidl.DataCompression
                 if ((uint)incomingIndex >= (uint)source.Count || (uint)lastArchived >= (uint)source.Count)
                     ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.Should_not_happen);
 
-                double lastArchived_x = source[lastArchived].X;
-                DataPoint incoming    = source[incomingIndex];
+                double lastArchivedX = source[lastArchived].X;
+                DataPoint incoming   = source[incomingIndex];
 
                 ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-                if ((incoming.X - lastArchived_x) >= (_deadBandCompression._maxDeltaX))
+                if ((incoming.X - lastArchivedX) >= (_deadBandCompression._maxDeltaX))
                 {
                     archive.Archive  = true;
                     archive.MaxDelta = true;
