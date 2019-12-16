@@ -57,7 +57,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             await enumerator.MoveNextAsync();
             await enumerator.MoveNextAsync();
-            var actual                        = await dataPointIterator.ToArrayAsync();
+            var actual = await dataPointIterator.ToArrayAsync();
 
             CollectionAssert.AreEqual(expected, actual);
         }
