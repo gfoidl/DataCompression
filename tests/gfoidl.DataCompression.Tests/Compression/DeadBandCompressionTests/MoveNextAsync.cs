@@ -34,5 +34,26 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
                 yield break;
             }
         }
+        //---------------------------------------------------------------------
+        [Test]
+        public async Task Empty_IAsyncEnumerable_foreach___empty_result()
+        {
+            var sut  = new DeadBandCompression(0.1);
+            var data = Empty();
+
+            int count = 0;
+            await foreach (DataPoint db in sut.ProcessAsync(data))
+            {
+                count++;
+            }
+
+            Assert.AreEqual(0, count);
+            //-----------------------------------------------------------------
+            static async IAsyncEnumerable<DataPoint> Empty()
+            {
+                await Task.Yield();
+                yield break;
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace gfoidl.DataCompression
         /// <returns>The enumerator.</returns>
         public DataPointAsyncIterator GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
-            _state             = 0;
+            _state             = -1;
             _cancellationToken = cancellationToken;
             return this;
         }

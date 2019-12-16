@@ -46,6 +46,26 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
+        public void Empty_IEnumerable_foreach___empty_result()
+        {
+            var sut  = new DeadBandCompression(0.1);
+            var data = Empty();
+
+            int count = 0;
+            foreach (DataPoint dp in sut.Process(data))
+            {
+                count++;
+            }
+
+            Assert.AreEqual(0, count);
+            //-----------------------------------------------------------------
+            static IEnumerable<DataPoint> Empty()
+            {
+                yield break;
+            }
+        }
+        //---------------------------------------------------------------------
+        [Test]
         public void Empty_Array___empty_result()
         {
             var sut  = new DeadBandCompression(0.1);
