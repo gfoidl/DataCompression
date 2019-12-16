@@ -10,23 +10,23 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// The state at creation is set to <see cref="InitialState" />.
     /// </remarks>
-    public abstract class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
+    public abstract partial class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
     {
-        /// <summary>
-        /// The initial state of the iterator.
-        /// </summary>
-        protected const int InitialState = -2;
-        //---------------------------------------------------------------------
         /// <summary>
         /// The state when the iterator is disposed.
         /// </summary>
         protected const int DisposedState = -3;
         //---------------------------------------------------------------------
-        private readonly int _threadId;
+        /// <summary>
+        /// The initial state of the iterator.
+        /// </summary>
+        protected const int InitialState = -2;
+        //---------------------------------------------------------------------
 #pragma warning disable CS1591
-        protected int        _state;
+        protected int        _state = InitialState;
         protected DataPoint  _current;
 #pragma warning restore CS1591
+        private readonly int _threadId;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates an instance of <see cref="DataPointIterator" />.
@@ -34,7 +34,6 @@ namespace gfoidl.DataCompression
         protected DataPointIterator()
         {
             _threadId = Environment.CurrentManagedThreadId;
-            _state    = InitialState;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -110,40 +109,6 @@ namespace gfoidl.DataCompression
         {
             _current = DataPoint.Origin;
             _state   = DisposedState;
-        }
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// An <see cref="DataPointIterator" /> that represents an empty 
-        /// collection.
-        /// </summary>
-        private sealed class EmptyIterator : DataPointIterator
-        {
-            /// <summary>
-            /// Clones the <see cref="DataPointIterator" />.
-            /// </summary>
-            /// <returns>The cloned <see cref="DataPointIterator" />.</returns>
-            public override DataPointIterator Clone() => this;
-            //-----------------------------------------------------------------
-            /// <summary>
-            /// Advances the enumerator to the next element.
-            /// </summary>
-            /// <returns>
-            /// <c>true</c> if the enumerator was successfully advanced to the next element;
-            /// <c>false</c> if the enumerator has passed the end of the collection.
-            /// </returns>
-            public override bool MoveNext() => false;
-            //---------------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
-            public override DataPoint[] ToArray() => Array.Empty<DataPoint>();
-            //---------------------------------------------------------------------
-            /// <summary>
-            /// Returns a list of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
-            public override List<DataPoint> ToList() => new List<DataPoint>();
         }
     }
 }

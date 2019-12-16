@@ -198,7 +198,7 @@ namespace gfoidl.DataCompression
         /// <returns>A 32-bit signed integer hash code.</returns>
         public override int GetHashCode()
         {
-#if NETCOREAPP
+#if NETSTANDARD2_1
             return HashCode.Combine(this.X, this.Y);
 #else
             const int primeA = 414_584_089;

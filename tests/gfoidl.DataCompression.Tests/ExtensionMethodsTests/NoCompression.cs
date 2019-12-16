@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.ExtensionMethodsTests
@@ -23,5 +24,17 @@ namespace gfoidl.DataCompression.Tests.ExtensionMethodsTests
 
             Assert.IsNotNull(actual);
         }
+        //---------------------------------------------------------------------
+#if NETCOREAPP
+        [Test]
+        public void DataPoints_given_async___OK()
+        {
+            IAsyncEnumerable<DataPoint> dataPoints = GetDataPointsAsync();
+
+            DataPointIterator actual = dataPoints.NoCompressionAsync();
+
+            Assert.IsNotNull(actual);
+        }
+#endif
     }
 }

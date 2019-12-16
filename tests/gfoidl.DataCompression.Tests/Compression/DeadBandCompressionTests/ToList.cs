@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 {
-    [TestFixture]
-    public class ToList
+    public class ToList : Base
     {
-        private static readonly DataPointSerializer _ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public void Data_given_as_IEnumerable___OK()
         {
@@ -186,10 +182,5 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()     => _ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForTrend()    => _ser.Read("../../../../../doc/data/dead-band/trend_compressed.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta()  => _ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForMaxDelta() => _ser.Read("../../../../../doc/data/dead-band/maxDelta_compressed.csv");
     }
 }

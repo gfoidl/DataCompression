@@ -33,5 +33,27 @@ namespace gfoidl.DataCompression.Tests.ExtensionMethodsTests
 
             Assert.IsNotNull(actual);
         }
+        //---------------------------------------------------------------------
+#if NETCOREAPP
+        [Test]
+        public void DataPoints_given_async___OK()
+        {
+            IAsyncEnumerable<DataPoint> dataPoints = GetDataPointsAsync();
+
+            DataPointIterator actual = dataPoints.DeadBandCompressionAsync(0.1);
+
+            Assert.IsNotNull(actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void DataPoints_given_with_TimeSpan_async___OK()
+        {
+            IAsyncEnumerable<DataPoint> dataPoints = GetDataPointsAsync();
+
+            DataPointIterator actual = dataPoints.DeadBandCompressionAsync(0.1, TimeSpan.FromSeconds(1));
+
+            Assert.IsNotNull(actual);
+        }
+#endif
     }
 }

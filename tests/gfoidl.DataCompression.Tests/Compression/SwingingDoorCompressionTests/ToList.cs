@@ -4,11 +4,8 @@ using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
-    [TestFixture]
-    public class ToList
+    public class ToList : Base
     {
-        private static readonly DataPointSerializer _ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public void Data_given_as_IEnumerable___OK()
         {
@@ -222,11 +219,6 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()     => _ser.Read("../../../../../doc/data/swinging-door/trend_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForTrend()    => _ser.Read("../../../../../doc/data/swinging-door/trend_compressed.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta()  => _ser.Read("../../../../../doc/data/swinging-door/maxDelta_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForMaxDelta() => _ser.Read("../../../../../doc/data/swinging-door/maxDelta_compressed.csv");
         //---------------------------------------------------------------------
         private static IEnumerable<DataPoint> RawMinDeltaX()
         {

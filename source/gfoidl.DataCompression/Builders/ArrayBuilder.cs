@@ -112,6 +112,9 @@ namespace gfoidl.DataCompression.Builders
         //---------------------------------------------------------------------
         public readonly T[] ToArray()
         {
+            if (_count == 0)
+                return Array.Empty<T>();
+
             if (this.TryMove(out T[] array))
                 return array;
 
@@ -137,7 +140,7 @@ namespace gfoidl.DataCompression.Builders
                 T[] buffer = this.GetBuffer(i);
                 int toCopy = Math.Min(count, buffer.Length);
 
-#if NETCOREAPP
+#if NETSTANDARD2_1
                 buffer.AsSpan(0, toCopy).CopyTo(array.AsSpan(arrayIndex));
 #else
                 Array.Copy(buffer, 0, array, arrayIndex, toCopy);

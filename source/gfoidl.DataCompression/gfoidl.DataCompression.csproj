@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.0;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
@@ -22,6 +22,10 @@
     <PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\gfoidl.DataCompression.xml</DocumentationFile>
     </PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <Compile Remove="**\*Async*cs" />
+    </ItemGroup>
 
     <ItemGroup>
         <Compile Update="Strings.Designer.cs">

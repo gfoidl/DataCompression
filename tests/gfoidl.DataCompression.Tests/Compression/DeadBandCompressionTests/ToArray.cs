@@ -6,11 +6,8 @@ using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 {
-    [TestFixture]
-    public class ToArray
+    public class ToArray : Base
     {
-        private static readonly DataPointSerializer _ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public void Empty_IEnumerable___empty_result()
         {
@@ -21,11 +18,6 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
             Assert.AreEqual(0, actual.ToList().Count);
-            //-----------------------------------------------------------------
-            static IEnumerable<DataPoint> Empty()
-            {
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]
@@ -38,6 +30,18 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             Assert.AreSame(Array.Empty<DataPoint>(), actual.ToArray());
             Assert.AreEqual(0, actual.ToList().Count);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void KnownData_given_as_IEnumerable___OK()
+        {
+            var sut      = new DeadBandCompression(0.1);
+            var data     = KnownSequence();
+            var expected = KnownSequence().ToList();
+
+            var actual = sut.Process(data).ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
@@ -253,10 +257,5 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawDataForTrend()     => _ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForTrend()    => _ser.Read("../../../../../doc/data/dead-band/trend_compressed.csv");
-        private static IEnumerable<DataPoint> RawDataForMaxDelta()  => _ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
-        private static IEnumerable<DataPoint> ExpectedForMaxDelta() => _ser.Read("../../../../../doc/data/dead-band/maxDelta_compressed.csv");
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
@@ -32,7 +33,7 @@ namespace gfoidl.DataCompression
                     case 0:
                         _snapShotIndex     = 0;
                         _lastArchivedIndex = 0;
-                        _incomingIndex     = default;
+                        _incomingIndex     = 0;
                         _current           = _source[0];
                         _incoming          = _current;
 
@@ -69,7 +70,7 @@ namespace gfoidl.DataCompression
                                 continue;
                             }
 
-                            if (!archive.MaxDelta)
+                            if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex)
                             {
                                 _current       = source[snapShotIndex];
                                 _state         = 2;
@@ -110,7 +111,7 @@ namespace gfoidl.DataCompression
                         return false;
                 }
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
                 TList source    = _source;
@@ -126,7 +127,7 @@ namespace gfoidl.DataCompression
 
                 return arrayBuilder.ToArray();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             public override List<DataPoint> ToList()
             {
                 TList source    = _source;
@@ -142,7 +143,7 @@ namespace gfoidl.DataCompression
 
                 return listBuilder.ToList();
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             private void BuildCollection<TBuilder>(TList source, ref TBuilder builder)
                 where TBuilder : ICollectionBuilder<DataPoint>
             {
@@ -198,10 +199,9 @@ namespace gfoidl.DataCompression
             private void OpenNewDoor(int incomingIndex, in DataPoint incoming)
             {
                 _lastArchivedIndex = incomingIndex;
-
                 this.OpenNewDoor(incoming);
             }
-            //---------------------------------------------------------------------
+            //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
             private int SkipMinDeltaX(TList source, int snapShotIndex, int incomingIndex)
             {
@@ -230,6 +230,12 @@ namespace gfoidl.DataCompression
 
                 return incomingIndex;
             }
+            //---------------------------------------------------------------------
+#if NETSTANDARD2_1
+            public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
+            public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
+            public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
+#endif
         }
     }
 }

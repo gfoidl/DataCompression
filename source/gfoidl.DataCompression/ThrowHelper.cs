@@ -54,7 +54,7 @@ namespace gfoidl.DataCompression
     }
 }
 //-----------------------------------------------------------------------------
-#if !NETCOREAPP
+#if !NETSTANDARD2_1
 namespace System.Diagnostics.CodeAnalysis
 {
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
