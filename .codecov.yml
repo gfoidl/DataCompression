@@ -1,4 +1,4 @@
 comment: false
 ignore:
     - "tests/*"
-    - "source/Strings.Designer.cs"
+    - "source/gfoidl.DataCompression/Strings.Designer.cs"
