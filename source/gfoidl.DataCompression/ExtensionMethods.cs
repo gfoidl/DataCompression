@@ -117,6 +117,7 @@ namespace gfoidl.DataCompression
         /// A filter that performs no compression.
         /// </summary>
         /// <param name="data">Input data</param>
+        /// <param name="ct">The token for cancellation.</param>
         /// <returns>The unmodified input data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
@@ -137,6 +138,7 @@ namespace gfoidl.DataCompression
         /// <param name="maxDeltaX">
         /// Length of x before for sure a value gets recoreded. See <see cref="DeadBandCompression.MaxDeltaX" />.
         /// </param>
+        /// <param name="ct">The token for cancellation.</param>
         /// <returns>Dead band compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
@@ -156,6 +158,7 @@ namespace gfoidl.DataCompression
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
         /// <returns>Dead band compressed / filtered data.</returns>
+        /// <param name="ct">The token for cancellation.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
@@ -182,6 +185,7 @@ namespace gfoidl.DataCompression
         /// Length of x/time within no value gets recorded (after the last archived value).
         /// See <see cref="SwingingDoorCompression.MinDeltaX" />.
         /// </param>
+        /// <param name="ct">The token for cancellation.</param>
         /// <returns>swinging door compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
@@ -204,6 +208,7 @@ namespace gfoidl.DataCompression
         /// </param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
         /// <param name="minTime">Length of time within no value gets recorded (after the last archived value)</param>
+        /// <param name="ct">The token for cancellation.</param>
         /// <returns>swinging door compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>

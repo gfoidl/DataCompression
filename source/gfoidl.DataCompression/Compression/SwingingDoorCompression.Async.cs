@@ -18,6 +18,7 @@ namespace gfoidl.DataCompression
         /// Implementation of the compression / filtering.
         /// </summary>
         /// <param name="data">Input data</param>
+        /// <param name="ct">The token for cancellation.</param>
         /// <returns>The compressed / filtered data.</returns>
         protected override DataPointAsyncIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
         => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
