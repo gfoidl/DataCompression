@@ -177,5 +177,14 @@ namespace gfoidl.DataCompression
                 _slope        = s_newDoor;
             }
         }
+        //---------------------------------------------------------------------
+        private abstract class SwingingDoorCompressionEnumerableIterator: SwingingDoorCompressionIterator
+        {
+            protected DataPoint _snapShot;
+            //-----------------------------------------------------------------
+            protected SwingingDoorCompressionEnumerableIterator(SwingingDoorCompression swingingDoorCompression)
+                : base(swingingDoorCompression)
+            { }
+        }
     }
 }

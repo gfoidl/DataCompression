@@ -8,11 +8,10 @@ namespace gfoidl.DataCompression
 {
     public partial class SwingingDoorCompression
     {
-        private sealed class EnumerableIterator : SwingingDoorCompressionIterator
+        private sealed class EnumerableIterator : SwingingDoorCompressionEnumerableIterator
         {
             private readonly IEnumerable<DataPoint> _source;
             private readonly IEnumerator<DataPoint> _enumerator;
-            private DataPoint                       _snapShot;
             //-----------------------------------------------------------------
             public EnumerableIterator(
                 SwingingDoorCompression swingingDoorCompression,

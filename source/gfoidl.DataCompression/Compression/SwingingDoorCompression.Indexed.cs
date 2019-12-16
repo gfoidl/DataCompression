@@ -199,7 +199,6 @@ namespace gfoidl.DataCompression
             private void OpenNewDoor(int incomingIndex, in DataPoint incoming)
             {
                 _lastArchivedIndex = incomingIndex;
-
                 this.OpenNewDoor(incoming);
             }
             //-----------------------------------------------------------------

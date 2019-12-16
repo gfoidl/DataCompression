@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
@@ -8,13 +7,10 @@ namespace gfoidl.DataCompression
 {
     public partial class DeadBandCompression
     {
-        private sealed class EnumerableIterator : DeadBandCompressionIterator
+        private sealed class EnumerableIterator : DeadBandCompressionEnumerableIterator
         {
             private readonly IEnumerable<DataPoint> _source;
             private readonly IEnumerator<DataPoint> _enumerator;
-            private DataPoint                       _snapShot;
-            private DataPoint                       _lastArchived;
-            private DataPoint                       _incoming;
             //-----------------------------------------------------------------
             public EnumerableIterator(
                 DeadBandCompression deadBandCompression,
@@ -90,8 +86,7 @@ namespace gfoidl.DataCompression
             public override DataPoint[] ToArray()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
-
-                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+                var arrayBuilder                  = new ArrayBuilder<DataPoint>(true);
                 this.BuildCollection(enumerator, ref arrayBuilder);
 
                 return arrayBuilder.ToArray();
@@ -100,8 +95,7 @@ namespace gfoidl.DataCompression
             public override List<DataPoint> ToList()
             {
                 IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
-
-                var listBuilder = new ListBuilder<DataPoint>(true);
+                var listBuilder                   = new ListBuilder<DataPoint>(true);
                 this.BuildCollection(enumerator, ref listBuilder);
 
                 return listBuilder.ToList();
@@ -139,34 +133,6 @@ namespace gfoidl.DataCompression
 
                 if (incoming != _lastArchived)          // sentinel-check
                     builder.Add(incoming);
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
-            {
-                ref (bool Archive, bool MaxDelta) archive = ref _archive;
-
-                if ((incoming.X - _lastArchived.X) >= _deadBandCompression._maxDeltaX)
-                {
-                    archive.Archive  = true;
-                    archive.MaxDelta = true;
-                }
-                else
-                {
-                    archive.Archive  = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
-                    archive.MaxDelta = false;
-                }
-
-                return ref archive;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
-            {
-                _lastArchived = incoming;
-                snapShot      = incoming;
-
-                if (!_archive.MaxDelta) this.GetBounding(snapShot);
             }
             //---------------------------------------------------------------------
 #if NETSTANDARD2_1

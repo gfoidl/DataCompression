@@ -3,12 +3,6 @@ using System.Collections.Generic;
 
 namespace gfoidl.DataCompression
 {
-    /// <summary>
-    /// Base class for an iterator for <see cref="DataPoint" />s.
-    /// </summary>
-    /// <remarks>
-    /// The state at creation is set to <see cref="DataPointIteratorBase.InitialState" />.
-    /// </remarks>
     public abstract partial class DataPointIterator
     {
         /// <summary>

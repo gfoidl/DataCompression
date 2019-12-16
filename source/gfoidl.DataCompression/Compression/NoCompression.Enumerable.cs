@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
-using System;
 
 namespace gfoidl.DataCompression
 {

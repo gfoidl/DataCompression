@@ -128,5 +128,44 @@ namespace gfoidl.DataCompression
                 bounding.Max = y + _deadBandCompression.InstrumentPrecision;
             }
         }
+        //---------------------------------------------------------------------
+        private abstract class DeadBandCompressionEnumerableIterator : DeadBandCompressionIterator
+        {
+            protected DataPoint _snapShot;
+            protected DataPoint _lastArchived;
+            protected DataPoint _incoming;
+            //-----------------------------------------------------------------
+            protected DeadBandCompressionEnumerableIterator(DeadBandCompression deadBandCompression)
+                : base(deadBandCompression)
+            { }
+            //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            protected ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
+            {
+                ref (bool Archive, bool MaxDelta) archive = ref _archive;
+
+                if ((incoming.X - _lastArchived.X) >= _deadBandCompression._maxDeltaX)
+                {
+                    archive.Archive  = true;
+                    archive.MaxDelta = true;
+                }
+                else
+                {
+                    archive.Archive  = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
+                    archive.MaxDelta = false;
+                }
+
+                return ref archive;
+            }
+            //-----------------------------------------------------------------
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            protected void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
+            {
+                _lastArchived = incoming;
+                snapShot      = incoming;
+
+                if (!_archive.MaxDelta) this.GetBounding(snapShot);
+            }
+        }
     }
 }

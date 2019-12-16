@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
-using System;
 
 namespace gfoidl.DataCompression
 {
@@ -24,27 +24,19 @@ namespace gfoidl.DataCompression
         protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
         => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
         //---------------------------------------------------------------------
-        private sealed class AsyncEnumerableIterator : DataPointIterator
+        private sealed class AsyncEnumerableIterator : SwingingDoorCompressionEnumerableIterator
         {
-            private readonly SwingingDoorCompression     _swingingDoorCompression;
             private readonly IAsyncEnumerable<DataPoint> _source;
             private readonly IAsyncEnumerator<DataPoint> _enumerator;
-
-            private static readonly (double Max, double Min) s_newDoor = (double.PositiveInfinity, double.NegativeInfinity);
-            private (double Max, double Min)      _slope;
-            private (bool Archive, bool MaxDelta) _archive;
-            private DataPoint                     _snapShot;
-            private DataPoint                     _lastArchived;
-            private DataPoint                     _incoming;
             //-----------------------------------------------------------------
             public AsyncEnumerableIterator(
                 SwingingDoorCompression swingingDoorCompression,
                 IAsyncEnumerable<DataPoint> source,
                 IAsyncEnumerator<DataPoint>? enumerator = null,
-                CancellationToken cancellationToken = default)
+                CancellationToken cancellationToken     = default)
+                : base(swingingDoorCompression)
             {
                 if (cancellationToken != default) _cancellationToken = cancellationToken;
-                _swingingDoorCompression = swingingDoorCompression;
                 _source                  = source;
                 _enumerator              = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
             }
@@ -172,42 +164,6 @@ namespace gfoidl.DataCompression
 
                 if (incoming != _lastArchived)          // sentinel-check
                     builder.Add(incoming);
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
-            {
-                if ((incoming.X - lastArchived.X) >= (_swingingDoorCompression._maxDeltaX))
-                {
-                    _archive.Archive  = true;
-                    _archive.MaxDelta = true;
-                }
-                else
-                {
-                    // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
-                    // Obviously, the result should be the same ;-)
-                    double slopeToIncoming = lastArchived.Gradient(incoming);
-
-                    _archive.Archive  = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
-                    _archive.MaxDelta = false;
-                }
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void CloseTheDoor(in DataPoint incoming, in DataPoint lastArchived)
-            {
-                double upperSlope = lastArchived.Gradient(incoming,  _swingingDoorCompression.CompressionDeviation);
-                double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
-
-                if (upperSlope < _slope.Max) _slope.Max = upperSlope;
-                if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void OpenNewDoor(in DataPoint incoming)
-            {
-                _lastArchived = incoming;
-                _slope        = s_newDoor;
             }
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]

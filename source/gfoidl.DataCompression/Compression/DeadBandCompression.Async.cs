@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
@@ -24,40 +23,21 @@ namespace gfoidl.DataCompression
         protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
             => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
         //---------------------------------------------------------------------
-        private sealed class AsyncEnumerableIterator : DataPointIterator
+        private sealed class AsyncEnumerableIterator : DeadBandCompressionEnumerableIterator
         {
-            private readonly DeadBandCompression         _deadBandCompression;
             private readonly IAsyncEnumerable<DataPoint> _source;
             private readonly IAsyncEnumerator<DataPoint> _enumerator;
-
-            private (double Min, double Max)      _bounding;
-            private (bool Archive, bool MaxDelta) _archive;
-            private DataPoint                     _snapShot;
-            private DataPoint                     _lastArchived;
-            private DataPoint                     _incoming;
             //-----------------------------------------------------------------
             public AsyncEnumerableIterator(
                 DeadBandCompression deadBandCompression,
                 IAsyncEnumerable<DataPoint> source,
                 IAsyncEnumerator<DataPoint>? enumerator = null,
-                CancellationToken cancellationToken = default)
+                CancellationToken cancellationToken     = default)
+                : base(deadBandCompression)
             {
                 if (cancellationToken != default) _cancellationToken = cancellationToken;
-                _deadBandCompression = deadBandCompression;
-                _source              = source;
-                _enumerator          = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void GetBounding(in DataPoint dataPoint)
-            {
-                double y = dataPoint.Y;
-
-                // Produces better code than updating _bounding directly
-                ref (double Min, double Max) bounding = ref _bounding;
-
-                bounding.Min = y - _deadBandCompression.InstrumentPrecision;
-                bounding.Max = y + _deadBandCompression.InstrumentPrecision;
+                _source     = source;
+                _enumerator = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
             }
             //-----------------------------------------------------------------
             public override async ValueTask<bool> MoveNextAsync()
@@ -172,34 +152,6 @@ namespace gfoidl.DataCompression
 
                 if (incoming != _lastArchived)          // sentinel-check
                     builder.Add(incoming);
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
-            {
-                ref (bool Archive, bool MaxDelta) archive = ref _archive;
-
-                if ((incoming.X - _lastArchived.X) >= _deadBandCompression._maxDeltaX)
-                {
-                    archive.Archive  = true;
-                    archive.MaxDelta = true;
-                }
-                else
-                {
-                    archive.Archive  = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
-                    archive.MaxDelta = false;
-                }
-
-                return ref archive;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
-            {
-                _lastArchived = incoming;
-                snapShot      = incoming;
-
-                if (!_archive.MaxDelta) this.GetBounding(snapShot);
             }
             //---------------------------------------------------------------------
             public override DataPointIterator Clone() => throw new NotSupportedException();
