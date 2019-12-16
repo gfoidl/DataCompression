@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
@@ -7,7 +8,7 @@ namespace gfoidl.DataCompression
 {
     public partial class NoCompression
     {
-        private sealed class AsyncEnumerableIterator : DataPointAsyncIterator
+        private sealed class AsyncEnumerableIterator : DataPointIterator
         {
             private readonly IAsyncEnumerable<DataPoint> _enumerable;
             private readonly IAsyncEnumerator<DataPoint> _enumerator;
@@ -60,6 +61,11 @@ namespace gfoidl.DataCompression
                 await base.DisposeAsync().ConfigureAwait(false);
                 await _enumerator.DisposeAsync().ConfigureAwait(false);
             }
+            //---------------------------------------------------------------------
+            public override DataPointIterator Clone() => throw new NotSupportedException();
+            public override bool MoveNext()           => throw new NotSupportedException();
+            public override DataPoint[] ToArray()     => throw new NotSupportedException();
+            public override List<DataPoint> ToList()  => throw new NotSupportedException();
         }
     }
 }

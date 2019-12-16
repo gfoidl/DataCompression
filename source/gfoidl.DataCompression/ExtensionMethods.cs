@@ -122,7 +122,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointAsyncIterator NoCompression(this IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default)
+        public static DataPointIterator NoCompressionAsync(this IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -143,7 +143,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointAsyncIterator DeadBandCompression(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, CancellationToken ct = default)
+        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -162,7 +162,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointAsyncIterator DeadBandCompression(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, CancellationToken ct = default)
+        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -190,7 +190,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointAsyncIterator SwingingDoorCompression(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null, CancellationToken ct = default)
+        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -213,7 +213,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointAsyncIterator SwingingDoorCompression(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime, CancellationToken ct = default)
+        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 

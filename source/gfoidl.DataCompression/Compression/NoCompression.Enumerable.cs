@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
+using System;
 
 namespace gfoidl.DataCompression
 {
@@ -47,6 +49,12 @@ namespace gfoidl.DataCompression
                 base.Dispose();
                 _enumerator.Dispose();
             }
+            //---------------------------------------------------------------------
+#if NETSTANDARD2_1
+            public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
+            public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
+            public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
+#endif
         }
     }
 }

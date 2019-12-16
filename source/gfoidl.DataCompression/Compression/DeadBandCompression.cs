@@ -43,7 +43,7 @@ namespace gfoidl.DataCompression
         /// (Absolut) precision of the instrument. Cf. ExDev in documentation.
         /// </param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX"/>.
+        /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX" />.
         /// </param>
         public DeadBandCompression(double instrumentPrecision, double? maxDeltaX = null)
         {

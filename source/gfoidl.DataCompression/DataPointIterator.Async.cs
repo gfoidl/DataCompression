@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace gfoidl.DataCompression
 {
-    /// <summary>
-    /// Base class for an iterator for <see cref="DataPoint" />s.
-    /// </summary>
-    /// <remarks>
-    /// The state at creation is set to <see cref="DataPointIteratorBase.InitialState" />.
-    /// </remarks>
-    public abstract class DataPointAsyncIterator : DataPointIteratorBase, IAsyncEnumerable<DataPoint>, IAsyncEnumerator<DataPoint>
+    public abstract partial class DataPointIterator : IAsyncEnumerable<DataPoint>, IAsyncEnumerator<DataPoint>
     {
         /// <summary>
         /// The <see cref="CancellationToken" />.
@@ -21,7 +16,7 @@ namespace gfoidl.DataCompression
         /// Gets an enumerator for the <see cref="DataPoint" />s.
         /// </summary>
         /// <returns>The enumerator.</returns>
-        public DataPointAsyncIterator GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        public DataPointIterator GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
             if (cancellationToken != default)
                 _cancellationToken = cancellationToken;
@@ -56,14 +51,19 @@ namespace gfoidl.DataCompression
         /// </summary>
         public virtual ValueTask DisposeAsync()
         {
-            _current = DataPoint.Origin;
-            _state   = DisposedState;
-
+            this.Dispose();
             return default;
         }
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         IAsyncEnumerator<DataPoint> IAsyncEnumerable<DataPoint>.GetAsyncEnumerator(CancellationToken cancellationToken) => this.GetAsyncEnumerator(cancellationToken);
 #pragma warning restore CS1591
+        //---------------------------------------------------------------------
+        private sealed partial class EmptyIterator
+        {
+            public override ValueTask<bool> MoveNextAsync()          => new ValueTask<bool>(false);
+            public override ValueTask<DataPoint[]> ToArrayAsync()    => new ValueTask<DataPoint[]>(Array.Empty<DataPoint>());
+            public override ValueTask<List<DataPoint>> ToListAsync() => new ValueTask<List<DataPoint>>(new List<DataPoint>());
+        }
     }
 }

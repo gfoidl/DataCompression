@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
@@ -230,6 +231,12 @@ namespace gfoidl.DataCompression
 
                 return incomingIndex;
             }
+            //---------------------------------------------------------------------
+#if NETSTANDARD2_1
+            public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
+            public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
+            public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
+#endif
         }
     }
 }

@@ -40,7 +40,7 @@ namespace gfoidl.DataCompression.Tests.ExtensionMethodsTests
         {
             IAsyncEnumerable<DataPoint> dataPoints = GetDataPointsAsync();
 
-            DataPointAsyncIterator actual = dataPoints.SwingingDoorCompression(0.1);
+            DataPointIterator actual = dataPoints.SwingingDoorCompressionAsync(0.1);
 
             Assert.IsNotNull(actual);
         }
@@ -50,7 +50,7 @@ namespace gfoidl.DataCompression.Tests.ExtensionMethodsTests
         {
             IAsyncEnumerable<DataPoint> dataPoints = GetDataPointsAsync();
 
-            DataPointAsyncIterator actual = dataPoints.SwingingDoorCompression(0.1, TimeSpan.FromSeconds(1), minTime: null);
+            DataPointIterator actual = dataPoints.SwingingDoorCompressionAsync(0.1, TimeSpan.FromSeconds(1), minTime: null);
 
             Assert.IsNotNull(actual);
         }

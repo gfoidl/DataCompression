@@ -31,7 +31,7 @@ namespace gfoidl.DataCompression.Tests.ExtensionMethodsTests
         {
             IAsyncEnumerable<DataPoint> dataPoints = GetDataPointsAsync();
 
-            DataPointAsyncIterator actual = dataPoints.NoCompression();
+            DataPointIterator actual = dataPoints.NoCompressionAsync();
 
             Assert.IsNotNull(actual);
         }

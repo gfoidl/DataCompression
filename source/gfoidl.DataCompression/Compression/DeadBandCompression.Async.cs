@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +21,10 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <param name="ct">The token for cancellation.</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override DataPointAsyncIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
+        protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
             => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
         //---------------------------------------------------------------------
-        private sealed class AsyncEnumerableIterator : DataPointAsyncIterator
+        private sealed class AsyncEnumerableIterator : DataPointIterator
         {
             private readonly DeadBandCompression         _deadBandCompression;
             private readonly IAsyncEnumerable<DataPoint> _source;
@@ -200,6 +201,11 @@ namespace gfoidl.DataCompression
 
                 if (!_archive.MaxDelta) this.GetBounding(snapShot);
             }
+            //---------------------------------------------------------------------
+            public override DataPointIterator Clone() => throw new NotSupportedException();
+            public override bool MoveNext()           => throw new NotSupportedException();
+            public override DataPoint[] ToArray()     => throw new NotSupportedException();
+            public override List<DataPoint> ToList()  => throw new NotSupportedException();
         }
     }
 }
