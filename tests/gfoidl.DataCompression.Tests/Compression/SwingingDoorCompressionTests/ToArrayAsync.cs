@@ -14,17 +14,11 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Empty_IAsyncEnumerable___empty_result()
         {
             var sut  = new SwingingDoorCompression(1d);
-            var data = Empty();
+            var data = EmptyAsync();
 
             var actual = sut.ProcessAsync(data);
 
             Assert.AreEqual(0, (await actual.ToListAsync()).Count);
-            //-----------------------------------------------------------------
-            static async IAsyncEnumerable<DataPoint> Empty()
-            {
-                await Task.Yield();
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]

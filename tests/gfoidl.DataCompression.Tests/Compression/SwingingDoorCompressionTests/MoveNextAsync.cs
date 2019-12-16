@@ -22,23 +22,17 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Empty_IAsyncEnumerable___empty_result()
         {
             var sut      = new SwingingDoorCompression(1);
-            var data     = Empty();
+            var data     = EmptyAsync();
             var iterator = sut.ProcessAsync(data).GetAsyncEnumerator();
 
             Assert.IsFalse(await iterator.MoveNextAsync());
-            //-----------------------------------------------------------------
-            static async IAsyncEnumerable<DataPoint> Empty()
-            {
-                await Task.Yield();
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]
         public async Task Empty_IAsyncEnumerable_foreach___empty_result()
         {
             var sut  = new SwingingDoorCompression(1);
-            var data = Empty();
+            var data = EmptyAsync();
 
             int count = 0;
             await foreach (DataPoint db in sut.ProcessAsync(data))
@@ -47,12 +41,6 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             }
 
             Assert.AreEqual(0, count);
-            //-----------------------------------------------------------------
-            static async IAsyncEnumerable<DataPoint> Empty()
-            {
-                await Task.Yield();
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]

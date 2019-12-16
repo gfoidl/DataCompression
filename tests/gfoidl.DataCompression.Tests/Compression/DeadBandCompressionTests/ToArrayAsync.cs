@@ -13,17 +13,11 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         public async Task Empty_IAsyncEnumerable___empty_result()
         {
             var sut  = new DeadBandCompression(0.1);
-            var data = Empty();
+            var data = EmptyAsync();
 
             var actual = sut.ProcessAsync(data);
 
             Assert.AreEqual(0, (await actual.ToListAsync()).Count);
-            //-----------------------------------------------------------------
-            static async IAsyncEnumerable<DataPoint> Empty()
-            {
-                await Task.Yield();
-                yield break;
-            }
         }
         //---------------------------------------------------------------------
         [Test]
