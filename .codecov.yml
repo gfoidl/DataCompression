@@ -1,3 +1,4 @@
 comment: false
 ignore:
     - "tests/*"
+    - "source/Strings.Designer.cs"
