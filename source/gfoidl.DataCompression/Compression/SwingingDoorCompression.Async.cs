@@ -22,7 +22,7 @@ namespace gfoidl.DataCompression
         /// <param name="ct">The token for cancellation.</param>
         /// <returns>The compressed / filtered data.</returns>
         protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
-        => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
+            => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
         //---------------------------------------------------------------------
         private sealed class AsyncEnumerableIterator : SwingingDoorCompressionEnumerableIterator
         {

@@ -203,6 +203,7 @@ namespace gfoidl.DataCompression
         /// <param name="incoming">
         /// The <see cref="DataPoint" /> on which the initialisation is based on.
         /// </param>
+        /// <param name="snapShot">The last snapshot.</param>
         protected abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
         //---------------------------------------------------------------------
         /// <summary>
