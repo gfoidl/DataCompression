@@ -185,6 +185,12 @@ namespace gfoidl.DataCompression
                 }
             }
             //---------------------------------------------------------------------
+            public override async ValueTask DisposeAsync()
+            {
+                await base.DisposeAsync().ConfigureAwait(false);
+                await _enumerator.DisposeAsync().ConfigureAwait(false);
+            }
+            //---------------------------------------------------------------------
             public override DataPointIterator Clone() => throw new NotSupportedException();
             public override bool MoveNext()           => throw new NotSupportedException();
             public override DataPoint[] ToArray()     => throw new NotSupportedException();

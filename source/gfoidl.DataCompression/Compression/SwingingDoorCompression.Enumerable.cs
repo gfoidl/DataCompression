@@ -169,6 +169,12 @@ namespace gfoidl.DataCompression
                 }
             }
             //---------------------------------------------------------------------
+            public override void Dispose()
+            {
+                base.Dispose();
+                _enumerator.Dispose();
+            }
+            //---------------------------------------------------------------------
 #if NETSTANDARD2_1
             public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
             public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
