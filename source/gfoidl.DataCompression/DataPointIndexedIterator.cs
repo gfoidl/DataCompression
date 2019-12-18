@@ -8,13 +8,11 @@ namespace gfoidl.DataCompression
     internal sealed class DataPointIndexedIterator<TList> : DataPointIterator
         where TList : notnull, IList<DataPoint>
     {
-#pragma warning disable CS1591
         private readonly DataPointIterator _wrapperIterator;
         private readonly TList             _list;
         private int                        _snapShotIndex;
         private int                        _lastArchivedIndex;
         private int                        _incomingIndex;
-#pragma warning restore CS1591
         //-----------------------------------------------------------------
         public DataPointIndexedIterator(Compression compression, DataPointIterator wrappedIterator, TList source)
             : base(compression)
