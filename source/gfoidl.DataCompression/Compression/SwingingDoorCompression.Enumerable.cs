@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
 {
@@ -23,97 +21,29 @@ namespace gfoidl.DataCompression
             //-----------------------------------------------------------------
             public override DataPointIterator Clone() => new EnumerableIterator(_swingingDoorCompression, _source, _enumerator);
             //-----------------------------------------------------------------
-            public override bool MoveNext()
+            protected override ref DataPoint HandleSpecialCaseAfterArchivedPoint(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
             {
-                if (_state == 2 && _swingingDoorCompression._minDeltaXHasValue)
+                if (_swingingDoorCompression._minDeltaXHasValue)
                 {
-                    this.SkipMinDeltaX(_snapShot);
+                    this.SkipMinDeltaX(enumerator, ref incoming, snapShot);
                 }
 
-                return base.MoveNext();
-            }
-            //-----------------------------------------------------------------
-            public override DataPoint[] ToArray()
-            {
-                Debug.Assert(_source != null);
-
-                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
-
-                var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                this.BuildCollection(enumerator, ref arrayBuilder);
-
-                return arrayBuilder.ToArray();
-            }
-            //-----------------------------------------------------------------
-            public override List<DataPoint> ToList()
-            {
-                Debug.Assert(_source != null);
-
-                IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
-
-                var listBuilder = new ListBuilder<DataPoint>(true);
-                this.BuildCollection(enumerator, ref listBuilder);
-
-                return listBuilder.ToList();
-            }
-            //-----------------------------------------------------------------
-            private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
-                where TBuilder : ICollectionBuilder<DataPoint>
-            {
-                if (!enumerator.MoveNext()) return;
-
-                DataPoint snapShot = enumerator.Current;
-                _lastArchived      = snapShot;
-                DataPoint incoming = snapShot;          // sentinel, nullable would be possible but to much work around
-
-                builder.Add(snapShot);
-                this.OpenNewDoor(snapShot);
-
-                while (enumerator.MoveNext())
-                {
-                    incoming        = enumerator.Current;
-                    this.IsPointToArchive(incoming, _lastArchived);
-                    ref var archive = ref _archive;
-
-                    if (!archive.Archive)
-                    {
-                        this.CloseTheDoor(incoming, _lastArchived);
-                        snapShot = incoming;
-                        continue;
-                    }
-
-                    if (!archive.MaxDelta && _lastArchived != snapShot)
-                        builder.Add(snapShot);
-
-                    if (_swingingDoorCompression._minDeltaXHasValue)
-                    {
-                        this.SkipMinDeltaX(snapShot);
-                        incoming = _incoming;
-                    }
-
-                    builder.Add(incoming);
-                    this.OpenNewDoor(incoming);
-                }
-
-                if (incoming != _lastArchived)          // sentinel-check
-                    builder.Add(incoming);
+                return ref incoming;
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.NoInlining)]
-            private void SkipMinDeltaX(in DataPoint snapShot)
+            private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
             {
-                Debug.Assert(_enumerator != null);
+                double snapShotX = snapShot.X;
+                double minDeltaX = _swingingDoorCompression._minDeltaX;
 
-                double snapShot_x = snapShot.X;
-                double minDeltaX  = _swingingDoorCompression._minDeltaX;
-
-                while (_enumerator.MoveNext())
+                while (enumerator.MoveNext())
                 {
-                    DataPoint tmp = _enumerator.Current;
+                    DataPoint tmp = enumerator.Current;
 
-                    if ((tmp.X - snapShot_x) > minDeltaX)
+                    if ((tmp.X - snapShotX) > minDeltaX)
                     {
-                        _incoming = tmp;
+                        incoming = tmp;
                         break;
                     }
                 }

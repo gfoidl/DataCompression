@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
 {
@@ -139,7 +140,7 @@ namespace gfoidl.DataCompression
                     }
                     return false;
                 case 2:
-                    _current = _incoming;
+                    _current = this.HandleSpecialCaseAfterArchivedPoint(_enumerator, ref _incoming, _snapShot);
                     _state   = 1;
                     this.Init(_incoming, ref _snapShot);
                     return true;
@@ -153,6 +154,46 @@ namespace gfoidl.DataCompression
                     this.Dispose();
                     return false;
             }
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Returns an array of the compressed <see cref="DataPoint" />s.
+        /// </summary>
+        /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
+        public virtual DataPoint[] ToArray()
+        {
+            Debug.Assert(_source != null);
+
+            IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+            var arrayBuilder                  = new ArrayBuilder<DataPoint>(true);
+            this.BuildCollection(enumerator, ref arrayBuilder);
+
+            return arrayBuilder.ToArray();
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Returns a list of the compressed <see cref="DataPoint" />s.
+        /// </summary>
+        /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
+        public virtual List<DataPoint> ToList()
+        {
+            Debug.Assert(_source != null);
+
+            IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
+            var listBuilder                   = new ListBuilder<DataPoint>(true);
+            this.BuildCollection(enumerator, ref listBuilder);
+
+            return listBuilder.ToList();
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Resets the enumerator and its state.
+        /// </summary>
+        public virtual void Dispose()
+        {
+            _current = DataPoint.Origin;
+            _state   = DisposedState;
+            _enumerator?.Dispose();
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -180,25 +221,54 @@ namespace gfoidl.DataCompression
         protected virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
         //---------------------------------------------------------------------
         /// <summary>
-        /// Returns an array of the compressed <see cref="DataPoint" />s.
+        /// Handles special cases after a <see cref="DataPoint" /> got archived.
         /// </summary>
-        /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
-        public abstract DataPoint[] ToArray();
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Returns a list of the compressed <see cref="DataPoint" />s.
-        /// </summary>
-        /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
-        public abstract List<DataPoint> ToList();
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Resets the enumerator and its state.
-        /// </summary>
-        public virtual void Dispose()
+        /// <param name="enumerator">The enumerator.</param>
+        /// <param name="incoming">The incoming datapoint.</param>
+        /// <param name="snapShot">The snapshot datapoint.</param>
+        /// <returns>New incoming datapoint.</returns>
+        protected virtual ref DataPoint HandleSpecialCaseAfterArchivedPoint(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
         {
-            _current = DataPoint.Origin;
-            _state   = DisposedState;
-            _enumerator?.Dispose();
+            return ref incoming;
+        }
+        //---------------------------------------------------------------------
+        private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
+            where TBuilder : ICollectionBuilder<DataPoint>
+        {
+            if (!enumerator.MoveNext()) return;
+
+            DataPoint incoming = enumerator.Current;
+            _lastArchived      = incoming;
+            DataPoint snapShot = default;
+
+            builder.Add(incoming);
+            this.Init(incoming, ref snapShot);
+
+            while (enumerator.MoveNext())
+            {
+                incoming        = enumerator.Current;
+                ref var archive = ref this.IsPointToArchive(incoming, _lastArchived);
+
+                if (!archive.Archive)
+                {
+                    this.UpdateFilters(incoming, _lastArchived);
+                    snapShot = incoming;
+                    continue;
+                }
+
+                if (!archive.MaxDelta && _lastArchived != snapShot)
+                {
+                    builder.Add(snapShot);
+                }
+
+                incoming = this.HandleSpecialCaseAfterArchivedPoint(enumerator, ref incoming, snapShot);
+
+                builder.Add(incoming);
+                this.Init(incoming, ref snapShot);
+            }
+
+            if (incoming != _lastArchived)          // sentinel-check
+                builder.Add(incoming);
         }
     }
 }
