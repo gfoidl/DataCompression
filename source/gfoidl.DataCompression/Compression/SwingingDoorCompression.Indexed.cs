@@ -12,10 +12,10 @@ namespace gfoidl.DataCompression
         private sealed class IndexedIterator<TList> : SwingingDoorCompressionIterator
             where TList : IList<DataPoint>
         {
-            private readonly TList _source;
-            private int            _snapShotIndex;
-            private int            _lastArchivedIndex;
-            private int            _incomingIndex;
+            private new readonly TList _source;
+            private int                _snapShotIndex;
+            private int                _lastArchivedIndex;
+            private int                _incomingIndex;
             //-----------------------------------------------------------------
             public IndexedIterator(SwingingDoorCompression swingingDoorCompression, TList source)
                 : base(swingingDoorCompression)
@@ -230,6 +230,8 @@ namespace gfoidl.DataCompression
 
                 return incomingIndex;
             }
+            //---------------------------------------------------------------------
+            protected override void Init(in DataPoint incoming, ref DataPoint snapShot) => throw new NotSupportedException();
             //---------------------------------------------------------------------
 #if NETSTANDARD2_1
             public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();

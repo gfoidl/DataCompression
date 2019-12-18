@@ -6,6 +6,10 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <NoWarn>$(NoWarn);CS8602;CS8604</NoWarn>
+    </PropertyGroup>
+
     <PropertyGroup Label="Package">
         <PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
         <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>

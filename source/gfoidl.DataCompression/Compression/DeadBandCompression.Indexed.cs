@@ -12,10 +12,10 @@ namespace gfoidl.DataCompression
         private sealed class IndexedIterator<TList> : DeadBandCompressionIterator
             where TList : IList<DataPoint>
         {
-            private readonly TList _source;
-            private int            _snapShotIndex;
-            private int            _lastArchivedIndex;
-            private int            _incomingIndex;
+            private new readonly TList _source;
+            private int                _snapShotIndex;
+            private int                _lastArchivedIndex;
+            private int                _incomingIndex;
             //-----------------------------------------------------------------
             public IndexedIterator(DeadBandCompression deadBandCompression, TList source)
                 : base(deadBandCompression)
@@ -200,6 +200,9 @@ namespace gfoidl.DataCompression
 
                 if (!_archive.MaxDelta) this.GetBounding(incoming);
             }
+            //---------------------------------------------------------------------
+            protected override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
+            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
             //---------------------------------------------------------------------
 #if NETSTANDARD2_1
             public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();

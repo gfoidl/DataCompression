@@ -135,19 +135,19 @@ namespace gfoidl.DataCompression
             protected readonly SwingingDoorCompression _swingingDoorCompression;
             protected (double Max, double Min)         _slope;
             protected (bool Archive, bool MaxDelta)    _archive;
-            protected DataPoint                        _lastArchived;
-            protected DataPoint                        _incoming;
             //---------------------------------------------------------------------
             protected SwingingDoorCompressionIterator(SwingingDoorCompression swingingDoorCompression)
                 => _swingingDoorCompression = swingingDoorCompression;
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
             {
+                ref (bool Archive, bool MaxDelta) archive = ref _archive;
+
                 if ((incoming.X - lastArchived.X) >= (_swingingDoorCompression._maxDeltaX))
                 {
-                    _archive.Archive  = true;
-                    _archive.MaxDelta = true;
+                    archive.Archive  = true;
+                    archive.MaxDelta = true;
                 }
                 else
                 {
@@ -155,9 +155,11 @@ namespace gfoidl.DataCompression
                     // Obviously, the result should be the same ;-)
                     double slopeToIncoming = lastArchived.Gradient(incoming);
 
-                    _archive.Archive  = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
-                    _archive.MaxDelta = false;
+                    archive.Archive  = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
+                    archive.MaxDelta = false;
                 }
+
+                return ref archive;
             }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -180,8 +182,6 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private abstract class SwingingDoorCompressionEnumerableIterator: SwingingDoorCompressionIterator
         {
-            protected DataPoint _snapShot;
-            //-----------------------------------------------------------------
             protected SwingingDoorCompressionEnumerableIterator(SwingingDoorCompression swingingDoorCompression)
                 : base(swingingDoorCompression)
             { }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
@@ -9,20 +10,17 @@ namespace gfoidl.DataCompression
     {
         private sealed class EnumerableIterator : DataPointIterator
         {
-            private readonly IEnumerable<DataPoint> _enumerable;
-            private readonly IEnumerator<DataPoint> _enumerator;
-            //-----------------------------------------------------------------
-            public EnumerableIterator(IEnumerable<DataPoint> enumerable)
+            public EnumerableIterator(IEnumerable<DataPoint>? enumerable)
             {
-                _enumerable = enumerable;
+                _source     = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
                 _enumerator = enumerable.GetEnumerator();
             }
             //-----------------------------------------------------------------
-            public override DataPointIterator Clone() => new EnumerableIterator(_enumerable);
+            public override DataPointIterator Clone() => new EnumerableIterator(_source);
             //-----------------------------------------------------------------
             public override bool MoveNext()
             {
-                if (_state == InitialState)
+                if (_state == InitialState || _enumerator == null)
                     ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
 
                 if (_enumerator.MoveNext())
@@ -36,19 +34,18 @@ namespace gfoidl.DataCompression
             //-----------------------------------------------------------------
             public override DataPoint[] ToArray()
             {
+                Debug.Assert(_source != null);
+
                 var arrayBuilder = new ArrayBuilder<DataPoint>(true);
-                arrayBuilder.AddRange(_enumerable);
+                arrayBuilder.AddRange(_source);
 
                 return arrayBuilder.ToArray();
             }
             //---------------------------------------------------------------------
-            public override List<DataPoint> ToList() => new List<DataPoint>(_enumerable);
+            public override List<DataPoint> ToList() => new List<DataPoint>(_source);
             //---------------------------------------------------------------------
-            public override void Dispose()
-            {
-                base.Dispose();
-                _enumerator.Dispose();
-            }
+            protected override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
+            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
             //---------------------------------------------------------------------
 #if NETSTANDARD2_1
             public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();

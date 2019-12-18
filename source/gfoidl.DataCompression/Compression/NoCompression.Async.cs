@@ -10,8 +10,8 @@ namespace gfoidl.DataCompression
     {
         private sealed class AsyncEnumerableIterator : DataPointIterator
         {
-            private readonly IAsyncEnumerable<DataPoint> _enumerable;
-            private readonly IAsyncEnumerator<DataPoint> _enumerator;
+            private     readonly IAsyncEnumerable<DataPoint> _enumerable;
+            private new readonly IAsyncEnumerator<DataPoint> _enumerator;
             //-----------------------------------------------------------------
             public AsyncEnumerableIterator(IAsyncEnumerable<DataPoint> enumerable, CancellationToken ct)
             {
@@ -62,10 +62,12 @@ namespace gfoidl.DataCompression
                 await _enumerator.DisposeAsync().ConfigureAwait(false);
             }
             //---------------------------------------------------------------------
-            public override DataPointIterator Clone() => throw new NotSupportedException();
-            public override bool MoveNext()           => throw new NotSupportedException();
-            public override DataPoint[] ToArray()     => throw new NotSupportedException();
-            public override List<DataPoint> ToList()  => throw new NotSupportedException();
+            public override DataPointIterator Clone()                                                                               => throw new NotSupportedException();
+            public override bool MoveNext()                                                                                         => throw new NotSupportedException();
+            public override DataPoint[] ToArray()                                                                                   => throw new NotSupportedException();
+            public override List<DataPoint> ToList()                                                                                => throw new NotSupportedException();
+            protected override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
+            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
         }
     }
 }

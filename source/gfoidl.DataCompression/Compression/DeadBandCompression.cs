@@ -131,20 +131,16 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private abstract class DeadBandCompressionEnumerableIterator : DeadBandCompressionIterator
         {
-            protected DataPoint _snapShot;
-            protected DataPoint _lastArchived;
-            protected DataPoint _incoming;
-            //-----------------------------------------------------------------
             protected DeadBandCompressionEnumerableIterator(DeadBandCompression deadBandCompression)
                 : base(deadBandCompression)
             { }
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming)
+            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
             {
                 ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-                if ((incoming.X - _lastArchived.X) >= _deadBandCompression._maxDeltaX)
+                if ((incoming.X - lastArchived.X) >= _deadBandCompression._maxDeltaX)
                 {
                     archive.Archive  = true;
                     archive.MaxDelta = true;

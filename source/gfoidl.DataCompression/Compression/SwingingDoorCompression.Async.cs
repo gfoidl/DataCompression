@@ -26,8 +26,8 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private sealed class AsyncEnumerableIterator : SwingingDoorCompressionEnumerableIterator
         {
-            private readonly IAsyncEnumerable<DataPoint> _source;
-            private readonly IAsyncEnumerator<DataPoint> _enumerator;
+            private new readonly IAsyncEnumerable<DataPoint> _source;
+            private new readonly IAsyncEnumerator<DataPoint> _enumerator;
             //-----------------------------------------------------------------
             public AsyncEnumerableIterator(
                 SwingingDoorCompression swingingDoorCompression,
@@ -191,10 +191,11 @@ namespace gfoidl.DataCompression
                 await _enumerator.DisposeAsync().ConfigureAwait(false);
             }
             //---------------------------------------------------------------------
-            public override DataPointIterator Clone() => throw new NotSupportedException();
-            public override bool MoveNext()           => throw new NotSupportedException();
-            public override DataPoint[] ToArray()     => throw new NotSupportedException();
-            public override List<DataPoint> ToList()  => throw new NotSupportedException();
+            public override DataPointIterator Clone()                                   => throw new NotSupportedException();
+            public override bool MoveNext()                                             => throw new NotSupportedException();
+            public override DataPoint[] ToArray()                                       => throw new NotSupportedException();
+            public override List<DataPoint> ToList()                                    => throw new NotSupportedException();
+            protected override void Init(in DataPoint incoming, ref DataPoint snapShot) => throw new NotSupportedException();
         }
     }
 }

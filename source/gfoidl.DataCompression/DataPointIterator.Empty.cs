@@ -11,32 +11,13 @@ namespace gfoidl.DataCompression
         /// </summary>
         private sealed partial class EmptyIterator : DataPointIterator
         {
-            /// <summary>
-            /// Clones the <see cref="DataPointIterator" />.
-            /// </summary>
-            /// <returns>The cloned <see cref="DataPointIterator" />.</returns>
             public override DataPointIterator Clone() => this;
-            //-----------------------------------------------------------------
-            /// <summary>
-            /// Advances the enumerator to the next element.
-            /// </summary>
-            /// <returns>
-            /// <c>true</c> if the enumerator was successfully advanced to the next element;
-            /// <c>false</c> if the enumerator has passed the end of the collection.
-            /// </returns>
-            public override bool MoveNext() => false;
+            public override bool MoveNext()           => false;
+            public override DataPoint[] ToArray()     => Array.Empty<DataPoint>();
+            public override List<DataPoint> ToList()  => new List<DataPoint>();
             //---------------------------------------------------------------------
-            /// <summary>
-            /// Returns an array of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
-            public override DataPoint[] ToArray() => Array.Empty<DataPoint>();
-            //---------------------------------------------------------------------
-            /// <summary>
-            /// Returns a list of the compressed <see cref="DataPoint" />s.
-            /// </summary>
-            /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
-            public override List<DataPoint> ToList() => new List<DataPoint>();
+            protected override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
+            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
         }
     }
 }

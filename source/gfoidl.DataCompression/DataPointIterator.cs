@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace gfoidl.DataCompression
 {
@@ -23,8 +24,13 @@ namespace gfoidl.DataCompression
         protected const int InitialState = -2;
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
-        protected int        _state = InitialState;
-        protected DataPoint  _current;
+        protected IEnumerable<DataPoint>? _source;
+        protected IEnumerator<DataPoint>? _enumerator;
+        protected int                     _state = InitialState;
+        protected DataPoint               _current;
+        protected DataPoint               _snapShot;
+        protected DataPoint               _lastArchived;
+        protected DataPoint               _incoming;
 #pragma warning restore CS1591
         private readonly int _threadId;
         //---------------------------------------------------------------------
@@ -88,7 +94,90 @@ namespace gfoidl.DataCompression
         /// <c>true</c> if the enumerator was successfully advanced to the next element;
         /// <c>false</c> if the enumerator has passed the end of the collection.
         /// </returns>
-        public abstract bool MoveNext();
+        public virtual bool MoveNext()
+        {
+            Debug.Assert(_enumerator != null);
+
+            switch (_state)
+            {
+                case 0:
+                    if (!_enumerator.MoveNext()) return false;
+                    _incoming     = _enumerator.Current;
+                    _lastArchived = _snapShot;
+                    _current      = _incoming;
+                    this.Init(_incoming, ref _snapShot);
+                    _state        = 1;
+                    return true;
+                case 1:
+                    while (_enumerator.MoveNext())
+                    {
+                        _incoming = _enumerator.Current;
+                        ref var archive = ref this.IsPointToArchive(_incoming, _lastArchived);
+
+                        if (!archive.Archive)
+                        {
+                            this.UpdateFilters(_incoming, _lastArchived);
+                            _snapShot = _incoming;
+                            continue;
+                        }
+
+                        if (!archive.MaxDelta && _lastArchived != _snapShot)
+                        {
+                            _current = _snapShot;
+                            _state = 2;
+                            return true;
+                        }
+
+                        goto case 2;
+                    }
+
+                    _state = -1;
+                    if (_incoming != _lastArchived)     // sentinel check
+                    {
+                        _current = _incoming;
+                        return true;
+                    }
+                    return false;
+                case 2:
+                    _current = _incoming;
+                    _state   = 1;
+                    this.Init(_incoming, ref _snapShot);
+                    return true;
+                case InitialState:
+                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
+                    return false;
+                case DisposedState:
+                    ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
+                    return false;
+                default:
+                    this.Dispose();
+                    return false;
+            }
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Prepares the algorithm for new data, e.g. opens a new door in the
+        /// <see cref="SwingingDoorCompression" />.
+        /// </summary>
+        /// <param name="incoming">
+        /// The <see cref="DataPoint" /> on which the initialisation is based on.
+        /// </param>
+        protected abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Determines if the <paramref name="incoming" /> needs to be archived or not.
+        /// </summary>
+        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        /// <returns>State whether to archive or not plus additional info.</returns>
+        protected abstract ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Updates the filters.
+        /// </summary>
+        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        protected virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
         //---------------------------------------------------------------------
         /// <summary>
         /// Returns an array of the compressed <see cref="DataPoint" />s.
@@ -109,6 +198,7 @@ namespace gfoidl.DataCompression
         {
             _current = DataPoint.Origin;
             _state   = DisposedState;
+            _enumerator?.Dispose();
         }
     }
 }
