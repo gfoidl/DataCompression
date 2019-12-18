@@ -22,5 +22,29 @@ namespace gfoidl.DataCompression.Internal.DeadBand
             bounding.Min = y - _deadBandCompression.InstrumentPrecision;
             bounding.Max = y + _deadBandCompression.InstrumentPrecision;
         }
+        //-----------------------------------------------------------------
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        {
+            ref (bool Archive, bool MaxDelta) archive = ref _archive;
+
+            if (!this.IsMaxDeltaX(ref archive, incoming.X, lastArchived.X))
+            {
+                archive.Archive = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
+            }
+
+            return ref archive;
+        }
+        //-----------------------------------------------------------------
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
+        {
+            _lastArchived = incoming;
+            snapShot      = incoming;
+
+            if (!_archive.MaxDelta) this.GetBounding(snapShot);
+        }
+        //---------------------------------------------------------------------
+        protected override void Init(in DataPoint incoming, ref DataPoint snapShot) => this.UpdatePoints(incoming, ref snapShot);
     }
 }

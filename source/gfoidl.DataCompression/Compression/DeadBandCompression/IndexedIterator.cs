@@ -176,15 +176,9 @@ namespace gfoidl.DataCompression.Internal.DeadBand
 
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-            if ((incoming.X - lastArchivedX) >= (_deadBandCompression._maxDeltaX))
+            if (!this.IsMaxDeltaX(ref archive, incoming.X, lastArchivedX))
             {
-                archive.Archive  = true;
-                archive.MaxDelta = true;
-            }
-            else
-            {
-                archive.Archive  = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
-                archive.MaxDelta = false;
+                archive.Archive = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
             }
 
             return ref archive;

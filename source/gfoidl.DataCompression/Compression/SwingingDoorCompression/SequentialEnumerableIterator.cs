@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace gfoidl.DataCompression.Internal.SwingingDoor
 {
-    internal sealed class SequentialEnumerableIterator : EnumerableIterator
+    internal sealed class SequentialEnumerableIterator : SwingingDoorCompressionIterator
     {
         public SequentialEnumerableIterator(
             SwingingDoorCompression swingingDoorCompression,
@@ -17,9 +17,6 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         }
         //-----------------------------------------------------------------
         public override DataPointIterator Clone() => new SequentialEnumerableIterator(_swingingDoorCompression, _source, _enumerator);
-        //-----------------------------------------------------------------
-        protected override void Init(in DataPoint incoming, ref DataPoint snapShot)             => this.OpenNewDoor(incoming);
-        protected override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) => this.CloseTheDoor(incoming, lastArchived);
         //-----------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();

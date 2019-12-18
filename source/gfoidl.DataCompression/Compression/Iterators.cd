@@ -32,12 +32,12 @@
   <Class Name="gfoidl.DataCompression.Internal.DeadBand.DeadBandCompressionIterator" Collapsed="true">
     <Position X="9.75" Y="2.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAICQAAAAAAAAAAAAAAgAAAAAABA=</HashCode>
       <FileName>Compression\DeadBandCompression\DeadBandCompressionIterator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="gfoidl.DataCompression.Internal.DeadBand.SequentialEnumerableIterator" Collapsed="true">
-    <Position X="7" Y="5.75" Width="2.25" />
+    <Position X="7" Y="4.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAQCAAAAABA=</HashCode>
       <FileName>Compression\DeadBandCompression\SequentialEnumerableIterator.cs</FileName>
@@ -50,15 +50,8 @@
       <FileName>Compression\DeadBandCompression\IndexedIterator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="gfoidl.DataCompression.Internal.DeadBand.EnumerableIterator" Collapsed="true">
-    <Position X="8.75" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
-      <FileName>Compression\DeadBandCompression\EnumerableIterator.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="gfoidl.DataCompression.Internal.DeadBand.AsyncEnumerableIterator" Collapsed="true">
-    <Position X="10" Y="5.75" Width="2" />
+    <Position X="10" Y="4.25" Width="2" />
     <TypeIdentifier>
       <HashCode>EAAAACAAAEAAAIAAAAAAAABAAAAAAAAAIAwCAQBAABA=</HashCode>
       <FileName>Compression\DeadBandCompression\AsyncEnumerableIterator.cs</FileName>
@@ -72,7 +65,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="gfoidl.DataCompression.Internal.SwingingDoor.SequentialEnumerableIterator" Collapsed="true">
-    <Position X="15.5" Y="5.75" Width="2.25" />
+    <Position X="15.5" Y="4.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAIQCAAAAABA=</HashCode>
       <FileName>Compression\SwingingDoorCompression\SequentialEnumerableIterator.cs</FileName>
@@ -85,15 +78,8 @@
       <FileName>Compression\SwingingDoorCompression\IndexedIterator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="gfoidl.DataCompression.Internal.SwingingDoor.EnumerableIterator" Collapsed="true">
-    <Position X="17.25" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Compression\SwingingDoorCompression\EnumerableIterator.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="gfoidl.DataCompression.Internal.SwingingDoor.AsyncEnumerableIterator" Collapsed="true">
-    <Position X="18.5" Y="5.75" Width="2" />
+    <Position X="18.5" Y="4.25" Width="2" />
     <TypeIdentifier>
       <HashCode>EAAAACAAAEAAAIAAAIAAAABAAAAAAAAAIAwCAQBAABA=</HashCode>
       <FileName>Compression\SwingingDoorCompression\AsyncEnumerableIterator.cs</FileName>

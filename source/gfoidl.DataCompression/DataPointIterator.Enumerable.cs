@@ -64,7 +64,7 @@ namespace gfoidl.DataCompression
                     }
                     return false;
                 case 2:
-                    _current = this.HandleSpecialCaseAfterArchivedPoint(_enumerator, ref _incoming, _snapShot);
+                    _current = this.HandleSkipMinDeltaX(_enumerator, ref _incoming, _snapShot.X);
                     _state   = 1;
                     this.Init(_incoming, ref _snapShot);
                     return true;
@@ -110,23 +110,6 @@ namespace gfoidl.DataCompression
             return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Prepares the algorithm for new data, e.g. opens a new door in the
-        /// <see cref="SwingingDoorCompression" />.
-        /// </summary>
-        /// <param name="incoming">
-        /// The <see cref="DataPoint" /> on which the initialisation is based on.
-        /// </param>
-        /// <param name="snapShot">The last snapshot.</param>
-        protected abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Updates the filters.
-        /// </summary>
-        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
-        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
-        protected virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
-        //---------------------------------------------------------------------
         private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
             where TBuilder : ICollectionBuilder<DataPoint>
         {
@@ -156,7 +139,7 @@ namespace gfoidl.DataCompression
                     builder.Add(snapShot);
                 }
 
-                incoming = this.HandleSpecialCaseAfterArchivedPoint(enumerator, ref incoming, snapShot);
+                incoming = this.HandleSkipMinDeltaX(enumerator, ref incoming, snapShot.X);
 
                 builder.Add(incoming);
                 this.Init(incoming, ref snapShot);
@@ -167,20 +150,19 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private ref DataPoint HandleSpecialCaseAfterArchivedPoint(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
+        private ref DataPoint HandleSkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
         {
             if (_algorithm._minDeltaXHasValue)
             {
-                this.SkipMinDeltaX(enumerator, ref incoming, snapShot);
+                this.SkipMinDeltaX(enumerator, ref incoming, snapShotX);
             }
 
             return ref incoming;
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
+        private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
         {
-            double snapShotX = snapShot.X;
             double minDeltaX = _algorithm._minDeltaX;
 
             while (enumerator.MoveNext())

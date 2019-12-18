@@ -99,6 +99,23 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         /// <summary>
+        /// Prepares the algorithm for new data, e.g. opens a new door in the
+        /// <see cref="SwingingDoorCompression" />.
+        /// </summary>
+        /// <param name="incoming">
+        /// The <see cref="DataPoint" /> on which the initialisation is based on.
+        /// </param>
+        /// <param name="snapShot">The last snapshot.</param>
+        protected abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Updates the filters.
+        /// </summary>
+        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        protected virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Determines if the <paramref name="incoming" /> needs to be archived or not.
         /// </summary>
         /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
@@ -117,9 +134,9 @@ namespace gfoidl.DataCompression
         /// <c>false</c> otherwise.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, in DataPoint incoming, in DataPoint lastArchived)
+        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double incomingX, double lastArchivedX)
         {
-            if ((incoming.X - lastArchived.X) >= _algorithm._maxDeltaX)
+            if ((incomingX - lastArchivedX) >= _algorithm._maxDeltaX)
             {
                 archive.Archive  = true;
                 archive.MaxDelta = true;
