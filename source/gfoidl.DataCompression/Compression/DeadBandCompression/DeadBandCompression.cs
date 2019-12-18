@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Threading;
+using gfoidl.DataCompression.Internal.DeadBand;
 using gfoidl.DataCompression.Wrappers;
 
 namespace gfoidl.DataCompression
@@ -11,7 +12,7 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// See documentation for further information.
     /// </remarks>
-    public partial class DeadBandCompression : Compression
+    public class DeadBandCompression : Compression
     {
         /// <summary>
         /// (Absolut) precision of the instrument.
@@ -92,59 +93,18 @@ namespace gfoidl.DataCompression
                     : new IndexedIterator<IList<DataPoint>>(this, ilist);
             }
 
-            return new EnumerableIterator(this, data);
+            return new SequentialEnumerableIterator(this, data);
         }
         //---------------------------------------------------------------------
-        private abstract class DeadBandCompressionIterator : DataPointIterator
-        {
-            protected readonly DeadBandCompression  _deadBandCompression;
-            protected (double Min, double Max)      _bounding;
-            protected (bool Archive, bool MaxDelta) _archive;
-            //-----------------------------------------------------------------
-            protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
-                : base(deadBandCompression)
-                => _deadBandCompression = deadBandCompression;
-            //---------------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void GetBounding(in DataPoint dataPoint)
-            {
-                double y = dataPoint.Y;
-
-                // Produces better code than updating _bounding directly
-                ref (double Min, double Max) bounding = ref _bounding;
-
-                bounding.Min = y - _deadBandCompression.InstrumentPrecision;
-                bounding.Max = y + _deadBandCompression.InstrumentPrecision;
-            }
-        }
-        //---------------------------------------------------------------------
-        private abstract class DeadBandCompressionEnumerableIterator : DeadBandCompressionIterator
-        {
-            protected DeadBandCompressionEnumerableIterator(DeadBandCompression deadBandCompression)
-                : base(deadBandCompression)
-            { }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
-            {
-                ref (bool Archive, bool MaxDelta) archive = ref _archive;
-
-                if (!this.IsMaxDeltaX(ref archive, incoming, lastArchived))
-                {
-                    archive.Archive = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
-                }
-
-                return ref archive;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
-            {
-                _lastArchived = incoming;
-                snapShot      = incoming;
-
-                if (!_archive.MaxDelta) this.GetBounding(snapShot);
-            }
-        }
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Implementation of the compression / filtering.
+        /// </summary>
+        /// <param name="data">Input data</param>
+        /// <param name="ct">The token for cancellation.</param>
+        /// <returns>The compressed / filtered data.</returns>
+        protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
+            => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
+#endif
     }
 }

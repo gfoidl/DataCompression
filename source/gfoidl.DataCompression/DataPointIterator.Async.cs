@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -58,12 +57,5 @@ namespace gfoidl.DataCompression
 #pragma warning disable CS1591
         IAsyncEnumerator<DataPoint> IAsyncEnumerable<DataPoint>.GetAsyncEnumerator(CancellationToken cancellationToken) => this.GetAsyncEnumerator(cancellationToken);
 #pragma warning restore CS1591
-        //---------------------------------------------------------------------
-        private sealed partial class EmptyIterator
-        {
-            public override ValueTask<bool> MoveNextAsync()          => new ValueTask<bool>(false);
-            public override ValueTask<DataPoint[]> ToArrayAsync()    => new ValueTask<DataPoint[]>(Array.Empty<DataPoint>());
-            public override ValueTask<List<DataPoint>> ToListAsync() => new ValueTask<List<DataPoint>>(new List<DataPoint>());
-        }
     }
 }

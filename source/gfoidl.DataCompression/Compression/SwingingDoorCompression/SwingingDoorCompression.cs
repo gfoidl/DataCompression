@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Threading;
+using gfoidl.DataCompression.Internal.SwingingDoor;
 using gfoidl.DataCompression.Wrappers;
 
 namespace gfoidl.DataCompression
@@ -11,7 +12,7 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// See documentation for further information.
     /// </remarks>
-    public partial class SwingingDoorCompression : Compression
+    public class SwingingDoorCompression : Compression
     {
         /// <summary>
         /// (Absolut) Compression deviation applied to the y values to calculate the
@@ -95,60 +96,18 @@ namespace gfoidl.DataCompression
                     : new IndexedIterator<IList<DataPoint>>(this, ilist);
             }
 
-            return new EnumerableIterator(this, data);
+            return new SequentialEnumerableIterator(this, data);
         }
         //---------------------------------------------------------------------
-        private abstract class SwingingDoorCompressionIterator : DataPointIterator
-        {
-            protected static readonly (double Max, double Min) s_newDoor = (double.PositiveInfinity, double.NegativeInfinity);
-            //---------------------------------------------------------------------
-            protected readonly SwingingDoorCompression _swingingDoorCompression;
-            protected (double Max, double Min)         _slope;
-            protected (bool Archive, bool MaxDelta)    _archive;
-            //---------------------------------------------------------------------
-            protected SwingingDoorCompressionIterator(SwingingDoorCompression swingingDoorCompression)
-                : base(swingingDoorCompression)
-                => _swingingDoorCompression = swingingDoorCompression;
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
-            {
-                ref (bool Archive, bool MaxDelta) archive = ref _archive;
-
-                if (!this.IsMaxDeltaX(ref archive, incoming, lastArchived))
-                {
-                    // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
-                    // Obviously, the result should be the same ;-)
-                    double slopeToIncoming = lastArchived.Gradient(incoming);
-                    archive.Archive = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
-                }
-
-                return ref archive;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void CloseTheDoor(in DataPoint incoming, in DataPoint lastArchived)
-            {
-                double upperSlope = lastArchived.Gradient(incoming,  _swingingDoorCompression.CompressionDeviation);
-                double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
-
-                if (upperSlope < _slope.Max) _slope.Max = upperSlope;
-                if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected void OpenNewDoor(in DataPoint incoming)
-            {
-                _lastArchived = incoming;
-                _slope        = s_newDoor;
-            }
-        }
-        //---------------------------------------------------------------------
-        private abstract class SwingingDoorCompressionEnumerableIterator: SwingingDoorCompressionIterator
-        {
-            protected SwingingDoorCompressionEnumerableIterator(SwingingDoorCompression swingingDoorCompression)
-                : base(swingingDoorCompression)
-            { }
-        }
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Implementation of the compression / filtering.
+        /// </summary>
+        /// <param name="data">Input data</param>
+        /// <param name="ct">The token for cancellation.</param>
+        /// <returns>The compressed / filtered data.</returns>
+        protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
+            => new AsyncEnumerableIterator(this, data, cancellationToken: ct);
+#endif
     }
 }

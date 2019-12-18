@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using gfoidl.DataCompression.Internal.NoCompression;
 
 namespace gfoidl.DataCompression
 {
     /// <summary>
     /// A filter that performs no compression
     /// </summary>
-    public partial class NoCompression : Compression
+    public class NoCompression : Compression
     {
         internal static readonly NoCompression s_instance = new NoCompression();
         //---------------------------------------------------------------------
