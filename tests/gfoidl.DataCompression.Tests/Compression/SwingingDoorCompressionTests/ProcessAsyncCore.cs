@@ -63,5 +63,19 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             CollectionAssert.AreEqual(expected, actual);
         }
+        //---------------------------------------------------------------------
+        [Test]
+        public async Task Data_IAsyncEnumerable_with_minDeltaX___OK()
+        {
+            var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
+            var data     = RawMinDeltaXAsync();
+            var expected = ExpectedMinDeltaX().ToList();
+
+            var actual = new List<DataPoint>();
+            await foreach (DataPoint dp in sut.ProcessAsync(data))
+                actual.Add(dp);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

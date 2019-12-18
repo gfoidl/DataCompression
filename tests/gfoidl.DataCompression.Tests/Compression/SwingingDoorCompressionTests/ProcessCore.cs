@@ -215,27 +215,5 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> RawMinDeltaX()
-        {
-            yield return (0d, 2d);
-            yield return (1d, 2d);
-            yield return (2d, 2d);
-            yield return (3d, 2d);
-            yield return (4d, 2d);
-            yield return (5d, 10d);
-            yield return (6d, 10d);
-            yield return (7d, 10d);
-            yield return (8d, 10d);
-            yield return (9d, 10d);
-        }
-        //---------------------------------------------------------------------
-        private static IEnumerable<DataPoint> ExpectedMinDeltaX()
-        {
-            yield return (0d, 2d);
-            yield return (4d, 2d);
-            yield return (6d, 10d);
-            yield return (9d, 10d);
-        }
     }
 }
