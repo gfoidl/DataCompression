@@ -31,17 +31,21 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="DeadBandCompression.MaxDeltaX" />.
+        /// Length of x before for sure a value gets recoreded. See <see cref="Compression.MaxDeltaX" />.
+        /// </param>
+        /// <param name="minDeltaX">
+        /// Length of x/time within no value gets recorded (after the last archived value).
+        /// See <see cref="Compression.MinDeltaX" />.
         /// </param>
         /// <returns>Dead band compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null)
+        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
-            var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX);
+            var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX, minDeltaX);
             return compression.Process(data);
         }
         //---------------------------------------------------------------------
@@ -51,15 +55,16 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
+        /// <param name="minTime">Length of time within no value gets recorded (after the last archived value)</param>
         /// <returns>Dead band compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime)
+        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
-            var compression = new DeadBandCompression(instrumentPrecision, maxTime);
+            var compression = new DeadBandCompression(instrumentPrecision, maxTime, minTime);
             return compression.Process(data);
         }
         //---------------------------------------------------------------------
@@ -72,11 +77,11 @@ namespace gfoidl.DataCompression
         /// min and max slopes.
         /// </param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="SwingingDoorCompression.MaxDeltaX" />.
+        /// Length of x before for sure a value gets recoreded. See <see cref="Compression.MaxDeltaX" />.
         /// </param>
         /// <param name="minDeltaX">
         /// Length of x/time within no value gets recorded (after the last archived value).
-        /// See <see cref="SwingingDoorCompression.MinDeltaX" />.
+        /// See <see cref="Compression.MinDeltaX" />.
         /// </param>
         /// <returns>swinging door compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
@@ -104,7 +109,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
+        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -136,18 +141,22 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="DeadBandCompression.MaxDeltaX" />.
+        /// Length of x before for sure a value gets recoreded. See <see cref="Compression.MaxDeltaX" />.
+        /// </param>
+        /// <param name="minDeltaX">
+        /// Length of x/time within no value gets recorded (after the last archived value).
+        /// See <see cref="Compression.MinDeltaX" />.
         /// </param>
         /// <param name="ct">The token for cancellation.</param>
         /// <returns>Dead band compressed / filtered data.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, CancellationToken ct = default)
+        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
-            var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX);
+            var compression = new DeadBandCompression(instrumentPrecision, maxDeltaX, minDeltaX);
             return compression.ProcessAsync(data, ct);
         }
         //---------------------------------------------------------------------
@@ -157,16 +166,17 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <param name="instrumentPrecision">(Absolut) precision of the instrument</param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
+        /// <param name="minTime">Length of time within no value gets recorded (after the last archived value)</param>
         /// <returns>Dead band compressed / filtered data.</returns>
         /// <param name="ct">The token for cancellation.</param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, CancellationToken ct = default)
+        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime = null, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
-            var compression = new DeadBandCompression(instrumentPrecision, maxTime);
+            var compression = new DeadBandCompression(instrumentPrecision, maxTime, minTime);
             return compression.ProcessAsync(data, ct);
         }
         //---------------------------------------------------------------------
@@ -179,11 +189,11 @@ namespace gfoidl.DataCompression
         /// min and max slopes.
         /// </param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="SwingingDoorCompression.MaxDeltaX" />.
+        /// Length of x before for sure a value gets recoreded. See <see cref="Compression.MaxDeltaX" />.
         /// </param>
         /// <param name="minDeltaX">
         /// Length of x/time within no value gets recorded (after the last archived value).
-        /// See <see cref="SwingingDoorCompression.MinDeltaX" />.
+        /// See <see cref="Compression.MinDeltaX" />.
         /// </param>
         /// <param name="ct">The token for cancellation.</param>
         /// <returns>swinging door compressed / filtered data.</returns>
@@ -213,7 +223,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime, CancellationToken ct = default)
+        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime = null, CancellationToken ct = default)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 

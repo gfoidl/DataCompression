@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace gfoidl.DataCompression
 {
@@ -23,17 +24,23 @@ namespace gfoidl.DataCompression
         protected const int InitialState = -2;
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
-        protected int        _state = InitialState;
-        protected DataPoint  _current;
+        protected readonly Compression          _algorithm;
+        protected int                           _state = InitialState;
+        protected DataPoint                     _current;
+        protected DataPoint                     _snapShot;
+        protected DataPoint                     _lastArchived;
+        protected DataPoint                     _incoming;
+        protected (bool Archive, bool MaxDelta) _archive;
 #pragma warning restore CS1591
         private readonly int _threadId;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates an instance of <see cref="DataPointIterator" />.
         /// </summary>
-        protected DataPointIterator()
+        protected DataPointIterator(Compression algorithm)
         {
-            _threadId = Environment.CurrentManagedThreadId;
+            _threadId  = Environment.CurrentManagedThreadId;
+            _algorithm = algorithm;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -46,11 +53,11 @@ namespace gfoidl.DataCompression
         /// </summary>
         public ref DataPoint CurrentByRef => ref _current;
         //---------------------------------------------------------------------
-        private static EmptyIterator? s_emptyIterator;
+        private static EmptyDataPointIterator? s_emptyIterator;
         /// <summary>
-        /// Returns an <see cref="EmptyIterator" />.
+        /// Returns an <see cref="EmptyDataPointIterator" />.
         /// </summary>
-        public static DataPointIterator Empty => s_emptyIterator ?? (s_emptyIterator = new EmptyIterator());
+        public static DataPointIterator Empty => s_emptyIterator ?? (s_emptyIterator = new EmptyDataPointIterator(NoCompression.s_instance));
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         object IEnumerator.Current                                    => this.Current;
@@ -69,7 +76,7 @@ namespace gfoidl.DataCompression
         /// Gets an enumerator for the <see cref="DataPoint" />s.
         /// </summary>
         /// <returns>The enumerator.</returns>
-        public DataPointIterator GetEnumerator()
+        public virtual DataPointIterator GetEnumerator()
         {
             DataPointIterator enumerator =
                 _state       == InitialState
@@ -82,33 +89,75 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         /// <summary>
-        /// Advances the enumerator to the next element.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the enumerator was successfully advanced to the next element;
-        /// <c>false</c> if the enumerator has passed the end of the collection.
-        /// </returns>
-        public abstract bool MoveNext();
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Returns an array of the compressed <see cref="DataPoint" />s.
-        /// </summary>
-        /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
-        public abstract DataPoint[] ToArray();
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Returns a list of the compressed <see cref="DataPoint" />s.
-        /// </summary>
-        /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
-        public abstract List<DataPoint> ToList();
-        //---------------------------------------------------------------------
-        /// <summary>
         /// Resets the enumerator and its state.
         /// </summary>
         public virtual void Dispose()
         {
             _current = DataPoint.Origin;
             _state   = DisposedState;
+            _enumerator?.Dispose();
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Prepares the algorithm for new data, e.g. opens a new door in the
+        /// <see cref="SwingingDoorCompression" />.
+        /// </summary>
+        /// <param name="incoming">
+        /// The <see cref="DataPoint" /> on which the initialisation is based on.
+        /// </param>
+        /// <param name="snapShot">The last snapshot.</param>
+        protected internal abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Prepares the algorithm for new data, e.g. opens a new door in the
+        /// <see cref="SwingingDoorCompression" />.
+        /// </summary>
+        /// <param name="incomingIndex">
+        /// The index of the <see cref="DataPoint" /> on which the initialisation is based on.
+        /// </param>
+        /// <param name="incoming">The incoming <see cref="DataPoint" />.</param>
+        /// <param name="snapShotIndex">The index of the last snapshot.</param>
+        protected internal abstract void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Updates the filters.
+        /// </summary>
+        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        protected internal virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Determines if the <paramref name="incoming" /> needs to be archived or not.
+        /// </summary>
+        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        /// <returns>State whether to archive or not plus additional info.</returns>
+        protected internal abstract ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Determines if the incoming needs to be archived due <see cref="Compression.MaxDeltaX" />.
+        /// </summary>
+        /// <param name="archive">Archive state.</param>
+        /// <param name="incomingX">The x-value of the incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchivedX">The x-value of the last archived <see cref="DataPoint" />.</param>
+        /// <returns>
+        /// <c>true</c> if <see cref="Compression.MaxDeltaX" /> is the reason for archiving,
+        /// <c>false</c> otherwise.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double incomingX, double lastArchivedX)
+        {
+            if ((incomingX - lastArchivedX) >= _algorithm._maxDeltaX)
+            {
+                archive.Archive  = true;
+                archive.MaxDelta = true;
+                return true;
+            }
+            else
+            {
+                archive.MaxDelta = false;
+                return false;
+            }
         }
     }
 }
