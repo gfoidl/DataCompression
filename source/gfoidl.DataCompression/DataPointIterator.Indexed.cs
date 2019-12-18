@@ -18,10 +18,22 @@ namespace gfoidl.DataCompression
         protected int _incomingIndex;
 #pragma warning restore CS1591
         //-----------------------------------------------------------------
+        /// <summary>
+        /// Creates a new instance of the <see cref="DataPointIndexedIterator{TList}" />.
+        /// </summary>
+        /// <param name="compression">The algorithm.</param>
+        /// <param name="source">The indexable source.</param>
         protected DataPointIndexedIterator(Compression compression, TList source)
             : base(compression)
             => _list = source;
         //-----------------------------------------------------------------
+        /// <summary>
+        /// Advances the enumerator to the next element.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the enumerator was successfully advanced to the next element;
+        /// <c>false</c> if the enumerator has passed the end of the collection.
+        /// </returns>
         public override bool MoveNext()
         {
             switch (_state)
@@ -106,6 +118,14 @@ namespace gfoidl.DataCompression
             }
         }
         //---------------------------------------------------------------------
+        /// <summary>
+        /// Prepares the algorithm for new data, e.g. opens a new door in the
+        /// <see cref="SwingingDoorCompression" />.
+        /// </summary>
+        /// <param name="incomingIndex">
+        /// The index of the <see cref="DataPoint" /> on which the initialisation is based on.
+        /// </param>
+        /// <param name="snapShotIndex">The index of the last snapshot.</param>
         protected abstract void Init(int incomingIndex, ref int snapShotIndex);
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

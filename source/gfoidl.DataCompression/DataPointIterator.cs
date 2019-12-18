@@ -124,11 +124,11 @@ namespace gfoidl.DataCompression
         protected abstract ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived);
         //---------------------------------------------------------------------
         /// <summary>
-        /// Determines if the <paramref name="incoming" /> needs to be archived due <see cref="Compression.MaxDeltaX" />.
+        /// Determines if the incoming needs to be archived due <see cref="Compression.MaxDeltaX" />.
         /// </summary>
         /// <param name="archive">Archive state.</param>
-        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
-        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        /// <param name="incomingX">The x-value of the incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchivedX">The x-value of the last archived <see cref="DataPoint" />.</param>
         /// <returns>
         /// <c>true</c> if <see cref="Compression.MaxDeltaX" /> is the reason for archiving,
         /// <c>false</c> otherwise.
