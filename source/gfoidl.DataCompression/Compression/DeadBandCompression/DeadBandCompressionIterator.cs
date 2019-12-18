@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace gfoidl.DataCompression.Internal.DeadBand
 {
@@ -6,7 +7,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
     {
         protected readonly DeadBandCompression _deadBandCompression;
         protected (double Min, double Max)     _bounding;
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
             : base(deadBandCompression)
             => _deadBandCompression = deadBandCompression;
@@ -22,9 +23,9 @@ namespace gfoidl.DataCompression.Internal.DeadBand
             bounding.Min = y - _deadBandCompression.InstrumentPrecision;
             bounding.Max = y + _deadBandCompression.InstrumentPrecision;
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
@@ -35,7 +36,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
 
             return ref archive;
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
         {
@@ -45,6 +46,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
             if (!_archive.MaxDelta) this.GetBounding(snapShot);
         }
         //---------------------------------------------------------------------
-        protected override void Init(in DataPoint incoming, ref DataPoint snapShot) => this.UpdatePoints(incoming, ref snapShot);
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(incoming, ref snapShot);
+        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
     }
 }

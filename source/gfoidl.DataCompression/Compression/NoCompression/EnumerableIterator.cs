@@ -14,9 +14,9 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             _source     = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
             _enumerator = enumerable.GetEnumerator();
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         public override DataPointIterator Clone() => new EnumerableIterator(_algorithm, _source);
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         public override bool MoveNext()
         {
             if (_state == InitialState || _enumerator == null)
@@ -30,7 +30,7 @@ namespace gfoidl.DataCompression.Internal.NoCompression
 
             return false;
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         public override DataPoint[] ToArray()
         {
             Debug.Assert(_source != null);
@@ -43,8 +43,9 @@ namespace gfoidl.DataCompression.Internal.NoCompression
         //---------------------------------------------------------------------
         public override List<DataPoint> ToList() => new List<DataPoint>(_source);
         //---------------------------------------------------------------------
-        protected override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
-        protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
+        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)                           => throw new NotSupportedException();
+        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();

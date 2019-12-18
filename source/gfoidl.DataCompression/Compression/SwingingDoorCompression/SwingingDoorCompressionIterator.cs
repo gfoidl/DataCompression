@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System;
 
 namespace gfoidl.DataCompression.Internal.SwingingDoor
 {
@@ -12,9 +13,9 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         protected SwingingDoorCompressionIterator(SwingingDoorCompression swingingDoorCompression)
             : base(swingingDoorCompression)
             => _swingingDoorCompression = swingingDoorCompression;
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
@@ -28,7 +29,7 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
 
             return ref archive;
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void CloseTheDoor(in DataPoint incoming, in DataPoint lastArchived)
         {
@@ -38,15 +39,16 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
             if (upperSlope < _slope.Max) _slope.Max = upperSlope;
             if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void OpenNewDoor(in DataPoint incoming)
         {
             _lastArchived = incoming;
             _slope        = s_newDoor;
         }
-        //-----------------------------------------------------------------
-        protected override void Init(in DataPoint incoming, ref DataPoint snapShot)             => this.OpenNewDoor(incoming);
-        protected override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) => this.CloseTheDoor(incoming, lastArchived);
+        //---------------------------------------------------------------------
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor(incoming);
+        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
+        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)       => this.CloseTheDoor(incoming, lastArchived);
     }
 }

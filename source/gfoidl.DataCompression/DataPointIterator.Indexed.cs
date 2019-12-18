@@ -1,48 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
 {
-    /// <summary>
-    /// Base class for an indexed <see cref="DataPointIterator" />.
-    /// </summary>
-    /// <typeparam name="TList">The type of the list-wrapper.</typeparam>
-    public abstract class DataPointIndexedIterator<TList> : DataPointIterator
+    internal sealed class DataPointIndexedIterator<TList> : DataPointIterator
         where TList : notnull, IList<DataPoint>
     {
 #pragma warning disable CS1591
-        protected readonly TList _list;
-        protected int _snapShotIndex;
-        protected int _lastArchivedIndex;
-        protected int _incomingIndex;
+        private readonly DataPointIterator _wrapperIterator;
+        private readonly TList             _list;
+        private int                        _snapShotIndex;
+        private int                        _lastArchivedIndex;
+        private int                        _incomingIndex;
 #pragma warning restore CS1591
         //-----------------------------------------------------------------
-        /// <summary>
-        /// Creates a new instance of the <see cref="DataPointIndexedIterator{TList}" />.
-        /// </summary>
-        /// <param name="compression">The algorithm.</param>
-        /// <param name="source">The indexable source.</param>
-        protected DataPointIndexedIterator(Compression compression, TList source)
+        public DataPointIndexedIterator(Compression compression, DataPointIterator wrappedIterator, TList source)
             : base(compression)
-            => _list = source;
+        {
+            _wrapperIterator = wrappedIterator;
+            _list            = source;
+        }
+        //---------------------------------------------------------------------
+        public override DataPointIterator Clone() => new DataPointIndexedIterator<TList>(_algorithm, _wrapperIterator, _list);
         //-----------------------------------------------------------------
-        /// <summary>
-        /// Advances the enumerator to the next element.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the enumerator was successfully advanced to the next element;
-        /// <c>false</c> if the enumerator has passed the end of the collection.
-        /// </returns>
         public override bool MoveNext()
         {
             switch (_state)
             {
                 case 0:
-                    _incomingIndex     = 0;
-                    _lastArchivedIndex = 0;
-                    _incoming          = _list[0];
-                    _current           = _incoming;
+                    _incomingIndex = 0;
+                    _incoming      = _list[0];
+                    _current       = _incoming;
 
                     if (_list.Count < 2)
                     {
@@ -50,23 +40,29 @@ namespace gfoidl.DataCompression
                         return true;
                     }
 
-                    this.Init(0, ref _snapShotIndex);
+                    this.Init(0, _incoming, ref _snapShotIndex);
                     _state         = 1;
                     _incomingIndex = 1;
                     return true;
                 case 1:
-                    TList source      = _list;
-                    int snapShotIndex = _snapShotIndex;
-                    int incomingIndex = _incomingIndex;
+                    TList source           = _list;
+                    int snapShotIndex      = _snapShotIndex;
+                    int incomingIndex      = _incomingIndex;
+                    int lastArchivedIndex  = _lastArchivedIndex;
 
                     while (true)
                     {
                         // Actually a while loop, but so the range check can be eliminated
                         // https://github.com/dotnet/coreclr/issues/15476
-                        if ((uint)incomingIndex >= (uint)source.Count || (uint)snapShotIndex >= (uint)source.Count)
+                        if ((uint)incomingIndex     >= (uint)source.Count
+                         || (uint)snapShotIndex     >= (uint)source.Count
+                         || (uint)lastArchivedIndex >= (uint)source.Count)
+                        {
                             break;
+                        }
 
-                        _incoming = source[incomingIndex];
+                        _incoming       = source[incomingIndex];
+                        _lastArchived   = source[lastArchivedIndex];
                         ref var archive = ref this.IsPointToArchive(_incoming, _lastArchived);
 
                         if (!archive.Archive)
@@ -100,10 +96,10 @@ namespace gfoidl.DataCompression
                     return false;
                 case 2:
                     incomingIndex  = _incomingIndex;
-                    incomingIndex  = this.HandleSpecialCaseAfterArchivedPoint(_list, incomingIndex, _snapShotIndex);
+                    incomingIndex  = this.HandleSkipMinDeltaX(_list, incomingIndex, _snapShotIndex);
                     _current       = _list[incomingIndex];
                     _state         = 1;
-                    this.Init(incomingIndex, ref _snapShotIndex);
+                    this.Init(incomingIndex, _current, ref _snapShotIndex);
                     _incomingIndex = incomingIndex + 1;
                     return true;
                 case InitialState:
@@ -118,18 +114,103 @@ namespace gfoidl.DataCompression
             }
         }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Prepares the algorithm for new data, e.g. opens a new door in the
-        /// <see cref="SwingingDoorCompression" />.
-        /// </summary>
-        /// <param name="incomingIndex">
-        /// The index of the <see cref="DataPoint" /> on which the initialisation is based on.
-        /// </param>
-        /// <param name="snapShotIndex">The index of the last snapshot.</param>
-        protected abstract void Init(int incomingIndex, ref int snapShotIndex);
+        public override DataPoint[] ToArray()
+        {
+            TList source = _list;
+
+            Debug.Assert(source.Count > 0);
+            if (source.Count == 1 && 0 < (uint)source.Count)
+                return new[] { source[0] };
+
+            var arrayBuilder = new ArrayBuilder<DataPoint>(true);
+            this.BuildCollection(source, ref arrayBuilder);
+
+            return arrayBuilder.ToArray();
+        }
+        //-----------------------------------------------------------------
+        public override List<DataPoint> ToList()
+        {
+            TList source = _list;
+
+            Debug.Assert(source.Count > 0);
+            if (source.Count == 1 && 0 < (uint)source.Count)
+                return new List<DataPoint> { source[0] };
+
+            var listBuilder = new ListBuilder<DataPoint>(true);
+            this.BuildCollection(source, ref listBuilder);
+
+            return listBuilder.ToList();
+        }
+        //---------------------------------------------------------------------
+        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => ref _wrapperIterator.IsPointToArchive(incoming, lastArchived);
+        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)                                 => _wrapperIterator.UpdateFilters(incoming, lastArchived);
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => _wrapperIterator.Init(incoming, ref snapShot);
+        //---------------------------------------------------------------------
+        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
+        {
+            _wrapperIterator.Init(incomingIndex, incoming, ref snapShotIndex);
+            _lastArchivedIndex = incomingIndex;
+        }
+        //---------------------------------------------------------------------
+        private void BuildCollection<TBuilder>(TList source, ref TBuilder builder)
+            where TBuilder : ICollectionBuilder<DataPoint>
+        {
+            int incomingIndex = 0;
+            int snapShotIndex = 0;
+
+            if ((uint)incomingIndex >= (uint)source.Count) return;
+
+            DataPoint incoming = source[incomingIndex];
+            _lastArchived      = incoming;
+            builder.Add(incoming);
+            this.Init(0, incoming, ref snapShotIndex);
+
+            incomingIndex = 1;
+
+            // Is actually a for loop, but the JIT doesn't elide the bound check
+            // due to SkipMinDeltaX. I.e. w/o SkipMinDeltaX the bound check gets
+            // eliminated.
+            while (true)
+            {
+                if ((uint)incomingIndex >= (uint)source.Count)
+                    break;
+
+                incoming        = source[incomingIndex];
+                ref var archive = ref this.IsPointToArchive(incoming, _lastArchived);
+
+                if (!archive.Archive)
+                {
+                    this.UpdateFilters(incoming, _lastArchived);
+                    snapShotIndex = incomingIndex++;
+                    continue;
+                }
+
+                if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
+                {
+                    DataPoint snapShot = source[snapShotIndex];
+                    builder.Add(snapShot);
+                    _lastArchived = snapShot;
+                }
+
+                incomingIndex = this.HandleSkipMinDeltaX(source, incomingIndex, snapShotIndex);
+
+                incoming      = source[incomingIndex];
+                builder.Add(incoming);
+                _lastArchived = incoming;
+                this.Init(incomingIndex, incoming, ref snapShotIndex);
+
+                incomingIndex++;
+            }
+
+            incomingIndex--;
+            if (incomingIndex != _lastArchivedIndex && (uint)incomingIndex < (uint)source.Count)
+            {
+                builder.Add(source[incomingIndex]);
+            }
+        }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int HandleSpecialCaseAfterArchivedPoint(TList source, int incomingIndex, int snapShotIndex)
+        private int HandleSkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
         {
             return _algorithm._minDeltaXHasValue
                 ? this.SkipMinDeltaX(source, incomingIndex, snapShotIndex)

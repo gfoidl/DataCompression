@@ -15,9 +15,9 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
             _source     = source     ?? throw new ArgumentNullException(nameof(source));
             _enumerator = enumerator ?? source.GetEnumerator();
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         public override DataPointIterator Clone() => new SequentialEnumerableIterator(_swingingDoorCompression, _source, _enumerator);
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
         public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();

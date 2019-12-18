@@ -76,7 +76,7 @@ namespace gfoidl.DataCompression
         /// Gets an enumerator for the <see cref="DataPoint" />s.
         /// </summary>
         /// <returns>The enumerator.</returns>
-        public DataPointIterator GetEnumerator()
+        public virtual DataPointIterator GetEnumerator()
         {
             DataPointIterator enumerator =
                 _state       == InitialState
@@ -106,14 +106,25 @@ namespace gfoidl.DataCompression
         /// The <see cref="DataPoint" /> on which the initialisation is based on.
         /// </param>
         /// <param name="snapShot">The last snapshot.</param>
-        protected abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
+        protected internal abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Prepares the algorithm for new data, e.g. opens a new door in the
+        /// <see cref="SwingingDoorCompression" />.
+        /// </summary>
+        /// <param name="incomingIndex">
+        /// The index of the <see cref="DataPoint" /> on which the initialisation is based on.
+        /// </param>
+        /// <param name="incoming">The incoming <see cref="DataPoint" />.</param>
+        /// <param name="snapShotIndex">The index of the last snapshot.</param>
+        protected internal abstract void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex);
         //---------------------------------------------------------------------
         /// <summary>
         /// Updates the filters.
         /// </summary>
         /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
         /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
-        protected virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
+        protected internal virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
         //---------------------------------------------------------------------
         /// <summary>
         /// Determines if the <paramref name="incoming" /> needs to be archived or not.
@@ -121,7 +132,7 @@ namespace gfoidl.DataCompression
         /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
         /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
         /// <returns>State whether to archive or not plus additional info.</returns>
-        protected abstract ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived);
+        protected internal abstract ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived);
         //---------------------------------------------------------------------
         /// <summary>
         /// Determines if the incoming needs to be archived due <see cref="Compression.MaxDeltaX" />.
