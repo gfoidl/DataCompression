@@ -22,28 +22,6 @@ namespace gfoidl.DataCompression
         /// </remarks>
         public double CompressionDeviation { get; }
         //---------------------------------------------------------------------
-        private readonly double _maxDeltaX;
-        /// <summary>
-        /// Length of x before for sure a value gets recorded.
-        /// </summary>
-        /// <remarks>
-        /// Cf. ExMax in documentation.<br />
-        /// When specified as <see cref="DateTime" /> the <see cref="DateTime.Ticks" />
-        /// are used.
-        /// <para>
-        /// When value is <c>null</c>, no value -- except the first and last -- are
-        /// guaranteed to be recorded.
-        /// </para>
-        /// </remarks>
-        public double? MaxDeltaX => _maxDeltaX == double.MaxValue ? (double?)null : _maxDeltaX;
-        //---------------------------------------------------------------------
-        private readonly bool   _minDeltaXHasValue;
-        private readonly double _minDeltaX;
-        /// <summary>
-        /// Length of x/time within no value gets recorded (after the last archived value)
-        /// </summary>
-        public double? MinDeltaX => _minDeltaXHasValue ? _minDeltaX : (double?)null;
-        //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of swinging door compression.
         /// </summary>
@@ -52,23 +30,15 @@ namespace gfoidl.DataCompression
         /// min and max slopes. Cf. CompDev in documentation.
         /// </param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX" />.
+        /// Length of x before for sure a value gets recoreded. See <see cref="Compression.MaxDeltaX" />.
         /// </param>
         /// <param name="minDeltaX">
         /// Length of x/time within no value gets recorded (after the last archived value).
-        /// See <see cref="MinDeltaX" />.
+        /// See <see cref="Compression.MinDeltaX" />.
         /// </param>
         public SwingingDoorCompression(double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
-        {
-            this.CompressionDeviation = compressionDeviation;
-            _maxDeltaX                = maxDeltaX ?? double.MaxValue;
-
-            if (minDeltaX.HasValue)
-            {
-                _minDeltaXHasValue = true;
-                _minDeltaX         = minDeltaX.Value;
-            }
-        }
+            : base(maxDeltaX, minDeltaX)
+            => this.CompressionDeviation = compressionDeviation;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of swinging door compression.
@@ -137,6 +107,7 @@ namespace gfoidl.DataCompression
             protected (bool Archive, bool MaxDelta)    _archive;
             //---------------------------------------------------------------------
             protected SwingingDoorCompressionIterator(SwingingDoorCompression swingingDoorCompression)
+                : base(swingingDoorCompression)
                 => _swingingDoorCompression = swingingDoorCompression;
             //-----------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -144,19 +115,12 @@ namespace gfoidl.DataCompression
             {
                 ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-                if ((incoming.X - lastArchived.X) >= (_swingingDoorCompression._maxDeltaX))
-                {
-                    archive.Archive  = true;
-                    archive.MaxDelta = true;
-                }
-                else
+                if (!this.IsMaxDeltaX(ref archive, incoming, lastArchived))
                 {
                     // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
                     // Obviously, the result should be the same ;-)
                     double slopeToIncoming = lastArchived.Gradient(incoming);
-
-                    archive.Archive  = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
-                    archive.MaxDelta = false;
+                    archive.Archive = slopeToIncoming < _slope.Min || _slope.Max < slopeToIncoming;
                 }
 
                 return ref archive;

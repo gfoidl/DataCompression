@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
@@ -25,6 +26,7 @@ namespace gfoidl.DataCompression
         protected const int InitialState = -2;
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
+        protected readonly Compression    _algorithm;
         protected IEnumerable<DataPoint>? _source;
         protected IEnumerator<DataPoint>? _enumerator;
         protected int                     _state = InitialState;
@@ -38,9 +40,10 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Creates an instance of <see cref="DataPointIterator" />.
         /// </summary>
-        protected DataPointIterator()
+        protected DataPointIterator(Compression algorithm)
         {
-            _threadId = Environment.CurrentManagedThreadId;
+            _threadId  = Environment.CurrentManagedThreadId;
+            _algorithm = algorithm;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -57,7 +60,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Returns an <see cref="EmptyIterator" />.
         /// </summary>
-        public static DataPointIterator Empty => s_emptyIterator ?? (s_emptyIterator = new EmptyIterator());
+        public static DataPointIterator Empty => s_emptyIterator ?? (s_emptyIterator = new EmptyIterator(NoCompression.s_instance));
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         object IEnumerator.Current                                    => this.Current;
@@ -215,23 +218,37 @@ namespace gfoidl.DataCompression
         protected abstract ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived);
         //---------------------------------------------------------------------
         /// <summary>
+        /// Determines if the <paramref name="incoming" /> needs to be archived due <see cref="Compression.MaxDeltaX" />.
+        /// </summary>
+        /// <param name="archive">Archive state.</param>
+        /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
+        /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
+        /// <returns>
+        /// <c>true</c> if <see cref="Compression.MaxDeltaX" /> is the reason for archiving,
+        /// <c>false</c> otherwise.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, in DataPoint incoming, in DataPoint lastArchived)
+        {
+            if ((incoming.X - lastArchived.X) >= _algorithm._maxDeltaX)
+            {
+                archive.Archive  = true;
+                archive.MaxDelta = true;
+                return true;
+            }
+            else
+            {
+                archive.MaxDelta = false;
+                return false;
+            }
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Updates the filters.
         /// </summary>
         /// <param name="incoming">The incoming (i.e. latest) <see cref="DataPoint" />.</param>
         /// <param name="lastArchived">The last archived <see cref="DataPoint" />.</param>
         protected virtual void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Handles special cases after a <see cref="DataPoint" /> got archived.
-        /// </summary>
-        /// <param name="enumerator">The enumerator.</param>
-        /// <param name="incoming">The incoming datapoint.</param>
-        /// <param name="snapShot">The snapshot datapoint.</param>
-        /// <returns>New incoming datapoint.</returns>
-        protected virtual ref DataPoint HandleSpecialCaseAfterArchivedPoint(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
-        {
-            return ref incoming;
-        }
         //---------------------------------------------------------------------
         private void BuildCollection<TBuilder>(IEnumerator<DataPoint> enumerator, ref TBuilder builder)
             where TBuilder : ICollectionBuilder<DataPoint>
@@ -270,6 +287,35 @@ namespace gfoidl.DataCompression
 
             if (incoming != _lastArchived)          // sentinel-check
                 builder.Add(incoming);
+        }
+        //---------------------------------------------------------------------
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private ref DataPoint HandleSpecialCaseAfterArchivedPoint(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
+        {
+            if (_algorithm._minDeltaXHasValue)
+            {
+                this.SkipMinDeltaX(enumerator, ref incoming, snapShot);
+            }
+
+            return ref incoming;
+        }
+        //---------------------------------------------------------------------
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
+        {
+            double snapShotX = snapShot.X;
+            double minDeltaX = _algorithm._minDeltaX;
+
+            while (enumerator.MoveNext())
+            {
+                DataPoint tmp = enumerator.Current;
+
+                if ((tmp.X - snapShotX) > minDeltaX)
+                {
+                    incoming = tmp;
+                    break;
+                }
+            }
         }
     }
 }

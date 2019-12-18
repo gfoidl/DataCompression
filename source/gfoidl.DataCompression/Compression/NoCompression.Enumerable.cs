@@ -10,13 +10,14 @@ namespace gfoidl.DataCompression
     {
         private sealed class EnumerableIterator : DataPointIterator
         {
-            public EnumerableIterator(IEnumerable<DataPoint>? enumerable)
+            public EnumerableIterator(Compression compression, IEnumerable<DataPoint>? enumerable)
+                : base(compression)
             {
                 _source     = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
                 _enumerator = enumerable.GetEnumerator();
             }
             //-----------------------------------------------------------------
-            public override DataPointIterator Clone() => new EnumerableIterator(_source);
+            public override DataPointIterator Clone() => new EnumerableIterator(_algorithm, _source);
             //-----------------------------------------------------------------
             public override bool MoveNext()
             {

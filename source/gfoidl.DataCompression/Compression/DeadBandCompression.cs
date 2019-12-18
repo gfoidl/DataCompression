@@ -21,21 +21,6 @@ namespace gfoidl.DataCompression
         /// </remarks>
         public double InstrumentPrecision { get; }
         //---------------------------------------------------------------------
-        private double _maxDeltaX;
-        /// <summary>
-        /// Length of x before for sure a value gets recorded.
-        /// </summary>
-        /// <remarks>
-        /// Cf. ExMax in documentation.<br />
-        /// When specified as <see cref="DateTime" /> the <see cref="DateTime.Ticks" />
-        /// are used.
-        /// <para>
-        /// When value is <c>null</c>, no value -- except the first and last -- are
-        /// guaranteed to be recorded.
-        /// </para>
-        /// </remarks>
-        public double? MaxDeltaX => _maxDeltaX == double.MaxValue ? (double?)null : _maxDeltaX;
-        //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of dead band compression.
         /// </summary>
@@ -43,13 +28,15 @@ namespace gfoidl.DataCompression
         /// (Absolut) precision of the instrument. Cf. ExDev in documentation.
         /// </param>
         /// <param name="maxDeltaX">
-        /// Length of x before for sure a value gets recoreded. See <see cref="MaxDeltaX" />.
+        /// Length of x before for sure a value gets recoreded. See <see cref="Compression.MaxDeltaX" />.
         /// </param>
-        public DeadBandCompression(double instrumentPrecision, double? maxDeltaX = null)
-        {
-            this.InstrumentPrecision = instrumentPrecision;
-            _maxDeltaX               = maxDeltaX ?? double.MaxValue;
-        }
+        /// <param name="minDeltaX">
+        /// Length of x/time within no value gets recorded (after the last archived value).
+        /// See <see cref="Compression.MinDeltaX" />.
+        /// </param>
+        public DeadBandCompression(double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null)
+            : base(maxDeltaX, minDeltaX)
+            => this.InstrumentPrecision = instrumentPrecision;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of dead band compression.
@@ -58,8 +45,9 @@ namespace gfoidl.DataCompression
         /// (Absolut) precision of the instrument. Cf. ExDev in documentation.
         /// </param>
         /// <param name="maxTime">Length of time before for sure a value gets recoreded</param>
-        public DeadBandCompression(double instrumentPrecision, in TimeSpan maxTime)
-        : this(instrumentPrecision, maxTime.Ticks)
+        /// <param name="minTime">Length of time within no value gets recorded (after the last archived value)</param>
+        public DeadBandCompression(double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime)
+            : this(instrumentPrecision, maxTime.Ticks, minTime?.Ticks)
         { }
         //---------------------------------------------------------------------
         /// <summary>
@@ -114,6 +102,7 @@ namespace gfoidl.DataCompression
             protected (bool Archive, bool MaxDelta) _archive;
             //-----------------------------------------------------------------
             protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
+                : base(deadBandCompression)
                 => _deadBandCompression = deadBandCompression;
             //---------------------------------------------------------------------
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -140,15 +129,9 @@ namespace gfoidl.DataCompression
             {
                 ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-                if ((incoming.X - lastArchived.X) >= _deadBandCompression._maxDeltaX)
+                if (!this.IsMaxDeltaX(ref archive, incoming, lastArchived))
                 {
-                    archive.Archive  = true;
-                    archive.MaxDelta = true;
-                }
-                else
-                {
-                    archive.Archive  = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
-                    archive.MaxDelta = false;
+                    archive.Archive = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
                 }
 
                 return ref archive;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace gfoidl.DataCompression
@@ -20,34 +19,6 @@ namespace gfoidl.DataCompression
             }
             //-----------------------------------------------------------------
             public override DataPointIterator Clone() => new EnumerableIterator(_swingingDoorCompression, _source, _enumerator);
-            //-----------------------------------------------------------------
-            protected override ref DataPoint HandleSpecialCaseAfterArchivedPoint(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
-            {
-                if (_swingingDoorCompression._minDeltaXHasValue)
-                {
-                    this.SkipMinDeltaX(enumerator, ref incoming, snapShot);
-                }
-
-                return ref incoming;
-            }
-            //-----------------------------------------------------------------
-            [MethodImpl(MethodImplOptions.NoInlining)]
-            private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, in DataPoint snapShot)
-            {
-                double snapShotX = snapShot.X;
-                double minDeltaX = _swingingDoorCompression._minDeltaX;
-
-                while (enumerator.MoveNext())
-                {
-                    DataPoint tmp = enumerator.Current;
-
-                    if ((tmp.X - snapShotX) > minDeltaX)
-                    {
-                        incoming = tmp;
-                        break;
-                    }
-                }
-            }
             //-----------------------------------------------------------------
             protected override void Init(in DataPoint incoming, ref DataPoint snapShot)             => this.OpenNewDoor(incoming);
             protected override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) => this.CloseTheDoor(incoming, lastArchived);

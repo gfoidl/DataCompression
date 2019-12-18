@@ -11,6 +11,8 @@ namespace gfoidl.DataCompression
         /// </summary>
         private sealed partial class EmptyIterator : DataPointIterator
         {
+            public EmptyIterator(Compression compression) : base(compression) { }
+            //---------------------------------------------------------------------
             public override DataPointIterator Clone() => this;
             public override bool MoveNext()           => false;
             public override DataPoint[] ToArray()     => Array.Empty<DataPoint>();

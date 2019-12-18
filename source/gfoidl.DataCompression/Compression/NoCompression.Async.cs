@@ -13,7 +13,8 @@ namespace gfoidl.DataCompression
             private     readonly IAsyncEnumerable<DataPoint> _enumerable;
             private new readonly IAsyncEnumerator<DataPoint> _enumerator;
             //-----------------------------------------------------------------
-            public AsyncEnumerableIterator(IAsyncEnumerable<DataPoint> enumerable, CancellationToken ct)
+            public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable, CancellationToken ct)
+                : base(compression)
             {
                 _enumerable = enumerable;
                 _enumerator = enumerable.GetAsyncEnumerator(ct);
