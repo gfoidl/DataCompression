@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
@@ -8,28 +9,29 @@ namespace gfoidl.DataCompression.Internal.NoCompression
 {
     internal sealed class AsyncEnumerableIterator : NoCompressionIterator
     {
-        private     readonly IAsyncEnumerable<DataPoint> _enumerable;
-        private new readonly IAsyncEnumerator<DataPoint> _enumerator;
-        //---------------------------------------------------------------------
         public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable, CancellationToken ct)
             : base(compression)
         {
-            _enumerable = enumerable;
-            _enumerator = enumerable.GetAsyncEnumerator(ct);
+            _asyncSource = enumerable;
+
+            if (ct != default)
+                _cancellationToken = ct;
         }
         //---------------------------------------------------------------------
-        public override async ValueTask<bool> MoveNextAsync()
+        public override IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
-            if (_state == InitialState)
-                ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
+            if (cancellationToken == default)
+                cancellationToken = _cancellationToken;
+            else
+                _cancellationToken = cancellationToken;
 
-            if (await _enumerator.MoveNextAsync().ConfigureAwait(false))
-            {
-                _current = _enumerator.Current;
-                return true;
-            }
-
-            return false;
+            return this.IterateCore(cancellationToken);
+        }
+        //---------------------------------------------------------------------
+        public override ValueTask<bool> MoveNextAsync()
+        {
+            ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
+            return default;
         }
         //---------------------------------------------------------------------
         public override async ValueTask<DataPoint[]> ToArrayAsync()
@@ -46,19 +48,27 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
-        private async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder)
-            where TBuilder : ICollectionBuilder<DataPoint>
+        private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            await foreach (DataPoint dataPoint in _enumerable.WithCancellation(_cancellationToken).ConfigureAwait(false))
+            Debug.Assert(_asyncSource != null);
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
-                builder.Add(dataPoint);
+                cancellationToken.ThrowIfCancellationRequested();
+                yield return dataPoint;
             }
         }
         //---------------------------------------------------------------------
-        public override async ValueTask DisposeAsync()
+        private async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder)
+            where TBuilder : ICollectionBuilder<DataPoint>
         {
-            await base.DisposeAsync().ConfigureAwait(false);
-            await _enumerator.DisposeAsync().ConfigureAwait(false);
+            await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(_cancellationToken).ConfigureAwait(false))
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+                builder.Add(dataPoint);
+            }
         }
         //---------------------------------------------------------------------
         public override DataPointIterator Clone()                                                                                        => throw new NotSupportedException();

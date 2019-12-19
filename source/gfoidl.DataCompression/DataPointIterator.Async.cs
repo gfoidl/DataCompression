@@ -23,7 +23,7 @@ namespace gfoidl.DataCompression
         /// Gets an enumerator for the <see cref="DataPoint" />s.
         /// </summary>
         /// <returns>The enumerator.</returns>
-        public DataPointIterator GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        public virtual IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
             if (cancellationToken != default)
                 _cancellationToken = cancellationToken;

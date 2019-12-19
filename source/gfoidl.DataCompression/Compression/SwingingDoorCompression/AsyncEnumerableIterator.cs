@@ -14,8 +14,8 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
             : base(swingingDoorCompression)
         {
             if (cancellationToken != default) _cancellationToken = cancellationToken;
-            _asyncSource                  = source;
-            _asyncEnumerator              = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
+            _asyncSource     = source;
+            _asyncEnumerator = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
         }
         //---------------------------------------------------------------------
         public override DataPointIterator Clone() => throw new NotSupportedException();
