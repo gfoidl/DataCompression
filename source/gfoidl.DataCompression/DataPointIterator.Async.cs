@@ -86,7 +86,7 @@ namespace gfoidl.DataCompression
                     return false;
                 case 2:
                     if (_algorithm._minDeltaXHasValue)
-                        await this.SkipMinDeltaXAsync(_snapShot.X).ConfigureAwait(false);
+                        await this.SkipMinDeltaXAsync(_asyncEnumerator, _snapShot.X).ConfigureAwait(false);
 
                     _current = _incoming;
                     _state   = 1;
@@ -179,7 +179,7 @@ namespace gfoidl.DataCompression
 
                 if (_algorithm._minDeltaXHasValue)
                 {
-                    await this.SkipMinDeltaXAsync(snapShot.X).ConfigureAwait(false);
+                    await this.SkipMinDeltaXAsync(enumerator, snapShot.X).ConfigureAwait(false);
                     incoming = _incoming;
                 }
 
@@ -192,14 +192,13 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private async ValueTask SkipMinDeltaXAsync(double snapShotX)
+        private async ValueTask SkipMinDeltaXAsync(IAsyncEnumerator<DataPoint> asyncEnumerator, double snapShotX)
         {
-            Debug.Assert(_asyncEnumerator != null);
             double minDeltaX = _algorithm._minDeltaX;
 
-            while (await _asyncEnumerator.MoveNextAsync().ConfigureAwait(false))
+            while (await asyncEnumerator.MoveNextAsync().ConfigureAwait(false))
             {
-                DataPoint tmp = _asyncEnumerator.Current;
+                DataPoint tmp = asyncEnumerator.Current;
 
                 if ((tmp.X - snapShotX) > minDeltaX)
                 {

@@ -12,6 +12,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
     {
         private static readonly DataPointSerializer s_ser = new DataPointSerializer();
         //---------------------------------------------------------------------
+        protected static int RawMinDeltaXCounter { get; private set; }
+        //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../doc/data/swinging-door/trend_raw.csv");
         protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../doc/data/swinging-door/trend_compressed.csv");
         protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../doc/data/swinging-door/maxDelta_raw.csv");
@@ -19,6 +21,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> RawMinDeltaX()
         {
+            RawMinDeltaXCounter++;
+
             yield return (0d, 2d);
             yield return (1d, 2d);
             yield return (2d, 2d);
