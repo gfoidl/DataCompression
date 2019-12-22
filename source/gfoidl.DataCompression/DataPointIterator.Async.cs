@@ -25,11 +25,12 @@ namespace gfoidl.DataCompression
         /// <returns>The enumerator.</returns>
         public virtual IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
-            if (cancellationToken != default)
+            if (cancellationToken == default)
+                cancellationToken = _cancellationToken;
+            else
                 _cancellationToken = cancellationToken;
 
-            _state = 0;
-            return this;
+            return this.IterateCore(cancellationToken);
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -39,69 +40,10 @@ namespace gfoidl.DataCompression
         /// <c>true</c> if the enumerator was successfully advanced to the next element;
         /// <c>false</c> if the enumerator has passed the end of the collection.
         /// </returns>
-        public virtual async ValueTask<bool> MoveNextAsync()
+        public virtual ValueTask<bool> MoveNextAsync()
         {
-            _cancellationToken.ThrowIfCancellationRequested();
-            Debug.Assert(_asyncEnumerator != null);
-
-            switch (_state)
-            {
-                case 0:
-                    if (!await _asyncEnumerator.MoveNextAsync().ConfigureAwait(false)) return false;
-                    _incoming     = _asyncEnumerator.Current;
-                    _lastArchived = _incoming;
-                    _current      = _incoming;
-                    this.Init(_incoming, ref _snapShot);
-                    _state        = 1;
-                    return true;
-                case 1:
-                    while (await _asyncEnumerator.MoveNextAsync().ConfigureAwait(false))
-                    {
-                        _incoming = _asyncEnumerator.Current;
-                        this.IsPointToArchive(_incoming, _lastArchived);
-
-                        if (!_archive.Archive)
-                        {
-                            this.UpdateFilters(_incoming, _lastArchived);
-                            _snapShot = _incoming;
-                            continue;
-                        }
-
-                        if (!_archive.MaxDelta && _lastArchived!=_snapShot)
-                        {
-                            _current = _snapShot;
-                            _state = 2;
-                            return true;
-                        }
-
-                        goto case 2;
-                    }
-
-                    _state = -1;
-                    if (_incoming != _lastArchived)       // sentinel check
-                    {
-                        _current = _incoming;
-                        return true;
-                    }
-                    return false;
-                case 2:
-                    if (_algorithm._minDeltaXHasValue)
-                        await this.SkipMinDeltaXAsync(_asyncEnumerator, _snapShot.X).ConfigureAwait(false);
-
-                    _current = _incoming;
-                    _state   = 1;
-                    this.Init(_incoming, ref _snapShot);
-                    return true;
-                case InitialState:
-                    ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
-                    return false;
-                case DisposedState:
-                    ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
-                    return false;
-                default:
-                    await this.DisposeAsync().ConfigureAwait(false);
-                    return false;
-            }
+            ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
+            return default;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -113,9 +55,7 @@ namespace gfoidl.DataCompression
             Debug.Assert(_asyncSource != null);
 
             ICollectionBuilder<DataPoint> arrayBuilder = new ArrayBuilder<DataPoint>(true);
-            IAsyncEnumerator<DataPoint> enumerator     = _asyncSource.GetAsyncEnumerator(_cancellationToken);
-            await this.BuildCollectionAsync(enumerator, arrayBuilder).ConfigureAwait(false);
-
+            await this.BuildCollectionAsync(arrayBuilder).ConfigureAwait(false);
             return ((ArrayBuilder<DataPoint>)arrayBuilder).ToArray();
         }
         //---------------------------------------------------------------------
@@ -127,11 +67,9 @@ namespace gfoidl.DataCompression
         {
             Debug.Assert(_asyncSource != null);
 
-            ICollectionBuilder<DataPoint> listBuilder = new ListBuilder<DataPoint>(true);
-            IAsyncEnumerator<DataPoint> enumerator    = _asyncSource.GetAsyncEnumerator(_cancellationToken);
-            await this.BuildCollectionAsync(enumerator, listBuilder).ConfigureAwait(false);
-
-            return ((ListBuilder<DataPoint>)listBuilder).ToList();
+            var listBuilder = new ListBuilder<DataPoint>(true);
+            await this.BuildCollectionAsync(listBuilder).ConfigureAwait(false);
+            return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -147,48 +85,79 @@ namespace gfoidl.DataCompression
             }
         }
         //---------------------------------------------------------------------
-        internal async ValueTask BuildCollectionAsync(IAsyncEnumerator<DataPoint> enumerator, ICollectionBuilder<DataPoint> builder)
+        private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            if (!(await enumerator.MoveNextAsync().ConfigureAwait(false))) return;
+            Debug.Assert(_asyncSource != null);
 
-            DataPoint incoming = enumerator.Current;
-            _lastArchived      = incoming;
-            DataPoint snapShot = default;
+            cancellationToken.ThrowIfCancellationRequested();
 
-            builder.Add(incoming);
-            this.Init(incoming, ref snapShot);
+            bool isFirst = true;
+            bool isSkipMinDeltaX = false;
 
-            while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+            await foreach (DataPoint incoming in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
-                _cancellationToken.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
-                incoming = enumerator.Current;
+                if (isFirst)
+                {
+                    isFirst = false;
+                    _lastArchived = incoming;
+                    yield return incoming;
+                    cancellationToken.ThrowIfCancellationRequested();
+                    this.Init(incoming, ref _snapShot);
+                    continue;
+                }
+
+                if (isSkipMinDeltaX)
+                {
+                    if ((incoming.X - _snapShot.X) <= _algorithm._minDeltaX)
+                        continue;
+
+                    isSkipMinDeltaX = false;
+                    yield return incoming;
+                    cancellationToken.ThrowIfCancellationRequested();
+                    this.Init(incoming, ref _snapShot);
+                }
+
+                _incoming = incoming;
                 this.IsPointToArchive(incoming, _lastArchived);
 
                 if (!_archive.Archive)
                 {
                     this.UpdateFilters(incoming, _lastArchived);
-                    snapShot = incoming;
+                    _snapShot = incoming;
                     continue;
                 }
 
-                if (!_archive.MaxDelta && _lastArchived != snapShot)
+                if (!_archive.MaxDelta && _lastArchived != _snapShot)
                 {
-                    builder.Add(snapShot);
+                    yield return _snapShot;
+                    cancellationToken.ThrowIfCancellationRequested();
                 }
 
                 if (_algorithm._minDeltaXHasValue)
                 {
-                    await this.SkipMinDeltaXAsync(enumerator, snapShot.X).ConfigureAwait(false);
-                    incoming = _incoming;
+                    isSkipMinDeltaX = true;
+                    continue;
                 }
 
-                builder.Add(incoming);
-                this.Init(incoming, ref snapShot);
+                yield return incoming;
+                cancellationToken.ThrowIfCancellationRequested();
+                this.Init(incoming, ref _snapShot);
             }
 
-            if (incoming != _lastArchived)          // sentinel-check
-                builder.Add(incoming);
+            cancellationToken.ThrowIfCancellationRequested();
+            if (_incoming != _lastArchived)     // sentinel-check
+                yield return _incoming;
+        }
+        //---------------------------------------------------------------------
+        private protected virtual async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder)
+        {
+            await foreach (DataPoint dataPoint in this.WithCancellation(_cancellationToken).ConfigureAwait(false))
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+                builder.Add(dataPoint);
+            }
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.NoInlining)]

@@ -12,7 +12,8 @@ namespace gfoidl.DataCompression.Demos.Async
         {
             var cts                            = new CancellationTokenSource();
             IAsyncEnumerable<DataPoint> source = Source(cts.Token);
-            DataPointIterator filtered         = source.DeadBandCompressionAsync(0.01, ct: cts.Token);
+            //DataPointIterator filtered         = source.DeadBandCompressionAsync(0.01, ct: cts.Token);
+            DataPointIterator filtered         = source.SwingingDoorCompressionAsync(0.01, ct: cts.Token);
             ValueTask<double> sinkTask         = Sink(filtered, cts.Token);
 
             Console.WriteLine("any key to stop...");

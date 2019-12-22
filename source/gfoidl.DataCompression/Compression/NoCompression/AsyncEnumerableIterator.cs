@@ -34,20 +34,6 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             return default;
         }
         //---------------------------------------------------------------------
-        public override async ValueTask<DataPoint[]> ToArrayAsync()
-        {
-            ICollectionBuilder<DataPoint> arrayBuilder = new ArrayBuilder<DataPoint>(true);
-            await this.BuildCollectionAsync(arrayBuilder).ConfigureAwait(false);
-            return ((ArrayBuilder<DataPoint>)arrayBuilder).ToArray();
-        }
-        //---------------------------------------------------------------------
-        public override async ValueTask<List<DataPoint>> ToListAsync()
-        {
-            var listBuilder = new ListBuilder<DataPoint>(true);
-            await this.BuildCollectionAsync(listBuilder).ConfigureAwait(false);
-            return listBuilder.ToList();
-        }
-        //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
             Debug.Assert(_asyncSource != null);
@@ -61,8 +47,7 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             }
         }
         //---------------------------------------------------------------------
-        private async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder)
-            where TBuilder : ICollectionBuilder<DataPoint>
+        private protected override async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder)
         {
             await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(_cancellationToken).ConfigureAwait(false))
             {

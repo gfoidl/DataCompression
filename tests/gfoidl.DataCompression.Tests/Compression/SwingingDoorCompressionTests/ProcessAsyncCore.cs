@@ -47,7 +47,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
                 }
             });
 
-            CollectionAssert.AreEqual(actual, expected);
+            CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
