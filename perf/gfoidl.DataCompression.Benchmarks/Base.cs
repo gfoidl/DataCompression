@@ -32,7 +32,7 @@ namespace gfoidl.DataCompression.Benchmarks
         {
             foreach (DataPoint dataPoint in this.Source())
             {
-                await Task.CompletedTask;
+                await Task.Yield();
                 yield return dataPoint;
             }
         }
