@@ -38,7 +38,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             Assert.ThrowsAsync<OperationCanceledException>(async () =>
             {
-                await foreach (DataPoint dp in sut.ProcessAsync(data, cts.Token))
+                await foreach (DataPoint dp in sut.ProcessAsync(data).WithCancellation(cts.Token))
                 {
                     actual.Add(dp);
                     idx++;
@@ -47,7 +47,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
                 }
             });
 
-            CollectionAssert.AreEqual(actual, expected);
+            CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
@@ -76,6 +76,21 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
                 actual.Add(dp);
 
             CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public async Task Data_IAsyncEnumerable_with_minDeltaX_ToArray___OK()
+        {
+            int currentRawMinDeltaXCount = RawMinDeltaXCounter;
+
+            var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
+            var data     = RawMinDeltaXAsync();
+            var expected = ExpectedMinDeltaX().ToList();
+
+            var actual = await sut.ProcessAsync(data).ToArrayAsync();
+
+            CollectionAssert.AreEqual(expected, actual);
+            Assert.AreEqual(currentRawMinDeltaXCount + 1, RawMinDeltaXCounter);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace gfoidl.DataCompression.Internal.DeadBand
@@ -19,9 +20,8 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         public override DataPointIterator Clone() => new SequentialEnumerableIterator(_deadBandCompression, _source, _enumerator);
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
-        public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
-        public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
+        public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();
+        public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => throw new NotSupportedException();
 #endif
     }
 }

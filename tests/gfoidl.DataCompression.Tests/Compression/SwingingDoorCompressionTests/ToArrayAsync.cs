@@ -53,7 +53,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             var expected = ExpectedForTrend().ToList();
 
             DataPointIterator dataPointIterator = sut.ProcessAsync(data);
-            DataPointIterator enumerator        = dataPointIterator.GetAsyncEnumerator();
+            var enumerator                      = dataPointIterator.GetAsyncEnumerator();
 
             await enumerator.MoveNextAsync();
             await enumerator.MoveNextAsync();
@@ -71,7 +71,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             DataPointIterator dataPointIterator = sut.ProcessAsync(data);
             var cts                             = new CancellationTokenSource();
-            DataPointIterator enumerator        = dataPointIterator.GetAsyncEnumerator(cts.Token);
+            var enumerator                      = dataPointIterator.GetAsyncEnumerator(cts.Token);
 
             var actual = new List<DataPoint>();
             await enumerator.MoveNextAsync();
@@ -81,7 +81,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             cts.Cancel();
 
             DataPoint[] res = null;
-            Assert.ThrowsAsync<OperationCanceledException>(async () => res = await dataPointIterator.ToArrayAsync());
+            Assert.ThrowsAsync<OperationCanceledException>(async () => res = await dataPointIterator.ToArrayAsync(cts.Token));
 
             CollectionAssert.AreEqual(expected, actual);
             Assert.IsNull(res);

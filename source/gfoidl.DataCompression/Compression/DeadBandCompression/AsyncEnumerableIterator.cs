@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace gfoidl.DataCompression.Internal.DeadBand
 {
     internal sealed class AsyncEnumerableIterator : DeadBandCompressionIterator
     {
-        public AsyncEnumerableIterator(
-            DeadBandCompression          deadBandCompression,
-            IAsyncEnumerable<DataPoint>  source,
-            IAsyncEnumerator<DataPoint>? enumerator        = null,
-            CancellationToken            cancellationToken = default)
+        public AsyncEnumerableIterator(DeadBandCompression deadBandCompression, IAsyncEnumerable<DataPoint> source)
             : base(deadBandCompression)
-        {
-            if (cancellationToken != default) _cancellationToken = cancellationToken;
-            _asyncSource     = source;
-            _asyncEnumerator = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
-        }
+            => _asyncSource = source;
         //---------------------------------------------------------------------
         public override DataPointIterator Clone() => throw new NotSupportedException();
         public override bool MoveNext()           => throw new NotSupportedException();

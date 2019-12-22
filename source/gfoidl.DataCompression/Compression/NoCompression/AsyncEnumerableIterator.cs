@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
@@ -8,57 +9,29 @@ namespace gfoidl.DataCompression.Internal.NoCompression
 {
     internal sealed class AsyncEnumerableIterator : NoCompressionIterator
     {
-        private     readonly IAsyncEnumerable<DataPoint> _enumerable;
-        private new readonly IAsyncEnumerator<DataPoint> _enumerator;
-        //---------------------------------------------------------------------
-        public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable, CancellationToken ct)
+        public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable)
             : base(compression)
-        {
-            _enumerable = enumerable;
-            _enumerator = enumerable.GetAsyncEnumerator(ct);
-        }
+            => _asyncSource = enumerable;
         //---------------------------------------------------------------------
-        public override async ValueTask<bool> MoveNextAsync()
+        public override IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+            => this.IterateCore(cancellationToken);
+        //---------------------------------------------------------------------
+        private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            if (_state == InitialState)
-                ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
+            Debug.Assert(_asyncSource != null);
 
-            if (await _enumerator.MoveNextAsync().ConfigureAwait(false))
+            await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
-                _current = _enumerator.Current;
-                return true;
+                yield return dataPoint;
             }
-
-            return false;
         }
         //---------------------------------------------------------------------
-        public override async ValueTask<DataPoint[]> ToArrayAsync()
+        private protected override async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder, CancellationToken cancellationToken)
         {
-            ICollectionBuilder<DataPoint> arrayBuilder = new ArrayBuilder<DataPoint>(true);
-            await this.BuildCollectionAsync(arrayBuilder).ConfigureAwait(false);
-            return ((ArrayBuilder<DataPoint>)arrayBuilder).ToArray();
-        }
-        //---------------------------------------------------------------------
-        public override async ValueTask<List<DataPoint>> ToListAsync()
-        {
-            var listBuilder = new ListBuilder<DataPoint>(true);
-            await this.BuildCollectionAsync(listBuilder).ConfigureAwait(false);
-            return listBuilder.ToList();
-        }
-        //---------------------------------------------------------------------
-        private async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder)
-            where TBuilder : ICollectionBuilder<DataPoint>
-        {
-            await foreach (DataPoint dataPoint in _enumerable.WithCancellation(_cancellationToken).ConfigureAwait(false))
+            await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
                 builder.Add(dataPoint);
             }
-        }
-        //---------------------------------------------------------------------
-        public override async ValueTask DisposeAsync()
-        {
-            await base.DisposeAsync().ConfigureAwait(false);
-            await _enumerator.DisposeAsync().ConfigureAwait(false);
         }
         //---------------------------------------------------------------------
         public override DataPointIterator Clone()                                                                                        => throw new NotSupportedException();

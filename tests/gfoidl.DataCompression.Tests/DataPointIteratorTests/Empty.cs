@@ -24,7 +24,6 @@ namespace gfoidl.DataCompression.Tests.DataPointIteratorTests
         {
             DataPointIterator sut = DataPointIterator.Empty;
 
-            Assert.IsFalse(await sut.MoveNextAsync());
             Assert.AreSame(Array.Empty<DataPoint>(), await sut.ToArrayAsync());
             Assert.AreEqual(0, (await sut.ToListAsync()).Count);
         }

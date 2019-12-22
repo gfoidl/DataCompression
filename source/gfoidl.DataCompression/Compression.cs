@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace gfoidl.DataCompression
 {
@@ -75,13 +74,12 @@ namespace gfoidl.DataCompression
         /// Performs the compression / filtering of the input data.
         /// </summary>
         /// <param name="data">Input data</param>
-        /// <param name="ct">The token for cancellation.</param>
         /// <returns>The compressed / filtered data.</returns>
-        public DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint>? data, CancellationToken ct = default)
+        public DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint>? data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
-            return this.ProcessAsyncCore(data, ct);
+            return this.ProcessAsyncCore(data);
         }
 #endif
         //---------------------------------------------------------------------
@@ -97,9 +95,8 @@ namespace gfoidl.DataCompression
         /// Implementation of the compression / filtering.
         /// </summary>
         /// <param name="data">Input data</param>
-        /// <param name="ct">The token for cancellation.</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected abstract DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct);
+        protected abstract DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data);
 #endif
     }
 }
