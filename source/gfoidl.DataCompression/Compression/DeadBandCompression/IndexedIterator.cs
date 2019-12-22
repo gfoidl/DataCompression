@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace gfoidl.DataCompression.Internal.DeadBand
@@ -42,8 +43,8 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
-        public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
+        public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();
+        public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => throw new NotSupportedException();
 #endif
     }
 }

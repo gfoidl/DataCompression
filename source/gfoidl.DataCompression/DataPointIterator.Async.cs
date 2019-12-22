@@ -10,7 +10,6 @@ namespace gfoidl.DataCompression
     {
 #pragma warning disable CS1591
         protected IAsyncEnumerable<DataPoint>? _asyncSource;
-        protected CancellationToken            _cancellationToken;
 #pragma warning restore CS1591
         //---------------------------------------------------------------------
         /// <summary>
@@ -18,25 +17,18 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <returns>The enumerator.</returns>
         public virtual IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
-        {
-            if (cancellationToken == default)
-                cancellationToken = _cancellationToken;
-            else
-                _cancellationToken = cancellationToken;
-
-            return this.IterateCore(cancellationToken);
-        }
+            => this.IterateCore(cancellationToken);
         //---------------------------------------------------------------------
         /// <summary>
         /// Returns an array of the compressed <see cref="DataPoint" />s.
         /// </summary>
         /// <returns>An array of the compressed <see cref="DataPoint" />s.</returns>
-        public virtual async ValueTask<DataPoint[]> ToArrayAsync()
+        public virtual async ValueTask<DataPoint[]> ToArrayAsync(CancellationToken cancellationToken = default)
         {
             Debug.Assert(_asyncSource != null);
 
             ICollectionBuilder<DataPoint> arrayBuilder = new ArrayBuilder<DataPoint>(true);
-            await this.BuildCollectionAsync(arrayBuilder).ConfigureAwait(false);
+            await this.BuildCollectionAsync(arrayBuilder, cancellationToken).ConfigureAwait(false);
             return ((ArrayBuilder<DataPoint>)arrayBuilder).ToArray();
         }
         //---------------------------------------------------------------------
@@ -44,12 +36,12 @@ namespace gfoidl.DataCompression
         /// Returns a list of the compressed <see cref="DataPoint" />s.
         /// </summary>
         /// <returns>A list of the compressed <see cref="DataPoint" />s.</returns>
-        public virtual async ValueTask<List<DataPoint>> ToListAsync()
+        public virtual async ValueTask<List<DataPoint>> ToListAsync(CancellationToken cancellationToken = default)
         {
             Debug.Assert(_asyncSource != null);
 
             var listBuilder = new ListBuilder<DataPoint>(true);
-            await this.BuildCollectionAsync(listBuilder).ConfigureAwait(false);
+            await this.BuildCollectionAsync(listBuilder, cancellationToken).ConfigureAwait(false);
             return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
@@ -119,11 +111,10 @@ namespace gfoidl.DataCompression
                 yield return _incoming;
         }
         //---------------------------------------------------------------------
-        private protected virtual async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder)
+        private protected virtual async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder, CancellationToken cancellationToken)
         {
-            await foreach (DataPoint dataPoint in this.WithCancellation(_cancellationToken).ConfigureAwait(false))
+            await foreach (DataPoint dataPoint in this.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
-                _cancellationToken.ThrowIfCancellationRequested();
                 builder.Add(dataPoint);
             }
         }

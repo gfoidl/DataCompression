@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace gfoidl.DataCompression.Internal.SwingingDoor
 {
     internal sealed class AsyncEnumerableIterator : SwingingDoorCompressionIterator
     {
-        public AsyncEnumerableIterator(
-            SwingingDoorCompression      swingingDoorCompression,
-            IAsyncEnumerable<DataPoint>  source,
-            CancellationToken            cancellationToken = default)
+        public AsyncEnumerableIterator(SwingingDoorCompression swingingDoorCompression, IAsyncEnumerable<DataPoint> source)
             : base(swingingDoorCompression)
-        {
-            if (cancellationToken != default) _cancellationToken = cancellationToken;
-            _asyncSource = source;
-        }
+            => _asyncSource = source;
         //---------------------------------------------------------------------
         public override DataPointIterator Clone() => throw new NotSupportedException();
         public override bool MoveNext()           => throw new NotSupportedException();

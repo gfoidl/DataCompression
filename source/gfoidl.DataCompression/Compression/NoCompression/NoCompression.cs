@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using gfoidl.DataCompression.Internal.NoCompression;
 
 namespace gfoidl.DataCompression
@@ -24,10 +23,9 @@ namespace gfoidl.DataCompression
         /// Implementation of the compression / filtering.
         /// </summary>
         /// <param name="data">Input data</param>
-        /// <param name="ct">The token for cancellation.</param>
         /// <returns>The compressed / filtered data.</returns>
-        protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data, CancellationToken ct)
-            => new AsyncEnumerableIterator(this, data, ct);
+        protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data)
+            => new AsyncEnumerableIterator(this, data);
 #endif
     }
 }

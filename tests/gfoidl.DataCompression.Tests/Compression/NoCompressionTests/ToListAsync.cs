@@ -69,7 +69,7 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             cts.Cancel();
 
             List<DataPoint> res = null;
-            Assert.ThrowsAsync<OperationCanceledException>(async () => res = await dataPointIterator.ToListAsync());
+            Assert.ThrowsAsync<OperationCanceledException>(async () => res = await dataPointIterator.ToListAsync(cts.Token));
 
             CollectionAssert.AreEqual(expected, actual);
             Assert.IsNull(res);

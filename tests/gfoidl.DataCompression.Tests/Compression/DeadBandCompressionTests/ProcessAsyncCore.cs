@@ -36,7 +36,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
 
             Assert.ThrowsAsync<OperationCanceledException>(async () =>
             {
-                await foreach (DataPoint dp in sut.ProcessAsync(data, cts.Token))
+                await foreach (DataPoint dp in sut.ProcessAsync(data).WithCancellation(cts.Token))
                 {
                     actual.Add(dp);
                     idx++;

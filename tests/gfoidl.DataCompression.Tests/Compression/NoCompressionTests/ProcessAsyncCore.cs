@@ -36,56 +36,6 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 
             Assert.ThrowsAsync<OperationCanceledException>(async () =>
             {
-                await foreach (DataPoint dp in sut.ProcessAsync(data, cts.Token))
-                {
-                    actual.Add(dp);
-                    idx++;
-
-                    if (idx == 2) cts.Cancel();
-                }
-            });
-
-            CollectionAssert.AreEqual(actual, expected);
-        }
-        //---------------------------------------------------------------------
-        [Test]
-        public void Cancellation_after_two_items_WithCancellation___OK()
-        {
-            var sut      = new NoCompression();
-            var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().Take(2).ToList();
-            var cts      = new CancellationTokenSource();
-
-            var actual = new List<DataPoint>();
-            int idx    = 0;
-
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
-            {
-                await foreach (DataPoint dp in sut.ProcessAsync(data, cts.Token).WithCancellation(cts.Token))
-                {
-                    actual.Add(dp);
-                    idx++;
-
-                    if (idx == 2) cts.Cancel();
-                }
-            });
-
-            CollectionAssert.AreEqual(actual, expected);
-        }
-        //---------------------------------------------------------------------
-        [Test]
-        public void Cancellation_after_two_items_WithCancellation_only___OK()
-        {
-            var sut      = new NoCompression();
-            var data     = RawDataForTrendAsync();
-            var expected = RawDataForTrend().Take(2).ToList();
-            var cts      = new CancellationTokenSource();
-
-            var actual = new List<DataPoint>();
-            int idx    = 0;
-
-            Assert.ThrowsAsync<OperationCanceledException>(async () =>
-            {
                 await foreach (DataPoint dp in sut.ProcessAsync(data).WithCancellation(cts.Token))
                 {
                     actual.Add(dp);

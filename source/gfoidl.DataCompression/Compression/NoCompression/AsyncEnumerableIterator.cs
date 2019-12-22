@@ -9,43 +9,27 @@ namespace gfoidl.DataCompression.Internal.NoCompression
 {
     internal sealed class AsyncEnumerableIterator : NoCompressionIterator
     {
-        public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable, CancellationToken ct)
+        public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable)
             : base(compression)
-        {
-            _asyncSource = enumerable;
-
-            if (ct != default)
-                _cancellationToken = ct;
-        }
+            => _asyncSource = enumerable;
         //---------------------------------------------------------------------
         public override IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
-        {
-            if (cancellationToken == default)
-                cancellationToken = _cancellationToken;
-            else
-                _cancellationToken = cancellationToken;
-
-            return this.IterateCore(cancellationToken);
-        }
+            => this.IterateCore(cancellationToken);
         //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
             Debug.Assert(_asyncSource != null);
 
-            cancellationToken.ThrowIfCancellationRequested();
-
             await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 yield return dataPoint;
             }
         }
         //---------------------------------------------------------------------
-        private protected override async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder)
+        private protected override async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder, CancellationToken cancellationToken)
         {
-            await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(_cancellationToken).ConfigureAwait(false))
+            await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
-                _cancellationToken.ThrowIfCancellationRequested();
                 builder.Add(dataPoint);
             }
         }

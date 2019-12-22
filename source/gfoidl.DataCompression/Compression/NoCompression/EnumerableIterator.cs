@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
@@ -48,8 +49,8 @@ namespace gfoidl.DataCompression.Internal.NoCompression
         protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
-        public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
+        public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();
+        public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => throw new NotSupportedException();
 #endif
     }
 }
