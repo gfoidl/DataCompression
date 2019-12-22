@@ -111,7 +111,8 @@ namespace gfoidl.DataCompression
                 yield return _incoming;
         }
         //---------------------------------------------------------------------
-        private protected virtual async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder, CancellationToken cancellationToken)
+        private protected virtual async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder, CancellationToken cancellationToken)
+            where TBuilder : ICollectionBuilder<DataPoint>
         {
             await foreach (DataPoint dataPoint in this.WithCancellation(cancellationToken).ConfigureAwait(false))
             {

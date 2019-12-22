@@ -26,7 +26,7 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             }
         }
         //---------------------------------------------------------------------
-        private protected override async ValueTask BuildCollectionAsync(ICollectionBuilder<DataPoint> builder, CancellationToken cancellationToken)
+        private protected override async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder, CancellationToken cancellationToken)
         {
             await foreach (DataPoint dataPoint in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
