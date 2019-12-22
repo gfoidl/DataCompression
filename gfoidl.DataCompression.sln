@@ -96,6 +96,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{
 		.circleci\config.yml = .circleci\config.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "perf", "perf", "{CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Benchmarks", "perf\gfoidl.DataCompression.Benchmarks\gfoidl.DataCompression.Benchmarks.csproj", "{81D55029-F85F-4624-BAA1-7128A6FA1A66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +134,10 @@ Global
 		{76F6F753-4F3F-4AC3-9DB0-324176F9A143}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F6F753-4F3F-4AC3-9DB0-324176F9A143}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F6F753-4F3F-4AC3-9DB0-324176F9A143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D55029-F85F-4624-BAA1-7128A6FA1A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D55029-F85F-4624-BAA1-7128A6FA1A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D55029-F85F-4624-BAA1-7128A6FA1A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D55029-F85F-4624-BAA1-7128A6FA1A66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +155,7 @@ Global
 		{CA7CE85B-B676-4F4A-8B40-978BB87E78A6} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
 		{76F6F753-4F3F-4AC3-9DB0-324176F9A143} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
 		{4461519B-5A2E-4B38-A93B-B561244C05C8} = {5EC3A886-352D-490B-90F0-F0EEA56C959F}
+		{81D55029-F85F-4624-BAA1-7128A6FA1A66} = {CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}
