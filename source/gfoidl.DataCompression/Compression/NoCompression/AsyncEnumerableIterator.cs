@@ -28,12 +28,6 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             return this.IterateCore(cancellationToken);
         }
         //---------------------------------------------------------------------
-        public override ValueTask<bool> MoveNextAsync()
-        {
-            ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
-            return default;
-        }
-        //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
             Debug.Assert(_asyncSource != null);

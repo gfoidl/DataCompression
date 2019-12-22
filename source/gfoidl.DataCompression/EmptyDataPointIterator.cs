@@ -14,7 +14,6 @@ namespace gfoidl.DataCompression
         public override List<DataPoint> ToList()  => new List<DataPoint>();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        public override ValueTask<bool> MoveNextAsync()          => new ValueTask<bool>(false);
         public override ValueTask<DataPoint[]> ToArrayAsync()    => new ValueTask<DataPoint[]>(Array.Empty<DataPoint>());
         public override ValueTask<List<DataPoint>> ToListAsync() => new ValueTask<List<DataPoint>>(new List<DataPoint>());
 #endif

@@ -9,13 +9,11 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         public AsyncEnumerableIterator(
             DeadBandCompression          deadBandCompression,
             IAsyncEnumerable<DataPoint>  source,
-            IAsyncEnumerator<DataPoint>? enumerator        = null,
             CancellationToken            cancellationToken = default)
             : base(deadBandCompression)
         {
             if (cancellationToken != default) _cancellationToken = cancellationToken;
-            _asyncSource     = source;
-            _asyncEnumerator = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
+            _asyncSource = source;
         }
         //---------------------------------------------------------------------
         public override DataPointIterator Clone() => throw new NotSupportedException();

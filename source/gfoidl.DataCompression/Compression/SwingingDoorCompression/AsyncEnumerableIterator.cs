@@ -9,13 +9,11 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         public AsyncEnumerableIterator(
             SwingingDoorCompression      swingingDoorCompression,
             IAsyncEnumerable<DataPoint>  source,
-            IAsyncEnumerator<DataPoint>? enumerator        = null,
             CancellationToken            cancellationToken = default)
             : base(swingingDoorCompression)
         {
             if (cancellationToken != default) _cancellationToken = cancellationToken;
-            _asyncSource     = source;
-            _asyncEnumerator = enumerator ?? source.GetAsyncEnumerator(_cancellationToken);
+            _asyncSource = source;
         }
         //---------------------------------------------------------------------
         public override DataPointIterator Clone() => throw new NotSupportedException();

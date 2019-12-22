@@ -1,23 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression
 {
-    public abstract partial class DataPointIterator : IAsyncEnumerable<DataPoint>, IAsyncEnumerator<DataPoint>
+    public abstract partial class DataPointIterator : IAsyncEnumerable<DataPoint>
     {
 #pragma warning disable CS1591
         protected IAsyncEnumerable<DataPoint>? _asyncSource;
-        protected IAsyncEnumerator<DataPoint>? _asyncEnumerator;
+        protected CancellationToken            _cancellationToken;
 #pragma warning restore CS1591
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// The <see cref="CancellationToken" />.
-        /// </summary>
-        protected CancellationToken _cancellationToken;
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets an enumerator for the <see cref="DataPoint" />s.
@@ -31,19 +25,6 @@ namespace gfoidl.DataCompression
                 _cancellationToken = cancellationToken;
 
             return this.IterateCore(cancellationToken);
-        }
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Advances the enumerator to the next element.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the enumerator was successfully advanced to the next element;
-        /// <c>false</c> if the enumerator has passed the end of the collection.
-        /// </returns>
-        public virtual ValueTask<bool> MoveNextAsync()
-        {
-            ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
-            return default;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -72,26 +53,13 @@ namespace gfoidl.DataCompression
             return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Resets the enumerator and its state.
-        /// </summary>
-        public virtual async ValueTask DisposeAsync()
-        {
-            this.Dispose();
-
-            if (_asyncEnumerator != null)
-            {
-                await _asyncEnumerator.DisposeAsync().ConfigureAwait(false);
-            }
-        }
-        //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
             Debug.Assert(_asyncSource != null);
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            bool isFirst = true;
+            bool isFirst         = true;
             bool isSkipMinDeltaX = false;
 
             await foreach (DataPoint incoming in _asyncSource.WithCancellation(cancellationToken).ConfigureAwait(false))
@@ -100,7 +68,7 @@ namespace gfoidl.DataCompression
 
                 if (isFirst)
                 {
-                    isFirst = false;
+                    isFirst       = false;
                     _lastArchived = incoming;
                     yield return incoming;
                     cancellationToken.ThrowIfCancellationRequested();
@@ -159,26 +127,5 @@ namespace gfoidl.DataCompression
                 builder.Add(dataPoint);
             }
         }
-        //---------------------------------------------------------------------
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private async ValueTask SkipMinDeltaXAsync(IAsyncEnumerator<DataPoint> asyncEnumerator, double snapShotX)
-        {
-            double minDeltaX = _algorithm._minDeltaX;
-
-            while (await asyncEnumerator.MoveNextAsync().ConfigureAwait(false))
-            {
-                DataPoint tmp = asyncEnumerator.Current;
-
-                if ((tmp.X - snapShotX) > minDeltaX)
-                {
-                    _incoming = tmp;
-                    break;
-                }
-            }
-        }
-        //---------------------------------------------------------------------
-#pragma warning disable CS1591
-        IAsyncEnumerator<DataPoint> IAsyncEnumerable<DataPoint>.GetAsyncEnumerator(CancellationToken cancellationToken) => this.GetAsyncEnumerator(cancellationToken);
-#pragma warning restore CS1591
     }
 }

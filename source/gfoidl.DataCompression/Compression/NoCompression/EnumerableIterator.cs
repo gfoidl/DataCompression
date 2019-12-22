@@ -48,7 +48,6 @@ namespace gfoidl.DataCompression.Internal.NoCompression
         protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        public override ValueTask<bool> MoveNextAsync()          => throw new NotSupportedException();
         public override ValueTask<DataPoint[]> ToArrayAsync()    => throw new NotSupportedException();
         public override ValueTask<List<DataPoint>> ToListAsync() => throw new NotSupportedException();
 #endif
