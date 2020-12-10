@@ -43,6 +43,7 @@ namespace gfoidl.DataCompression
         {
             if (algorithm is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.algorithm);
 
+            _state     = InitialState;
             _threadId  = Environment.CurrentManagedThreadId;
             _algorithm = algorithm;
         }

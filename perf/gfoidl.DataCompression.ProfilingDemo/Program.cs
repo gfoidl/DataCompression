@@ -30,7 +30,8 @@ namespace gfoidl.DataCompression.ProfilingDemo
             Task t = Task.Run(() =>
             {
                 // A single instance can be re-used over and over again
-                SwingingDoorCompression compression = new SwingingDoorCompression(0.1);
+                DeadBandCompression deadBand         = new DeadBandCompression(0.1);
+                SwingingDoorCompression swingingDoor = new SwingingDoorCompression(0.1);
 
                 while (!cts.IsCancellationRequested)
                 {
@@ -42,9 +43,11 @@ namespace gfoidl.DataCompression.ProfilingDemo
                     //    //.DeadBandCompression(0.05)
                     //    .SwingingDoorCompression(0.1);
 
-                    DataPointIterator compressed = compression.Process(s_dataPoints.Select(d => d));
+                    //DataPointIterator compressed = compression.Process(s_dataPoints.Select(d => d));
+                    DataPointIterator deadBandCompressed = deadBand.Process(s_dataPoints);
+                    DataPointIterator swingingDoorCompressed = swingingDoor.Process(deadBandCompressed);
 
-                    foreach (DataPoint item in compressed)
+                    foreach (DataPoint item in swingingDoorCompressed)
                     {
                         s_compressed.Add(item);
                     }

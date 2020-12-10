@@ -10,8 +10,8 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
     internal sealed class IndexedIterator<TList> : SwingingDoorCompressionIterator
         where TList : IList<DataPoint>
     {
-        private TList?                           _list;
-        private DataPointIndexedIterator<TList>? _inner;
+        private readonly DataPointIndexedIterator<TList> _inner = new DataPointIndexedIterator<TList>();
+        private TList? _list;
         //---------------------------------------------------------------------
         public void SetData(SwingingDoorCompression swingingDoorCompression, TList source)
         {
@@ -20,20 +20,6 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
             this.SetData(swingingDoorCompression);
             _swingingDoorCompression = swingingDoorCompression;
             _list                    = source;
-
-            // It's a best effort solution, but we may miss a cached item -- we don't care ;-)
-            ref DataPointIterator? cached = ref swingingDoorCompression._cachedIndexedIterator;
-            DataPointIterator? iter       = Interlocked.Exchange(ref cached, null);
-
-            if (iter is DataPointIndexedIterator<TList> inner)
-            {
-                _inner = inner;
-            }
-            else
-            {
-                Interlocked.CompareExchange(ref cached, iter, null);
-                _inner = new DataPointIndexedIterator<TList>();
-            }
 
             _inner.SetData(swingingDoorCompression, this, source);
         }
@@ -74,8 +60,9 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         {
             Debug.Assert(_swingingDoorCompression is not null);
 
+            //_inner?.Dispose();        !!! don't dispose _inner, as _inner disposes this instance
+
             _list = default;
-            _inner?.Dispose();
 
             ref DataPointIterator? cache = ref _swingingDoorCompression._cachedIndexedIterator;
             Interlocked.CompareExchange(ref cache, this, null);

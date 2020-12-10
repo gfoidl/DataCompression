@@ -122,7 +122,6 @@ namespace gfoidl.DataCompression
                     ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                     return false;
                 default:
-                    this.Dispose();
                     return false;
             }
         }
@@ -273,7 +272,12 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {
-            _wrapperIterator   = null;
+            if (_wrapperIterator is not null)
+            {
+                _wrapperIterator.Dispose();
+                _wrapperIterator = null;
+            }
+
             _snapShotIndex     = -1;
             _lastArchivedIndex = -1;
             _incomingIndex     = -1;

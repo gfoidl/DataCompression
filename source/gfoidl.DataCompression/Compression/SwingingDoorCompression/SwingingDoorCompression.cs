@@ -17,8 +17,8 @@ namespace gfoidl.DataCompression
 #if NETSTANDARD2_1
         internal AsyncEnumerableIterator?      _cachedAsyncEnumerableIterator;
 #endif
-        internal DataPointIterator?            _cachedIndexedIterator;       // due to generics use base class
         internal SequentialEnumerableIterator? _cachedSequentialEnumerableIterator;
+        internal DataPointIterator?            _cachedIndexedIterator;       // due to generics use base class
         //---------------------------------------------------------------------
         /// <summary>
         /// (Absolut) Compression deviation applied to the y values to calculate the

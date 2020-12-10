@@ -10,8 +10,8 @@ namespace gfoidl.DataCompression.Internal.DeadBand
     internal sealed class IndexedIterator<TList> : DeadBandCompressionIterator
         where TList : IList<DataPoint>
     {
-        private TList?                           _list;
-        private DataPointIndexedIterator<TList>? _inner;
+        private readonly DataPointIndexedIterator<TList> _inner = new DataPointIndexedIterator<TList>();
+        private TList? _list;
         //---------------------------------------------------------------------
         public void SetData(DeadBandCompression deadBandCompression, TList source)
         {
@@ -20,20 +20,6 @@ namespace gfoidl.DataCompression.Internal.DeadBand
             this.SetData(deadBandCompression);
             _deadBandCompression = deadBandCompression;
             _list                = source;
-
-            // It's a best effort solution, but we may miss a cached item -- we don't care ;-)
-            ref DataPointIterator? cached = ref deadBandCompression._cachedIndexedIterator;
-            DataPointIterator? iter       = Interlocked.Exchange(ref cached, null);
-
-            if (iter is DataPointIndexedIterator<TList> inner)
-            {
-                _inner = inner;
-            }
-            else
-            {
-                Interlocked.CompareExchange(ref cached, iter, null);
-                _inner = new DataPointIndexedIterator<TList>();
-            }
 
             _inner.SetData(deadBandCompression, this, source);
         }
@@ -74,8 +60,9 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         {
             Debug.Assert(_deadBandCompression is not null);
 
+            //_inner?.Dispose();        !!! don't dispose _inner, as _inner disposes this instance
+
             _list = default;
-            _inner?.Dispose();
 
             ref DataPointIterator? cache = ref _deadBandCompression._cachedIndexedIterator;
             Interlocked.CompareExchange(ref cache, this, null);
