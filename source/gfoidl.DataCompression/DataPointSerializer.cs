@@ -19,10 +19,10 @@ namespace gfoidl.DataCompression
         /// <param name="firstLineIsHeader">When <c>true</c> the first line is skipped</param>
         /// <param name="dateTimeFormat">
         /// A custom <see cref="DateTime" /> format string, that is used to parse the first column,
-        /// or <c>null</c> when the first column should be parsed as <see cref="System.Double" />.
+        /// or <c>null</c> when the first column should be parsed as <see cref="double" />.
         /// </param>
         /// <returns>The <see cref="DataPoint" />s read from the csv file</returns>
-        public IEnumerable<DataPoint> Read(string? csvFile, char? separator = null, bool firstLineIsHeader = true, string? dateTimeFormat = null)
+        public IEnumerable<DataPoint> Read(string csvFile, char? separator = null, bool firstLineIsHeader = true, string? dateTimeFormat = null)
         {
             if (csvFile is null) throw new ArgumentNullException(nameof(csvFile));
 
@@ -69,9 +69,9 @@ namespace gfoidl.DataCompression
         /// <param name="header">The header to use, or <c>null</c> to omit any header</param>
         /// <param name="dateTimeFormat">
         /// A custom <see cref="DateTime" /> format string, that is used to write the first column,
-        /// or <c>null</c> when the first column should be written as <see cref="System.Double" />.
+        /// or <c>null</c> when the first column should be written as <see cref="double" />.
         /// </param>
-        public void Write(string? csvFile, IEnumerable<DataPoint>? data, char? separator = null, (string X, string Y)? header = null, string? dateTimeFormat = null)
+        public void Write(string csvFile, IEnumerable<DataPoint> data, char? separator = null, (string X, string Y)? header = null, string? dateTimeFormat = null)
         {
             if (csvFile is null) throw new ArgumentNullException(nameof(csvFile));
             if (data    is null) throw new ArgumentNullException(nameof(data));

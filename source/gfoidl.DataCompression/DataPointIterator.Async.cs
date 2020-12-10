@@ -8,9 +8,7 @@ namespace gfoidl.DataCompression
 {
     public abstract partial class DataPointIterator : IAsyncEnumerable<DataPoint>
     {
-#pragma warning disable CS1591
-        protected IAsyncEnumerable<DataPoint>? _asyncSource;
-#pragma warning restore CS1591
+        private protected IAsyncEnumerable<DataPoint>? _asyncSource;
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets an enumerator for the <see cref="DataPoint" />s.

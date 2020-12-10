@@ -57,7 +57,7 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Returns an <see cref="EmptyDataPointIterator" />.
         /// </summary>
-        public static DataPointIterator Empty => s_emptyIterator ?? (s_emptyIterator = new EmptyDataPointIterator(NoCompression.s_instance));
+        public static DataPointIterator Empty => s_emptyIterator ??= new EmptyDataPointIterator(NoCompression.s_instance);
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         object IEnumerator.Current                                    => this.Current;
