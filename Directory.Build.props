@@ -15,7 +15,7 @@
 
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <StandardTfms>netcoreapp3.0</StandardTfms>
+        <StandardTfms>netcoreapp3.1</StandardTfms>
     </PropertyGroup>
 
     <PropertyGroup>
