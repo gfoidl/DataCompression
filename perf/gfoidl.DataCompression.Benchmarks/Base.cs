@@ -9,7 +9,7 @@ namespace gfoidl.DataCompression.Benchmarks
     public abstract class Base
     {
         private const int Count = 1_000_000;
-        private Random _rnd;
+        private Random? _rnd;
         //---------------------------------------------------------------------
         [GlobalSetup]
         public void GlobalSetup()
@@ -22,7 +22,7 @@ namespace gfoidl.DataCompression.Benchmarks
             for (int i = 0; i < Count; ++i)
             {
                 double x = i;
-                double y = _rnd.NextDouble();
+                double y = _rnd!.NextDouble();
 
                 yield return (x, y);
             }

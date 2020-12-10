@@ -12,8 +12,4 @@
         <ProjectReference Include="..\..\source\gfoidl.DataCompression\gfoidl.DataCompression.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="data\*" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
-
 </Project>
