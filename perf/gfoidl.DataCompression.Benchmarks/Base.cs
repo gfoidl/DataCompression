@@ -17,9 +17,9 @@ namespace gfoidl.DataCompression.Benchmarks
             _rnd = new Random(42);
         }
         //---------------------------------------------------------------------
-        protected IEnumerable<DataPoint> Source()
+        protected IEnumerable<DataPoint> Source(int count = Count)
         {
-            for (int i = 0; i < Count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 double x = i;
                 double y = _rnd!.NextDouble();
@@ -28,9 +28,9 @@ namespace gfoidl.DataCompression.Benchmarks
             }
         }
         //---------------------------------------------------------------------
-        protected async IAsyncEnumerable<DataPoint> SourceAsync()
+        protected async IAsyncEnumerable<DataPoint> SourceAsync(int count = Count)
         {
-            foreach (DataPoint dataPoint in this.Source())
+            foreach (DataPoint dataPoint in this.Source(count))
             {
                 await Task.Yield();
                 yield return dataPoint;

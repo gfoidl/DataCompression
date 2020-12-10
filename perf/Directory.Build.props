@@ -5,6 +5,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <StandardTfm>netcoreapp3.1</StandardTfm>
+        <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
