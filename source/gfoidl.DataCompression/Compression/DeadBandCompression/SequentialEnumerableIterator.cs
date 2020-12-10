@@ -14,7 +14,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
             _enumerator = source.GetEnumerator();
         }
         //---------------------------------------------------------------------
-        public override DataPointIterator Clone() => new SequentialEnumerableIterator(_deadBandCompression, _source);
+        public override DataPointIterator Clone() => new SequentialEnumerableIterator(_deadBandCompression!, _source);
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();

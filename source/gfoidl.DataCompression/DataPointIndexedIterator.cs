@@ -8,11 +8,11 @@ namespace gfoidl.DataCompression
     internal sealed class DataPointIndexedIterator<TList> : DataPointIterator
         where TList : notnull, IList<DataPoint>
     {
-        private readonly DataPointIterator _wrapperIterator;
-        private readonly TList             _list;
-        private int                        _snapShotIndex;
-        private int                        _lastArchivedIndex;
-        private int                        _incomingIndex;
+        private DataPointIterator? _wrapperIterator;
+        private TList              _list;
+        private int                _snapShotIndex;
+        private int                _lastArchivedIndex;
+        private int                _incomingIndex;
         //-----------------------------------------------------------------
         public DataPointIndexedIterator(Compression compression, DataPointIterator wrappedIterator, TList source)
             : base(compression)
@@ -21,7 +21,13 @@ namespace gfoidl.DataCompression
             _list            = source;
         }
         //---------------------------------------------------------------------
-        public override DataPointIterator Clone() => new DataPointIndexedIterator<TList>(_algorithm, _wrapperIterator, _list);
+        public override DataPointIterator Clone()
+        {
+            Debug.Assert(_algorithm       is not null);
+            Debug.Assert(_wrapperIterator is not null);
+
+            return new DataPointIndexedIterator<TList>(_algorithm, _wrapperIterator, _list);
+        }
         //-----------------------------------------------------------------
         public override bool MoveNext()
         {
@@ -140,12 +146,14 @@ namespace gfoidl.DataCompression
             return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
-        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => ref _wrapperIterator.IsPointToArchive(incoming, lastArchived);
-        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)                                 => _wrapperIterator.UpdateFilters(incoming, lastArchived);
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => _wrapperIterator.Init(incoming, ref snapShot);
+        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => ref _wrapperIterator!.IsPointToArchive(incoming, lastArchived);
+        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)                                 => _wrapperIterator!.UpdateFilters(incoming, lastArchived);
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => _wrapperIterator!.Init(incoming, ref snapShot);
         //---------------------------------------------------------------------
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
         {
+            Debug.Assert(_wrapperIterator is not null);
+
             _wrapperIterator.Init(incomingIndex, incoming, ref snapShotIndex);
             _lastArchivedIndex = incomingIndex;
         }
@@ -210,6 +218,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int HandleSkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
         {
+            Debug.Assert(_algorithm is not null);
+
             return _algorithm._minDeltaXHasValue
                 ? this.SkipMinDeltaX(source, incomingIndex, snapShotIndex)
                 : incomingIndex;
@@ -218,6 +228,7 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.NoInlining)]
         private int SkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
         {
+            Debug.Assert(_algorithm is not null);
             Debug.Assert(_algorithm.MinDeltaX.HasValue);
 
             if ((uint)snapShotIndex < (uint)source.Count)
@@ -245,6 +256,16 @@ namespace gfoidl.DataCompression
             }
 
             return incomingIndex;
+        }
+        //---------------------------------------------------------------------
+        protected override void ResetToInitialState()
+        {
+            base.ResetToInitialState();
+
+            _wrapperIterator   = null;
+            _snapShotIndex     = -1;
+            _lastArchivedIndex = -1;
+            _incomingIndex     = -1;
         }
     }
 }

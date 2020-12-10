@@ -45,7 +45,8 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            Debug.Assert(_asyncSource != null);
+            Debug.Assert(_algorithm   is not null);
+            Debug.Assert(_asyncSource is not null);
 
             cancellationToken.ThrowIfCancellationRequested();
 

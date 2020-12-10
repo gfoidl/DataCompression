@@ -9,8 +9,8 @@ namespace gfoidl.DataCompression.Internal.DeadBand
     internal sealed class IndexedIterator<TList> : DeadBandCompressionIterator
         where TList : IList<DataPoint>
     {
-        private readonly TList                           _list;
-        private readonly DataPointIndexedIterator<TList> _inner;
+        private TList?                           _list;
+        private DataPointIndexedIterator<TList>? _inner;
         //---------------------------------------------------------------------
         public IndexedIterator(DeadBandCompression deadBandCompression, TList source)
             : base(deadBandCompression)
@@ -19,16 +19,16 @@ namespace gfoidl.DataCompression.Internal.DeadBand
             _inner = new DataPointIndexedIterator<TList>(deadBandCompression, this, source);
         }
         //---------------------------------------------------------------------
-        public override DataPointIterator Clone()         => new IndexedIterator<TList>(_deadBandCompression, _list);
-        public override DataPointIterator GetEnumerator() => _inner.GetEnumerator();
-        public override DataPoint[] ToArray()             => _inner.ToArray();
-        public override List<DataPoint> ToList()          => _inner.ToList();
+        public override DataPointIterator Clone()         => new IndexedIterator<TList>(_deadBandCompression!, _list!);
+        public override DataPointIterator GetEnumerator() => _inner!.GetEnumerator();
+        public override DataPoint[] ToArray()             => _inner!.ToArray();
+        public override List<DataPoint> ToList()          => _inner!.ToList();
         public override bool MoveNext()                   => throw new InvalidOperationException("Should operate on _inner");
         //---------------------------------------------------------------------
         public override void Dispose()
         {
-            base.Dispose();
-            _inner.Dispose();
+            base   .Dispose();
+            _inner?.Dispose();
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -46,5 +46,13 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();
         public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => throw new NotSupportedException();
 #endif
+        //---------------------------------------------------------------------
+        protected override void ResetToInitialState()
+        {
+            base.ResetToInitialState();
+
+            _list  = default;
+            _inner = null;
+        }
     }
 }

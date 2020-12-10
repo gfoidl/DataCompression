@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace gfoidl.DataCompression
@@ -24,7 +25,7 @@ namespace gfoidl.DataCompression
         protected const int InitialState = -2;
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
-        protected readonly Compression          _algorithm;
+        protected Compression?                  _algorithm;
         protected int                           _state = InitialState;
         protected DataPoint                     _current;
         protected DataPoint                     _snapShot;
@@ -32,7 +33,7 @@ namespace gfoidl.DataCompression
         protected DataPoint                     _incoming;
         protected (bool Archive, bool MaxDelta) _archive;
 #pragma warning restore CS1591
-        private readonly int _threadId;
+        private int _threadId;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates an instance of <see cref="DataPointIterator" />.
@@ -147,6 +148,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double incomingX, double lastArchivedX)
         {
+            Debug.Assert(_algorithm is not null);
+
             if ((incomingX - lastArchivedX) >= _algorithm._maxDeltaX)
             {
                 archive.Archive  = true;
@@ -158,6 +161,28 @@ namespace gfoidl.DataCompression
                 archive.MaxDelta = false;
                 return false;
             }
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Resets the state, so this instance can be re-used by pooling.
+        /// </summary>
+        protected virtual void ResetToInitialState()
+        {
+            _algorithm    = null;
+            _state        = InitialState;
+            _current      = default;
+            _snapShot     = default;
+            _lastArchived = default;
+            _incoming     = default;
+            _archive      = default;
+            _threadId     = -1;
+
+            _source     = null;
+            _enumerator = null;
+
+#if NETSTANDARD2_1
+            _asyncSource = null;
+#endif
         }
     }
 }

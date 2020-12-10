@@ -152,6 +152,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private ref DataPoint HandleSkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
         {
+            Debug.Assert(_algorithm is not null);
+
             if (_algorithm._minDeltaXHasValue)
             {
                 this.SkipMinDeltaX(enumerator, ref incoming, snapShotX);
@@ -163,6 +165,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
         {
+            Debug.Assert(_algorithm is not null);
+
             double minDeltaX = _algorithm._minDeltaX;
 
             while (enumerator.MoveNext())

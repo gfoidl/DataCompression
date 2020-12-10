@@ -16,7 +16,12 @@ namespace gfoidl.DataCompression.Internal.NoCompression
             _enumerator = enumerable.GetEnumerator();
         }
         //---------------------------------------------------------------------
-        public override DataPointIterator Clone() => new EnumerableIterator(_algorithm, _source);
+        public override DataPointIterator Clone()
+        {
+            Debug.Assert(_algorithm is not null);
+
+            return new EnumerableIterator(_algorithm, _source);
+        }
         //---------------------------------------------------------------------
         public override bool MoveNext()
         {
