@@ -14,7 +14,7 @@
         <PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
         <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
         <RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
-        <PackageLicenseUrl>https://github.com/gfoidl/DataCompression/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
         <Description>Provides several data-compression algorithms:
 

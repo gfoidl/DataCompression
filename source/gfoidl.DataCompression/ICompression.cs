@@ -32,7 +32,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        DataPointIterator Process(IEnumerable<DataPoint>? data);
+        DataPointIterator Process(IEnumerable<DataPoint> data);
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         /// <summary>
@@ -40,7 +40,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
-        DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint>? data);
+        DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint> data);
 #endif
     }
 }

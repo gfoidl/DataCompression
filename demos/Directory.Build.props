@@ -4,7 +4,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <StandardTfm>netcoreapp3.0</StandardTfm>
+        <StandardTfm>netcoreapp3.1</StandardTfm>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="data\*" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="data\*" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
 </Project>

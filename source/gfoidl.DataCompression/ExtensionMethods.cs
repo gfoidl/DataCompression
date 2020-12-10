@@ -16,7 +16,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator NoCompression(this IEnumerable<DataPoint>? data)
+        public static DataPointIterator NoCompression(this IEnumerable<DataPoint> data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -40,7 +40,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null)
+        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -59,7 +59,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime = null)
+        public static DataPointIterator DeadBandCompression(this IEnumerable<DataPoint> data, double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -86,7 +86,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint>? data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
+        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -108,7 +108,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime = null)
+        public static DataPointIterator SwingingDoorCompression(this IEnumerable<DataPoint> data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -125,7 +125,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator NoCompressionAsync(this IAsyncEnumerable<DataPoint>? data)
+        public static DataPointIterator NoCompressionAsync(this IAsyncEnumerable<DataPoint> data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -149,7 +149,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null)
+        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint> data, double instrumentPrecision, double? maxDeltaX = null, double? minDeltaX = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -168,7 +168,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime = null)
+        public static DataPointIterator DeadBandCompressionAsync(this IAsyncEnumerable<DataPoint> data, double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -195,7 +195,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
+        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint> data, double compressionDeviation, double? maxDeltaX = null, double? minDeltaX = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
@@ -217,7 +217,7 @@ namespace gfoidl.DataCompression
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data" /> is <c>null</c>
         /// </exception>
-        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint>? data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime = null)
+        public static DataPointIterator SwingingDoorCompressionAsync(this IAsyncEnumerable<DataPoint> data, double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime = null)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
 
