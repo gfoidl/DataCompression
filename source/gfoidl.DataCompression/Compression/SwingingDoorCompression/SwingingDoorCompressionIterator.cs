@@ -11,10 +11,6 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         protected SwingingDoorCompression? _swingingDoorCompression;
         protected (double Max, double Min) _slope;
         //---------------------------------------------------------------------
-        protected SwingingDoorCompressionIterator(SwingingDoorCompression swingingDoorCompression)
-            : base(swingingDoorCompression)
-            => _swingingDoorCompression = swingingDoorCompression;
-        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
@@ -54,12 +50,12 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
         protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)       => this.CloseTheDoor(incoming, lastArchived);
         //---------------------------------------------------------------------
-        protected override void ResetToInitialState()
+        protected override void DisposeCore()
         {
-            base.ResetToInitialState();
-
             _swingingDoorCompression = null;
             _slope                   = default;
+
+            base.DisposeCore();
         }
     }
 }

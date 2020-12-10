@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,7 +42,7 @@ namespace gfoidl.DataCompression.ProfilingDemo
                     //    //.DeadBandCompression(0.05)
                     //    .SwingingDoorCompression(0.1);
 
-                    DataPointIterator compressed = compression.Process(s_dataPoints);
+                    DataPointIterator compressed = compression.Process(s_dataPoints.Select(d => d));
 
                     foreach (DataPoint item in compressed)
                     {

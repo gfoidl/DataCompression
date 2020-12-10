@@ -9,10 +9,6 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         protected DeadBandCompression?     _deadBandCompression;
         protected (double Min, double Max) _bounding;
         //---------------------------------------------------------------------
-        protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
-            : base(deadBandCompression)
-            => _deadBandCompression = deadBandCompression;
-        //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void GetBounding(in DataPoint dataPoint)
         {
@@ -52,12 +48,12 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(incoming, ref snapShot);
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
         //---------------------------------------------------------------------
-        protected override void ResetToInitialState()
+        protected override void DisposeCore()
         {
-            base.ResetToInitialState();
-
             _deadBandCompression = null;
             _bounding            = default;
+
+            base.DisposeCore();
         }
     }
 }

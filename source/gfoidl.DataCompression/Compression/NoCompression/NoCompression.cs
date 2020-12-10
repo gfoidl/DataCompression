@@ -16,7 +16,12 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
-            => new EnumerableIterator(this, data);
+        {
+            EnumerableIterator iter = new();
+            iter.SetData(this, data);
+
+            return iter;
+        }
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         /// <summary>
@@ -25,7 +30,12 @@ namespace gfoidl.DataCompression
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
         protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data)
-            => new AsyncEnumerableIterator(this, data);
+        {
+            AsyncEnumerableIterator iter = new();
+            iter.SetData(this, data);
+
+            return iter;
+        }
 #endif
     }
 }

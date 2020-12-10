@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,24 +13,46 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         private TList?                           _list;
         private DataPointIndexedIterator<TList>? _inner;
         //---------------------------------------------------------------------
-        public IndexedIterator(DeadBandCompression deadBandCompression, TList source)
-            : base(deadBandCompression)
+        public void SetData(DeadBandCompression deadBandCompression, TList source)
         {
-            _list  = source;
-            _inner = new DataPointIndexedIterator<TList>(deadBandCompression, this, source);
+            Debug.Assert(source is not null);
+
+            this.SetData(deadBandCompression);
+            _deadBandCompression = deadBandCompression;
+            _list                = source;
+
+            // It's a best effort solution, but we may miss a cached item -- we don't care ;-)
+            ref DataPointIterator? cached = ref deadBandCompression._cachedIndexedIterator;
+            DataPointIterator? iter       = Interlocked.Exchange(ref cached, null);
+
+            if (iter is DataPointIndexedIterator<TList> inner)
+            {
+                _inner = inner;
+            }
+            else
+            {
+                Interlocked.CompareExchange(ref cached, iter, null);
+                _inner = new DataPointIndexedIterator<TList>();
+            }
+
+            _inner.SetData(deadBandCompression, this, source);
         }
         //---------------------------------------------------------------------
-        public override DataPointIterator Clone()         => new IndexedIterator<TList>(_deadBandCompression!, _list!);
+        public override DataPointIterator Clone()
+        {
+            Debug.Assert(_deadBandCompression is not null);
+            Debug.Assert(_list                is not null);
+
+            IndexedIterator<TList> clone = new();
+            clone.SetData(_deadBandCompression, _list);
+
+            return clone;
+        }
+        //---------------------------------------------------------------------
         public override DataPointIterator GetEnumerator() => _inner!.GetEnumerator();
         public override DataPoint[] ToArray()             => _inner!.ToArray();
         public override List<DataPoint> ToList()          => _inner!.ToList();
         public override bool MoveNext()                   => throw new InvalidOperationException("Should operate on _inner");
-        //---------------------------------------------------------------------
-        public override void Dispose()
-        {
-            base   .Dispose();
-            _inner?.Dispose();
-        }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void UpdatePoints(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
@@ -47,12 +70,17 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => throw new NotSupportedException();
 #endif
         //---------------------------------------------------------------------
-        protected override void ResetToInitialState()
+        protected override void DisposeCore()
         {
-            base.ResetToInitialState();
+            Debug.Assert(_deadBandCompression is not null);
 
-            _list  = default;
-            _inner = null;
+            _list = default;
+            _inner?.Dispose();
+
+            ref DataPointIterator? cache = ref _deadBandCompression._cachedIndexedIterator;
+            Interlocked.CompareExchange(ref cache, this, null);
+
+            base.DisposeCore();
         }
     }
 }

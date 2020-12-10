@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using gfoidl.DataCompression.Builders;
 
 namespace gfoidl.DataCompression.Internal.NoCompression
 {
     internal sealed class AsyncEnumerableIterator : NoCompressionIterator
     {
-        public AsyncEnumerableIterator(Compression compression, IAsyncEnumerable<DataPoint> enumerable)
-            : base(compression)
-            => _asyncSource = enumerable;
-        //---------------------------------------------------------------------
         public override IAsyncEnumerator<DataPoint> GetAsyncEnumerator(CancellationToken cancellationToken = default)
             => this.IterateCore(cancellationToken);
         //---------------------------------------------------------------------

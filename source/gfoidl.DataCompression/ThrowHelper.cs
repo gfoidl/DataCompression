@@ -41,6 +41,7 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         public enum ExceptionArgument
         {
+            algorithm,
             data,
             iterator
         }
