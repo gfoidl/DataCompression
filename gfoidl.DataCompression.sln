@@ -122,6 +122,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{C431B4F9
 		.azure\pipelines\jobs\steps\dotnet-install.yml = .azure\pipelines\jobs\steps\dotnet-install.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D84524A8-1A5B-4486-96AB-B1303B1B0243}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CODEOWNERS = .github\CODEOWNERS
+		.github\pull_request_template.md = .github\pull_request_template.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{5E13DF71-137A-4207-A6ED-A7EC363EF036}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1C82E921-BE23-460B-A330-84DC5A37E209}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\automerge.yml = .github\workflows\automerge.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +207,9 @@ Global
 		{9F113C33-ED91-434B-815D-FA25182E45DA} = {6BBD8317-28F7-4556-9B76-B8D750B15273}
 		{EA029C4A-19E7-400F-B9B5-30B64D2F8A13} = {9F113C33-ED91-434B-815D-FA25182E45DA}
 		{C431B4F9-4D78-4844-8FCA-CDB6F694061D} = {EA029C4A-19E7-400F-B9B5-30B64D2F8A13}
+		{D84524A8-1A5B-4486-96AB-B1303B1B0243} = {5EC3A886-352D-490B-90F0-F0EEA56C959F}
+		{5E13DF71-137A-4207-A6ED-A7EC363EF036} = {D84524A8-1A5B-4486-96AB-B1303B1B0243}
+		{1C82E921-BE23-460B-A330-84DC5A37E209} = {D84524A8-1A5B-4486-96AB-B1303B1B0243}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}
