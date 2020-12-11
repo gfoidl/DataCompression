@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Compression.html",
-          "hash": "JCdudPF6SrYPWq9RqaNlWQ=="
+          "hash": "aUPXAZGxBp8RF7K9sQlFYA=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPoint.html",
-          "hash": "C4Xvlp4J/vJKHSVveYtUPA=="
+          "hash": "rx22IRgYh+7FfyNY+YUtGw=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointIterator.html",
-          "hash": "g8Ri+Ed4speeRkn035nKsw=="
+          "hash": "4xWBZ5JJ3LNDin92l/1apA=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointSerializer.html",
-          "hash": "K8X5lEBcPctwzay+NMnqUg=="
+          "hash": "QqIvdrMa2l/RnvSYVoJ9PQ=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DeadBandCompression.html",
-          "hash": "oHftbJEvAjJrpep/nk7+kA=="
+          "hash": "5zLWk//XF7/437p2D49FsQ=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ExtensionMethods.html",
-          "hash": "ePiTi2eb3Fh+Y7uUk/SKvQ=="
+          "hash": "8T104nP0eernRt8hd23bDw=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ICompression.html",
-          "hash": "h2gb9sZcf3RZXMJlAsF18g=="
+          "hash": "0zmUTGK8C/JE42E9i2gG1A=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.NoCompression.html",
-          "hash": "hj5/eAdZ6pH24qS2q6PGbg=="
+          "hash": "rqo5FXJXUlN35hW1Z8mzgQ=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.SwingingDoorCompression.html",
-          "hash": "NIV9ZSp+Z/ysHSURg+ng3A=="
+          "hash": "Bttbvrd1KBRIebXz/ayBdQ=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html",
-          "hash": "b1q4I59HMc4fuwQ6LEbeGw=="
+          "hash": "mBJxEYijKR28EWlU5LxIyA=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html",
-          "hash": "x2RPfA7f2RXGBKgnU1Gcvg=="
+          "hash": "AmGdlx4o82WcK9AuBVUThw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "NI+f3FMa7Q4sKpC5akuY8A=="
+          "hash": "P41n7MReHXTsT8zk9BMyow=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/DeadBand.html",
-          "hash": "kG9YCdzH+yvgEFxxS78aEw=="
+          "hash": "oZCvdQ6bMq+ohS1VNkowfQ=="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/SwingingDoor.html",
-          "hash": "/YJlDshtf6dFQZXX6VPvaA=="
+          "hash": "pV0ixraQw9K0CpayUG9llA=="
         }
       },
       "is_incremental": false,
@@ -379,7 +379,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "3knVKm+TRoxBd7Z0PRw2PA=="
+          "hash": "Nv7a4fotw6VcNceOdgJ9qg=="
         }
       },
       "is_incremental": false,
