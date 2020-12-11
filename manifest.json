@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "D:/Work-Git/gfoidl/DataCompression/api-doc",
+  "source_base_path": "D:/a/1/s/api-doc",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Compression.html",
-          "hash": "6VB/xv85yyLi3kBTBO8shg=="
+          "hash": "JCdudPF6SrYPWq9RqaNlWQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPoint.html",
-          "hash": "VcCc1ceeGpyMmXK8NJiiZw=="
+          "hash": "C4Xvlp4J/vJKHSVveYtUPA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -33,10 +33,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointIterator.html",
-          "hash": "395RDhZeUj0UpLTRYxkusg=="
+          "hash": "g8Ri+Ed4speeRkn035nKsw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointSerializer.html",
-          "hash": "6Hz9rQBTMrO2/JarqyzgZg=="
+          "hash": "K8X5lEBcPctwzay+NMnqUg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DeadBandCompression.html",
-          "hash": "UDPWRvWBwJjFb7QskE4elw=="
+          "hash": "oHftbJEvAjJrpep/nk7+kA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ExtensionMethods.html",
-          "hash": "zlmLmR1mbPZF/DRm6Q0Pag=="
+          "hash": "ePiTi2eb3Fh+Y7uUk/SKvQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ICompression.html",
-          "hash": "3QQMHg2Qdgj/xuOZZ1XAtQ=="
+          "hash": "h2gb9sZcf3RZXMJlAsF18g=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -93,10 +93,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.NoCompression.html",
-          "hash": "7tKeUjc2CoMWCghmrfJdQQ=="
+          "hash": "hj5/eAdZ6pH24qS2q6PGbg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -105,10 +105,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.SwingingDoorCompression.html",
-          "hash": "TWzQZQxw0obF0CcslAk9WQ=="
+          "hash": "NIV9ZSp+Z/ysHSURg+ng3A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,10 +117,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html",
-          "hash": "qxU2L/yDiamH0OBjBifbjg=="
+          "hash": "b1q4I59HMc4fuwQ6LEbeGw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -129,10 +129,10 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html",
-          "hash": "kcF8ibClH7HCvizDN3yBZw=="
+          "hash": "x2RPfA7f2RXGBKgnU1Gcvg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -144,7 +144,7 @@
           "hash": "BK6PL55jZGjJCSKkU7voJA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -156,7 +156,7 @@
           "hash": "c1A5Y87dfGY0kuomf1fglw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -165,10 +165,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "Sx7R7WfQ94uAIKn4vjpk1g=="
+          "hash": "NI+f3FMa7Q4sKpC5akuY8A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -189,10 +189,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/DeadBand.html",
-          "hash": "SVO458JlA2R/hDsCnSngjA=="
+          "hash": "kG9YCdzH+yvgEFxxS78aEw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,10 +201,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/SwingingDoor.html",
-          "hash": "Fcir2XQWslPcfFqG6x8/7A=="
+          "hash": "/YJlDshtf6dFQZXX6VPvaA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -379,10 +379,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "/vaF2lOkrwldBNQEOvXECg=="
+          "hash": "3knVKm+TRoxBd7Z0PRw2PA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -401,23 +401,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 4,
-          "skipped_file_count": 4
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 13,
-          "skipped_file_count": 13
+          "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
@@ -437,8 +439,8 @@
     },
     {
       "status": {
-        "can_incremental": true,
-        "details": "Can support incremental post processing.",
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0
