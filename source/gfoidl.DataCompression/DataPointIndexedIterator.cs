@@ -8,23 +8,38 @@ namespace gfoidl.DataCompression
     internal sealed class DataPointIndexedIterator<TList> : DataPointIterator
         where TList : notnull, IList<DataPoint>
     {
-        private readonly DataPointIterator _wrapperIterator;
-        private readonly TList             _list;
-        private int                        _snapShotIndex;
-        private int                        _lastArchivedIndex;
-        private int                        _incomingIndex;
+        private DataPointIterator? _wrapperIterator;
+        private TList?             _list;
+        private int                _snapShotIndex;
+        private int                _lastArchivedIndex;
+        private int                _incomingIndex;
         //-----------------------------------------------------------------
-        public DataPointIndexedIterator(Compression compression, DataPointIterator wrappedIterator, TList source)
-            : base(compression)
+        public void SetData(Compression compression, DataPointIterator wrappedIterator, TList source)
         {
+            Debug.Assert(wrappedIterator is not null);
+            Debug.Assert(source          is not null);
+
+            this.SetData(compression);
             _wrapperIterator = wrappedIterator;
             _list            = source;
         }
         //---------------------------------------------------------------------
-        public override DataPointIterator Clone() => new DataPointIndexedIterator<TList>(_algorithm, _wrapperIterator, _list);
+        public override DataPointIterator Clone()
+        {
+            Debug.Assert(_algorithm       is not null);
+            Debug.Assert(_wrapperIterator is not null);
+            Debug.Assert(_list            is not null);
+
+            DataPointIndexedIterator<TList> clone = new();
+            clone.SetData(_algorithm, _wrapperIterator, _list);
+
+            return clone;
+        }
         //-----------------------------------------------------------------
         public override bool MoveNext()
         {
+            Debug.Assert(_list is not null);
+
             switch (_state)
             {
                 case 0:
@@ -107,13 +122,14 @@ namespace gfoidl.DataCompression
                     ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                     return false;
                 default:
-                    this.Dispose();
                     return false;
             }
         }
         //---------------------------------------------------------------------
         public override DataPoint[] ToArray()
         {
+            Debug.Assert(_list is not null);
+
             TList source = _list;
 
             Debug.Assert(source.Count > 0);
@@ -128,6 +144,8 @@ namespace gfoidl.DataCompression
         //-----------------------------------------------------------------
         public override List<DataPoint> ToList()
         {
+            Debug.Assert(_list is not null);
+
             TList source = _list;
 
             Debug.Assert(source.Count > 0);
@@ -140,12 +158,14 @@ namespace gfoidl.DataCompression
             return listBuilder.ToList();
         }
         //---------------------------------------------------------------------
-        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => ref _wrapperIterator.IsPointToArchive(incoming, lastArchived);
-        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)                                 => _wrapperIterator.UpdateFilters(incoming, lastArchived);
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => _wrapperIterator.Init(incoming, ref snapShot);
+        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => ref _wrapperIterator!.IsPointToArchive(incoming, lastArchived);
+        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)                                 => _wrapperIterator!.UpdateFilters(incoming, lastArchived);
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => _wrapperIterator!.Init(incoming, ref snapShot);
         //---------------------------------------------------------------------
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
         {
+            Debug.Assert(_wrapperIterator is not null);
+
             _wrapperIterator.Init(incomingIndex, incoming, ref snapShotIndex);
             _lastArchivedIndex = incomingIndex;
         }
@@ -210,6 +230,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int HandleSkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
         {
+            Debug.Assert(_algorithm is not null);
+
             return _algorithm._minDeltaXHasValue
                 ? this.SkipMinDeltaX(source, incomingIndex, snapShotIndex)
                 : incomingIndex;
@@ -218,6 +240,7 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.NoInlining)]
         private int SkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
         {
+            Debug.Assert(_algorithm is not null);
             Debug.Assert(_algorithm.MinDeltaX.HasValue);
 
             if ((uint)snapShotIndex < (uint)source.Count)
@@ -245,6 +268,21 @@ namespace gfoidl.DataCompression
             }
 
             return incomingIndex;
+        }
+        //---------------------------------------------------------------------
+        protected override void DisposeCore()
+        {
+            if (_wrapperIterator is not null)
+            {
+                _wrapperIterator.Dispose();
+                _wrapperIterator = null;
+            }
+
+            _snapShotIndex     = -1;
+            _lastArchivedIndex = -1;
+            _incomingIndex     = -1;
+
+            base.DisposeCore();
         }
     }
 }

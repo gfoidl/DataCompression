@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using gfoidl.DataCompression.Internal.DeadBand;
 using gfoidl.DataCompression.Wrappers;
 
@@ -13,6 +14,12 @@ namespace gfoidl.DataCompression
     /// </remarks>
     public class DeadBandCompression : Compression
     {
+#if NETSTANDARD2_1
+        internal AsyncEnumerableIterator?      _cachedAsyncEnumerableIterator;
+#endif
+        internal SequentialEnumerableIterator? _cachedSequentialEnumerableIterator;
+        internal DataPointIterator?            _cachedIndexedIterator;       // due to generics use base class
+        //---------------------------------------------------------------------
         /// <summary>
         /// (Absolut) precision of the instrument.
         /// </summary>
@@ -50,59 +57,106 @@ namespace gfoidl.DataCompression
             : this(instrumentPrecision, maxTime.Ticks, minTime?.Ticks)
         { }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Implementation of the compression / filtering.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
+        /// <inheritdoc />
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
         {
             if (data is ArrayWrapper<DataPoint> arrayWrapper)
             {
-                return arrayWrapper.Count == 0
-                    ? DataPointIterator.Empty
-                    : new IndexedIterator<ArrayWrapper<DataPoint>>(this, arrayWrapper);
+                if (arrayWrapper.Count == 0) return DataPointIterator.Empty;
+
+                DataPointIterator? cached = Interlocked.Exchange(ref _cachedIndexedIterator, null);
+
+                if (cached is not IndexedIterator<ArrayWrapper<DataPoint>> iter)
+                {
+                    Interlocked.CompareExchange(ref _cachedIndexedIterator, cached, null);
+                    iter = new IndexedIterator<ArrayWrapper<DataPoint>>();
+                }
+
+                iter.SetData(this, arrayWrapper);
+                return iter;
             }
 
             if (data is ListWrapper<DataPoint> listWrapper)
             {
-                return listWrapper.Count == 0
-                    ? DataPointIterator.Empty
-                    : new IndexedIterator<ListWrapper<DataPoint>>(this, listWrapper);
+                if (listWrapper.Count == 0) return DataPointIterator.Empty;
+
+                DataPointIterator? cached = Interlocked.Exchange(ref _cachedIndexedIterator, null);
+
+                if (cached is not IndexedIterator<ListWrapper<DataPoint>> iter)
+                {
+                    Interlocked.CompareExchange(ref _cachedIndexedIterator, cached, null);
+                    iter = new IndexedIterator<ListWrapper<DataPoint>>();
+                }
+
+                iter.SetData(this, listWrapper);
+                return iter;
             }
 
             if (data is DataPoint[] array)
             {
-                return array.Length == 0
-                    ? DataPointIterator.Empty
-                    : new IndexedIterator<ArrayWrapper<DataPoint>>(this, new ArrayWrapper<DataPoint>(array));
+                if (array.Length == 0) return DataPointIterator.Empty;
+
+                DataPointIterator? cached = Interlocked.Exchange(ref _cachedIndexedIterator, null);
+
+                if (cached is not IndexedIterator<ArrayWrapper<DataPoint>> iter)
+                {
+                    Interlocked.CompareExchange(ref _cachedIndexedIterator, cached, null);
+                    iter = new IndexedIterator<ArrayWrapper<DataPoint>>();
+                }
+
+                iter.SetData(this, new ArrayWrapper<DataPoint>(array));
+                return iter;
             }
 
             if (data is List<DataPoint> list)
             {
-                return list.Count == 0
-                    ? DataPointIterator.Empty
-                    : new IndexedIterator<ListWrapper<DataPoint>>(this, new ListWrapper<DataPoint>(list));
+                if (list.Count == 0) return DataPointIterator.Empty;
+
+                DataPointIterator? cached = Interlocked.Exchange(ref _cachedIndexedIterator, null);
+
+                if (cached is not IndexedIterator<ListWrapper<DataPoint>> iter)
+                {
+                    Interlocked.CompareExchange(ref _cachedIndexedIterator, cached, null);
+                    iter = new IndexedIterator<ListWrapper<DataPoint>>();
+                }
+
+                iter.SetData(this, new ListWrapper<DataPoint>(list));
+                return iter;
             }
 
             if (data is IList<DataPoint> ilist)
             {
-                return ilist.Count == 0
-                    ? DataPointIterator.Empty
-                    : new IndexedIterator<IList<DataPoint>>(this, ilist);
+                if (ilist.Count == 0) return DataPointIterator.Empty;
+
+                DataPointIterator? cached = Interlocked.Exchange(ref _cachedIndexedIterator, null);
+
+                if (cached is not IndexedIterator<IList<DataPoint>> iter)
+                {
+                    Interlocked.CompareExchange(ref _cachedIndexedIterator, cached, null);
+                    iter = new IndexedIterator<IList<DataPoint>>();
+                }
+
+                iter.SetData(this, ilist);
+                return iter;
             }
 
-            return new SequentialEnumerableIterator(this, data);
+            SequentialEnumerableIterator seqIter = Interlocked.Exchange(ref _cachedSequentialEnumerableIterator, null)
+                ?? new SequentialEnumerableIterator();
+
+            seqIter.SetData(this, data);
+            return seqIter;
         }
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        /// <summary>
-        /// Implementation of the compression / filtering.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
+        /// <inheritdoc />
         protected override DataPointIterator ProcessAsyncCore(IAsyncEnumerable<DataPoint> data)
-            => new AsyncEnumerableIterator(this, data);
+        {
+            AsyncEnumerableIterator iter = Interlocked.Exchange(ref _cachedAsyncEnumerableIterator, null)
+                ?? new AsyncEnumerableIterator();
+
+            iter.SetData(this, data);
+            return iter;
+        }
 #endif
     }
 }

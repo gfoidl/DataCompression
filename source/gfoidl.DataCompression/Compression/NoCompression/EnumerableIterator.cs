@@ -9,14 +9,16 @@ namespace gfoidl.DataCompression.Internal.NoCompression
 {
     internal sealed class EnumerableIterator : NoCompressionIterator
     {
-        public EnumerableIterator(Compression compression, IEnumerable<DataPoint>? enumerable)
-            : base(compression)
+        public override DataPointIterator Clone()
         {
-            _source     = enumerable ?? throw new ArgumentNullException(nameof(enumerable));
-            _enumerator = enumerable.GetEnumerator();
+            Debug.Assert(_algorithm is not null);
+            Debug.Assert(_source    is not null);
+
+            EnumerableIterator clone = new();
+            clone.SetData(_algorithm, _source);
+
+            return clone;
         }
-        //---------------------------------------------------------------------
-        public override DataPointIterator Clone() => new EnumerableIterator(_algorithm, _source);
         //---------------------------------------------------------------------
         public override bool MoveNext()
         {

@@ -5,15 +5,12 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <StandardTfm>net5.0</StandardTfm>
+        <LangVersion>9.0</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\source\gfoidl.DataCompression\gfoidl.DataCompression.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="data\*" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
 </Project>

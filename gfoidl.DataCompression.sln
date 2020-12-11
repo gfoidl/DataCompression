@@ -97,10 +97,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "perf", "perf", "{CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}"
+	ProjectSection(SolutionItems) = preProject
+		perf\Directory.Build.props = perf\Directory.Build.props
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Benchmarks", "perf\gfoidl.DataCompression.Benchmarks\gfoidl.DataCompression.Benchmarks.csproj", "{81D55029-F85F-4624-BAA1-7128A6FA1A66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Benchmarks", "perf\gfoidl.DataCompression.Benchmarks\gfoidl.DataCompression.Benchmarks.csproj", "{81D55029-F85F-4624-BAA1-7128A6FA1A66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.Demos.Async", "demos\gfoidl.DataCompression.Demos.Async\gfoidl.DataCompression.Demos.Async.csproj", "{9C0564C7-5902-40C1-9883-887BF7AC2187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.Async", "demos\gfoidl.DataCompression.Demos.Async\gfoidl.DataCompression.Demos.Async.csproj", "{9C0564C7-5902-40C1-9883-887BF7AC2187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfoidl.DataCompression.ProfilingDemo", "perf\gfoidl.DataCompression.ProfilingDemo\gfoidl.DataCompression.ProfilingDemo.csproj", "{09AB77CA-1C03-4C3B-96B7-9A05E0DDD4C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +149,10 @@ Global
 		{9C0564C7-5902-40C1-9883-887BF7AC2187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C0564C7-5902-40C1-9883-887BF7AC2187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C0564C7-5902-40C1-9883-887BF7AC2187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09AB77CA-1C03-4C3B-96B7-9A05E0DDD4C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09AB77CA-1C03-4C3B-96B7-9A05E0DDD4C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09AB77CA-1C03-4C3B-96B7-9A05E0DDD4C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09AB77CA-1C03-4C3B-96B7-9A05E0DDD4C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +172,7 @@ Global
 		{4461519B-5A2E-4B38-A93B-B561244C05C8} = {5EC3A886-352D-490B-90F0-F0EEA56C959F}
 		{81D55029-F85F-4624-BAA1-7128A6FA1A66} = {CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}
 		{9C0564C7-5902-40C1-9883-887BF7AC2187} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{09AB77CA-1C03-4C3B-96B7-9A05E0DDD4C9} = {CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}

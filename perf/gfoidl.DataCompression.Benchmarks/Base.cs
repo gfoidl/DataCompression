@@ -9,7 +9,7 @@ namespace gfoidl.DataCompression.Benchmarks
     public abstract class Base
     {
         private const int Count = 1_000_000;
-        private Random _rnd;
+        private Random? _rnd;
         //---------------------------------------------------------------------
         [GlobalSetup]
         public void GlobalSetup()
@@ -17,20 +17,20 @@ namespace gfoidl.DataCompression.Benchmarks
             _rnd = new Random(42);
         }
         //---------------------------------------------------------------------
-        protected IEnumerable<DataPoint> Source()
+        protected IEnumerable<DataPoint> Source(int count = Count)
         {
-            for (int i = 0; i < Count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 double x = i;
-                double y = _rnd.NextDouble();
+                double y = _rnd!.NextDouble();
 
                 yield return (x, y);
             }
         }
         //---------------------------------------------------------------------
-        protected async IAsyncEnumerable<DataPoint> SourceAsync()
+        protected async IAsyncEnumerable<DataPoint> SourceAsync(int count = Count)
         {
-            foreach (DataPoint dataPoint in this.Source())
+            foreach (DataPoint dataPoint in this.Source(count))
             {
                 await Task.Yield();
                 yield return dataPoint;

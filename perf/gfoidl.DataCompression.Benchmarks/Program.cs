@@ -1,12 +1,4 @@
 ﻿using BenchmarkDotNet.Running;
+using gfoidl.DataCompression.Benchmarks;
 
-namespace gfoidl.DataCompression.Benchmarks
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
-        }
-    }
-}
+BenchmarkSwitcher.FromAssembly(typeof(Base).Assembly).Run(args);

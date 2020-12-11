@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace gfoidl.DataCompression.Internal.DeadBand
 {
     internal abstract class DeadBandCompressionIterator : DataPointIterator
     {
-        protected readonly DeadBandCompression _deadBandCompression;
-        protected (double Min, double Max)     _bounding;
-        //---------------------------------------------------------------------
-        protected DeadBandCompressionIterator(DeadBandCompression deadBandCompression)
-            : base(deadBandCompression)
-            => _deadBandCompression = deadBandCompression;
+        protected DeadBandCompression?     _deadBandCompression;
+        protected (double Min, double Max) _bounding;
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void GetBounding(in DataPoint dataPoint)
         {
+            Debug.Assert(_deadBandCompression is not null);
+
             double y = dataPoint.Y;
 
             // Produces better code than updating _bounding directly
@@ -48,5 +47,13 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         //---------------------------------------------------------------------
         protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(incoming, ref snapShot);
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
+        //---------------------------------------------------------------------
+        protected override void DisposeCore()
+        {
+            _deadBandCompression = null;
+            _bounding            = default;
+
+            base.DisposeCore();
+        }
     }
 }

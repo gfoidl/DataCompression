@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace gfoidl.DataCompression
 {
@@ -24,7 +26,7 @@ namespace gfoidl.DataCompression
         protected const int InitialState = -2;
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
-        protected readonly Compression          _algorithm;
+        protected Compression?                  _algorithm;
         protected int                           _state = InitialState;
         protected DataPoint                     _current;
         protected DataPoint                     _snapShot;
@@ -32,13 +34,16 @@ namespace gfoidl.DataCompression
         protected DataPoint                     _incoming;
         protected (bool Archive, bool MaxDelta) _archive;
 #pragma warning restore CS1591
-        private readonly int _threadId;
+        private int _threadId;
         //---------------------------------------------------------------------
         /// <summary>
-        /// Creates an instance of <see cref="DataPointIterator" />.
+        /// Sets the algorithm for this <see cref="DataPointIterator" />.
         /// </summary>
-        protected DataPointIterator(Compression algorithm)
+        protected void SetData(Compression algorithm)
         {
+            if (algorithm is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.algorithm);
+
+            _state     = InitialState;
             _threadId  = Environment.CurrentManagedThreadId;
             _algorithm = algorithm;
         }
@@ -57,7 +62,21 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Returns an <see cref="EmptyDataPointIterator" />.
         /// </summary>
-        public static DataPointIterator Empty => s_emptyIterator ??= new EmptyDataPointIterator(NoCompression.s_instance);
+        public static DataPointIterator Empty
+        {
+            get
+            {
+                if (Volatile.Read(ref s_emptyIterator) is null)
+                {
+                    EmptyDataPointIterator iter = new();
+                    iter.SetData(NoCompression.s_instance);
+
+                    Interlocked.CompareExchange(ref s_emptyIterator, iter, null);
+                }
+
+                return s_emptyIterator!;
+            }
+        }
         //---------------------------------------------------------------------
 #pragma warning disable CS1591
         object IEnumerator.Current                                    => this.Current;
@@ -86,16 +105,6 @@ namespace gfoidl.DataCompression
 
             enumerator._state = 0;
             return enumerator;
-        }
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Resets the enumerator and its state.
-        /// </summary>
-        public virtual void Dispose()
-        {
-            _current = DataPoint.Origin;
-            _state   = DisposedState;
-            _enumerator?.Dispose();
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -147,6 +156,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double incomingX, double lastArchivedX)
         {
+            Debug.Assert(_algorithm is not null);
+
             if ((incomingX - lastArchivedX) >= _algorithm._maxDeltaX)
             {
                 archive.Archive  = true;
@@ -158,6 +169,39 @@ namespace gfoidl.DataCompression
                 archive.MaxDelta = false;
                 return false;
             }
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Resets the enumerator and its state.
+        /// </summary>
+        public void Dispose() => this.DisposeCore();
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Core logic of <see cref="Dispose" />.
+        /// </summary>
+        protected virtual void DisposeCore()
+        {
+            _algorithm = null;
+            _source    = null;
+
+            if (_enumerator is not null)
+            {
+                _enumerator.Dispose();
+                _enumerator = null;
+            }
+
+            _threadId = -1;
+            _state    = DisposedState;
+
+            _current      = default;
+            _snapShot     = default;
+            _lastArchived = default;
+            _incoming     = default;
+            _archive      = default;
+
+#if NETSTANDARD2_1
+            _asyncSource = null;
+#endif
         }
     }
 }

@@ -13,6 +13,18 @@ namespace gfoidl.DataCompression
 #pragma warning restore CS1591
         //---------------------------------------------------------------------
         /// <summary>
+        /// Sets the algorithm for this <see cref="DataPointIterator" />.
+        /// </summary>
+        protected internal void SetData(Compression algorithm, IEnumerable<DataPoint> data)
+        {
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+
+            this.SetData(algorithm);
+            _source     = data;
+            _enumerator = data.GetEnumerator();
+        }
+        //---------------------------------------------------------------------
+        /// <summary>
         /// Advances the enumerator to the next element.
         /// </summary>
         /// <returns>
@@ -75,7 +87,6 @@ namespace gfoidl.DataCompression
                     ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                     return false;
                 default:
-                    this.Dispose();
                     return false;
             }
         }
@@ -152,6 +163,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private ref DataPoint HandleSkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
         {
+            Debug.Assert(_algorithm is not null);
+
             if (_algorithm._minDeltaXHasValue)
             {
                 this.SkipMinDeltaX(enumerator, ref incoming, snapShotX);
@@ -163,6 +176,8 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
         {
+            Debug.Assert(_algorithm is not null);
+
             double minDeltaX = _algorithm._minDeltaX;
 
             while (enumerator.MoveNext())

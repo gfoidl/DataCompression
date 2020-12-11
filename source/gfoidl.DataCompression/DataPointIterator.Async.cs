@@ -8,7 +8,20 @@ namespace gfoidl.DataCompression
 {
     public abstract partial class DataPointIterator : IAsyncEnumerable<DataPoint>
     {
-        private protected IAsyncEnumerable<DataPoint>? _asyncSource;
+#pragma warning disable CS1591
+        protected IAsyncEnumerable<DataPoint>? _asyncSource;
+#pragma warning restore CS1591
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Sets the algorithm for this <see cref="DataPointIterator" />.
+        /// </summary>
+        protected internal void SetData(Compression algorithm, IAsyncEnumerable<DataPoint> data)
+        {
+            if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
+
+            this.SetData(algorithm);
+            _asyncSource = data;
+        }
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets an enumerator for the <see cref="DataPoint" />s.
@@ -45,7 +58,8 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            Debug.Assert(_asyncSource != null);
+            Debug.Assert(_algorithm   is not null);
+            Debug.Assert(_asyncSource is not null);
 
             cancellationToken.ThrowIfCancellationRequested();
 
