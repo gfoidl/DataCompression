@@ -4,7 +4,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <StandardTfm>netcoreapp3.1</StandardTfm>
+        <StandardTfm>net5.0</StandardTfm>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
