@@ -1,6 +1,6 @@
-| CircleCi | CodeCov | NuGet |
+| CI | Coverage | NuGet |
 | -- | -- | -- |
-| [![CircleCI](https://circleci.com/gh/gfoidl/DataCompression/tree/master.svg?style=svg)](https://circleci.com/gh/gfoidl/DataCompression/tree/master) | [![codecov](https://codecov.io/gh/gfoidl/DataCompression/branch/master/graph/badge.svg)](https://codecov.io/gh/gfoidl/DataCompression) | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)](https://www.nuget.org/packages/gfoidl.DataCompression/) |
+| [![Build Status](https://dev.azure.com/gh-gfoidl/github-Projects/_apis/build/status/.NET/DataCompression?branchName=master)](https://dev.azure.com/gh-gfoidl/github-Projects/_build/latest?definitionId=36&branchName=master) | ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/gh-gfoidl/github-Projects/36?style=flat-square) | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)](https://www.nuget.org/packages/gfoidl.DataCompression/) |
 
 # gfoidl.DataCompression
 
