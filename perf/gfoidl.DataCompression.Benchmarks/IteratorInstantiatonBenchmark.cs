@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// (c) gfoidl, all rights reserved
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;

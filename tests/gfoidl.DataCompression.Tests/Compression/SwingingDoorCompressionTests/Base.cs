@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+// (c) gfoidl, all rights reserved
+
+using System.Collections.Generic;
 
 #if NETCOREAPP
 using System.Runtime.CompilerServices;
@@ -14,10 +16,10 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         //---------------------------------------------------------------------
         protected static int RawMinDeltaXCounter { get; private set; }
         //---------------------------------------------------------------------
-        protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../doc/data/swinging-door/trend_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../doc/data/swinging-door/trend_compressed.csv");
-        protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../doc/data/swinging-door/maxDelta_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("../../../../../doc/data/swinging-door/maxDelta_compressed.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../data/swinging-door/trend_raw.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../data/swinging-door/trend_compressed.csv");
+        protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../data/swinging-door/maxDelta_raw.csv");
+        protected static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("../../../../../data/swinging-door/maxDelta_compressed.csv");
         //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> RawMinDeltaX()
         {

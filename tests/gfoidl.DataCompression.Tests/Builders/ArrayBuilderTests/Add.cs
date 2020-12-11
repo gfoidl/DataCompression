@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// (c) gfoidl, all rights reserved
+
+using System.Collections.Generic;
 using gfoidl.DataCompression.Builders;
 using NUnit.Framework;
 

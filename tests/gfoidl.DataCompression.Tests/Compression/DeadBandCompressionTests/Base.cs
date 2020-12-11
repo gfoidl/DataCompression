@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+// (c) gfoidl, all rights reserved
+
+using System.Collections.Generic;
 
 #if NETCOREAPP
 using System.Runtime.CompilerServices;
@@ -12,10 +14,10 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
     {
         private static readonly DataPointSerializer s_ser = new DataPointSerializer();
         //---------------------------------------------------------------------
-        protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../doc/data/dead-band/trend_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../doc/data/dead-band/trend_compressed.csv");
-        protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../doc/data/dead-band/maxDelta_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("../../../../../doc/data/dead-band/maxDelta_compressed.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../data/dead-band/trend_raw.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../data/dead-band/trend_compressed.csv");
+        protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../data/dead-band/maxDelta_raw.csv");
+        protected static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("../../../../../data/dead-band/maxDelta_compressed.csv");
         //---------------------------------------------------------------------
 #if NETCOREAPP
         protected static async IAsyncEnumerable<DataPoint> RawDataForTrendAsync([EnumeratorCancellation] CancellationToken ct = default)

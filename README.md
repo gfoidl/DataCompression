@@ -1,23 +1,23 @@
-| CircleCi | CodeCov | NuGet |
+| CI | Coverage | NuGet |
 | -- | -- | -- |
-| [![CircleCI](https://circleci.com/gh/gfoidl/DataCompression/tree/master.svg?style=svg)](https://circleci.com/gh/gfoidl/DataCompression/tree/master) | [![codecov](https://codecov.io/gh/gfoidl/DataCompression/branch/master/graph/badge.svg)](https://codecov.io/gh/gfoidl/DataCompression) | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)](https://www.nuget.org/packages/gfoidl.DataCompression/) |
+| [![Build Status](https://dev.azure.com/gh-gfoidl/github-Projects/_apis/build/status/.NET/DataCompression?branchName=master)](https://dev.azure.com/gh-gfoidl/github-Projects/_build/latest?definitionId=36&branchName=master) | ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/gh-gfoidl/github-Projects/36?style=flat-square) | [![NuGet](https://img.shields.io/nuget/v/gfoidl.DataCompression.svg?style=flat-square)](https://www.nuget.org/packages/gfoidl.DataCompression/) |
 
 # gfoidl.DataCompression
 
 ## Algorithms
 
-* [Dead band](./doc/DeadBand.md)
-* [Swinging Door](./doc/SwingingDoor.md)
+* [Dead band](./api-doc/articles/DeadBand.md)
+* [Swinging Door](./api-doc/articles/SwingingDoor.md)
 
 ## Demos
 
 See `./demos` for code.
 
-![](./doc/images/demo_01.png)
+![](./api-doc/articles/images/demo_01.png)
 
-![](./doc/images/demo_02.png)
+![](./api-doc/articles/images/demo_02.png)
 
-![](./doc/images/demo_03.png)
+![](./api-doc/articles/images/demo_03.png)
 
 ## Development channel
 

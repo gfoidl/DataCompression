@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿// (c) gfoidl, all rights reserved
+
+using System.Runtime.CompilerServices;
 using System;
 using System.Diagnostics;
 

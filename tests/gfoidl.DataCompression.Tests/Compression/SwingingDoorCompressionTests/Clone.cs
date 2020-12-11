@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// (c) gfoidl, all rights reserved
+
+using System.Linq;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests

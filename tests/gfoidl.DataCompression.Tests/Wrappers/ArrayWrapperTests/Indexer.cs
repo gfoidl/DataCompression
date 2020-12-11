@@ -1,4 +1,6 @@
-﻿using gfoidl.DataCompression.Wrappers;
+﻿// (c) gfoidl, all rights reserved
+
+using gfoidl.DataCompression.Wrappers;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.Wrappers.ArrayWrapperTests

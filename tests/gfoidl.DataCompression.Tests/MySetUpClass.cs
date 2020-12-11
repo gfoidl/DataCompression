@@ -1,4 +1,6 @@
-﻿#if !NETCOREAPP
+﻿// (c) gfoidl, all rights reserved
+
+#if !NETCOREAPP
 
 using System;
 using NUnit.Framework;

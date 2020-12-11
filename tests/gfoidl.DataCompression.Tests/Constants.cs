@@ -1,4 +1,6 @@
-﻿namespace gfoidl.DataCompression.Tests
+﻿// (c) gfoidl, all rights reserved
+
+namespace gfoidl.DataCompression.Tests
 {
     internal static class Constants
     {

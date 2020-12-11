@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c) gfoidl, all rights reserved
+
+using System;
 using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.DataPointTests

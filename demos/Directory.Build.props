@@ -1,10 +1,9 @@
-﻿<Project>
+<Project>
 
     <Import Project="../Directory.Build.props" />
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <StandardTfm>net5.0</StandardTfm>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 

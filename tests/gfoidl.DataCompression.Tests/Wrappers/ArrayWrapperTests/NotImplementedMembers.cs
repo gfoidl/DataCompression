@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c) gfoidl, all rights reserved
+
+using System;
 using System.Collections;
 using gfoidl.DataCompression.Wrappers;
 using NUnit.Framework;

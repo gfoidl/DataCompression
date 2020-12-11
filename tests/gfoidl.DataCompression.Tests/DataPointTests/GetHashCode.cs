@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿// (c) gfoidl, all rights reserved
+
+using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.DataPointTests
 {
@@ -7,7 +9,7 @@ namespace gfoidl.DataCompression.Tests.DataPointTests
     {
         /*
          * Rule:
-         * Equal object must have the same hash code! 
+         * Equal object must have the same hash code!
          * Nothing more, nothing less.
          */
         [Test]
