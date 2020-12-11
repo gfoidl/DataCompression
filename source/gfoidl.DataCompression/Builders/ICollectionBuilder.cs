@@ -1,4 +1,6 @@
-﻿namespace gfoidl.DataCompression.Builders
+﻿// (c) gfoidl, all rights reserved
+
+namespace gfoidl.DataCompression.Builders
 {
     internal interface ICollectionBuilder<T>
     {

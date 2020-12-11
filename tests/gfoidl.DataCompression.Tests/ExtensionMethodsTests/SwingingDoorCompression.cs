@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c) gfoidl, all rights reserved
+
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 

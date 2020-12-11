@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c) gfoidl, all rights reserved
+
+using System;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;

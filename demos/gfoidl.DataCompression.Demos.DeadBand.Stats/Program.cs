@@ -1,4 +1,6 @@
-﻿#define INTERPOLATE
+﻿// (c) gfoidl, all rights reserved
+
+#define INTERPOLATE
 
 using System;
 using System.Collections.Generic;

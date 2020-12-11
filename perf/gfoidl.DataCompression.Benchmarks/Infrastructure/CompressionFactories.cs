@@ -1,4 +1,6 @@
-﻿namespace gfoidl.DataCompression.Benchmarks.Infrastructure
+﻿// (c) gfoidl, all rights reserved
+
+namespace gfoidl.DataCompression.Benchmarks.Infrastructure
 {
     public interface ICompressionFactory
     {

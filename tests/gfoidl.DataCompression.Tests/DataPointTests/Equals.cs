@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿// (c) gfoidl, all rights reserved
+
+using NUnit.Framework;
 
 namespace gfoidl.DataCompression.Tests.DataPointTests
 {
