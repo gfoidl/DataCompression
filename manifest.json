@@ -1,0 +1,455 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/Work-Git/gfoidl/DataCompression/api-doc",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.Compression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.Compression.html",
+          "hash": "6VB/xv85yyLi3kBTBO8shg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.DataPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.DataPoint.html",
+          "hash": "VcCc1ceeGpyMmXK8NJiiZw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.DataPointIterator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.DataPointIterator.html",
+          "hash": "395RDhZeUj0UpLTRYxkusg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.DataPointSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.DataPointSerializer.html",
+          "hash": "6Hz9rQBTMrO2/JarqyzgZg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.DeadBandCompression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.DeadBandCompression.html",
+          "hash": "UDPWRvWBwJjFb7QskE4elw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.ExtensionMethods.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.ExtensionMethods.html",
+          "hash": "zlmLmR1mbPZF/DRm6Q0Pag=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.ICompression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.ICompression.html",
+          "hash": "3QQMHg2Qdgj/xuOZZ1XAtQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.NoCompression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.NoCompression.html",
+          "hash": "7tKeUjc2CoMWCghmrfJdQQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.SwingingDoorCompression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.SwingingDoorCompression.html",
+          "hash": "TWzQZQxw0obF0CcslAk9WQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html",
+          "hash": "qxU2L/yDiamH0OBjBifbjg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.Wrappers.ListWrapper-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html",
+          "hash": "kcF8ibClH7HCvizDN3yBZw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.Wrappers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.Wrappers.html",
+          "hash": "BK6PL55jZGjJCSKkU7voJA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/gfoidl.DataCompression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gfoidl.DataCompression.html",
+          "hash": "c1A5Y87dfGY0kuomf1fglw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "Sx7R7WfQ94uAIKn4vjpk1g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "ch7BCfOl2OyhpaALl2U48g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/DeadBand.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/DeadBand.html",
+          "hash": "SVO458JlA2R/hDsCnSngjA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/SwingingDoor.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/SwingingDoor.html",
+          "hash": "Fcir2XQWslPcfFqG6x8/7A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/DeadBand_01.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/DeadBand_01.jpg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/DeadBand_02.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/DeadBand_02.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/dead-band_error.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/dead-band_error.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/dead-band_maxDelta.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/dead-band_maxDelta.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/dead-band_trend.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/dead-band_trend.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/demo_01.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/demo_01.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/demo_02.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/demo_02.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/demo_03.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/demo_03.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/swinging-door_01.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/swinging-door_01.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/swinging-door_02.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/swinging-door_02.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/swinging-door_error.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/swinging-door_error.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/swinging-door_maxDelta.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/swinging-door_maxDelta.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "articles/images/swinging-door_trend.png",
+      "output": {
+        "resource": {
+          "relative_path": "articles/images/swinging-door_trend.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "0OVvB5B0a9wLnGo3VUFh1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo_32.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo_32.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "/vaF2lOkrwldBNQEOvXECg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "LQzg7BIBPO8o9NXI76WEsg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 4,
+          "skipped_file_count": 4
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 13,
+          "skipped_file_count": 13
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

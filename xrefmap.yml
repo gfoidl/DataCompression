@@ -1,0 +1,1727 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: gfoidl.DataCompression
+  name: gfoidl.DataCompression
+  href: api/gfoidl.DataCompression.html
+  commentId: N:gfoidl.DataCompression
+  fullName: gfoidl.DataCompression
+  nameWithType: gfoidl.DataCompression
+- uid: gfoidl.DataCompression.Compression
+  name: Compression
+  href: api/gfoidl.DataCompression.Compression.html
+  commentId: T:gfoidl.DataCompression.Compression
+  fullName: gfoidl.DataCompression.Compression
+  nameWithType: Compression
+- uid: gfoidl.DataCompression.Compression.#ctor(System.Nullable{System.Double},System.Nullable{System.Double})
+  name: Compression(Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__ctor_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.Compression.#ctor(System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: Compression(Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.Compression.Compression(System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.Compression.Compression(System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: Compression.Compression(Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: Compression.Compression(Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.Compression.#ctor*
+  name: Compression
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__ctor_
+  commentId: Overload:gfoidl.DataCompression.Compression.#ctor
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.Compression
+  nameWithType: Compression.Compression
+- uid: gfoidl.DataCompression.Compression._maxDeltaX
+  name: _maxDeltaX
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__maxDeltaX
+  commentId: F:gfoidl.DataCompression.Compression._maxDeltaX
+  fullName: gfoidl.DataCompression.Compression._maxDeltaX
+  nameWithType: Compression._maxDeltaX
+- uid: gfoidl.DataCompression.Compression._minDeltaX
+  name: _minDeltaX
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__minDeltaX
+  commentId: F:gfoidl.DataCompression.Compression._minDeltaX
+  fullName: gfoidl.DataCompression.Compression._minDeltaX
+  nameWithType: Compression._minDeltaX
+- uid: gfoidl.DataCompression.Compression._minDeltaXHasValue
+  name: _minDeltaXHasValue
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__minDeltaXHasValue
+  commentId: F:gfoidl.DataCompression.Compression._minDeltaXHasValue
+  fullName: gfoidl.DataCompression.Compression._minDeltaXHasValue
+  nameWithType: Compression._minDeltaXHasValue
+- uid: gfoidl.DataCompression.Compression.MaxDeltaX
+  name: MaxDeltaX
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_MaxDeltaX
+  commentId: P:gfoidl.DataCompression.Compression.MaxDeltaX
+  fullName: gfoidl.DataCompression.Compression.MaxDeltaX
+  nameWithType: Compression.MaxDeltaX
+- uid: gfoidl.DataCompression.Compression.MaxDeltaX*
+  name: MaxDeltaX
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_MaxDeltaX_
+  commentId: Overload:gfoidl.DataCompression.Compression.MaxDeltaX
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.MaxDeltaX
+  nameWithType: Compression.MaxDeltaX
+- uid: gfoidl.DataCompression.Compression.MinDeltaX
+  name: MinDeltaX
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_MinDeltaX
+  commentId: P:gfoidl.DataCompression.Compression.MinDeltaX
+  fullName: gfoidl.DataCompression.Compression.MinDeltaX
+  nameWithType: Compression.MinDeltaX
+- uid: gfoidl.DataCompression.Compression.MinDeltaX*
+  name: MinDeltaX
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_MinDeltaX_
+  commentId: Overload:gfoidl.DataCompression.Compression.MinDeltaX
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.MinDeltaX
+  nameWithType: Compression.MinDeltaX
+- uid: gfoidl.DataCompression.Compression.Process(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: Process(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_Process_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.Compression.Process(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: Process(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.Compression.Process(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.Compression.Process(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: Compression.Process(IEnumerable<DataPoint>)
+  nameWithType.vb: Compression.Process(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.Compression.Process*
+  name: Process
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_Process_
+  commentId: Overload:gfoidl.DataCompression.Compression.Process
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.Process
+  nameWithType: Compression.Process
+- uid: gfoidl.DataCompression.Compression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessAsync(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ProcessAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.Compression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessAsync(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.Compression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.Compression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: Compression.ProcessAsync(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: Compression.ProcessAsync(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.Compression.ProcessAsync*
+  name: ProcessAsync
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ProcessAsync_
+  commentId: Overload:gfoidl.DataCompression.Compression.ProcessAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.ProcessAsync
+  nameWithType: Compression.ProcessAsync
+- uid: gfoidl.DataCompression.Compression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ProcessAsyncCore_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.Compression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.Compression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.Compression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: Compression.ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: Compression.ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.Compression.ProcessAsyncCore*
+  name: ProcessAsyncCore
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ProcessAsyncCore_
+  commentId: Overload:gfoidl.DataCompression.Compression.ProcessAsyncCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.ProcessAsyncCore
+  nameWithType: Compression.ProcessAsyncCore
+- uid: gfoidl.DataCompression.Compression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessCore(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ProcessCore_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.Compression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessCore(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.Compression.ProcessCore(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.Compression.ProcessCore(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: Compression.ProcessCore(IEnumerable<DataPoint>)
+  nameWithType.vb: Compression.ProcessCore(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.Compression.ProcessCore*
+  name: ProcessCore
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ProcessCore_
+  commentId: Overload:gfoidl.DataCompression.Compression.ProcessCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.ProcessCore
+  nameWithType: Compression.ProcessCore
+- uid: gfoidl.DataCompression.DataPoint
+  name: DataPoint
+  href: api/gfoidl.DataCompression.DataPoint.html
+  commentId: T:gfoidl.DataCompression.DataPoint
+  fullName: gfoidl.DataCompression.DataPoint
+  nameWithType: DataPoint
+- uid: gfoidl.DataCompression.DataPoint.#ctor(System.DateTime,System.Double)
+  name: DataPoint(DateTime, Double)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint__ctor_System_DateTime_System_Double_
+  commentId: M:gfoidl.DataCompression.DataPoint.#ctor(System.DateTime,System.Double)
+  fullName: gfoidl.DataCompression.DataPoint.DataPoint(System.DateTime, System.Double)
+  nameWithType: DataPoint.DataPoint(DateTime, Double)
+- uid: gfoidl.DataCompression.DataPoint.#ctor(System.Double,System.Double)
+  name: DataPoint(Double, Double)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint__ctor_System_Double_System_Double_
+  commentId: M:gfoidl.DataCompression.DataPoint.#ctor(System.Double,System.Double)
+  fullName: gfoidl.DataCompression.DataPoint.DataPoint(System.Double, System.Double)
+  nameWithType: DataPoint.DataPoint(Double, Double)
+- uid: gfoidl.DataCompression.DataPoint.#ctor(System.ValueTuple{System.Double,System.Double})
+  name: DataPoint((Double x, Double y))
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint__ctor_System_ValueTuple_System_Double_System_Double__
+  commentId: M:gfoidl.DataCompression.DataPoint.#ctor(System.ValueTuple{System.Double,System.Double})
+  name.vb: DataPoint((x As Double, y As Double))
+  fullName: gfoidl.DataCompression.DataPoint.DataPoint(System.ValueTuple<System.Double, System.Double>)
+  fullName.vb: gfoidl.DataCompression.DataPoint.DataPoint(System.ValueTuple(Of System.Double, System.Double))
+  nameWithType: DataPoint.DataPoint((Double x, Double y))
+  nameWithType.vb: DataPoint.DataPoint((x As Double, y As Double))
+- uid: gfoidl.DataCompression.DataPoint.#ctor*
+  name: DataPoint
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint__ctor_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.#ctor
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.DataPoint
+  nameWithType: DataPoint.DataPoint
+- uid: gfoidl.DataCompression.DataPoint.CalculatePoint(System.Double,System.Double)
+  name: CalculatePoint(Double, Double)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_CalculatePoint_System_Double_System_Double_
+  commentId: M:gfoidl.DataCompression.DataPoint.CalculatePoint(System.Double,System.Double)
+  fullName: gfoidl.DataCompression.DataPoint.CalculatePoint(System.Double, System.Double)
+  nameWithType: DataPoint.CalculatePoint(Double, Double)
+- uid: gfoidl.DataCompression.DataPoint.CalculatePoint*
+  name: CalculatePoint
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_CalculatePoint_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.CalculatePoint
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.CalculatePoint
+  nameWithType: DataPoint.CalculatePoint
+- uid: gfoidl.DataCompression.DataPoint.Equals(gfoidl.DataCompression.DataPoint)
+  name: Equals(DataPoint)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Equals_gfoidl_DataCompression_DataPoint_
+  commentId: M:gfoidl.DataCompression.DataPoint.Equals(gfoidl.DataCompression.DataPoint)
+  fullName: gfoidl.DataCompression.DataPoint.Equals(gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPoint.Equals(DataPoint)
+- uid: gfoidl.DataCompression.DataPoint.Equals(gfoidl.DataCompression.DataPoint,System.Double)
+  name: Equals(DataPoint, Double)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Equals_gfoidl_DataCompression_DataPoint_System_Double_
+  commentId: M:gfoidl.DataCompression.DataPoint.Equals(gfoidl.DataCompression.DataPoint,System.Double)
+  fullName: gfoidl.DataCompression.DataPoint.Equals(gfoidl.DataCompression.DataPoint, System.Double)
+  nameWithType: DataPoint.Equals(DataPoint, Double)
+- uid: gfoidl.DataCompression.DataPoint.Equals(System.Object)
+  name: Equals(Object)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Equals_System_Object_
+  commentId: M:gfoidl.DataCompression.DataPoint.Equals(System.Object)
+  fullName: gfoidl.DataCompression.DataPoint.Equals(System.Object)
+  nameWithType: DataPoint.Equals(Object)
+- uid: gfoidl.DataCompression.DataPoint.Equals*
+  name: Equals
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Equals_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.Equals
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.Equals
+  nameWithType: DataPoint.Equals
+- uid: gfoidl.DataCompression.DataPoint.GetHashCode
+  name: GetHashCode()
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_GetHashCode
+  commentId: M:gfoidl.DataCompression.DataPoint.GetHashCode
+  fullName: gfoidl.DataCompression.DataPoint.GetHashCode()
+  nameWithType: DataPoint.GetHashCode()
+- uid: gfoidl.DataCompression.DataPoint.GetHashCode*
+  name: GetHashCode
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_GetHashCode_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.GetHashCode
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.GetHashCode
+  nameWithType: DataPoint.GetHashCode
+- uid: gfoidl.DataCompression.DataPoint.Gradient(gfoidl.DataCompression.DataPoint@,System.Boolean)
+  name: Gradient(DataPoint, Boolean)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Gradient_gfoidl_DataCompression_DataPoint__System_Boolean_
+  commentId: M:gfoidl.DataCompression.DataPoint.Gradient(gfoidl.DataCompression.DataPoint@,System.Boolean)
+  name.vb: Gradient(ByRef DataPoint, Boolean)
+  fullName: gfoidl.DataCompression.DataPoint.Gradient(gfoidl.DataCompression.DataPoint, System.Boolean)
+  fullName.vb: gfoidl.DataCompression.DataPoint.Gradient(ByRef gfoidl.DataCompression.DataPoint, System.Boolean)
+  nameWithType: DataPoint.Gradient(DataPoint, Boolean)
+  nameWithType.vb: DataPoint.Gradient(ByRef DataPoint, Boolean)
+- uid: gfoidl.DataCompression.DataPoint.Gradient*
+  name: Gradient
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Gradient_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.Gradient
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.Gradient
+  nameWithType: DataPoint.Gradient
+- uid: gfoidl.DataCompression.DataPoint.op_Equality(gfoidl.DataCompression.DataPoint,gfoidl.DataCompression.DataPoint)
+  name: Equality(DataPoint, DataPoint)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Equality_gfoidl_DataCompression_DataPoint_gfoidl_DataCompression_DataPoint_
+  commentId: M:gfoidl.DataCompression.DataPoint.op_Equality(gfoidl.DataCompression.DataPoint,gfoidl.DataCompression.DataPoint)
+  fullName: gfoidl.DataCompression.DataPoint.Equality(gfoidl.DataCompression.DataPoint, gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPoint.Equality(DataPoint, DataPoint)
+- uid: gfoidl.DataCompression.DataPoint.op_Equality*
+  name: Equality
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Equality_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.op_Equality
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.Equality
+  nameWithType: DataPoint.Equality
+- uid: gfoidl.DataCompression.DataPoint.op_Implicit(gfoidl.DataCompression.DataPoint)~System.ValueTuple{System.DateTime,System.Double}
+  name: Implicit(DataPoint to (DateTime, Double))
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_gfoidl_DataCompression_DataPoint__System_ValueTuple_System_DateTime_System_Double_
+  commentId: M:gfoidl.DataCompression.DataPoint.op_Implicit(gfoidl.DataCompression.DataPoint)~System.ValueTuple{System.DateTime,System.Double}
+  name.vb: Widening(DataPoint to (DateTime, Double))
+  fullName: gfoidl.DataCompression.DataPoint.Implicit(gfoidl.DataCompression.DataPoint to System.ValueTuple<System.DateTime, System.Double>)
+  fullName.vb: gfoidl.DataCompression.DataPoint.Widening(gfoidl.DataCompression.DataPoint to System.ValueTuple(Of System.DateTime, System.Double))
+  nameWithType: DataPoint.Implicit(DataPoint to (DateTime, Double))
+  nameWithType.vb: DataPoint.Widening(DataPoint to (DateTime, Double))
+- uid: gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.DateTime,System.Double})~gfoidl.DataCompression.DataPoint
+  name: Implicit((DateTime, Double) to DataPoint)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_System_ValueTuple_System_DateTime_System_Double___gfoidl_DataCompression_DataPoint
+  commentId: M:gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.DateTime,System.Double})~gfoidl.DataCompression.DataPoint
+  name.vb: Widening((DateTime, Double) to DataPoint)
+  fullName: gfoidl.DataCompression.DataPoint.Implicit(System.ValueTuple<System.DateTime, System.Double> to gfoidl.DataCompression.DataPoint)
+  fullName.vb: gfoidl.DataCompression.DataPoint.Widening(System.ValueTuple(Of System.DateTime, System.Double) to gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPoint.Implicit((DateTime, Double) to DataPoint)
+  nameWithType.vb: DataPoint.Widening((DateTime, Double) to DataPoint)
+- uid: gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.Double,System.Double})~gfoidl.DataCompression.DataPoint
+  name: Implicit((Double, Double) to DataPoint)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_System_ValueTuple_System_Double_System_Double___gfoidl_DataCompression_DataPoint
+  commentId: M:gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.Double,System.Double})~gfoidl.DataCompression.DataPoint
+  name.vb: Widening((Double, Double) to DataPoint)
+  fullName: gfoidl.DataCompression.DataPoint.Implicit(System.ValueTuple<System.Double, System.Double> to gfoidl.DataCompression.DataPoint)
+  fullName.vb: gfoidl.DataCompression.DataPoint.Widening(System.ValueTuple(Of System.Double, System.Double) to gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPoint.Implicit((Double, Double) to DataPoint)
+  nameWithType.vb: DataPoint.Widening((Double, Double) to DataPoint)
+- uid: gfoidl.DataCompression.DataPoint.op_Implicit*
+  name: Implicit
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: gfoidl.DataCompression.DataPoint.Implicit
+  fullName.vb: gfoidl.DataCompression.DataPoint.Widening
+  nameWithType: DataPoint.Implicit
+  nameWithType.vb: DataPoint.Widening
+- uid: gfoidl.DataCompression.DataPoint.op_Inequality(gfoidl.DataCompression.DataPoint,gfoidl.DataCompression.DataPoint)
+  name: Inequality(DataPoint, DataPoint)
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Inequality_gfoidl_DataCompression_DataPoint_gfoidl_DataCompression_DataPoint_
+  commentId: M:gfoidl.DataCompression.DataPoint.op_Inequality(gfoidl.DataCompression.DataPoint,gfoidl.DataCompression.DataPoint)
+  fullName: gfoidl.DataCompression.DataPoint.Inequality(gfoidl.DataCompression.DataPoint, gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPoint.Inequality(DataPoint, DataPoint)
+- uid: gfoidl.DataCompression.DataPoint.op_Inequality*
+  name: Inequality
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Inequality_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.op_Inequality
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.Inequality
+  nameWithType: DataPoint.Inequality
+- uid: gfoidl.DataCompression.DataPoint.Origin
+  name: Origin
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Origin
+  commentId: P:gfoidl.DataCompression.DataPoint.Origin
+  fullName: gfoidl.DataCompression.DataPoint.Origin
+  nameWithType: DataPoint.Origin
+- uid: gfoidl.DataCompression.DataPoint.Origin*
+  name: Origin
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Origin_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.Origin
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.Origin
+  nameWithType: DataPoint.Origin
+- uid: gfoidl.DataCompression.DataPoint.ToString
+  name: ToString()
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_ToString
+  commentId: M:gfoidl.DataCompression.DataPoint.ToString
+  fullName: gfoidl.DataCompression.DataPoint.ToString()
+  nameWithType: DataPoint.ToString()
+- uid: gfoidl.DataCompression.DataPoint.ToString*
+  name: ToString
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_ToString_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.ToString
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.ToString
+  nameWithType: DataPoint.ToString
+- uid: gfoidl.DataCompression.DataPoint.ToTimeValue
+  name: ToTimeValue()
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_ToTimeValue
+  commentId: M:gfoidl.DataCompression.DataPoint.ToTimeValue
+  fullName: gfoidl.DataCompression.DataPoint.ToTimeValue()
+  nameWithType: DataPoint.ToTimeValue()
+- uid: gfoidl.DataCompression.DataPoint.ToTimeValue*
+  name: ToTimeValue
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_ToTimeValue_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.ToTimeValue
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.ToTimeValue
+  nameWithType: DataPoint.ToTimeValue
+- uid: gfoidl.DataCompression.DataPoint.X
+  name: X
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_X
+  commentId: P:gfoidl.DataCompression.DataPoint.X
+  fullName: gfoidl.DataCompression.DataPoint.X
+  nameWithType: DataPoint.X
+- uid: gfoidl.DataCompression.DataPoint.X*
+  name: X
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_X_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.X
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.X
+  nameWithType: DataPoint.X
+- uid: gfoidl.DataCompression.DataPoint.Y
+  name: Y
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Y
+  commentId: P:gfoidl.DataCompression.DataPoint.Y
+  fullName: gfoidl.DataCompression.DataPoint.Y
+  nameWithType: DataPoint.Y
+- uid: gfoidl.DataCompression.DataPoint.Y*
+  name: Y
+  href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Y_
+  commentId: Overload:gfoidl.DataCompression.DataPoint.Y
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPoint.Y
+  nameWithType: DataPoint.Y
+- uid: gfoidl.DataCompression.DataPointIterator
+  name: DataPointIterator
+  href: api/gfoidl.DataCompression.DataPointIterator.html
+  commentId: T:gfoidl.DataCompression.DataPointIterator
+  fullName: gfoidl.DataCompression.DataPointIterator
+  nameWithType: DataPointIterator
+- uid: gfoidl.DataCompression.DataPointIterator._algorithm
+  name: _algorithm
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__algorithm
+  commentId: F:gfoidl.DataCompression.DataPointIterator._algorithm
+  fullName: gfoidl.DataCompression.DataPointIterator._algorithm
+  nameWithType: DataPointIterator._algorithm
+- uid: gfoidl.DataCompression.DataPointIterator._archive
+  name: _archive
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__archive
+  commentId: F:gfoidl.DataCompression.DataPointIterator._archive
+  fullName: gfoidl.DataCompression.DataPointIterator._archive
+  nameWithType: DataPointIterator._archive
+- uid: gfoidl.DataCompression.DataPointIterator._asyncSource
+  name: _asyncSource
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__asyncSource
+  commentId: F:gfoidl.DataCompression.DataPointIterator._asyncSource
+  fullName: gfoidl.DataCompression.DataPointIterator._asyncSource
+  nameWithType: DataPointIterator._asyncSource
+- uid: gfoidl.DataCompression.DataPointIterator._current
+  name: _current
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__current
+  commentId: F:gfoidl.DataCompression.DataPointIterator._current
+  fullName: gfoidl.DataCompression.DataPointIterator._current
+  nameWithType: DataPointIterator._current
+- uid: gfoidl.DataCompression.DataPointIterator._enumerator
+  name: _enumerator
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__enumerator
+  commentId: F:gfoidl.DataCompression.DataPointIterator._enumerator
+  fullName: gfoidl.DataCompression.DataPointIterator._enumerator
+  nameWithType: DataPointIterator._enumerator
+- uid: gfoidl.DataCompression.DataPointIterator._incoming
+  name: _incoming
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__incoming
+  commentId: F:gfoidl.DataCompression.DataPointIterator._incoming
+  fullName: gfoidl.DataCompression.DataPointIterator._incoming
+  nameWithType: DataPointIterator._incoming
+- uid: gfoidl.DataCompression.DataPointIterator._lastArchived
+  name: _lastArchived
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__lastArchived
+  commentId: F:gfoidl.DataCompression.DataPointIterator._lastArchived
+  fullName: gfoidl.DataCompression.DataPointIterator._lastArchived
+  nameWithType: DataPointIterator._lastArchived
+- uid: gfoidl.DataCompression.DataPointIterator._snapShot
+  name: _snapShot
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__snapShot
+  commentId: F:gfoidl.DataCompression.DataPointIterator._snapShot
+  fullName: gfoidl.DataCompression.DataPointIterator._snapShot
+  nameWithType: DataPointIterator._snapShot
+- uid: gfoidl.DataCompression.DataPointIterator._source
+  name: _source
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__source
+  commentId: F:gfoidl.DataCompression.DataPointIterator._source
+  fullName: gfoidl.DataCompression.DataPointIterator._source
+  nameWithType: DataPointIterator._source
+- uid: gfoidl.DataCompression.DataPointIterator._state
+  name: _state
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__state
+  commentId: F:gfoidl.DataCompression.DataPointIterator._state
+  fullName: gfoidl.DataCompression.DataPointIterator._state
+  nameWithType: DataPointIterator._state
+- uid: gfoidl.DataCompression.DataPointIterator.Clone
+  name: Clone()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Clone
+  commentId: M:gfoidl.DataCompression.DataPointIterator.Clone
+  fullName: gfoidl.DataCompression.DataPointIterator.Clone()
+  nameWithType: DataPointIterator.Clone()
+- uid: gfoidl.DataCompression.DataPointIterator.Clone*
+  name: Clone
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Clone_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.Clone
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.Clone
+  nameWithType: DataPointIterator.Clone
+- uid: gfoidl.DataCompression.DataPointIterator.Current
+  name: Current
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Current
+  commentId: P:gfoidl.DataCompression.DataPointIterator.Current
+  fullName: gfoidl.DataCompression.DataPointIterator.Current
+  nameWithType: DataPointIterator.Current
+- uid: gfoidl.DataCompression.DataPointIterator.Current*
+  name: Current
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Current_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.Current
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.Current
+  nameWithType: DataPointIterator.Current
+- uid: gfoidl.DataCompression.DataPointIterator.CurrentByRef
+  name: CurrentByRef
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_CurrentByRef
+  commentId: P:gfoidl.DataCompression.DataPointIterator.CurrentByRef
+  fullName: gfoidl.DataCompression.DataPointIterator.CurrentByRef
+  nameWithType: DataPointIterator.CurrentByRef
+- uid: gfoidl.DataCompression.DataPointIterator.CurrentByRef*
+  name: CurrentByRef
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_CurrentByRef_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.CurrentByRef
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.CurrentByRef
+  nameWithType: DataPointIterator.CurrentByRef
+- uid: gfoidl.DataCompression.DataPointIterator.Dispose
+  name: Dispose()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Dispose
+  commentId: M:gfoidl.DataCompression.DataPointIterator.Dispose
+  fullName: gfoidl.DataCompression.DataPointIterator.Dispose()
+  nameWithType: DataPointIterator.Dispose()
+- uid: gfoidl.DataCompression.DataPointIterator.Dispose*
+  name: Dispose
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Dispose_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.Dispose
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.Dispose
+  nameWithType: DataPointIterator.Dispose
+- uid: gfoidl.DataCompression.DataPointIterator.DisposeCore
+  name: DisposeCore()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_DisposeCore
+  commentId: M:gfoidl.DataCompression.DataPointIterator.DisposeCore
+  fullName: gfoidl.DataCompression.DataPointIterator.DisposeCore()
+  nameWithType: DataPointIterator.DisposeCore()
+- uid: gfoidl.DataCompression.DataPointIterator.DisposeCore*
+  name: DisposeCore
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_DisposeCore_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.DisposeCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.DisposeCore
+  nameWithType: DataPointIterator.DisposeCore
+- uid: gfoidl.DataCompression.DataPointIterator.DisposedState
+  name: DisposedState
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_DisposedState
+  commentId: F:gfoidl.DataCompression.DataPointIterator.DisposedState
+  fullName: gfoidl.DataCompression.DataPointIterator.DisposedState
+  nameWithType: DataPointIterator.DisposedState
+- uid: gfoidl.DataCompression.DataPointIterator.Empty
+  name: Empty
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Empty
+  commentId: P:gfoidl.DataCompression.DataPointIterator.Empty
+  fullName: gfoidl.DataCompression.DataPointIterator.Empty
+  nameWithType: DataPointIterator.Empty
+- uid: gfoidl.DataCompression.DataPointIterator.Empty*
+  name: Empty
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Empty_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.Empty
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.Empty
+  nameWithType: DataPointIterator.Empty
+- uid: gfoidl.DataCompression.DataPointIterator.GetAsyncEnumerator(System.Threading.CancellationToken)
+  name: GetAsyncEnumerator(CancellationToken)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_GetAsyncEnumerator_System_Threading_CancellationToken_
+  commentId: M:gfoidl.DataCompression.DataPointIterator.GetAsyncEnumerator(System.Threading.CancellationToken)
+  fullName: gfoidl.DataCompression.DataPointIterator.GetAsyncEnumerator(System.Threading.CancellationToken)
+  nameWithType: DataPointIterator.GetAsyncEnumerator(CancellationToken)
+- uid: gfoidl.DataCompression.DataPointIterator.GetAsyncEnumerator*
+  name: GetAsyncEnumerator
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_GetAsyncEnumerator_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.GetAsyncEnumerator
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.GetAsyncEnumerator
+  nameWithType: DataPointIterator.GetAsyncEnumerator
+- uid: gfoidl.DataCompression.DataPointIterator.GetEnumerator
+  name: GetEnumerator()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_GetEnumerator
+  commentId: M:gfoidl.DataCompression.DataPointIterator.GetEnumerator
+  fullName: gfoidl.DataCompression.DataPointIterator.GetEnumerator()
+  nameWithType: DataPointIterator.GetEnumerator()
+- uid: gfoidl.DataCompression.DataPointIterator.GetEnumerator*
+  name: GetEnumerator
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.GetEnumerator
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.GetEnumerator
+  nameWithType: DataPointIterator.GetEnumerator
+- uid: gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
+  name: Init(DataPoint, ref DataPoint)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_gfoidl_DataCompression_DataPoint__gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
+  name.vb: Init(ByRef DataPoint, ByRef DataPoint)
+  fullName: gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint, ref gfoidl.DataCompression.DataPoint)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.Init(ByRef gfoidl.DataCompression.DataPoint, ByRef gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPointIterator.Init(DataPoint, ref DataPoint)
+  nameWithType.vb: DataPointIterator.Init(ByRef DataPoint, ByRef DataPoint)
+- uid: gfoidl.DataCompression.DataPointIterator.Init(System.Int32,gfoidl.DataCompression.DataPoint@,System.Int32@)
+  name: Init(Int32, DataPoint, ref Int32)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_System_Int32_gfoidl_DataCompression_DataPoint__System_Int32__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.Init(System.Int32,gfoidl.DataCompression.DataPoint@,System.Int32@)
+  name.vb: Init(Int32, ByRef DataPoint, ByRef Int32)
+  fullName: gfoidl.DataCompression.DataPointIterator.Init(System.Int32, gfoidl.DataCompression.DataPoint, ref System.Int32)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.Init(System.Int32, ByRef gfoidl.DataCompression.DataPoint, ByRef System.Int32)
+  nameWithType: DataPointIterator.Init(Int32, DataPoint, ref Int32)
+  nameWithType.vb: DataPointIterator.Init(Int32, ByRef DataPoint, ByRef Int32)
+- uid: gfoidl.DataCompression.DataPointIterator.Init*
+  name: Init
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.Init
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.Init
+  nameWithType: DataPointIterator.Init
+- uid: gfoidl.DataCompression.DataPointIterator.InitialState
+  name: InitialState
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_InitialState
+  commentId: F:gfoidl.DataCompression.DataPointIterator.InitialState
+  fullName: gfoidl.DataCompression.DataPointIterator.InitialState
+  nameWithType: DataPointIterator.InitialState
+- uid: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(System.ValueTuple{System.Boolean,System.Boolean}@,System.Double,System.Double)
+  name: IsMaxDeltaX(ref (Boolean Archive, Boolean MaxDelta), Double, Double)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsMaxDeltaX_System_ValueTuple_System_Boolean_System_Boolean___System_Double_System_Double_
+  commentId: M:gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(System.ValueTuple{System.Boolean,System.Boolean}@,System.Double,System.Double)
+  name.vb: IsMaxDeltaX(ByRef (Archive As Boolean, MaxDelta As Boolean), Double, Double)
+  fullName: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(ref System.ValueTuple<System.Boolean, System.Boolean>, System.Double, System.Double)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(ByRef System.ValueTuple(Of System.Boolean, System.Boolean), System.Double, System.Double)
+  nameWithType: DataPointIterator.IsMaxDeltaX(ref (Boolean Archive, Boolean MaxDelta), Double, Double)
+  nameWithType.vb: DataPointIterator.IsMaxDeltaX(ByRef (Archive As Boolean, MaxDelta As Boolean), Double, Double)
+- uid: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX*
+  name: IsMaxDeltaX
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsMaxDeltaX_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX
+  nameWithType: DataPointIterator.IsMaxDeltaX
+- uid: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
+  name: IsPointToArchive(DataPoint, DataPoint)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsPointToArchive_gfoidl_DataCompression_DataPoint__gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.IsPointToArchive(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
+  name.vb: IsPointToArchive(ByRef DataPoint, ByRef DataPoint)
+  fullName: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(gfoidl.DataCompression.DataPoint, gfoidl.DataCompression.DataPoint)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(ByRef gfoidl.DataCompression.DataPoint, ByRef gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPointIterator.IsPointToArchive(DataPoint, DataPoint)
+  nameWithType.vb: DataPointIterator.IsPointToArchive(ByRef DataPoint, ByRef DataPoint)
+- uid: gfoidl.DataCompression.DataPointIterator.IsPointToArchive*
+  name: IsPointToArchive
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsPointToArchive_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.IsPointToArchive
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.IsPointToArchive
+  nameWithType: DataPointIterator.IsPointToArchive
+- uid: gfoidl.DataCompression.DataPointIterator.MoveNext
+  name: MoveNext()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_MoveNext
+  commentId: M:gfoidl.DataCompression.DataPointIterator.MoveNext
+  fullName: gfoidl.DataCompression.DataPointIterator.MoveNext()
+  nameWithType: DataPointIterator.MoveNext()
+- uid: gfoidl.DataCompression.DataPointIterator.MoveNext*
+  name: MoveNext
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_MoveNext_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.MoveNext
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.MoveNext
+  nameWithType: DataPointIterator.MoveNext
+- uid: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression)
+  name: SetData(Compression)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_SetData_gfoidl_DataCompression_Compression_
+  commentId: M:gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression)
+  fullName: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression)
+  nameWithType: DataPointIterator.SetData(Compression)
+- uid: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression,System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: SetData(Compression, IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_SetData_gfoidl_DataCompression_Compression_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression,System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: SetData(Compression, IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression, System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression, System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: DataPointIterator.SetData(Compression, IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: DataPointIterator.SetData(Compression, IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression,System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: SetData(Compression, IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_SetData_gfoidl_DataCompression_Compression_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression,System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: SetData(Compression, IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression, System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.SetData(gfoidl.DataCompression.Compression, System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: DataPointIterator.SetData(Compression, IEnumerable<DataPoint>)
+  nameWithType.vb: DataPointIterator.SetData(Compression, IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.DataPointIterator.SetData*
+  name: SetData
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_SetData_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.SetData
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.SetData
+  nameWithType: DataPointIterator.SetData
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#Generic#IEnumerable{gfoidl#DataCompression#DataPoint}#GetEnumerator
+  name: IEnumerable<DataPoint>.GetEnumerator()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__GetEnumerator
+  commentId: M:gfoidl.DataCompression.DataPointIterator.System#Collections#Generic#IEnumerable{gfoidl#DataCompression#DataPoint}#GetEnumerator
+  name.vb: System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>.GetEnumerator()
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>.GetEnumerator()
+  nameWithType: DataPointIterator.IEnumerable<DataPoint>.GetEnumerator()
+  nameWithType.vb: DataPointIterator.System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>.GetEnumerator()
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#Generic#IEnumerable{gfoidl#DataCompression#DataPoint}#GetEnumerator*
+  name: IEnumerable<DataPoint>.GetEnumerator
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.System#Collections#Generic#IEnumerable{gfoidl#DataCompression#DataPoint}#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>.GetEnumerator
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>.GetEnumerator
+  nameWithType: DataPointIterator.IEnumerable<DataPoint>.GetEnumerator
+  nameWithType.vb: DataPointIterator.System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>.GetEnumerator
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: DataPointIterator.IEnumerable.GetEnumerator()
+  nameWithType.vb: DataPointIterator.System.Collections.IEnumerable.GetEnumerator()
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.IEnumerable.GetEnumerator
+  nameWithType: DataPointIterator.IEnumerable.GetEnumerator
+  nameWithType.vb: DataPointIterator.System.Collections.IEnumerable.GetEnumerator
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Current
+  name: IEnumerator.Current
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_IEnumerator_Current
+  commentId: P:gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Current
+  name.vb: System.Collections.IEnumerator.Current
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.IEnumerator.Current
+  nameWithType: DataPointIterator.IEnumerator.Current
+  nameWithType.vb: DataPointIterator.System.Collections.IEnumerator.Current
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Current*
+  name: IEnumerator.Current
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_IEnumerator_Current_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Current
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerator.Current
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.IEnumerator.Current
+  nameWithType: DataPointIterator.IEnumerator.Current
+  nameWithType.vb: DataPointIterator.System.Collections.IEnumerator.Current
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Reset
+  name: IEnumerator.Reset()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_IEnumerator_Reset
+  commentId: M:gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Reset
+  name.vb: System.Collections.IEnumerator.Reset()
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.IEnumerator.Reset()
+  nameWithType: DataPointIterator.IEnumerator.Reset()
+  nameWithType.vb: DataPointIterator.System.Collections.IEnumerator.Reset()
+- uid: gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Reset*
+  name: IEnumerator.Reset
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_System_Collections_IEnumerator_Reset_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.System#Collections#IEnumerator#Reset
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerator.Reset
+  fullName: gfoidl.DataCompression.DataPointIterator.System.Collections.IEnumerator.Reset
+  nameWithType: DataPointIterator.IEnumerator.Reset
+  nameWithType.vb: DataPointIterator.System.Collections.IEnumerator.Reset
+- uid: gfoidl.DataCompression.DataPointIterator.ToArray
+  name: ToArray()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToArray
+  commentId: M:gfoidl.DataCompression.DataPointIterator.ToArray
+  fullName: gfoidl.DataCompression.DataPointIterator.ToArray()
+  nameWithType: DataPointIterator.ToArray()
+- uid: gfoidl.DataCompression.DataPointIterator.ToArray*
+  name: ToArray
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToArray_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.ToArray
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.ToArray
+  nameWithType: DataPointIterator.ToArray
+- uid: gfoidl.DataCompression.DataPointIterator.ToArrayAsync(System.Threading.CancellationToken)
+  name: ToArrayAsync(CancellationToken)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToArrayAsync_System_Threading_CancellationToken_
+  commentId: M:gfoidl.DataCompression.DataPointIterator.ToArrayAsync(System.Threading.CancellationToken)
+  fullName: gfoidl.DataCompression.DataPointIterator.ToArrayAsync(System.Threading.CancellationToken)
+  nameWithType: DataPointIterator.ToArrayAsync(CancellationToken)
+- uid: gfoidl.DataCompression.DataPointIterator.ToArrayAsync*
+  name: ToArrayAsync
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToArrayAsync_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.ToArrayAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.ToArrayAsync
+  nameWithType: DataPointIterator.ToArrayAsync
+- uid: gfoidl.DataCompression.DataPointIterator.ToList
+  name: ToList()
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToList
+  commentId: M:gfoidl.DataCompression.DataPointIterator.ToList
+  fullName: gfoidl.DataCompression.DataPointIterator.ToList()
+  nameWithType: DataPointIterator.ToList()
+- uid: gfoidl.DataCompression.DataPointIterator.ToList*
+  name: ToList
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToList_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.ToList
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.ToList
+  nameWithType: DataPointIterator.ToList
+- uid: gfoidl.DataCompression.DataPointIterator.ToListAsync(System.Threading.CancellationToken)
+  name: ToListAsync(CancellationToken)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToListAsync_System_Threading_CancellationToken_
+  commentId: M:gfoidl.DataCompression.DataPointIterator.ToListAsync(System.Threading.CancellationToken)
+  fullName: gfoidl.DataCompression.DataPointIterator.ToListAsync(System.Threading.CancellationToken)
+  nameWithType: DataPointIterator.ToListAsync(CancellationToken)
+- uid: gfoidl.DataCompression.DataPointIterator.ToListAsync*
+  name: ToListAsync
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_ToListAsync_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.ToListAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.ToListAsync
+  nameWithType: DataPointIterator.ToListAsync
+- uid: gfoidl.DataCompression.DataPointIterator.UpdateFilters(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
+  name: UpdateFilters(DataPoint, DataPoint)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_UpdateFilters_gfoidl_DataCompression_DataPoint__gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.UpdateFilters(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
+  name.vb: UpdateFilters(ByRef DataPoint, ByRef DataPoint)
+  fullName: gfoidl.DataCompression.DataPointIterator.UpdateFilters(gfoidl.DataCompression.DataPoint, gfoidl.DataCompression.DataPoint)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.UpdateFilters(ByRef gfoidl.DataCompression.DataPoint, ByRef gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPointIterator.UpdateFilters(DataPoint, DataPoint)
+  nameWithType.vb: DataPointIterator.UpdateFilters(ByRef DataPoint, ByRef DataPoint)
+- uid: gfoidl.DataCompression.DataPointIterator.UpdateFilters*
+  name: UpdateFilters
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_UpdateFilters_
+  commentId: Overload:gfoidl.DataCompression.DataPointIterator.UpdateFilters
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointIterator.UpdateFilters
+  nameWithType: DataPointIterator.UpdateFilters
+- uid: gfoidl.DataCompression.DataPointSerializer
+  name: DataPointSerializer
+  href: api/gfoidl.DataCompression.DataPointSerializer.html
+  commentId: T:gfoidl.DataCompression.DataPointSerializer
+  fullName: gfoidl.DataCompression.DataPointSerializer
+  nameWithType: DataPointSerializer
+- uid: gfoidl.DataCompression.DataPointSerializer.Read(System.String,System.Nullable{System.Char},System.Boolean,System.String)
+  name: Read(String, Nullable<Char>, Boolean, String)
+  href: api/gfoidl.DataCompression.DataPointSerializer.html#gfoidl_DataCompression_DataPointSerializer_Read_System_String_System_Nullable_System_Char__System_Boolean_System_String_
+  commentId: M:gfoidl.DataCompression.DataPointSerializer.Read(System.String,System.Nullable{System.Char},System.Boolean,System.String)
+  name.vb: Read(String, Nullable(Of Char), Boolean, String)
+  fullName: gfoidl.DataCompression.DataPointSerializer.Read(System.String, System.Nullable<System.Char>, System.Boolean, System.String)
+  fullName.vb: gfoidl.DataCompression.DataPointSerializer.Read(System.String, System.Nullable(Of System.Char), System.Boolean, System.String)
+  nameWithType: DataPointSerializer.Read(String, Nullable<Char>, Boolean, String)
+  nameWithType.vb: DataPointSerializer.Read(String, Nullable(Of Char), Boolean, String)
+- uid: gfoidl.DataCompression.DataPointSerializer.Read*
+  name: Read
+  href: api/gfoidl.DataCompression.DataPointSerializer.html#gfoidl_DataCompression_DataPointSerializer_Read_
+  commentId: Overload:gfoidl.DataCompression.DataPointSerializer.Read
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointSerializer.Read
+  nameWithType: DataPointSerializer.Read
+- uid: gfoidl.DataCompression.DataPointSerializer.Write(System.String,System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Nullable{System.Char},System.Nullable{System.ValueTuple{System.String,System.String}},System.String)
+  name: Write(String, IEnumerable<DataPoint>, Nullable<Char>, Nullable<(String X, String Y)>, String)
+  href: api/gfoidl.DataCompression.DataPointSerializer.html#gfoidl_DataCompression_DataPointSerializer_Write_System_String_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__System_Nullable_System_Char__System_Nullable_System_ValueTuple_System_String_System_String___System_String_
+  commentId: M:gfoidl.DataCompression.DataPointSerializer.Write(System.String,System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Nullable{System.Char},System.Nullable{System.ValueTuple{System.String,System.String}},System.String)
+  name.vb: Write(String, IEnumerable(Of DataPoint), Nullable(Of Char), Nullable(Of (X As String, Y As String)), String)
+  fullName: gfoidl.DataCompression.DataPointSerializer.Write(System.String, System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>, System.Nullable<System.Char>, System.Nullable<System.ValueTuple<System.String, System.String>>, System.String)
+  fullName.vb: gfoidl.DataCompression.DataPointSerializer.Write(System.String, System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint), System.Nullable(Of System.Char), System.Nullable(Of System.ValueTuple(Of System.String, System.String)), System.String)
+  nameWithType: DataPointSerializer.Write(String, IEnumerable<DataPoint>, Nullable<Char>, Nullable<(String X, String Y)>, String)
+  nameWithType.vb: DataPointSerializer.Write(String, IEnumerable(Of DataPoint), Nullable(Of Char), Nullable(Of (X As String, Y As String)), String)
+- uid: gfoidl.DataCompression.DataPointSerializer.Write*
+  name: Write
+  href: api/gfoidl.DataCompression.DataPointSerializer.html#gfoidl_DataCompression_DataPointSerializer_Write_
+  commentId: Overload:gfoidl.DataCompression.DataPointSerializer.Write
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DataPointSerializer.Write
+  nameWithType: DataPointSerializer.Write
+- uid: gfoidl.DataCompression.DeadBandCompression
+  name: DeadBandCompression
+  href: api/gfoidl.DataCompression.DeadBandCompression.html
+  commentId: T:gfoidl.DataCompression.DeadBandCompression
+  fullName: gfoidl.DataCompression.DeadBandCompression
+  nameWithType: DeadBandCompression
+- uid: gfoidl.DataCompression.DeadBandCompression.#ctor(System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: DeadBandCompression(Double, Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression__ctor_System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.DeadBandCompression.#ctor(System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: DeadBandCompression(Double, Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression(System.Double, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression(System.Double, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: DeadBandCompression.DeadBandCompression(Double, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: DeadBandCompression.DeadBandCompression(Double, Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.DeadBandCompression.#ctor(System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name: DeadBandCompression(Double, TimeSpan, Nullable<TimeSpan>)
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression__ctor_System_Double_System_TimeSpan_System_Nullable_System_TimeSpan__
+  commentId: M:gfoidl.DataCompression.DeadBandCompression.#ctor(System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name.vb: DeadBandCompression(Double, TimeSpan, Nullable(Of TimeSpan))
+  fullName: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression(System.Double, System.TimeSpan, System.Nullable<System.TimeSpan>)
+  fullName.vb: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression(System.Double, System.TimeSpan, System.Nullable(Of System.TimeSpan))
+  nameWithType: DeadBandCompression.DeadBandCompression(Double, TimeSpan, Nullable<TimeSpan>)
+  nameWithType.vb: DeadBandCompression.DeadBandCompression(Double, TimeSpan, Nullable(Of TimeSpan))
+- uid: gfoidl.DataCompression.DeadBandCompression.#ctor*
+  name: DeadBandCompression
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression__ctor_
+  commentId: Overload:gfoidl.DataCompression.DeadBandCompression.#ctor
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression
+  nameWithType: DeadBandCompression.DeadBandCompression
+- uid: gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision
+  name: InstrumentPrecision
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_InstrumentPrecision
+  commentId: P:gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision
+  fullName: gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision
+  nameWithType: DeadBandCompression.InstrumentPrecision
+- uid: gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision*
+  name: InstrumentPrecision
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_InstrumentPrecision_
+  commentId: Overload:gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision
+  nameWithType: DeadBandCompression.InstrumentPrecision
+- uid: gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_ProcessAsyncCore_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: DeadBandCompression.ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: DeadBandCompression.ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore*
+  name: ProcessAsyncCore
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_ProcessAsyncCore_
+  commentId: Overload:gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DeadBandCompression.ProcessAsyncCore
+  nameWithType: DeadBandCompression.ProcessAsyncCore
+- uid: gfoidl.DataCompression.DeadBandCompression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessCore(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_ProcessCore_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DeadBandCompression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessCore(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.DeadBandCompression.ProcessCore(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.DeadBandCompression.ProcessCore(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: DeadBandCompression.ProcessCore(IEnumerable<DataPoint>)
+  nameWithType.vb: DeadBandCompression.ProcessCore(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.DeadBandCompression.ProcessCore*
+  name: ProcessCore
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_ProcessCore_
+  commentId: Overload:gfoidl.DataCompression.DeadBandCompression.ProcessCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DeadBandCompression.ProcessCore
+  nameWithType: DeadBandCompression.ProcessCore
+- uid: gfoidl.DataCompression.ExtensionMethods
+  name: ExtensionMethods
+  href: api/gfoidl.DataCompression.ExtensionMethods.html
+  commentId: T:gfoidl.DataCompression.ExtensionMethods
+  fullName: gfoidl.DataCompression.ExtensionMethods
+  nameWithType: ExtensionMethods
+- uid: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: DeadBandCompression(IEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_DeadBandCompression_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: DeadBandCompression(IEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: ExtensionMethods.DeadBandCompression(IEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: ExtensionMethods.DeadBandCompression(IEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name: DeadBandCompression(IEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_DeadBandCompression_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_TimeSpan_System_Nullable_System_TimeSpan__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name.vb: DeadBandCompression(IEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+  fullName: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.TimeSpan, System.Nullable<System.TimeSpan>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.TimeSpan, System.Nullable(Of System.TimeSpan))
+  nameWithType: ExtensionMethods.DeadBandCompression(IEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  nameWithType.vb: ExtensionMethods.DeadBandCompression(IEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+- uid: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression*
+  name: DeadBandCompression
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_DeadBandCompression_
+  commentId: Overload:gfoidl.DataCompression.ExtensionMethods.DeadBandCompression
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ExtensionMethods.DeadBandCompression
+  nameWithType: ExtensionMethods.DeadBandCompression
+- uid: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: DeadBandCompressionAsync(IAsyncEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_DeadBandCompressionAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: DeadBandCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: ExtensionMethods.DeadBandCompressionAsync(IAsyncEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: ExtensionMethods.DeadBandCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name: DeadBandCompressionAsync(IAsyncEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_DeadBandCompressionAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_TimeSpan_System_Nullable_System_TimeSpan__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name.vb: DeadBandCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+  fullName: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.TimeSpan, System.Nullable<System.TimeSpan>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.TimeSpan, System.Nullable(Of System.TimeSpan))
+  nameWithType: ExtensionMethods.DeadBandCompressionAsync(IAsyncEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  nameWithType.vb: ExtensionMethods.DeadBandCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+- uid: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync*
+  name: DeadBandCompressionAsync
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_DeadBandCompressionAsync_
+  commentId: Overload:gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ExtensionMethods.DeadBandCompressionAsync
+  nameWithType: ExtensionMethods.DeadBandCompressionAsync
+- uid: gfoidl.DataCompression.ExtensionMethods.NoCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: NoCompression(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_NoCompression_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.NoCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: NoCompression(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.ExtensionMethods.NoCompression(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.NoCompression(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: ExtensionMethods.NoCompression(IEnumerable<DataPoint>)
+  nameWithType.vb: ExtensionMethods.NoCompression(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.ExtensionMethods.NoCompression*
+  name: NoCompression
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_NoCompression_
+  commentId: Overload:gfoidl.DataCompression.ExtensionMethods.NoCompression
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ExtensionMethods.NoCompression
+  nameWithType: ExtensionMethods.NoCompression
+- uid: gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: NoCompressionAsync(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_NoCompressionAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: NoCompressionAsync(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: ExtensionMethods.NoCompressionAsync(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: ExtensionMethods.NoCompressionAsync(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync*
+  name: NoCompressionAsync
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_NoCompressionAsync_
+  commentId: Overload:gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ExtensionMethods.NoCompressionAsync
+  nameWithType: ExtensionMethods.NoCompressionAsync
+- uid: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: SwingingDoorCompression(IEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_SwingingDoorCompression_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: SwingingDoorCompression(IEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: ExtensionMethods.SwingingDoorCompression(IEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: ExtensionMethods.SwingingDoorCompression(IEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name: SwingingDoorCompression(IEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_SwingingDoorCompression_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_TimeSpan_System_Nullable_System_TimeSpan__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name.vb: SwingingDoorCompression(IEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+  fullName: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.TimeSpan, System.Nullable<System.TimeSpan>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.TimeSpan, System.Nullable(Of System.TimeSpan))
+  nameWithType: ExtensionMethods.SwingingDoorCompression(IEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  nameWithType.vb: ExtensionMethods.SwingingDoorCompression(IEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+- uid: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression*
+  name: SwingingDoorCompression
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_SwingingDoorCompression_
+  commentId: Overload:gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompression
+  nameWithType: ExtensionMethods.SwingingDoorCompression
+- uid: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: SwingingDoorCompressionAsync(IAsyncEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_SwingingDoorCompressionAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: SwingingDoorCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: ExtensionMethods.SwingingDoorCompressionAsync(IAsyncEnumerable<DataPoint>, Double, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: ExtensionMethods.SwingingDoorCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name: SwingingDoorCompressionAsync(IAsyncEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_SwingingDoorCompressionAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__System_Double_System_TimeSpan_System_Nullable_System_TimeSpan__
+  commentId: M:gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint},System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name.vb: SwingingDoorCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+  fullName: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>, System.Double, System.TimeSpan, System.Nullable<System.TimeSpan>)
+  fullName.vb: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint), System.Double, System.TimeSpan, System.Nullable(Of System.TimeSpan))
+  nameWithType: ExtensionMethods.SwingingDoorCompressionAsync(IAsyncEnumerable<DataPoint>, Double, TimeSpan, Nullable<TimeSpan>)
+  nameWithType.vb: ExtensionMethods.SwingingDoorCompressionAsync(IAsyncEnumerable(Of DataPoint), Double, TimeSpan, Nullable(Of TimeSpan))
+- uid: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync*
+  name: SwingingDoorCompressionAsync
+  href: api/gfoidl.DataCompression.ExtensionMethods.html#gfoidl_DataCompression_ExtensionMethods_SwingingDoorCompressionAsync_
+  commentId: Overload:gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ExtensionMethods.SwingingDoorCompressionAsync
+  nameWithType: ExtensionMethods.SwingingDoorCompressionAsync
+- uid: gfoidl.DataCompression.ICompression
+  name: ICompression
+  href: api/gfoidl.DataCompression.ICompression.html
+  commentId: T:gfoidl.DataCompression.ICompression
+  fullName: gfoidl.DataCompression.ICompression
+  nameWithType: ICompression
+- uid: gfoidl.DataCompression.ICompression.MaxDeltaX
+  name: MaxDeltaX
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_MaxDeltaX
+  commentId: P:gfoidl.DataCompression.ICompression.MaxDeltaX
+  fullName: gfoidl.DataCompression.ICompression.MaxDeltaX
+  nameWithType: ICompression.MaxDeltaX
+- uid: gfoidl.DataCompression.ICompression.MaxDeltaX*
+  name: MaxDeltaX
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_MaxDeltaX_
+  commentId: Overload:gfoidl.DataCompression.ICompression.MaxDeltaX
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ICompression.MaxDeltaX
+  nameWithType: ICompression.MaxDeltaX
+- uid: gfoidl.DataCompression.ICompression.MinDeltaX
+  name: MinDeltaX
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_MinDeltaX
+  commentId: P:gfoidl.DataCompression.ICompression.MinDeltaX
+  fullName: gfoidl.DataCompression.ICompression.MinDeltaX
+  nameWithType: ICompression.MinDeltaX
+- uid: gfoidl.DataCompression.ICompression.MinDeltaX*
+  name: MinDeltaX
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_MinDeltaX_
+  commentId: Overload:gfoidl.DataCompression.ICompression.MinDeltaX
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ICompression.MinDeltaX
+  nameWithType: ICompression.MinDeltaX
+- uid: gfoidl.DataCompression.ICompression.Process(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: Process(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_Process_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.ICompression.Process(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: Process(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.ICompression.Process(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.ICompression.Process(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: ICompression.Process(IEnumerable<DataPoint>)
+  nameWithType.vb: ICompression.Process(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.ICompression.Process*
+  name: Process
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_Process_
+  commentId: Overload:gfoidl.DataCompression.ICompression.Process
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ICompression.Process
+  nameWithType: ICompression.Process
+- uid: gfoidl.DataCompression.ICompression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessAsync(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_ProcessAsync_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.ICompression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessAsync(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.ICompression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.ICompression.ProcessAsync(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: ICompression.ProcessAsync(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: ICompression.ProcessAsync(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.ICompression.ProcessAsync*
+  name: ProcessAsync
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_ProcessAsync_
+  commentId: Overload:gfoidl.DataCompression.ICompression.ProcessAsync
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ICompression.ProcessAsync
+  nameWithType: ICompression.ProcessAsync
+- uid: gfoidl.DataCompression.NoCompression
+  name: NoCompression
+  href: api/gfoidl.DataCompression.NoCompression.html
+  commentId: T:gfoidl.DataCompression.NoCompression
+  fullName: gfoidl.DataCompression.NoCompression
+  nameWithType: NoCompression
+- uid: gfoidl.DataCompression.NoCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ProcessAsyncCore_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.NoCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.NoCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.NoCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: NoCompression.ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: NoCompression.ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.NoCompression.ProcessAsyncCore*
+  name: ProcessAsyncCore
+  href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ProcessAsyncCore_
+  commentId: Overload:gfoidl.DataCompression.NoCompression.ProcessAsyncCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.NoCompression.ProcessAsyncCore
+  nameWithType: NoCompression.ProcessAsyncCore
+- uid: gfoidl.DataCompression.NoCompression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessCore(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ProcessCore_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.NoCompression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessCore(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.NoCompression.ProcessCore(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.NoCompression.ProcessCore(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: NoCompression.ProcessCore(IEnumerable<DataPoint>)
+  nameWithType.vb: NoCompression.ProcessCore(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.NoCompression.ProcessCore*
+  name: ProcessCore
+  href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ProcessCore_
+  commentId: Overload:gfoidl.DataCompression.NoCompression.ProcessCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.NoCompression.ProcessCore
+  nameWithType: NoCompression.ProcessCore
+- uid: gfoidl.DataCompression.SwingingDoorCompression
+  name: SwingingDoorCompression
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html
+  commentId: T:gfoidl.DataCompression.SwingingDoorCompression
+  fullName: gfoidl.DataCompression.SwingingDoorCompression
+  nameWithType: SwingingDoorCompression
+- uid: gfoidl.DataCompression.SwingingDoorCompression.#ctor(System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: SwingingDoorCompression(Double, Nullable<Double>, Nullable<Double>)
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression__ctor_System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:gfoidl.DataCompression.SwingingDoorCompression.#ctor(System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: SwingingDoorCompression(Double, Nullable(Of Double), Nullable(Of Double))
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression(System.Double, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression(System.Double, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: SwingingDoorCompression.SwingingDoorCompression(Double, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: SwingingDoorCompression.SwingingDoorCompression(Double, Nullable(Of Double), Nullable(Of Double))
+- uid: gfoidl.DataCompression.SwingingDoorCompression.#ctor(System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name: SwingingDoorCompression(Double, TimeSpan, Nullable<TimeSpan>)
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression__ctor_System_Double_System_TimeSpan_System_Nullable_System_TimeSpan__
+  commentId: M:gfoidl.DataCompression.SwingingDoorCompression.#ctor(System.Double,System.TimeSpan,System.Nullable{System.TimeSpan})
+  name.vb: SwingingDoorCompression(Double, TimeSpan, Nullable(Of TimeSpan))
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression(System.Double, System.TimeSpan, System.Nullable<System.TimeSpan>)
+  fullName.vb: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression(System.Double, System.TimeSpan, System.Nullable(Of System.TimeSpan))
+  nameWithType: SwingingDoorCompression.SwingingDoorCompression(Double, TimeSpan, Nullable<TimeSpan>)
+  nameWithType.vb: SwingingDoorCompression.SwingingDoorCompression(Double, TimeSpan, Nullable(Of TimeSpan))
+- uid: gfoidl.DataCompression.SwingingDoorCompression.#ctor*
+  name: SwingingDoorCompression
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression__ctor_
+  commentId: Overload:gfoidl.DataCompression.SwingingDoorCompression.#ctor
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression
+  nameWithType: SwingingDoorCompression.SwingingDoorCompression
+- uid: gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation
+  name: CompressionDeviation
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_CompressionDeviation
+  commentId: P:gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation
+  nameWithType: SwingingDoorCompression.CompressionDeviation
+- uid: gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation*
+  name: CompressionDeviation
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_CompressionDeviation_
+  commentId: Overload:gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation
+  nameWithType: SwingingDoorCompression.CompressionDeviation
+- uid: gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_ProcessAsyncCore_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: SwingingDoorCompression.ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
+  nameWithType.vb: SwingingDoorCompression.ProcessAsyncCore(IAsyncEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore*
+  name: ProcessAsyncCore
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_ProcessAsyncCore_
+  commentId: Overload:gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.ProcessAsyncCore
+  nameWithType: SwingingDoorCompression.ProcessAsyncCore
+- uid: gfoidl.DataCompression.SwingingDoorCompression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name: ProcessCore(IEnumerable<DataPoint>)
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_ProcessCore_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.SwingingDoorCompression.ProcessCore(System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint})
+  name.vb: ProcessCore(IEnumerable(Of DataPoint))
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.ProcessCore(System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>)
+  fullName.vb: gfoidl.DataCompression.SwingingDoorCompression.ProcessCore(System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint))
+  nameWithType: SwingingDoorCompression.ProcessCore(IEnumerable<DataPoint>)
+  nameWithType.vb: SwingingDoorCompression.ProcessCore(IEnumerable(Of DataPoint))
+- uid: gfoidl.DataCompression.SwingingDoorCompression.ProcessCore*
+  name: ProcessCore
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_ProcessCore_
+  commentId: Overload:gfoidl.DataCompression.SwingingDoorCompression.ProcessCore
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.ProcessCore
+  nameWithType: SwingingDoorCompression.ProcessCore
+- uid: gfoidl.DataCompression.Wrappers
+  name: gfoidl.DataCompression.Wrappers
+  href: api/gfoidl.DataCompression.Wrappers.html
+  commentId: N:gfoidl.DataCompression.Wrappers
+  fullName: gfoidl.DataCompression.Wrappers
+  nameWithType: gfoidl.DataCompression.Wrappers
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1
+  name: ArrayWrapper<T>
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html
+  commentId: T:gfoidl.DataCompression.Wrappers.ArrayWrapper`1
+  name.vb: ArrayWrapper(Of T)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T)
+  nameWithType: ArrayWrapper<T>
+  nameWithType.vb: ArrayWrapper(Of T)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.#ctor(`0[])
+  name: ArrayWrapper(T[])
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1__ctor__0___
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.#ctor(`0[])
+  name.vb: ArrayWrapper(T())
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.ArrayWrapper(T[])
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).ArrayWrapper(T())
+  nameWithType: ArrayWrapper<T>.ArrayWrapper(T[])
+  nameWithType.vb: ArrayWrapper(Of T).ArrayWrapper(T())
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.#ctor*
+  name: ArrayWrapper
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1__ctor_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.#ctor
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.ArrayWrapper
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).ArrayWrapper
+  nameWithType: ArrayWrapper<T>.ArrayWrapper
+  nameWithType.vb: ArrayWrapper(Of T).ArrayWrapper
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Add(`0)
+  name: Add(T)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Add__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Add(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Add(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Add(T)
+  nameWithType: ArrayWrapper<T>.Add(T)
+  nameWithType.vb: ArrayWrapper(Of T).Add(T)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Add*
+  name: Add
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Add_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Add
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Add
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Add
+  nameWithType: ArrayWrapper<T>.Add
+  nameWithType.vb: ArrayWrapper(Of T).Add
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Clear
+  name: Clear()
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Clear
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Clear
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Clear()
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Clear()
+  nameWithType: ArrayWrapper<T>.Clear()
+  nameWithType.vb: ArrayWrapper(Of T).Clear()
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Clear*
+  name: Clear
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Clear_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Clear
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Clear
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Clear
+  nameWithType: ArrayWrapper<T>.Clear
+  nameWithType.vb: ArrayWrapper(Of T).Clear
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Contains(`0)
+  name: Contains(T)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Contains__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Contains(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Contains(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Contains(T)
+  nameWithType: ArrayWrapper<T>.Contains(T)
+  nameWithType.vb: ArrayWrapper(Of T).Contains(T)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Contains*
+  name: Contains
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Contains_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Contains
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Contains
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Contains
+  nameWithType: ArrayWrapper<T>.Contains
+  nameWithType.vb: ArrayWrapper(Of T).Contains
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.CopyTo(`0[],System.Int32)
+  name: CopyTo(T[], Int32)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_CopyTo__0___System_Int32_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.CopyTo(`0[],System.Int32)
+  name.vb: CopyTo(T(), Int32)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.CopyTo(T[], System.Int32)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).CopyTo(T(), System.Int32)
+  nameWithType: ArrayWrapper<T>.CopyTo(T[], Int32)
+  nameWithType.vb: ArrayWrapper(Of T).CopyTo(T(), Int32)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.CopyTo*
+  name: CopyTo
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_CopyTo_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.CopyTo
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.CopyTo
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).CopyTo
+  nameWithType: ArrayWrapper<T>.CopyTo
+  nameWithType.vb: ArrayWrapper(Of T).CopyTo
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Count
+  name: Count
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Count
+  commentId: P:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Count
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Count
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Count
+  nameWithType: ArrayWrapper<T>.Count
+  nameWithType.vb: ArrayWrapper(Of T).Count
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Count*
+  name: Count
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Count_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Count
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Count
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Count
+  nameWithType: ArrayWrapper<T>.Count
+  nameWithType.vb: ArrayWrapper(Of T).Count
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.GetEnumerator
+  name: GetEnumerator()
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_GetEnumerator
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.GetEnumerator
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.GetEnumerator()
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).GetEnumerator()
+  nameWithType: ArrayWrapper<T>.GetEnumerator()
+  nameWithType.vb: ArrayWrapper(Of T).GetEnumerator()
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.GetEnumerator*
+  name: GetEnumerator
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.GetEnumerator
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.GetEnumerator
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).GetEnumerator
+  nameWithType: ArrayWrapper<T>.GetEnumerator
+  nameWithType.vb: ArrayWrapper(Of T).GetEnumerator
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IndexOf(`0)
+  name: IndexOf(T)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_IndexOf__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IndexOf(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.IndexOf(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).IndexOf(T)
+  nameWithType: ArrayWrapper<T>.IndexOf(T)
+  nameWithType.vb: ArrayWrapper(Of T).IndexOf(T)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IndexOf*
+  name: IndexOf
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_IndexOf_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IndexOf
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.IndexOf
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).IndexOf
+  nameWithType: ArrayWrapper<T>.IndexOf
+  nameWithType.vb: ArrayWrapper(Of T).IndexOf
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Insert(System.Int32,`0)
+  name: Insert(Int32, T)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Insert_System_Int32__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Insert(System.Int32,`0)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Insert(System.Int32, T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Insert(System.Int32, T)
+  nameWithType: ArrayWrapper<T>.Insert(Int32, T)
+  nameWithType.vb: ArrayWrapper(Of T).Insert(Int32, T)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Insert*
+  name: Insert
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Insert_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Insert
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Insert
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Insert
+  nameWithType: ArrayWrapper<T>.Insert
+  nameWithType.vb: ArrayWrapper(Of T).Insert
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IsReadOnly
+  name: IsReadOnly
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_IsReadOnly
+  commentId: P:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IsReadOnly
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.IsReadOnly
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).IsReadOnly
+  nameWithType: ArrayWrapper<T>.IsReadOnly
+  nameWithType.vb: ArrayWrapper(Of T).IsReadOnly
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IsReadOnly*
+  name: IsReadOnly
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_IsReadOnly_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.IsReadOnly
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.IsReadOnly
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).IsReadOnly
+  nameWithType: ArrayWrapper<T>.IsReadOnly
+  nameWithType.vb: ArrayWrapper(Of T).IsReadOnly
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Item(System.Int32)
+  name: Item[Int32]
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Item_System_Int32_
+  commentId: P:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Item(System.Int32)
+  name.vb: Item(Int32)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Item[System.Int32]
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Item(System.Int32)
+  nameWithType: ArrayWrapper<T>.Item[Int32]
+  nameWithType.vb: ArrayWrapper(Of T).Item(Int32)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Item*
+  name: Item
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Item_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Item
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Item
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Item
+  nameWithType: ArrayWrapper<T>.Item
+  nameWithType.vb: ArrayWrapper(Of T).Item
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Remove(`0)
+  name: Remove(T)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Remove__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Remove(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Remove(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Remove(T)
+  nameWithType: ArrayWrapper<T>.Remove(T)
+  nameWithType.vb: ArrayWrapper(Of T).Remove(T)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Remove*
+  name: Remove
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_Remove_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.Remove
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.Remove
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).Remove
+  nameWithType: ArrayWrapper<T>.Remove
+  nameWithType.vb: ArrayWrapper(Of T).Remove
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.RemoveAt(System.Int32)
+  name: RemoveAt(Int32)
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_RemoveAt_System_Int32_
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.RemoveAt(System.Int32)
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.RemoveAt(System.Int32)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).RemoveAt(System.Int32)
+  nameWithType: ArrayWrapper<T>.RemoveAt(Int32)
+  nameWithType.vb: ArrayWrapper(Of T).RemoveAt(Int32)
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.RemoveAt*
+  name: RemoveAt
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_RemoveAt_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.RemoveAt
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.RemoveAt
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).RemoveAt
+  nameWithType: ArrayWrapper<T>.RemoveAt
+  nameWithType.vb: ArrayWrapper(Of T).RemoveAt
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: ArrayWrapper<T>.IEnumerable.GetEnumerator()
+  nameWithType.vb: ArrayWrapper(Of T).System.Collections.IEnumerable.GetEnumerator()
+- uid: gfoidl.DataCompression.Wrappers.ArrayWrapper`1.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html#gfoidl_DataCompression_Wrappers_ArrayWrapper_1_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ArrayWrapper`1.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: gfoidl.DataCompression.Wrappers.ArrayWrapper<T>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: gfoidl.DataCompression.Wrappers.ArrayWrapper(Of T).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: ArrayWrapper<T>.IEnumerable.GetEnumerator
+  nameWithType.vb: ArrayWrapper(Of T).System.Collections.IEnumerable.GetEnumerator
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1
+  name: ListWrapper<T>
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html
+  commentId: T:gfoidl.DataCompression.Wrappers.ListWrapper`1
+  name.vb: ListWrapper(Of T)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T)
+  nameWithType: ListWrapper<T>
+  nameWithType.vb: ListWrapper(Of T)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.#ctor(System.Collections.Generic.List{`0})
+  name: ListWrapper(List<T>)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1__ctor_System_Collections_Generic_List__0__
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.#ctor(System.Collections.Generic.List{`0})
+  name.vb: ListWrapper(List(Of T))
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.ListWrapper(System.Collections.Generic.List<T>)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).ListWrapper(System.Collections.Generic.List(Of T))
+  nameWithType: ListWrapper<T>.ListWrapper(List<T>)
+  nameWithType.vb: ListWrapper(Of T).ListWrapper(List(Of T))
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.#ctor*
+  name: ListWrapper
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1__ctor_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.#ctor
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.ListWrapper
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).ListWrapper
+  nameWithType: ListWrapper<T>.ListWrapper
+  nameWithType.vb: ListWrapper(Of T).ListWrapper
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Add(`0)
+  name: Add(T)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Add__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.Add(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Add(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Add(T)
+  nameWithType: ListWrapper<T>.Add(T)
+  nameWithType.vb: ListWrapper(Of T).Add(T)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Add*
+  name: Add
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Add_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Add
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Add
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Add
+  nameWithType: ListWrapper<T>.Add
+  nameWithType.vb: ListWrapper(Of T).Add
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Clear
+  name: Clear()
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Clear
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.Clear
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Clear()
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Clear()
+  nameWithType: ListWrapper<T>.Clear()
+  nameWithType.vb: ListWrapper(Of T).Clear()
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Clear*
+  name: Clear
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Clear_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Clear
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Clear
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Clear
+  nameWithType: ListWrapper<T>.Clear
+  nameWithType.vb: ListWrapper(Of T).Clear
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Contains(`0)
+  name: Contains(T)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Contains__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.Contains(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Contains(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Contains(T)
+  nameWithType: ListWrapper<T>.Contains(T)
+  nameWithType.vb: ListWrapper(Of T).Contains(T)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Contains*
+  name: Contains
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Contains_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Contains
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Contains
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Contains
+  nameWithType: ListWrapper<T>.Contains
+  nameWithType.vb: ListWrapper(Of T).Contains
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.CopyTo(`0[],System.Int32)
+  name: CopyTo(T[], Int32)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_CopyTo__0___System_Int32_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.CopyTo(`0[],System.Int32)
+  name.vb: CopyTo(T(), Int32)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.CopyTo(T[], System.Int32)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).CopyTo(T(), System.Int32)
+  nameWithType: ListWrapper<T>.CopyTo(T[], Int32)
+  nameWithType.vb: ListWrapper(Of T).CopyTo(T(), Int32)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.CopyTo*
+  name: CopyTo
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_CopyTo_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.CopyTo
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.CopyTo
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).CopyTo
+  nameWithType: ListWrapper<T>.CopyTo
+  nameWithType.vb: ListWrapper(Of T).CopyTo
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Count
+  name: Count
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Count
+  commentId: P:gfoidl.DataCompression.Wrappers.ListWrapper`1.Count
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Count
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Count
+  nameWithType: ListWrapper<T>.Count
+  nameWithType.vb: ListWrapper(Of T).Count
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Count*
+  name: Count
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Count_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Count
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Count
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Count
+  nameWithType: ListWrapper<T>.Count
+  nameWithType.vb: ListWrapper(Of T).Count
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.GetEnumerator
+  name: GetEnumerator()
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_GetEnumerator
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.GetEnumerator
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.GetEnumerator()
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).GetEnumerator()
+  nameWithType: ListWrapper<T>.GetEnumerator()
+  nameWithType.vb: ListWrapper(Of T).GetEnumerator()
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.GetEnumerator*
+  name: GetEnumerator
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.GetEnumerator
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.GetEnumerator
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).GetEnumerator
+  nameWithType: ListWrapper<T>.GetEnumerator
+  nameWithType.vb: ListWrapper(Of T).GetEnumerator
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.IndexOf(`0)
+  name: IndexOf(T)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_IndexOf__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.IndexOf(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.IndexOf(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).IndexOf(T)
+  nameWithType: ListWrapper<T>.IndexOf(T)
+  nameWithType.vb: ListWrapper(Of T).IndexOf(T)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.IndexOf*
+  name: IndexOf
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_IndexOf_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.IndexOf
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.IndexOf
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).IndexOf
+  nameWithType: ListWrapper<T>.IndexOf
+  nameWithType.vb: ListWrapper(Of T).IndexOf
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Insert(System.Int32,`0)
+  name: Insert(Int32, T)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Insert_System_Int32__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.Insert(System.Int32,`0)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Insert(System.Int32, T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Insert(System.Int32, T)
+  nameWithType: ListWrapper<T>.Insert(Int32, T)
+  nameWithType.vb: ListWrapper(Of T).Insert(Int32, T)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Insert*
+  name: Insert
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Insert_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Insert
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Insert
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Insert
+  nameWithType: ListWrapper<T>.Insert
+  nameWithType.vb: ListWrapper(Of T).Insert
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.IsReadOnly
+  name: IsReadOnly
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_IsReadOnly
+  commentId: P:gfoidl.DataCompression.Wrappers.ListWrapper`1.IsReadOnly
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.IsReadOnly
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).IsReadOnly
+  nameWithType: ListWrapper<T>.IsReadOnly
+  nameWithType.vb: ListWrapper(Of T).IsReadOnly
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.IsReadOnly*
+  name: IsReadOnly
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_IsReadOnly_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.IsReadOnly
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.IsReadOnly
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).IsReadOnly
+  nameWithType: ListWrapper<T>.IsReadOnly
+  nameWithType.vb: ListWrapper(Of T).IsReadOnly
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Item(System.Int32)
+  name: Item[Int32]
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Item_System_Int32_
+  commentId: P:gfoidl.DataCompression.Wrappers.ListWrapper`1.Item(System.Int32)
+  name.vb: Item(Int32)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Item[System.Int32]
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Item(System.Int32)
+  nameWithType: ListWrapper<T>.Item[Int32]
+  nameWithType.vb: ListWrapper(Of T).Item(Int32)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Item*
+  name: Item
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Item_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Item
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Item
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Item
+  nameWithType: ListWrapper<T>.Item
+  nameWithType.vb: ListWrapper(Of T).Item
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Remove(`0)
+  name: Remove(T)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Remove__0_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.Remove(`0)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Remove(T)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Remove(T)
+  nameWithType: ListWrapper<T>.Remove(T)
+  nameWithType.vb: ListWrapper(Of T).Remove(T)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.Remove*
+  name: Remove
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_Remove_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.Remove
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.Remove
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).Remove
+  nameWithType: ListWrapper<T>.Remove
+  nameWithType.vb: ListWrapper(Of T).Remove
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.RemoveAt(System.Int32)
+  name: RemoveAt(Int32)
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_RemoveAt_System_Int32_
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.RemoveAt(System.Int32)
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.RemoveAt(System.Int32)
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).RemoveAt(System.Int32)
+  nameWithType: ListWrapper<T>.RemoveAt(Int32)
+  nameWithType.vb: ListWrapper(Of T).RemoveAt(Int32)
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.RemoveAt*
+  name: RemoveAt
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_RemoveAt_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.RemoveAt
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.RemoveAt
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).RemoveAt
+  nameWithType: ListWrapper<T>.RemoveAt
+  nameWithType.vb: ListWrapper(Of T).RemoveAt
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:gfoidl.DataCompression.Wrappers.ListWrapper`1.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: ListWrapper<T>.IEnumerable.GetEnumerator()
+  nameWithType.vb: ListWrapper(Of T).System.Collections.IEnumerable.GetEnumerator()
+- uid: gfoidl.DataCompression.Wrappers.ListWrapper`1.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html#gfoidl_DataCompression_Wrappers_ListWrapper_1_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:gfoidl.DataCompression.Wrappers.ListWrapper`1.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: gfoidl.DataCompression.Wrappers.ListWrapper<T>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: gfoidl.DataCompression.Wrappers.ListWrapper(Of T).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: ListWrapper<T>.IEnumerable.GetEnumerator
+  nameWithType.vb: ListWrapper(Of T).System.Collections.IEnumerable.GetEnumerator

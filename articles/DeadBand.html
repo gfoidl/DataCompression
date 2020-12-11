@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Dead band | gfoidl.DataCompression </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Dead band | gfoidl.DataCompression ">
+    <meta name="generator" content="docfx 2.56.6.0">
+    
+    <link rel="shortcut icon" href="../null">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo_32.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dead-band">Dead band</h1>
+
+<h2 id="purpose">Purpose</h2>
+<p>Filtering noise caused by measure- or device-errors (i.e. instrument precision).</p>
+<h2 id="description">Description</h2>
+<p>Values that lie inbetween the dead band, defined by <em>ExDev</em>, get ommited because they are not meaningful.
+Decisions should not be based on these value. They are just noise, therefore they can be filtered out.</p>
+<p><img src="./images/DeadBand_01.jpg" alt=""></p>
+<p>When a value is outside of the dead band, that value and the previous value are recored in order to maintain the trend.</p>
+<p><img src="./images/DeadBand_02.png" alt=""></p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ExDev</td>
+<td>(absolut) instrument precision</td>
+</tr>
+<tr>
+<td>ExMax</td>
+<td>length of x/time before for sure a value gets recoreded</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="trend">Trend</h3>
+<p><img src="./images/dead-band_trend.png" alt=""></p>
+<h3 id="max-delta">Max Delta</h3>
+<p><img src="./images/dead-band_maxDelta.png" alt=""></p>
+<h3 id="error-and-statistics">Error and Statistics</h3>
+<p><img src="./images/dead-band_error.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th># datapoints</th>
+<th>average</th>
+<th>sigma</th>
+<th>skewness</th>
+<th>kurtosis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>raw</td>
+<td>1000</td>
+<td>19.6584</td>
+<td>0.1960</td>
+<td>-0.0330</td>
+<td>2.3442</td>
+</tr>
+<tr>
+<td>compressed</td>
+<td>490</td>
+<td>19.6623</td>
+<td>0.2007</td>
+<td>-0.1021</td>
+<td>2.4672</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen statistics didn't change significantally, but the count of recorded datapoints was
+reduced -- by filtering noise -- by 51%.</p>
+<h2 id="literature">Literature</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=89hg2mme7S0">OSIsoft: Exception and Compression Full Details</a></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gfoidl/DataCompression/blob/ci-azd/api-doc/articles/DeadBand.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © Foidl Günther 2017-2020
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
