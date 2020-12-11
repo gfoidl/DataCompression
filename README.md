@@ -6,18 +6,18 @@
 
 ## Algorithms
 
-* [Dead band](./doc/DeadBand.md)
-* [Swinging Door](./doc/SwingingDoor.md)
+* [Dead band](./api-doc/articles/DeadBand.md)
+* [Swinging Door](./api-doc/articles/SwingingDoor.md)
 
 ## Demos
 
 See `./demos` for code.
 
-![](./doc/images/demo_01.png)
+![](./api-doc/articles/images/demo_01.png)
 
-![](./doc/images/demo_02.png)
+![](./api-doc/articles/images/demo_02.png)
 
-![](./doc/images/demo_03.png)
+![](./api-doc/articles/images/demo_03.png)
 
 ## Development channel
 

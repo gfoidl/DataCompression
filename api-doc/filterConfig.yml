@@ -1,0 +1,4 @@
+apiRules:
+    - exclude:
+          uidRegex: ^gfoidl\.DataCompression\.Internal$
+          type: Namespace
