@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +46,25 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
+        public void Tow_Iterators_IEnumerable___different_Instances()
+        {
+            var sut   = new DeadBandCompression(0.1);
+            var data  = RawDataForTrend();
+            var dummy = new List<DataPoint>();
+
+            DataPointIterator actual0 = sut.Process(data.Skip(1));
+            DataPointIterator actual1 = sut.Process(data.Take(1));
+
+            foreach (DataPoint dp in actual0)
+                dummy.Add(dp);
+
+            foreach (DataPoint dp in actual1)
+                dummy.Add(dp);
+
+            Assert.AreNotSame(actual0, actual1);
+        }
+        //---------------------------------------------------------------------
+        [Test]
         public void Iterator_Caching_List___same_Instance()
         {
             var sut   = new DeadBandCompression(0.1);
@@ -61,6 +80,25 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
                 dummy.Add(dp);
 
             Assert.AreSame(actual0, actual1);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Two_Iterators_Caching_List___different_Instances()
+        {
+            var sut   = new DeadBandCompression(0.1);
+            var data  = RawDataForTrend();
+            var dummy = new List<DataPoint>();
+
+            DataPointIterator actual0 = sut.Process(data.Skip(1).ToList());
+            DataPointIterator actual1 = sut.Process(data.Take(1).ToList());
+
+            foreach (DataPoint dp in actual0)
+                dummy.Add(dp);
+
+            foreach (DataPoint dp in actual1)
+                dummy.Add(dp);
+
+            Assert.AreNotSame(actual0, actual1);
         }
         //---------------------------------------------------------------------
         [Test]
@@ -82,6 +120,25 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
+        public void Tow_Iterators_Caching_IList___different_Instances()
+        {
+            var sut   = new DeadBandCompression(0.1);
+            var data  = RawDataForTrend();
+            var dummy = new List<DataPoint>();
+
+            DataPointIterator actual0 = sut.Process(data.Skip(1).ToList().AsReadOnly());
+            DataPointIterator actual1 = sut.Process(data.Take(1).ToList().AsReadOnly());
+
+            foreach (DataPoint dp in actual0)
+                dummy.Add(dp);
+
+            foreach (DataPoint dp in actual1)
+                dummy.Add(dp);
+
+            Assert.AreNotSame(actual0, actual1);
+        }
+        //---------------------------------------------------------------------
+        [Test]
         public void Iterator_Caching_Array___same_Instance()
         {
             var sut   = new DeadBandCompression(0.1);
@@ -97,6 +154,25 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
                 dummy.Add(dp);
 
             Assert.AreSame(actual0, actual1);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Tow_Iterators_Caching_Array___different_Instances()
+        {
+            var sut   = new DeadBandCompression(0.1);
+            var data  = RawDataForTrend();
+            var dummy = new List<DataPoint>();
+
+            DataPointIterator actual0 = sut.Process(data.Skip(1).ToArray());
+            DataPointIterator actual1 = sut.Process(data.Take(1).ToArray());
+
+            foreach (DataPoint dp in actual0)
+                dummy.Add(dp);
+
+            foreach (DataPoint dp in actual1)
+                dummy.Add(dp);
+
+            Assert.AreNotSame(actual0, actual1);
         }
     }
 }
