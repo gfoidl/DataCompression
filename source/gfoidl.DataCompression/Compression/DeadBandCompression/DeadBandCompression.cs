@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace gfoidl.DataCompression
         /// <remarks>
         /// Cf. ExDev in documentation.
         /// </remarks>
-        public double InstrumentPrecision { get; }
+        public double InstrumentPrecision { get; set; }
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of dead band compression.
