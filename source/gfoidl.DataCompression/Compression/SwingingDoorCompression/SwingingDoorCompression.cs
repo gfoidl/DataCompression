@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace gfoidl.DataCompression
         /// <remarks>
         /// Cf. CompDev in documentation.
         /// </remarks>
-        public double CompressionDeviation { get; }
+        public double CompressionDeviation { get; set; }
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of swinging door compression.
