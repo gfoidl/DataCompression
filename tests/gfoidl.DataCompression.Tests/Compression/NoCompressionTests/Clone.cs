@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Linq;
 using NUnit.Framework;
@@ -23,6 +23,12 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             Assert.Multiple(() =>
             {
                 int step = 0;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
                 Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
                 Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
                 step++;

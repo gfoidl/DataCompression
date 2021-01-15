@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -205,18 +205,18 @@ namespace gfoidl.DataCompression
                     continue;
                 }
 
-                if (!archive.MaxDelta && (uint)snapShotIndex < (uint)source.Count)
+                if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex && (uint)snapShotIndex < (uint)source.Count)
                 {
                     DataPoint snapShot = source[snapShotIndex];
+                    _lastArchived      = snapShot;
                     builder.Add(snapShot);
-                    _lastArchived = snapShot;
                 }
 
                 incomingIndex = this.HandleSkipMinDeltaX(source, incomingIndex, snapShotIndex);
 
                 incoming      = source[incomingIndex];
-                builder.Add(incoming);
                 _lastArchived = incoming;
+                builder.Add(incoming);
                 this.Init(incomingIndex, incoming, ref snapShotIndex);
 
                 incomingIndex++;

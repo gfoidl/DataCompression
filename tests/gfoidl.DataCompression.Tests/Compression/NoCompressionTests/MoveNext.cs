@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -65,6 +65,12 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
                 Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
                 Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
                 step++;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
                 Assert.IsFalse(iterator.MoveNext(), $"MoveNext step: {step++}");
             });
         }
@@ -80,6 +86,12 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             Assert.Multiple(() =>
             {
                 int step = 0;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
                 Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
                 Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
                 step++;

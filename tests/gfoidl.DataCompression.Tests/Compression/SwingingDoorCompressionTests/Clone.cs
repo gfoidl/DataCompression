@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Linq;
 using NUnit.Framework;
@@ -12,7 +12,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         {
             var sut      = new SwingingDoorCompression(1);
             var data     = KnownSequence().ToArray().Select(dp => dp);
-            var expected = KnownSequence().ToArray();
+            var expected = KnownSequenceExpected().ToArray();
             var filter   = sut.Process(data);
 
             var iterator = filter.GetEnumerator();
@@ -23,6 +23,9 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             Assert.Multiple(() =>
             {
                 int step = 0;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
                 Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
                 Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
                 step++;
