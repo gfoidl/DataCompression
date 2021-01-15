@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -60,7 +60,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         public void Empty_Array___empty_result()
         {
             var sut      = new DeadBandCompression(0.1);
-            var data     = new DataPoint[0];
+            var data     = Array.Empty<DataPoint>();
             var iterator = sut.Process(data).GetEnumerator();
 
             Assert.IsFalse(iterator.MoveNext());
@@ -72,11 +72,17 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var sut      = new DeadBandCompression(0.1);
             var data     = KnownSequence();
             var iterator = sut.Process(data).GetEnumerator();
-            var expected = KnownSequence().ToArray();
+            var expected = KnownSequenceExpected(swingingDoor: false).ToArray();
 
             Assert.Multiple(() =>
             {
                 int step = 0;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
                 Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
                 Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
                 step++;
@@ -96,11 +102,17 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var sut      = new DeadBandCompression(0.1);
             var data     = KnownSequence().ToArray();
             var iterator = sut.Process(data).GetEnumerator();
-            var expected = KnownSequence().ToArray();
+            var expected = KnownSequenceExpected(swingingDoor: false).ToArray();
 
             Assert.Multiple(() =>
             {
                 int step = 0;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
+                Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
+                Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
+                step++;
                 Assert.IsTrue(iterator.MoveNext(), $"MoveNext step: {step}");
                 Assert.AreEqual(expected[step], iterator.Current, $"Equal step: {step}");
                 step++;
@@ -120,7 +132,7 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             var sut      = new DeadBandCompression(0.1);
             var data     = KnownSequence();
             var result   = sut.Process(data);
-            var expected = KnownSequence().ToList();
+            var expected = KnownSequenceExpected(swingingDoor: false).ToArray();
             var actual   = new List<DataPoint>();
 
             foreach (DataPoint dp in result)
@@ -133,6 +145,88 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
         public void Known_sequence_as_array_foreach___correct_result()
         {
             var sut      = new DeadBandCompression(0.1);
+            var data     = KnownSequence().ToArray();
+            var result   = sut.Process(data);
+            var expected = KnownSequenceExpected(swingingDoor: false).ToArray();
+            var actual   = new List<DataPoint>();
+
+            foreach (DataPoint dp in result)
+                actual.Add(dp);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Known_sequence_ToArray___correct_result()
+        {
+            var sut      = new DeadBandCompression(0.1);
+            var data     = KnownSequence();
+            var result   = sut.Process(data);
+            var expected = KnownSequenceExpected(swingingDoor: false).ToArray();
+
+            var actual = result.ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Known_sequence_with_constant_part_foreach____correct_result()
+        {
+            var sut      = new DeadBandCompression(0.1);
+            var data     = KnownSequenceWithConstantPart();
+            var result   = sut.Process(data);
+            var expected = KnownSequenceWithConstantPartExpected(swingingDoor: false).ToArray();
+            var actual   = new List<DataPoint>();
+
+            foreach (DataPoint dp in result)
+                actual.Add(dp);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void Known_sequence_with_constant_part_ToArray____correct_result()
+        {
+            var sut      = new DeadBandCompression(0.1);
+            var data     = KnownSequenceWithConstantPart();
+            var result   = sut.Process(data);
+            var expected = KnownSequenceWithConstantPartExpected(swingingDoor: false).ToArray();
+
+            var actual = result.ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void InstrumentPrecision_0___input_echoed()
+        {
+            var sut      = new DeadBandCompression(0);
+            var data     = KnownSequence();
+            var result   = sut.Process(data);
+            var expected = KnownSequence().ToArray();
+
+            var actual = result.ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void InstrumentPrecision_0_as_array___input_echoed()
+        {
+            var sut      = new DeadBandCompression(0);
+            var data     = KnownSequence().ToArray();
+            var result   = sut.Process(data);
+            var expected = KnownSequence().ToArray();
+
+            var actual = result.ToArray();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public void InstrumentPrecision_0_as_array_foreach___input_echoed()
+        {
+            var sut      = new DeadBandCompression(0);
             var data     = KnownSequence().ToArray();
             var result   = sut.Process(data);
             var expected = KnownSequence().ToArray();

@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,6 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
     public class ProcessAsyncCore : Base
     {
-        private static readonly DataPointSerializer s_ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
         [Test]
         public async Task Data_given_as_IAsyncEnumerable___OK()
         {

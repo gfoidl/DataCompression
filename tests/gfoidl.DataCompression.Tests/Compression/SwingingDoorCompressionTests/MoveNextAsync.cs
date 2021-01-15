@@ -1,7 +1,7 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -35,15 +35,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         }
         //---------------------------------------------------------------------
         [Test]
-        public async Task Known_sequence___correct_result()
+        public void Known_sequence___correct_result()
         {
             var sut      = new SwingingDoorCompression(1);
             var data     = KnownSequenceAsync();
             var iterator = sut.ProcessAsync(data).GetAsyncEnumerator();
-            var expected = new List<DataPoint>();
-
-            await foreach (DataPoint dp in KnownSequenceAsync())
-                expected.Add(dp);
+            var expected = KnownSequenceExpected().ToArray();
 
             Assert.Multiple(async () =>
             {
@@ -53,6 +50,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
                 Assert.AreEqual(expected[1], iterator.Current);
                 await iterator.MoveNextAsync();
                 Assert.AreEqual(expected[2], iterator.Current);
+                await iterator.MoveNextAsync();
+                Assert.AreEqual(expected[3], iterator.Current);
             });
         }
         //---------------------------------------------------------------------
@@ -62,11 +61,23 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             var sut      = new SwingingDoorCompression(1);
             var data     = KnownSequenceAsync();
             var result   = sut.ProcessAsync(data);
-            var expected = new List<DataPoint>();
+            var expected = KnownSequenceExpected().ToArray();
             var actual   = new List<DataPoint>();
 
-            await foreach (DataPoint dp in KnownSequenceAsync())
-                expected.Add(dp);
+            await foreach (DataPoint dp in result)
+                actual.Add(dp);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        //---------------------------------------------------------------------
+        [Test]
+        public async Task CompressionDeviation_0___input_echoed()
+        {
+            var sut      = new SwingingDoorCompression(0);
+            var data     = KnownSequenceAsync();
+            var result   = sut.ProcessAsync(data);
+            var expected = KnownSequence().ToArray();
+            var actual   = new List<DataPoint>();
 
             await foreach (DataPoint dp in result)
                 actual.Add(dp);
