@@ -1,6 +1,7 @@
 // (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
+using NUnit.Framework;
 
 #if NETCOREAPP
 using System.Runtime.CompilerServices;
@@ -16,8 +17,17 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         //---------------------------------------------------------------------
         protected static int RawMinDeltaXCounter { get; private set; }
         //---------------------------------------------------------------------
+        protected static IEnumerable<TestCaseData> IEnumerableTestCases()
+        {
+            // https://docs.nunit.org/articles/nunit/running-tests/Template-Based-Test-Naming.html
+            yield return new TestCaseData(1.0, RawDataForTrend() , ExpectedForTrend()) .SetName("{m} trend");
+            yield return new TestCaseData(0.1, RawDataForTrend1(), ExpectedForTrend1()).SetName("{m} trend1");
+        }
+        //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("../../../../../data/swinging-door/trend_raw.csv");
         protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("../../../../../data/swinging-door/trend_compressed.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend1()    => s_ser.Read("../../../../../data/swinging-door/trend1_raw.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend1()   => s_ser.Read("../../../../../data/swinging-door/trend1_compressed.csv");
         protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("../../../../../data/swinging-door/maxDelta_raw.csv");
         protected static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("../../../../../data/swinging-door/maxDelta_compressed.csv");
         //---------------------------------------------------------------------
@@ -46,9 +56,26 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         }
         //---------------------------------------------------------------------
 #if NETCOREAPP
+        protected static IEnumerable<TestCaseData> IAsyncEnumerableTestCases()
+        {
+            // https://docs.nunit.org/articles/nunit/running-tests/Template-Based-Test-Naming.html
+            yield return new TestCaseData(1.0, RawDataForTrendAsync() , ExpectedForTrend()) .SetName("{m} trend");
+            yield return new TestCaseData(0.1, RawDataForTrend1Async(), ExpectedForTrend1()).SetName("{m} trend1");
+        }
+        //---------------------------------------------------------------------
         protected static async IAsyncEnumerable<DataPoint> RawDataForTrendAsync([EnumeratorCancellation] CancellationToken ct = default)
         {
             foreach (DataPoint dp in RawDataForTrend())
+            {
+                ct.ThrowIfCancellationRequested();
+                await Task.Yield();
+                yield return dp;
+            }
+        }
+        //---------------------------------------------------------------------
+        protected static async IAsyncEnumerable<DataPoint> RawDataForTrend1Async([EnumeratorCancellation] CancellationToken ct = default)
+        {
+            foreach (DataPoint dp in RawDataForTrend1())
             {
                 ct.ThrowIfCancellationRequested();
                 await Task.Yield();

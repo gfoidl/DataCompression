@@ -11,12 +11,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
     public class ProcessAsyncCore : Base
     {
-        [Test]
-        public async Task Data_given_as_IAsyncEnumerable___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IAsyncEnumerableTestCases))]
+        public async Task Data_given_as_IAsyncEnumerable___OK(double compressionDeviation, IAsyncEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             var actual = new List<DataPoint>();
             await foreach (DataPoint dp in sut.ProcessAsync(data))

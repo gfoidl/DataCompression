@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -23,12 +23,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             Assert.AreEqual(0, (await actual.ToListAsync()).Count);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public async Task Data_given_as_IAsyncEnumerable___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IAsyncEnumerableTestCases))]
+        public async Task Data_given_as_IAsyncEnumerable___OK(double compressionDeviation, IAsyncEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();
 
@@ -47,12 +47,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public async Task IEnumerable_iterated_and_ToArray___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IAsyncEnumerableTestCases))]
+        public async Task IEnumerable_iterated_and_ToArray___OK(double compressionDeviation, IAsyncEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             DataPointIterator dataPointIterator = sut.ProcessAsync(data);
             var enumerator                      = dataPointIterator.GetAsyncEnumerator();

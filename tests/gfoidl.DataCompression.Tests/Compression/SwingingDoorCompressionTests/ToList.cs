@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Linq;
@@ -8,36 +8,36 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
     public class ToList : Base
     {
-        [Test]
-        public void Data_given_as_IEnumerable___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IEnumerableTestCases))]
+        public void Data_given_as_IEnumerable___OK(double compressionDeviation, IEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             var actual = sut.Process(data).ToList();
 
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Data_given_as_List___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IEnumerableTestCases))]
+        public void Data_given_as_List___OK(double compressionDeviation, IEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend().ToList();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData     .ToList();
+            var expected = expectedData.ToList();
 
             var actual = sut.Process(data).ToList();
 
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Data_given_as_IList___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IEnumerableTestCases))]
+        public void Data_given_as_IList___OK(double compressionDeviation, IEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend().ToList().AsReadOnly();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData     .ToList().AsReadOnly();
+            var expected = expectedData.ToList();
 
             var actual = sut.Process(data).ToList();
 
@@ -188,12 +188,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void IEnumerable_iterated_and_ToArray___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IEnumerableTestCases))]
+        public void IEnumerable_iterated_and_ToArray___OK(double compressionDeviation, IEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             DataPointIterator dataPointIterator = sut.Process(data);
 
@@ -205,12 +205,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void List_iterated_and_ToArray___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IEnumerableTestCases))]
+        public void List_iterated_and_ToArray___OK(double compressionDeviation, IEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrend().ToList();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData     .ToList();
+            var expected = expectedData.ToList();
 
             DataPointIterator dataPointIterator = sut.Process(data);
 
