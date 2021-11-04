@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="gfoidl.DataCompression.Compression" Collapsed="true">
+    <Position X="5.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAAAEAYAAAAgAAAAAAAAAEAAAAAAAAAAEAEAA=</HashCode>
+      <FileName>Compression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="gfoidl.DataCompression.DeadBandCompression" Collapsed="true">
+    <Position X="3.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAACAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAEEAA=</HashCode>
+      <FileName>Compression\DeadBandCompression\DeadBandCompression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gfoidl.DataCompression.NoCompression" Collapsed="true">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Compression\NoCompression\NoCompression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gfoidl.DataCompression.SwingingDoorCompression" Collapsed="true">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAEAAAEEAA=</HashCode>
+      <FileName>Compression\SwingingDoorCompression\SwingingDoorCompression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9.16" />
+</ClassDiagram>

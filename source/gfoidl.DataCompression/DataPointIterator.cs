@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections;
@@ -17,25 +17,18 @@ namespace gfoidl.DataCompression
     /// </remarks>
     public abstract partial class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
     {
-        /// <summary>
-        /// The state when the iterator is disposed.
-        /// </summary>
-        protected const int DisposedState = -3;
+        private protected const int InitialState   = -2;
+        private protected const int DisposedState  = -3;
+        private protected const int MaxDeltaXState =  3;
         //---------------------------------------------------------------------
-        /// <summary>
-        /// The initial state of the iterator.
-        /// </summary>
-        protected const int InitialState = -2;
-        //---------------------------------------------------------------------
-#pragma warning disable CS1591
-        protected Compression?                  _algorithm;
-        protected int                           _state = InitialState;
-        protected DataPoint                     _current;
-        protected DataPoint                     _snapShot;
-        protected DataPoint                     _lastArchived;
-        protected DataPoint                     _incoming;
-        protected (bool Archive, bool MaxDelta) _archive;
-#pragma warning restore CS1591
+        private protected Compression?                  _algorithm;
+        private protected int                           _state = InitialState;
+        private protected (bool Archive, bool MaxDelta) _archive;
+
+        private protected DataPoint _lastArchived;
+        private protected DataPoint _snapShot;
+        private protected DataPoint _incoming;
+
         private int _threadId;
         //---------------------------------------------------------------------
         /// <summary>
@@ -53,12 +46,12 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Gets the current item.
         /// </summary>
-        public DataPoint Current => _current;
+        public DataPoint Current => _lastArchived;
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets the current item by reference.
         /// </summary>
-        public ref DataPoint CurrentByRef => ref _current;
+        public ref DataPoint CurrentByRef => ref _lastArchived;
         //---------------------------------------------------------------------
         private static EmptyDataPointIterator? s_emptyIterator;
         /// <summary>
@@ -150,27 +143,24 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="archive">Archive state.</param>
         /// <param name="incomingX">The x-value of the incoming (i.e. latest) <see cref="DataPoint" />.</param>
-        /// <param name="lastArchivedX">The x-value of the last archived <see cref="DataPoint" />.</param>
         /// <returns>
         /// <c>true</c> if <see cref="Compression.MaxDeltaX" /> is the reason for archiving,
         /// <c>false</c> otherwise.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double incomingX, double lastArchivedX)
+        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double lastArchivedX, double incomingX)
         {
             Debug.Assert(_algorithm is not null);
 
-            if ((incomingX - lastArchivedX) >= _algorithm._maxDeltaX)
+            if (_algorithm.MaxDeltaX.HasValue && (incomingX - lastArchivedX) >= _algorithm.MaxDeltaX.GetValueOrDefault())
             {
                 archive.Archive  = true;
                 archive.MaxDelta = true;
                 return true;
             }
-            else
-            {
-                archive.MaxDelta = false;
-                return false;
-            }
+
+            archive.MaxDelta = false;
+            return false;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -195,7 +185,6 @@ namespace gfoidl.DataCompression
             _threadId = -1;
             _state    = DisposedState;
 
-            _current      = default;
             _snapShot     = default;
             _lastArchived = default;
             _incoming     = default;

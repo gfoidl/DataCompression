@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -10,11 +10,8 @@ namespace gfoidl.DataCompression
     /// </summary>
     public abstract class Compression : ICompression
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        protected internal readonly double _maxDeltaX;
-        protected internal readonly bool   _minDeltaXHasValue;
-        protected internal readonly double _minDeltaX;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        private protected readonly double? _maxDeltaX;
+        private protected readonly double? _minDeltaX;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of <see cref="Compression" />.
@@ -28,13 +25,8 @@ namespace gfoidl.DataCompression
         /// </param>
         protected Compression(double? maxDeltaX = null, double? minDeltaX = null)
         {
-            _maxDeltaX = maxDeltaX ?? double.MaxValue;
-
-            if (minDeltaX.HasValue)
-            {
-                _minDeltaXHasValue = true;
-                _minDeltaX         = minDeltaX.Value;
-            }
+            _maxDeltaX = maxDeltaX;
+            _minDeltaX = minDeltaX;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -49,12 +41,12 @@ namespace gfoidl.DataCompression
         /// guaranteed to be recorded.
         /// </para>
         /// </remarks>
-        public double? MaxDeltaX => _maxDeltaX == double.MaxValue ? (double?)null : _maxDeltaX;
+        public double? MaxDeltaX => _maxDeltaX;
         //---------------------------------------------------------------------
         /// <summary>
         /// Length of x/time within no value gets recorded (after the last archived value)
         /// </summary>
-        public double? MinDeltaX => _minDeltaXHasValue ? _minDeltaX : (double?)null;
+        public double? MinDeltaX => _minDeltaX;
         //---------------------------------------------------------------------
         /// <summary>
         /// Performs the compression / filtering of the input data.

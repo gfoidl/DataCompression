@@ -39,7 +39,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Data_IAsyncEnumerable_with_maxDeltaX___OK()
         {
             var sut      = new SwingingDoorCompression(1d, 6d);
-            var data     = RawDataForMaxDeltaAsync();
+            var data     = RawDataAsync(RawDataForMaxDelta());
             var expected = ExpectedForMaxDelta().ToList();
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();
@@ -68,7 +68,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Cancellation___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
+            var data     = RawDataAsync(RawDataForTrend());
             var expected = ExpectedForTrend().Take(2).ToList();
 
             DataPointIterator dataPointIterator = sut.ProcessAsync(data);

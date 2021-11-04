@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Diagnostics;
@@ -30,7 +30,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-            if (!this.IsMaxDeltaX(ref archive, incoming.X, lastArchived.X))
+            if (!this.IsMaxDeltaX(ref archive, lastArchived.X, incoming.X))
             {
                 archive.Archive = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
             }

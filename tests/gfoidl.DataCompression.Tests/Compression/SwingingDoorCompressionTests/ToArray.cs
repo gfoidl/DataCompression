@@ -43,6 +43,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -55,6 +57,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -67,6 +71,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -79,6 +85,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -91,6 +99,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -103,6 +113,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -115,6 +127,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -122,11 +136,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void Data_List_with_maxDeltaX___OK()
         {
             var sut      = new SwingingDoorCompression(1d, 6d);
-            var data     = RawDataForMaxDelta().ToList();
+            var data     = RawDataForMaxDelta() .ToList();
             var expected = ExpectedForMaxDelta().ToList();
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -134,11 +150,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void Data_IList_with_maxDeltaX___OK()
         {
             var sut      = new SwingingDoorCompression(1d, 6d);
-            var data     = RawDataForMaxDelta().ToList().AsReadOnly();
+            var data     = RawDataForMaxDelta() .ToList().AsReadOnly();
             var expected = ExpectedForMaxDelta().ToList();
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -151,6 +169,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -163,6 +183,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -175,11 +197,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
-        public void Two_DataPoint_IEnumerable___OK()
+        public void Two_DataPoints_IEnumerable___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(2);
@@ -187,11 +211,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
-        public void Two_DataPoint_List___OK()
+        public void Two_DataPoints_List___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(2).ToList();
@@ -199,11 +225,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
         [Test]
-        public void Two_DataPoint_IList___OK()
+        public void Two_DataPoints_IList___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
             var data     = RawDataForMaxDelta().Take(2).ToList().AsReadOnly();
@@ -211,6 +239,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -223,6 +253,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -230,11 +262,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void MinDeltaX_List___OK()
         {
             var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
-            var data     = RawMinDeltaX().ToList();
+            var data     = RawMinDeltaX()     .ToList();
             var expected = ExpectedMinDeltaX().ToList();
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -242,11 +276,13 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void MinDeltaX_IList___OK()
         {
             var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
-            var data     = RawMinDeltaX().ToList().AsReadOnly();
+            var data     = RawMinDeltaX()     .ToList().AsReadOnly();
             var expected = ExpectedMinDeltaX().ToList();
 
             var actual = sut.Process(data).ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -264,6 +300,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             enumerator.MoveNext();
             var actual = dataPointIterator.ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -281,6 +319,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             enumerator.MoveNext();
             var actual = dataPointIterator.ToArray();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
     }

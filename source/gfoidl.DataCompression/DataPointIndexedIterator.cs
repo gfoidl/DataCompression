@@ -41,13 +41,13 @@ namespace gfoidl.DataCompression
         public override bool MoveNext()
         {
             Debug.Assert(_list is not null);
+            Debug.Assert(_list.Count > 0, "Case _list.Count == 0 should be handled by EmptyDataPointIterator");
 
             switch (_state)
             {
                 case 0:
-                    _incomingIndex = 0;
-                    _incoming      = _list[0];
-                    _current       = _incoming;
+                    _incoming     = _list[0];
+                    _lastArchived = _incoming;
 
                     if (_list.Count < 2)
                     {
@@ -56,8 +56,10 @@ namespace gfoidl.DataCompression
                     }
 
                     this.Init(0, _incoming, ref _snapShotIndex);
-                    _state         = 1;
-                    _incomingIndex = 1;
+                    _lastArchivedIndex     = 0;
+                    _snapShotIndex         = 0;
+                    _state                 = 1;
+                    _incomingIndex         = 1;
                     return true;
                 case 1:
                     TList source           = _list;
@@ -70,7 +72,6 @@ namespace gfoidl.DataCompression
                         // Actually a while loop, but so the range check can be eliminated
                         // https://github.com/dotnet/coreclr/issues/15476
                         if ((uint)incomingIndex     >= (uint)source.Count
-                         || (uint)snapShotIndex     >= (uint)source.Count
                          || (uint)lastArchivedIndex >= (uint)source.Count)
                         {
                             break;
@@ -87,34 +88,44 @@ namespace gfoidl.DataCompression
                             continue;
                         }
 
-                        if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex)
+                        if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex && (uint)snapShotIndex < (uint)source.Count)
                         {
-                            _current       = source[snapShotIndex];
-                            _state         = 2;
-                            _snapShotIndex = snapShotIndex;
-                            _incomingIndex = incomingIndex;
+                            _lastArchived      = source[snapShotIndex];
+                            _lastArchivedIndex = snapShotIndex;
+                            _snapShotIndex     = incomingIndex;
+                            _incomingIndex     = incomingIndex;
+                            _state             = 2;
                             return true;
                         }
 
+                        Debug.Assert(archive.Archive && archive.MaxDelta);
                         _snapShotIndex = snapShotIndex;
                         _incomingIndex = incomingIndex;
-                        goto case 2;
+                        goto case MaxDeltaXState;
                     }
 
                     _state = -1;
                     incomingIndex--;
                     if (incomingIndex != _lastArchivedIndex)    // sentinel check
                     {
-                        _current = source[incomingIndex];
+                        _lastArchived = source[incomingIndex];
                         return true;
                     }
-                    return false;
+                    goto default;
                 case 2:
                     incomingIndex  = _incomingIndex;
-                    incomingIndex  = this.HandleSkipMinDeltaX(_list, incomingIndex, _snapShotIndex);
-                    _current       = _list[incomingIndex];
-                    _state         = 1;
-                    this.Init(incomingIndex, _current, ref _snapShotIndex);
+                    this.Init(incomingIndex, _incoming, ref _snapShotIndex);
+                    this.UpdateFilters(_incoming, _lastArchived);
+                    _incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
+                    goto case 1;
+                case MaxDeltaXState:
+                    incomingIndex      = _incomingIndex;
+                    _lastArchived      = _list[incomingIndex];
+                    _lastArchivedIndex = incomingIndex;
+                    _snapShotIndex     = incomingIndex;
+                    _state             = 1;
+                    this.Init(incomingIndex, _incoming, ref _snapShotIndex);
+                    incomingIndex  = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
                     _incomingIndex = incomingIndex + 1;
                     return true;
                 case InitialState:
@@ -168,34 +179,38 @@ namespace gfoidl.DataCompression
         {
             Debug.Assert(_wrapperIterator is not null);
 
+            // TODO: clean arguments once all tests pass
             _wrapperIterator.Init(incomingIndex, incoming, ref snapShotIndex);
-            _lastArchivedIndex = incomingIndex;
         }
         //---------------------------------------------------------------------
         private void BuildCollection<TBuilder>(TList source, ref TBuilder builder)
             where TBuilder : ICollectionBuilder<DataPoint>
         {
-            int incomingIndex = 0;
-            int snapShotIndex = 0;
+            int incomingIndex     = 0;
+            int snapShotIndex     = 0;
+            int lastArchivedIndex = 0;
 
             if ((uint)incomingIndex >= (uint)source.Count) return;
 
-            DataPoint incoming = source[incomingIndex];
+            DataPoint incoming = source[0];
             _lastArchived      = incoming;
+            incomingIndex      = 1;
             builder.Add(incoming);
             this.Init(0, incoming, ref snapShotIndex);
-
-            incomingIndex = 1;
 
             // Is actually a for loop, but the JIT doesn't elide the bound check
             // due to SkipMinDeltaX. I.e. w/o SkipMinDeltaX the bound check gets
             // eliminated.
             while (true)
             {
-                if ((uint)incomingIndex >= (uint)source.Count)
+                if ((uint)incomingIndex     >= (uint)source.Count
+                 || (uint)lastArchivedIndex >= (uint)source.Count)
+                {
                     break;
+                }
 
                 incoming        = source[incomingIndex];
+                _lastArchived   = source[lastArchivedIndex];
                 ref var archive = ref this.IsPointToArchive(incoming, _lastArchived);
 
                 if (!archive.Archive)
@@ -205,50 +220,62 @@ namespace gfoidl.DataCompression
                     continue;
                 }
 
-                if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex && (uint)snapShotIndex < (uint)source.Count)
+                if (!archive.MaxDelta && lastArchivedIndex != snapShotIndex && (uint)snapShotIndex < (uint)source.Count)
                 {
                     DataPoint snapShot = source[snapShotIndex];
                     _lastArchived      = snapShot;
+                    lastArchivedIndex  = snapShotIndex;
+                    snapShotIndex      = incomingIndex;
                     builder.Add(snapShot);
+
+                    this.Init(incomingIndex, incoming, ref snapShotIndex);
+                    this.UpdateFilters(incoming, _lastArchived);
+                    incomingIndex++;
+                    incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, snapShotIndex);
+                    continue;
                 }
 
-                incomingIndex = this.HandleSkipMinDeltaX(source, incomingIndex, snapShotIndex);
+                Debug.Assert(archive.Archive && archive.MaxDelta);
 
-                incoming      = source[incomingIndex];
-                _lastArchived = incoming;
+                _lastArchived     = incoming;
+                lastArchivedIndex = incomingIndex;
+                snapShotIndex     = incomingIndex;
                 builder.Add(incoming);
                 this.Init(incomingIndex, incoming, ref snapShotIndex);
-
+                incomingIndex     = this.HandleSkipMinDeltaX(incomingIndex, snapShotIndex);
                 incomingIndex++;
             }
 
             incomingIndex--;
-            if (incomingIndex != _lastArchivedIndex && (uint)incomingIndex < (uint)source.Count)
+            if (incomingIndex != lastArchivedIndex && (uint)incomingIndex < (uint)source.Count)
             {
                 builder.Add(source[incomingIndex]);
             }
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int HandleSkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
+        private int HandleSkipMinDeltaX(int incomingIndex, int snapShotIndex)
         {
             Debug.Assert(_algorithm is not null);
 
-            return _algorithm._minDeltaXHasValue
-                ? this.SkipMinDeltaX(source, incomingIndex, snapShotIndex)
+            return _algorithm.MinDeltaX.HasValue
+                ? this.SkipMinDeltaX(incomingIndex, snapShotIndex)
                 : incomingIndex;
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private int SkipMinDeltaX(TList source, int incomingIndex, int snapShotIndex)
+        private int SkipMinDeltaX(int incomingIndex, int snapShotIndex)
         {
+            Debug.Assert(_list      is not null);
             Debug.Assert(_algorithm is not null);
             Debug.Assert(_algorithm.MinDeltaX.HasValue);
+
+            TList source = _list;
 
             if ((uint)snapShotIndex < (uint)source.Count)
             {
                 double snapShotX = source[snapShotIndex].X;
-                double minDeltaX = _algorithm._minDeltaX;
+                double minDeltaX = _algorithm.MinDeltaX.GetValueOrDefault();
 
                 // A for loop won't elide the bound checks, although incomingIndex < source.Count
                 // Sometimes the JIT shows huge room for improvement ;-)
@@ -257,11 +284,11 @@ namespace gfoidl.DataCompression
                     if ((uint)incomingIndex >= (uint)source.Count)
                         break;
 
-                    DataPoint incoming = source[incomingIndex];
+                    DataPoint tmp = source[incomingIndex];
 
-                    if ((incoming.X - snapShotX) > minDeltaX)
+                    if ((tmp.X - snapShotX) >= minDeltaX)
                     {
-                        _incoming = incoming;
+                        incomingIndex++;
                         break;
                     }
 

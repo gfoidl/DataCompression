@@ -18,7 +18,7 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-            if (!this.IsMaxDeltaX(ref archive, incoming.X, lastArchived.X))
+            if (!this.IsMaxDeltaX(ref archive, lastArchived.X, incoming.X))
             {
                 // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
                 // Obviously, the result should be the same ;-)
@@ -65,13 +65,13 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void OpenNewDoor(in DataPoint incoming)
+        protected void OpenNewDoor(in DataPoint incoming, ref DataPoint snapShot)
         {
-            _lastArchived = incoming;
-            _slope        = s_newDoor;
+            //snapShot = incoming;  // don't update here for min deltaX cases
+            _slope   = s_newDoor;
         }
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor(incoming);
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor(incoming, ref snapShot);
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
         protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)       => this.CloseTheDoor(incoming, lastArchived);
         //---------------------------------------------------------------------

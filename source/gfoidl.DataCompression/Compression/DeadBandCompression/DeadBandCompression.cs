@@ -14,7 +14,7 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// See documentation for further information.
     /// </remarks>
-    public class DeadBandCompression : Compression
+    public sealed class DeadBandCompression : Compression
     {
 #if NETSTANDARD2_1
         internal AsyncEnumerableIterator?      _cachedAsyncEnumerableIterator;

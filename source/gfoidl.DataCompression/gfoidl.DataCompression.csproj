@@ -8,7 +8,7 @@
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-        <NoWarn>$(NoWarn);CS8602;CS8604</NoWarn>
+        <NoWarn>$(NoWarn);CS8600;CS8602;CS8604</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Label="Package">

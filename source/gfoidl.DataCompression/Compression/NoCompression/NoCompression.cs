@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using gfoidl.DataCompression.Internal.NoCompression;
@@ -8,7 +8,7 @@ namespace gfoidl.DataCompression
     /// <summary>
     /// A filter that performs no compression
     /// </summary>
-    public class NoCompression : Compression
+    public sealed class NoCompression : Compression
     {
         internal static readonly NoCompression s_instance = new NoCompression();
         //---------------------------------------------------------------------

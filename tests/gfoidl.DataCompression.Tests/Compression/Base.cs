@@ -12,6 +12,21 @@ namespace gfoidl.DataCompression.Tests.Compression
     [TestFixture]
     public abstract class Base
     {
+        protected static void Print(IEnumerable<DataPoint> dataPoints, string header = null)
+        {
+            TestContext.WriteLine();
+
+            if (header != null)
+            {
+                TestContext.WriteLine(header);
+            }
+
+            foreach (DataPoint dp in dataPoints)
+            {
+                TestContext.WriteLine(dp);
+            }
+        }
+        //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> Empty()
         {
             yield break;
@@ -77,12 +92,16 @@ namespace gfoidl.DataCompression.Tests.Compression
         {
             await Task.Yield();
             yield return (0, 1);
+
             await Task.Yield();
             yield return (1, 2);
+
             await Task.Yield();
             yield return (2, 2);
+
             await Task.Yield();
             yield return (3, -1);
+
             await Task.Yield();
             yield return (4, 3);
         }

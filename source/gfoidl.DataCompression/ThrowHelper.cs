@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Diagnostics;
@@ -41,14 +41,14 @@ namespace gfoidl.DataCompression
             return tmp!;
         }
         //---------------------------------------------------------------------
-        public enum ExceptionArgument
+        public enum ExceptionArgument : byte
         {
             algorithm,
             data,
             iterator
         }
         //---------------------------------------------------------------------
-        public enum ExceptionResource
+        public enum ExceptionResource : byte
         {
             GetEnumerator_must_be_called_first,
             Gradient_A_eq_B,

@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
     internal sealed class IndexedIterator<TList> : SwingingDoorCompressionIterator
         where TList : IList<DataPoint>
     {
-        private readonly DataPointIndexedIterator<TList> _inner = new DataPointIndexedIterator<TList>();
+        private readonly DataPointIndexedIterator<TList> _inner = new();
         private TList? _list;
         //---------------------------------------------------------------------
         public void SetData(SwingingDoorCompression swingingDoorCompression, TList source)
@@ -45,9 +45,8 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void OpenNewDoor(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
         {
-            snapShotIndex = incomingIndex;
-
-            this.OpenNewDoor(incoming);
+            //snapShotIndex = incomingIndex;    // don't update here for min deltaX cases
+            this.OpenNewDoor(incoming, ref _snapShot);
         }
         //---------------------------------------------------------------------
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => this.OpenNewDoor(incomingIndex, incoming, ref snapShotIndex);

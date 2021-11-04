@@ -22,6 +22,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             await foreach (DataPoint dp in sut.ProcessAsync(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -29,7 +31,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public void Cancellation_after_two_items___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
+            var data     = RawDataAsync(RawDataForTrend());
             var expected = ExpectedForTrend().Take(2).ToList();
             var cts      = new CancellationTokenSource();
 
@@ -54,13 +56,15 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Data_IAsyncEnumerable_with_maxDeltaX___OK()
         {
             var sut      = new SwingingDoorCompression(1d, 6d);
-            var data     = RawDataForMaxDeltaAsync();
+            var data     = RawDataAsync(RawDataForMaxDelta());
             var expected = ExpectedForMaxDelta().ToList();
 
             var actual = new List<DataPoint>();
             await foreach (DataPoint dp in sut.ProcessAsync(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -68,13 +72,15 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Data_IAsyncEnumerable_with_minDeltaX___OK()
         {
             var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
-            var data     = RawMinDeltaXAsync();
+            var data     = RawDataAsync(RawMinDeltaX());
             var expected = ExpectedMinDeltaX().ToList();
 
             var actual = new List<DataPoint>();
             await foreach (DataPoint dp in sut.ProcessAsync(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -84,7 +90,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             int currentRawMinDeltaXCount = RawMinDeltaXCounter;
 
             var sut      = new SwingingDoorCompression(1d, minDeltaX: 1d);
-            var data     = RawMinDeltaXAsync();
+            var data     = RawDataAsync(RawMinDeltaX());
             var expected = ExpectedMinDeltaX().ToList();
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();

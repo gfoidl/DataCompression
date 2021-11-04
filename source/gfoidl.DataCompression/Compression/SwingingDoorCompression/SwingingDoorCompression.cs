@@ -14,7 +14,7 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// See documentation for further information.
     /// </remarks>
-    public class SwingingDoorCompression : Compression
+    public sealed class SwingingDoorCompression : Compression
     {
 #if NETSTANDARD2_1
         internal AsyncEnumerableIterator?      _cachedAsyncEnumerableIterator;

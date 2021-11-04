@@ -9,9 +9,10 @@ namespace gfoidl.DataCompression
     /// <summary>
     /// A (x,y) point.
     /// </summary>
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public readonly struct DataPoint : IEquatable<DataPoint>
     {
-        private static readonly DataPoint s_origin = new DataPoint();
+        private static readonly DataPoint s_origin = new();
         //---------------------------------------------------------------------
         /// <summary>
         /// x value
@@ -176,7 +177,7 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="obj">The object to compare with this one.</param>
         /// <returns><c>true</c> if equal, <c>false</c> otherwise</returns>
-        public override bool Equals(object? obj) => obj is DataPoint other && this.Equals(other);
+        public override bool Equals(object? obj) => obj is DataPoint && this.Equals((DataPoint)obj);
         //---------------------------------------------------------------------
         /// <summary>
         /// Tests for equality between the given <see cref="DataPoint" />s.
@@ -226,9 +227,11 @@ namespace gfoidl.DataCompression
         public override string ToString() => $"({this.X}, {this.Y})";
         //---------------------------------------------------------------------
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static implicit operator DataPoint((double, double) tuple)   => new DataPoint(tuple);
-        public static implicit operator DataPoint((DateTime, double) tuple) => new DataPoint(tuple.Item1, tuple.Item2);
+        public static implicit operator DataPoint((double, double) tuple)   => new(tuple);
+        public static implicit operator DataPoint((DateTime, double) tuple) => new(tuple.Item1, tuple.Item2);
         public static implicit operator (DateTime, double) (DataPoint dp)   => dp.ToTimeValue();
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        //---------------------------------------------------------------------
+        private string GetDebuggerDisplay() => this.ToString();
     }
 }

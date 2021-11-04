@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace gfoidl.DataCompression.Internal.NoCompression
 
             if (_enumerator.MoveNext())
             {
-                _current = _enumerator.Current;
+                _lastArchived = _enumerator.Current;
                 return true;
             }
 
