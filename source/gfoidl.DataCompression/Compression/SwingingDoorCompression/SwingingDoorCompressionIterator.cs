@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Runtime.CompilerServices;
 using System;
@@ -36,7 +36,7 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
 
             double delta_x = incoming.X - lastArchived.X;
 
-            if (delta_x != 0)
+            if (delta_x > 0)
             {
                 double delta_y      = incoming.Y - lastArchived.Y;
                 double delta_yUpper = delta_y + _swingingDoorCompression.CompressionDeviation;
