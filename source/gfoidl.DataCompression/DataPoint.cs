@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Diagnostics;
@@ -110,7 +110,7 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         // Uncommon code-path
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private double GradientEquality(in DataPoint b, bool return0OnEquality)
+        internal double GradientEquality(in DataPoint b, bool return0OnEquality)
         {
             if (return0OnEquality)
             {

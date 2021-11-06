@@ -34,11 +34,34 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         {
             Debug.Assert(_swingingDoorCompression is not null);
 
-            double upperSlope = lastArchived.Gradient(incoming,  _swingingDoorCompression.CompressionDeviation);
-            double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
+            double delta_x = incoming.X - lastArchived.X;
 
-            if (upperSlope < _slope.Max) _slope.Max = upperSlope;
-            if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
+            if (delta_x != 0)
+            {
+                double delta_y      = incoming.Y - lastArchived.Y;
+                double delta_yUpper = delta_y + _swingingDoorCompression.CompressionDeviation;
+                double delta_yLower = delta_y - _swingingDoorCompression.CompressionDeviation;
+
+                double upperSlope = delta_yUpper / delta_x;
+                double lowerSlope = delta_yLower / delta_x;
+
+                if (upperSlope < _slope.Max) _slope.Max = upperSlope;
+                if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
+            }
+            else
+            {
+                GradientEquality(incoming, lastArchived);
+            }
+
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            void GradientEquality(in DataPoint incoming, in DataPoint lastArchived)
+            {
+                double upperSlope = lastArchived.GradientEquality(incoming, return0OnEquality: true);
+                double lowerSlope = lastArchived.GradientEquality(incoming, return0OnEquality: true);
+
+                if (upperSlope < _slope.Max) _slope.Max = upperSlope;
+                if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
+            }
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

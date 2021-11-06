@@ -33,6 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="gfoidl.DataCompression.Benchmarks" />
         <InternalsVisibleTo Include="gfoidl.DataCompression.Tests" />
     </ItemGroup>
 
