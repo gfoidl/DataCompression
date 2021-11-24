@@ -15,7 +15,7 @@ that is only allowed to close and not to open. Green area in the figure below.
 
 ![](./images/swinging-door_01.png)
 
-When an incoming value (6) lies outside the allowed aread, so the last snapshot and the new value get stored.
+When an incoming value (6) lies outside the allowed area, so the last snapshot (5) get stored, and beginning at this snapshot (5) a new _swinging door_ to the incoming (6) value gets opened.  
 Therefore maintaining the trend in the data.
 
 ## Parameters
