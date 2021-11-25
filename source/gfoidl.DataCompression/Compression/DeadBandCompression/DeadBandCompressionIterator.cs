@@ -39,15 +39,15 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
+        protected void UpdatePoints(in DataPoint snapShot)
         {
-            _lastArchived = incoming;
-            snapShot      = incoming;
-
-            if (!_archive.MaxDelta) this.GetBounding(snapShot);
+            if (!_archive.MaxDelta)
+            {
+                this.GetBounding(snapShot);
+            }
         }
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(incoming, ref snapShot);
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(snapShot);
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
 
         // Override even if empty body, but this type is sealed so the virtual dispatch could be

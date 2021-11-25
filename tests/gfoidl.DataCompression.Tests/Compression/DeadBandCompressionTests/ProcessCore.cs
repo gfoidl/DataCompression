@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,8 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             foreach (DataPoint dp in sut.Process(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -134,40 +136,44 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Two_DataPoint_IEnumerable___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.TwoDataPointsTestCases))]
+        public void Two_DataPoint_IEnumerable___OK(IEnumerable<DataPoint> rawData, List<DataPoint> expectedData)
         {
             var sut      = new DeadBandCompression(0.1);
-            var data     = KnownSequence().Take(2);
-            var expected = KnownSequence().Take(2).ToList();
+            var data     = rawData;
+            var expected = expectedData;
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Two_DataPoint_List___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.TwoDataPointsTestCases))]
+        public void Two_DataPoint_List___OK(IEnumerable<DataPoint> rawData, List<DataPoint> expectedData)
         {
             var sut      = new DeadBandCompression(0.1);
-            var data     = KnownSequence().Take(2).ToList();
-            var expected = KnownSequence().Take(2).ToList();
+            var data     = rawData.ToList();
+            var expected = expectedData;
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Two_DataPoint_IList___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.TwoDataPointsTestCases))]
+        public void Two_DataPoints_IList___OK(IEnumerable<DataPoint> rawData, List<DataPoint> expectedData)
         {
             var sut      = new DeadBandCompression(0.1);
-            var data     = KnownSequence().Take(2).ToList().AsReadOnly();
-            var expected = KnownSequence().Take(2).ToList();
+            var data     = rawData.ToList().AsReadOnly();
+            var expected = expectedData;
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))

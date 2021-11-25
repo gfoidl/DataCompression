@@ -13,8 +13,6 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
     public abstract class Base : Compression.Base
     {
-        private static readonly DataPointSerializer s_ser = new();
-        //---------------------------------------------------------------------
         protected static int RawMinDeltaXCounter { get; private set; }
         //---------------------------------------------------------------------
         protected static IEnumerable<TestCaseData> IEnumerableTestCases()

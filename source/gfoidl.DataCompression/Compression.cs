@@ -29,33 +29,16 @@ namespace gfoidl.DataCompression
             _minDeltaX = minDeltaX;
         }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Length of x before for sure a value gets recorded.
-        /// </summary>
-        /// <remarks>
-        /// Cf. ExMax in documentation.<br />
-        /// When specified as <see cref="DateTime" /> the <see cref="DateTime.Ticks" />
-        /// are used.
-        /// <para>
-        /// When value is <c>null</c>, no value -- except the first and last -- are
-        /// guaranteed to be recorded.
-        /// </para>
-        /// </remarks>
+        /// <inheritdoc />
+        public abstract bool ArchiveIncoming { get; }
+        //---------------------------------------------------------------------
+        /// <inheritdoc />
         public double? MaxDeltaX => _maxDeltaX;
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Length of x/time within no value gets recorded (after the last archived value)
-        /// </summary>
+        /// <inheritdoc />
         public double? MinDeltaX => _minDeltaX;
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Performs the compression / filtering of the input data.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <paramref name="data" /> is <c>null</c>.
-        /// </exception>
+        /// <inheritdoc />
         public DataPointIterator Process(IEnumerable<DataPoint> data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
@@ -64,11 +47,7 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        /// <summary>
-        /// Performs the compression / filtering of the input data.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
+        /// <inheritdoc />
         public DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint> data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);

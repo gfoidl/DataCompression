@@ -94,14 +94,13 @@ namespace gfoidl.DataCompression
                             _lastArchivedIndex = snapShotIndex;
                             _snapShotIndex     = incomingIndex;
                             _incomingIndex     = incomingIndex;
-                            _state             = 2;
+                            _state             = _archiveIncoming ? 2 : 3;   // TODO: optimize by storing state and the bool flag
                             return true;
                         }
 
-                        Debug.Assert(archive.Archive && archive.MaxDelta);
                         _snapShotIndex = snapShotIndex;
                         _incomingIndex = incomingIndex;
-                        goto case MaxDeltaXState;
+                        goto case ArchivePointState;
                     }
 
                     _state = -1;
@@ -113,12 +112,18 @@ namespace gfoidl.DataCompression
                     }
                     goto default;
                 case 2:
+                    incomingIndex      = _incomingIndex;
+                    _lastArchived      = _list[incomingIndex];
+                    _lastArchivedIndex = incomingIndex;
+                    _state             = 3;
+                    return true;
+                case 3:
                     incomingIndex  = _incomingIndex;
                     this.Init(incomingIndex, _incoming, ref _snapShotIndex);
                     this.UpdateFilters(_incoming, _lastArchived);
                     _incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
                     goto case 1;
-                case MaxDeltaXState:
+                case ArchivePointState:
                     incomingIndex      = _incomingIndex;
                     _lastArchived      = _list[incomingIndex];
                     _lastArchivedIndex = incomingIndex;
@@ -228,14 +233,19 @@ namespace gfoidl.DataCompression
                     snapShotIndex      = incomingIndex;
                     builder.Add(snapShot);
 
+                    if (_archiveIncoming)
+                    {
+                        builder.Add(incoming);
+                        _lastArchived     = incoming;
+                        lastArchivedIndex = incomingIndex;
+                    }
+
                     this.Init(incomingIndex, incoming, ref snapShotIndex);
                     this.UpdateFilters(incoming, _lastArchived);
                     incomingIndex++;
                     incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, snapShotIndex);
                     continue;
                 }
-
-                Debug.Assert(archive.Archive && archive.MaxDelta);
 
                 _lastArchived     = incoming;
                 lastArchivedIndex = incomingIndex;
@@ -258,7 +268,7 @@ namespace gfoidl.DataCompression
         {
             Debug.Assert(_algorithm is not null);
 
-            return _algorithm.MinDeltaX.HasValue
+            return _minDeltaX.HasValue
                 ? this.SkipMinDeltaX(incomingIndex, snapShotIndex)
                 : incomingIndex;
         }
@@ -266,16 +276,15 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.NoInlining)]
         private int SkipMinDeltaX(int incomingIndex, int snapShotIndex)
         {
-            Debug.Assert(_list      is not null);
-            Debug.Assert(_algorithm is not null);
-            Debug.Assert(_algorithm.MinDeltaX.HasValue);
+            Debug.Assert(_list is not null);
+            Debug.Assert(_minDeltaX.HasValue);
 
             TList source = _list;
 
             if ((uint)snapShotIndex < (uint)source.Count)
             {
                 double snapShotX = source[snapShotIndex].X;
-                double minDeltaX = _algorithm.MinDeltaX.GetValueOrDefault();
+                double minDeltaX = _minDeltaX.GetValueOrDefault();
 
                 // A for loop won't elide the bound checks, although incomingIndex < source.Count
                 // Sometimes the JIT shows huge room for improvement ;-)

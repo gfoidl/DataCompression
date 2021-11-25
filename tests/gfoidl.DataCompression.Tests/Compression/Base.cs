@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Linq;
 
 #if NETCOREAPP
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace gfoidl.DataCompression.Tests.Compression
     [TestFixture]
     public abstract class Base
     {
+        protected static readonly DataPointSerializer s_ser = new();
+        //-------------------------------------------------------------------------
         protected static void Print(IEnumerable<DataPoint> dataPoints, string header = null)
         {
             TestContext.WriteLine();
@@ -27,6 +30,15 @@ namespace gfoidl.DataCompression.Tests.Compression
             }
         }
         //---------------------------------------------------------------------
+        protected static IEnumerable<TestCaseData> TwoDataPointsTestCases()
+        {
+            // https://docs.nunit.org/articles/nunit/running-tests/Template-Based-Test-Naming.html
+            yield return new TestCaseData(KnownSequence()  .Take(2), KnownSequence()  .Take(2).ToList()).SetName("{m} known sequence");
+            yield return new TestCaseData(RawDataForTrend().Take(2), RawDataForTrend().Take(2).ToList()).SetName("{m} raw data for trend");
+
+            static IEnumerable<DataPoint> RawDataForTrend() => s_ser.Read("data/dead-band/trend_raw.csv");
+        }
+        //-------------------------------------------------------------------------
         protected static IEnumerable<DataPoint> Empty()
         {
             yield break;

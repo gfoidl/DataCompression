@@ -17,9 +17,10 @@ namespace gfoidl.DataCompression
     /// </remarks>
     public abstract partial class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
     {
-        private protected const int InitialState   = -2;
-        private protected const int DisposedState  = -3;
-        private protected const int MaxDeltaXState =  3;
+        private protected const int InitialState      = -2;
+        private protected const int DisposedState     = -3;
+        private protected const int EndOfDataState    = -1;
+        private protected const int ArchivePointState = -4;
         //---------------------------------------------------------------------
         private protected Compression?                  _algorithm;
         private protected int                           _state = InitialState;
@@ -30,6 +31,11 @@ namespace gfoidl.DataCompression
         private protected DataPoint _incoming;
 
         private int _threadId;
+
+        // Cached here as fields to avoid repeated virtual dispatch for the properties.
+        private protected double? _maxDeltaX;
+        private protected double? _minDeltaX;
+        private protected bool    _archiveIncoming;
         //---------------------------------------------------------------------
         /// <summary>
         /// Sets the algorithm for this <see cref="DataPointIterator" />.
@@ -38,9 +44,12 @@ namespace gfoidl.DataCompression
         {
             if (algorithm is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.algorithm);
 
-            _state     = InitialState;
-            _threadId  = Environment.CurrentManagedThreadId;
-            _algorithm = algorithm;
+            _state           = InitialState;
+            _threadId        = Environment.CurrentManagedThreadId;
+            _algorithm       = algorithm;
+            _maxDeltaX       = algorithm.MaxDeltaX;
+            _minDeltaX       = algorithm.MinDeltaX;
+            _archiveIncoming = algorithm.ArchiveIncoming;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -150,9 +159,7 @@ namespace gfoidl.DataCompression
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double lastArchivedX, double incomingX)
         {
-            Debug.Assert(_algorithm is not null);
-
-            if (_algorithm.MaxDeltaX.HasValue && (incomingX - lastArchivedX) >= _algorithm.MaxDeltaX.GetValueOrDefault())
+            if (_maxDeltaX.HasValue && (incomingX - lastArchivedX) >= _maxDeltaX.GetValueOrDefault())
             {
                 archive.Archive  = true;
                 archive.MaxDelta = true;

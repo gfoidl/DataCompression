@@ -59,6 +59,9 @@ namespace gfoidl.DataCompression
             : this(instrumentPrecision, maxTime.Ticks, minTime?.Ticks)
         { }
         //---------------------------------------------------------------------
+        /// <inheritdoc/>
+        public override bool ArchiveIncoming => true;
+        //---------------------------------------------------------------------
         /// <inheritdoc />
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
         {

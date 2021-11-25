@@ -64,7 +64,6 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
             }
         }
         //---------------------------------------------------------------------
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void OpenNewDoor() => _slope = s_newDoor;
         //---------------------------------------------------------------------
         // TODO: check arguments if they are needed

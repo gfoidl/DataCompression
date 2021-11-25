@@ -185,12 +185,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Two_DataPoint_IEnumerable___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.TwoDataPointsTestCases))]
+        public void Two_DataPoint_IEnumerable___OK(IEnumerable<DataPoint> rawData, List<DataPoint> expectedData)
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = KnownSequence().Take(2);
-            var expected = KnownSequence().Take(2).ToList();
+            var data     = rawData;
+            var expected = expectedData;
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -199,12 +199,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Two_DataPoint_List___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.TwoDataPointsTestCases))]
+        public void Two_DataPoint_List___OK(IEnumerable<DataPoint> rawData, List<DataPoint> expectedData)
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = KnownSequence().Take(2).ToList();
-            var expected = KnownSequence().Take(2).ToList();
+            var data     = rawData.ToList();
+            var expected = expectedData;
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))
@@ -213,12 +213,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public void Two_DataPoint_IList___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.TwoDataPointsTestCases))]
+        public void Two_DataPoint_IList___OK(IEnumerable<DataPoint> rawData, List<DataPoint> expectedData)
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = KnownSequence().Take(2).ToList().AsReadOnly();
-            var expected = KnownSequence().Take(2).ToList();
+            var data     = rawData.ToList().AsReadOnly();
+            var expected = expectedData;
 
             var actual = new List<DataPoint>();
             foreach (DataPoint dp in sut.Process(data))

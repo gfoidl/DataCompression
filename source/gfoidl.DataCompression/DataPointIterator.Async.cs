@@ -58,7 +58,6 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            Debug.Assert(_algorithm   is not null);
             Debug.Assert(_asyncSource is not null);
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -77,13 +76,14 @@ namespace gfoidl.DataCompression
                     cancellationToken.ThrowIfCancellationRequested();
 
                     _lastArchived = incoming;
+                    _snapShot     = incoming;
                     this.Init(incoming, ref _snapShot);
                     continue;
                 }
 
                 if (isSkipMinDeltaX)
                 {
-                    if ((incoming.X - _snapShot.X) < _algorithm.MinDeltaX)
+                    if ((incoming.X - _snapShot.X) < _minDeltaX)
                         continue;
 
                     isSkipMinDeltaX = false;
@@ -108,21 +108,27 @@ namespace gfoidl.DataCompression
                     _lastArchived = _snapShot;
                     _snapShot     = incoming;
 
+                    if (_archiveIncoming)
+                    {
+                        yield return incoming;
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        _lastArchived = incoming;
+                    }
+
                     this.Init(incoming, ref _snapShot);
                     this.UpdateFilters(incoming, _lastArchived);
-                    isSkipMinDeltaX = _algorithm.MinDeltaX.HasValue;
+                    isSkipMinDeltaX = _minDeltaX.HasValue;
 
                     continue;
                 }
-
-                Debug.Assert(_archive.Archive && _archive.MaxDelta);
 
                 yield return incoming;
                 cancellationToken.ThrowIfCancellationRequested();
 
                 _lastArchived   = incoming;
                 _snapShot       = incoming;
-                isSkipMinDeltaX = _algorithm.MinDeltaX.HasValue;
+                isSkipMinDeltaX = _minDeltaX.HasValue;
                 this.Init(incoming, ref _snapShot);
             }
 

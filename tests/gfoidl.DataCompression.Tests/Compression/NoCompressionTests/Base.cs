@@ -12,8 +12,6 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 {
     public abstract class Base : Compression.Base
     {
-        private static readonly DataPointSerializer s_ser = new();
-        //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> RawDataForTrend()    => s_ser.Read("data/dead-band/trend_raw.csv");
         protected static IEnumerable<DataPoint> RawDataForMaxDelta() => s_ser.Read("data/dead-band/maxDelta_raw.csv");
         //---------------------------------------------------------------------

@@ -12,11 +12,10 @@ namespace gfoidl.DataCompression
     {
         internal static readonly NoCompression s_instance = new NoCompression();
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Implementation of the compression / filtering.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
+        /// <inheritdoc/>
+        public override bool ArchiveIncoming => true;
+        //-------------------------------------------------------------------------
+        /// <inheritdoc/>
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)
         {
             EnumerableIterator iter = new();
