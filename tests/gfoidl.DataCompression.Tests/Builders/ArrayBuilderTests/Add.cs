@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using gfoidl.DataCompression.Builders;
@@ -32,7 +32,9 @@ namespace gfoidl.DataCompression.Tests.Builders.ArrayBuilderTests
             yield return new TestCaseData(1);
             yield return new TestCaseData(2);
             yield return new TestCaseData(4);
+            yield return new TestCaseData(5);   // StartCapacity + 1
             yield return new TestCaseData(8);
+            yield return new TestCaseData(9);   // ResizeThreshold + 1
             yield return new TestCaseData(16);
             yield return new TestCaseData(100);
             yield return new TestCaseData(1_000);
