@@ -42,14 +42,7 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         public override List<DataPoint> ToList()          => _inner!.ToList();
         public override bool MoveNext()                   => throw new InvalidOperationException("Should operate on _inner");
         //---------------------------------------------------------------------
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void OpenNewDoor(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
-        {
-            //snapShotIndex = incomingIndex;    // don't update here for min deltaX cases
-            this.OpenNewDoor(incoming, ref _snapShot);
-        }
-        //---------------------------------------------------------------------
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => this.OpenNewDoor(incomingIndex, incoming, ref snapShotIndex);
+        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => this.OpenNewDoor();
         protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1

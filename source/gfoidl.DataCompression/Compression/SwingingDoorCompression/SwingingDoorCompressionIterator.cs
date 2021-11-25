@@ -65,13 +65,10 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void OpenNewDoor(in DataPoint incoming, ref DataPoint snapShot)
-        {
-            //snapShot = incoming;  // don't update here for min deltaX cases
-            _slope   = s_newDoor;
-        }
+        protected void OpenNewDoor() => _slope = s_newDoor;
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor(incoming, ref snapShot);
+        // TODO: check arguments if they are needed
+        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor();
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
         protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)       => this.CloseTheDoor(incoming, lastArchived);
         //---------------------------------------------------------------------
