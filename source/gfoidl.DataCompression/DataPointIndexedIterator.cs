@@ -60,7 +60,7 @@ namespace gfoidl.DataCompression
                     _incomingIndex = 1;
                     return true;
                 case 1:
-                    TList source           = _list;
+                    TList source           = _list!;
                     int snapShotIndex      = _snapShotIndex;
                     int incomingIndex      = _incomingIndex;
                     int lastArchivedIndex  = _lastArchivedIndex;
@@ -132,7 +132,7 @@ namespace gfoidl.DataCompression
         {
             Debug.Assert(_list is not null);
 
-            TList source = _list;
+            TList source = _list!;
 
             Debug.Assert(source.Count > 0);
             if (source.Count == 1 && 0 < (uint)source.Count)
@@ -148,7 +148,7 @@ namespace gfoidl.DataCompression
         {
             Debug.Assert(_list is not null);
 
-            TList source = _list;
+            TList source = _list!;
 
             Debug.Assert(source.Count > 0);
             if (source.Count == 1 && 0 < (uint)source.Count)
