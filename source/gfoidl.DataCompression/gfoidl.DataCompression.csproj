@@ -1,9 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
-        <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -12,19 +10,11 @@
 
     <PropertyGroup Label="Package">
         <PackageTags>data compression;swinging-door-algorithm;dead-band-filtering;swinging-door;swinging</PackageTags>
-        <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <RepositoryType>git</RepositoryType>
         <Description>Provides several data-compression algorithms:
 
 * error band elimination
 * swinging door algorithm
         </Description>
-    </PropertyGroup>
-
-    <PropertyGroup Label="XML-Documentation" Condition="'$(Configuration)' == 'Release'">
-        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\gfoidl.DataCompression.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

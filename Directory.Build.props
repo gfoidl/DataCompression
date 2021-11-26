@@ -8,22 +8,18 @@
         <Authors>gfoidl</Authors>
         <Company>Foidl Günther</Company>
         <Product>gfoidl.DataCompression</Product>
-        <Copyright>Copyright © Foidl Günther 2017-2020</Copyright>
+        <Copyright>Copyright © Foidl Günther 2017-2021</Copyright>
         <VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
         <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber).$(VersionPatch)</AssemblyVersion>
     </PropertyGroup>
 
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <StandardTfms>net5.0</StandardTfms>
+        <StandardTfms>net6.0</StandardTfms>
     </PropertyGroup>
 
     <PropertyGroup>
         <PackageOutputPath>$(MSBuildThisFileDirectory)NuGet-Packed</PackageOutputPath>
     </PropertyGroup>
 
-    <Target Name="VersionInfo" BeforeTargets="BeforeBuild">
-        <Message Importance="high" Text="$(MSBuildProjectName) BuildNumber: $(BuildNumber) --> Version: $(Version), AssemblyVersion: $(AssemblyVersion)" />
-        <Message Importance="high" Text=" " Condition="'$(Configuration)' == 'Debug'" />
-    </Target>
 </Project>
