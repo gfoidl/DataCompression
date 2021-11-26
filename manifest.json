@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Compression.html",
-          "hash": "PdZeNl5EG/VzOEd9K1RKjw=="
+          "hash": "VKANJTgGMyk92yImVbZvCVs/nYYW1tZC2yZg3vp//sI="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPoint.html",
-          "hash": "Yj26q1yBz/JFcb0kM5eCnQ=="
+          "hash": "J67OhbFEnVSFpd0TxOVK9eMdH0OppWnTiFErLrVEdVw="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointIterator.html",
-          "hash": "25JpCEZzrNHYwWiRrBZSbg=="
+          "hash": "hCh5tY9zP32GQiMlUneWqX2JC/HBr6Cd4KwRJXmMUlw="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointSerializer.html",
-          "hash": "nlYhiGbFNz8sz4hGPaTqqA=="
+          "hash": "sWrBrC19OyimCTMHRw2kduJW8BKg+GPfSsgIKrocaX0="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DeadBandCompression.html",
-          "hash": "XyiM8g+aR4ra+6rGdwU9yQ=="
+          "hash": "ZkU+uXmtP91KOvWepGz9RFrplFcSQ8nEQucjqqpCpN4="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ExtensionMethods.html",
-          "hash": "CAyuvPAZyJecyT9BbcXCkg=="
+          "hash": "gkyNTtHUyCFhmKr/pQwoQoUXauwSQ27RUPXVy9i5bz8="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ICompression.html",
-          "hash": "1bL3prmweAnPq99RiLTPng=="
+          "hash": "KaH8CIzmAxp6BRT46PfuT8W3Ocxo1HGA6Xzb9Oivns8="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.NoCompression.html",
-          "hash": "yyOyveuUvzQrs+frkrbpiA=="
+          "hash": "MhljVYLwy2zITUXXZTbKLPpX8ktpZ/N443aEKr/sZQ4="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.SwingingDoorCompression.html",
-          "hash": "zxFhyNfadIQs48TbOyubgQ=="
+          "hash": "mATM1bFeiIf5aRGSHaFVxY+8M1KHLS0lfLfrvCW9dL0="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html",
-          "hash": "b8DJwH5cPIVAAVVaAxwILw=="
+          "hash": "occWccYS9dF70dJNrGNZp1ofj9rSGhE1dTSXYNCCLfE="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html",
-          "hash": "qbofSbu+0nBML1uHPaF8IQ=="
+          "hash": "+q5ed3lEheXBjEfBtMMCSjfcsXl3uYS+BM3say69Rf8="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.html",
-          "hash": "BK6PL55jZGjJCSKkU7voJA=="
+          "hash": "jZH2Ygh2a8AmdJsGNeOq5ouHVHaj8YDkVBL5dldqXMA="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.html",
-          "hash": "c1A5Y87dfGY0kuomf1fglw=="
+          "hash": "7dJnmenk2pH7jaMPhhvVrPGdc76996WanAzXvE+JlBs="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "sqnz7fP+NOqGLkoYIceAHg=="
+          "hash": "C6hSQLHqEYfvZY7b9/ADP/S+X2hWmNGz5Ivfi9ANzME="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ch7BCfOl2OyhpaALl2U48g=="
+          "hash": "haFDJ50V2CDhji9NxvOB/2h1Rnqn7VdcTMl1UdlUBB8="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/DeadBand.html",
-          "hash": "1ykxlBv1oZCN6yRxKw8z+A=="
+          "hash": "314UsbtXIOM11q3NlLMaVKU/W+0RVNAKf1uuvXkEkgc="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/SwingingDoor.html",
-          "hash": "P899WfxNP2yFYpeRYJCsaA=="
+          "hash": "JuEBjEWxbR/7aaKivA4fioyBd+bFv66cStRZjG0Be6s="
         }
       },
       "is_incremental": false,
@@ -356,7 +356,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/toc.html",
-          "hash": "0OVvB5B0a9wLnGo3VUFh1g=="
+          "hash": "PXgRvUNuOk3vQhD4fq06kq9iOAaRZmFrntlFe/Ne/kk="
         }
       },
       "is_incremental": false,
@@ -379,7 +379,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "ugseB6Sdru+8dzCzlcq5oQ=="
+          "hash": "XBeVwZj/ezSaFY/4BkkJApgWejv5U2HVsdDCXCMeNdQ="
         }
       },
       "is_incremental": false,
@@ -391,7 +391,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "LQzg7BIBPO8o9NXI76WEsg=="
+          "hash": "xrMMwTtLj9Y9HxfVI0yoB27G3hxfNjBbvgpc1zfvlXI="
         }
       },
       "is_incremental": false,

@@ -29,24 +29,19 @@ references:
   isSpec: "True"
   fullName: gfoidl.DataCompression.Compression.Compression
   nameWithType: Compression.Compression
-- uid: gfoidl.DataCompression.Compression._maxDeltaX
-  name: _maxDeltaX
-  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__maxDeltaX
-  commentId: F:gfoidl.DataCompression.Compression._maxDeltaX
-  fullName: gfoidl.DataCompression.Compression._maxDeltaX
-  nameWithType: Compression._maxDeltaX
-- uid: gfoidl.DataCompression.Compression._minDeltaX
-  name: _minDeltaX
-  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__minDeltaX
-  commentId: F:gfoidl.DataCompression.Compression._minDeltaX
-  fullName: gfoidl.DataCompression.Compression._minDeltaX
-  nameWithType: Compression._minDeltaX
-- uid: gfoidl.DataCompression.Compression._minDeltaXHasValue
-  name: _minDeltaXHasValue
-  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression__minDeltaXHasValue
-  commentId: F:gfoidl.DataCompression.Compression._minDeltaXHasValue
-  fullName: gfoidl.DataCompression.Compression._minDeltaXHasValue
-  nameWithType: Compression._minDeltaXHasValue
+- uid: gfoidl.DataCompression.Compression.ArchiveIncoming
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ArchiveIncoming
+  commentId: P:gfoidl.DataCompression.Compression.ArchiveIncoming
+  fullName: gfoidl.DataCompression.Compression.ArchiveIncoming
+  nameWithType: Compression.ArchiveIncoming
+- uid: gfoidl.DataCompression.Compression.ArchiveIncoming*
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_ArchiveIncoming_
+  commentId: Overload:gfoidl.DataCompression.Compression.ArchiveIncoming
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.Compression.ArchiveIncoming
+  nameWithType: Compression.ArchiveIncoming
 - uid: gfoidl.DataCompression.Compression.MaxDeltaX
   name: MaxDeltaX
   href: api/gfoidl.DataCompression.Compression.html#gfoidl_DataCompression_Compression_MaxDeltaX
@@ -159,11 +154,11 @@ references:
   name: DataPoint((Double x, Double y))
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint__ctor_System_ValueTuple_System_Double_System_Double__
   commentId: M:gfoidl.DataCompression.DataPoint.#ctor(System.ValueTuple{System.Double,System.Double})
-  name.vb: DataPoint((x As Double, y As Double))
+  name.vb: DataPoint((x As Double, y As Double)(Of Double, Double))
   fullName: gfoidl.DataCompression.DataPoint.DataPoint(System.ValueTuple<System.Double, System.Double>)
   fullName.vb: gfoidl.DataCompression.DataPoint.DataPoint(System.ValueTuple(Of System.Double, System.Double))
   nameWithType: DataPoint.DataPoint((Double x, Double y))
-  nameWithType.vb: DataPoint.DataPoint((x As Double, y As Double))
+  nameWithType.vb: DataPoint.DataPoint((x As Double, y As Double)(Of Double, Double))
 - uid: gfoidl.DataCompression.DataPoint.#ctor*
   name: DataPoint
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint__ctor_
@@ -223,13 +218,13 @@ references:
   fullName: gfoidl.DataCompression.DataPoint.GetHashCode
   nameWithType: DataPoint.GetHashCode
 - uid: gfoidl.DataCompression.DataPoint.Gradient(gfoidl.DataCompression.DataPoint@,System.Boolean)
-  name: Gradient(DataPoint, Boolean)
+  name: Gradient(in DataPoint, Boolean)
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_Gradient_gfoidl_DataCompression_DataPoint__System_Boolean_
   commentId: M:gfoidl.DataCompression.DataPoint.Gradient(gfoidl.DataCompression.DataPoint@,System.Boolean)
   name.vb: Gradient(ByRef DataPoint, Boolean)
-  fullName: gfoidl.DataCompression.DataPoint.Gradient(gfoidl.DataCompression.DataPoint, System.Boolean)
+  fullName: gfoidl.DataCompression.DataPoint.Gradient(in gfoidl.DataCompression.DataPoint, System.Boolean)
   fullName.vb: gfoidl.DataCompression.DataPoint.Gradient(ByRef gfoidl.DataCompression.DataPoint, System.Boolean)
-  nameWithType: DataPoint.Gradient(DataPoint, Boolean)
+  nameWithType: DataPoint.Gradient(in DataPoint, Boolean)
   nameWithType.vb: DataPoint.Gradient(ByRef DataPoint, Boolean)
 - uid: gfoidl.DataCompression.DataPoint.Gradient*
   name: Gradient
@@ -255,29 +250,29 @@ references:
   name: Implicit(DataPoint to (DateTime, Double))
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_gfoidl_DataCompression_DataPoint__System_ValueTuple_System_DateTime_System_Double_
   commentId: M:gfoidl.DataCompression.DataPoint.op_Implicit(gfoidl.DataCompression.DataPoint)~System.ValueTuple{System.DateTime,System.Double}
-  name.vb: Widening(DataPoint to (DateTime, Double))
+  name.vb: Widening(DataPoint to (DateTime, Double)(Of DateTime, Double))
   fullName: gfoidl.DataCompression.DataPoint.Implicit(gfoidl.DataCompression.DataPoint to System.ValueTuple<System.DateTime, System.Double>)
   fullName.vb: gfoidl.DataCompression.DataPoint.Widening(gfoidl.DataCompression.DataPoint to System.ValueTuple(Of System.DateTime, System.Double))
   nameWithType: DataPoint.Implicit(DataPoint to (DateTime, Double))
-  nameWithType.vb: DataPoint.Widening(DataPoint to (DateTime, Double))
+  nameWithType.vb: DataPoint.Widening(DataPoint to (DateTime, Double)(Of DateTime, Double))
 - uid: gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.DateTime,System.Double})~gfoidl.DataCompression.DataPoint
   name: Implicit((DateTime, Double) to DataPoint)
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_System_ValueTuple_System_DateTime_System_Double___gfoidl_DataCompression_DataPoint
   commentId: M:gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.DateTime,System.Double})~gfoidl.DataCompression.DataPoint
-  name.vb: Widening((DateTime, Double) to DataPoint)
+  name.vb: Widening((DateTime, Double)(Of DateTime, Double) to DataPoint)
   fullName: gfoidl.DataCompression.DataPoint.Implicit(System.ValueTuple<System.DateTime, System.Double> to gfoidl.DataCompression.DataPoint)
   fullName.vb: gfoidl.DataCompression.DataPoint.Widening(System.ValueTuple(Of System.DateTime, System.Double) to gfoidl.DataCompression.DataPoint)
   nameWithType: DataPoint.Implicit((DateTime, Double) to DataPoint)
-  nameWithType.vb: DataPoint.Widening((DateTime, Double) to DataPoint)
+  nameWithType.vb: DataPoint.Widening((DateTime, Double)(Of DateTime, Double) to DataPoint)
 - uid: gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.Double,System.Double})~gfoidl.DataCompression.DataPoint
   name: Implicit((Double, Double) to DataPoint)
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_System_ValueTuple_System_Double_System_Double___gfoidl_DataCompression_DataPoint
   commentId: M:gfoidl.DataCompression.DataPoint.op_Implicit(System.ValueTuple{System.Double,System.Double})~gfoidl.DataCompression.DataPoint
-  name.vb: Widening((Double, Double) to DataPoint)
+  name.vb: Widening((Double, Double)(Of Double, Double) to DataPoint)
   fullName: gfoidl.DataCompression.DataPoint.Implicit(System.ValueTuple<System.Double, System.Double> to gfoidl.DataCompression.DataPoint)
   fullName.vb: gfoidl.DataCompression.DataPoint.Widening(System.ValueTuple(Of System.Double, System.Double) to gfoidl.DataCompression.DataPoint)
   nameWithType: DataPoint.Implicit((Double, Double) to DataPoint)
-  nameWithType.vb: DataPoint.Widening((Double, Double) to DataPoint)
+  nameWithType.vb: DataPoint.Widening((Double, Double)(Of Double, Double) to DataPoint)
 - uid: gfoidl.DataCompression.DataPoint.op_Implicit*
   name: Implicit
   href: api/gfoidl.DataCompression.DataPoint.html#gfoidl_DataCompression_DataPoint_op_Implicit_
@@ -372,66 +367,6 @@ references:
   commentId: T:gfoidl.DataCompression.DataPointIterator
   fullName: gfoidl.DataCompression.DataPointIterator
   nameWithType: DataPointIterator
-- uid: gfoidl.DataCompression.DataPointIterator._algorithm
-  name: _algorithm
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__algorithm
-  commentId: F:gfoidl.DataCompression.DataPointIterator._algorithm
-  fullName: gfoidl.DataCompression.DataPointIterator._algorithm
-  nameWithType: DataPointIterator._algorithm
-- uid: gfoidl.DataCompression.DataPointIterator._archive
-  name: _archive
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__archive
-  commentId: F:gfoidl.DataCompression.DataPointIterator._archive
-  fullName: gfoidl.DataCompression.DataPointIterator._archive
-  nameWithType: DataPointIterator._archive
-- uid: gfoidl.DataCompression.DataPointIterator._asyncSource
-  name: _asyncSource
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__asyncSource
-  commentId: F:gfoidl.DataCompression.DataPointIterator._asyncSource
-  fullName: gfoidl.DataCompression.DataPointIterator._asyncSource
-  nameWithType: DataPointIterator._asyncSource
-- uid: gfoidl.DataCompression.DataPointIterator._current
-  name: _current
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__current
-  commentId: F:gfoidl.DataCompression.DataPointIterator._current
-  fullName: gfoidl.DataCompression.DataPointIterator._current
-  nameWithType: DataPointIterator._current
-- uid: gfoidl.DataCompression.DataPointIterator._enumerator
-  name: _enumerator
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__enumerator
-  commentId: F:gfoidl.DataCompression.DataPointIterator._enumerator
-  fullName: gfoidl.DataCompression.DataPointIterator._enumerator
-  nameWithType: DataPointIterator._enumerator
-- uid: gfoidl.DataCompression.DataPointIterator._incoming
-  name: _incoming
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__incoming
-  commentId: F:gfoidl.DataCompression.DataPointIterator._incoming
-  fullName: gfoidl.DataCompression.DataPointIterator._incoming
-  nameWithType: DataPointIterator._incoming
-- uid: gfoidl.DataCompression.DataPointIterator._lastArchived
-  name: _lastArchived
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__lastArchived
-  commentId: F:gfoidl.DataCompression.DataPointIterator._lastArchived
-  fullName: gfoidl.DataCompression.DataPointIterator._lastArchived
-  nameWithType: DataPointIterator._lastArchived
-- uid: gfoidl.DataCompression.DataPointIterator._snapShot
-  name: _snapShot
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__snapShot
-  commentId: F:gfoidl.DataCompression.DataPointIterator._snapShot
-  fullName: gfoidl.DataCompression.DataPointIterator._snapShot
-  nameWithType: DataPointIterator._snapShot
-- uid: gfoidl.DataCompression.DataPointIterator._source
-  name: _source
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__source
-  commentId: F:gfoidl.DataCompression.DataPointIterator._source
-  fullName: gfoidl.DataCompression.DataPointIterator._source
-  nameWithType: DataPointIterator._source
-- uid: gfoidl.DataCompression.DataPointIterator._state
-  name: _state
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator__state
-  commentId: F:gfoidl.DataCompression.DataPointIterator._state
-  fullName: gfoidl.DataCompression.DataPointIterator._state
-  nameWithType: DataPointIterator._state
 - uid: gfoidl.DataCompression.DataPointIterator.Clone
   name: Clone()
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Clone
@@ -497,12 +432,6 @@ references:
   isSpec: "True"
   fullName: gfoidl.DataCompression.DataPointIterator.DisposeCore
   nameWithType: DataPointIterator.DisposeCore
-- uid: gfoidl.DataCompression.DataPointIterator.DisposedState
-  name: DisposedState
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_DisposedState
-  commentId: F:gfoidl.DataCompression.DataPointIterator.DisposedState
-  fullName: gfoidl.DataCompression.DataPointIterator.DisposedState
-  nameWithType: DataPointIterator.DisposedState
 - uid: gfoidl.DataCompression.DataPointIterator.Empty
   name: Empty
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Empty
@@ -542,24 +471,15 @@ references:
   isSpec: "True"
   fullName: gfoidl.DataCompression.DataPointIterator.GetEnumerator
   nameWithType: DataPointIterator.GetEnumerator
-- uid: gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
-  name: Init(DataPoint, ref DataPoint)
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_gfoidl_DataCompression_DataPoint__gfoidl_DataCompression_DataPoint__
-  commentId: M:gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
-  name.vb: Init(ByRef DataPoint, ByRef DataPoint)
-  fullName: gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint, ref gfoidl.DataCompression.DataPoint)
-  fullName.vb: gfoidl.DataCompression.DataPointIterator.Init(ByRef gfoidl.DataCompression.DataPoint, ByRef gfoidl.DataCompression.DataPoint)
-  nameWithType: DataPointIterator.Init(DataPoint, ref DataPoint)
-  nameWithType.vb: DataPointIterator.Init(ByRef DataPoint, ByRef DataPoint)
-- uid: gfoidl.DataCompression.DataPointIterator.Init(System.Int32,gfoidl.DataCompression.DataPoint@,System.Int32@)
-  name: Init(Int32, DataPoint, ref Int32)
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_System_Int32_gfoidl_DataCompression_DataPoint__System_Int32__
-  commentId: M:gfoidl.DataCompression.DataPointIterator.Init(System.Int32,gfoidl.DataCompression.DataPoint@,System.Int32@)
-  name.vb: Init(Int32, ByRef DataPoint, ByRef Int32)
-  fullName: gfoidl.DataCompression.DataPointIterator.Init(System.Int32, gfoidl.DataCompression.DataPoint, ref System.Int32)
-  fullName.vb: gfoidl.DataCompression.DataPointIterator.Init(System.Int32, ByRef gfoidl.DataCompression.DataPoint, ByRef System.Int32)
-  nameWithType: DataPointIterator.Init(Int32, DataPoint, ref Int32)
-  nameWithType.vb: DataPointIterator.Init(Int32, ByRef DataPoint, ByRef Int32)
+- uid: gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint@)
+  name: Init(in DataPoint)
+  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_gfoidl_DataCompression_DataPoint__
+  commentId: M:gfoidl.DataCompression.DataPointIterator.Init(gfoidl.DataCompression.DataPoint@)
+  name.vb: Init(ByRef DataPoint)
+  fullName: gfoidl.DataCompression.DataPointIterator.Init(in gfoidl.DataCompression.DataPoint)
+  fullName.vb: gfoidl.DataCompression.DataPointIterator.Init(ByRef gfoidl.DataCompression.DataPoint)
+  nameWithType: DataPointIterator.Init(in DataPoint)
+  nameWithType.vb: DataPointIterator.Init(ByRef DataPoint)
 - uid: gfoidl.DataCompression.DataPointIterator.Init*
   name: Init
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_Init_
@@ -567,21 +487,15 @@ references:
   isSpec: "True"
   fullName: gfoidl.DataCompression.DataPointIterator.Init
   nameWithType: DataPointIterator.Init
-- uid: gfoidl.DataCompression.DataPointIterator.InitialState
-  name: InitialState
-  href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_InitialState
-  commentId: F:gfoidl.DataCompression.DataPointIterator.InitialState
-  fullName: gfoidl.DataCompression.DataPointIterator.InitialState
-  nameWithType: DataPointIterator.InitialState
 - uid: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(System.ValueTuple{System.Boolean,System.Boolean}@,System.Double,System.Double)
   name: IsMaxDeltaX(ref (Boolean Archive, Boolean MaxDelta), Double, Double)
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsMaxDeltaX_System_ValueTuple_System_Boolean_System_Boolean___System_Double_System_Double_
   commentId: M:gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(System.ValueTuple{System.Boolean,System.Boolean}@,System.Double,System.Double)
-  name.vb: IsMaxDeltaX(ByRef (Archive As Boolean, MaxDelta As Boolean), Double, Double)
+  name.vb: IsMaxDeltaX(ByRef (Archive As Boolean, MaxDelta As Boolean)(Of Boolean, Boolean), Double, Double)
   fullName: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(ref System.ValueTuple<System.Boolean, System.Boolean>, System.Double, System.Double)
   fullName.vb: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX(ByRef System.ValueTuple(Of System.Boolean, System.Boolean), System.Double, System.Double)
   nameWithType: DataPointIterator.IsMaxDeltaX(ref (Boolean Archive, Boolean MaxDelta), Double, Double)
-  nameWithType.vb: DataPointIterator.IsMaxDeltaX(ByRef (Archive As Boolean, MaxDelta As Boolean), Double, Double)
+  nameWithType.vb: DataPointIterator.IsMaxDeltaX(ByRef (Archive As Boolean, MaxDelta As Boolean)(Of Boolean, Boolean), Double, Double)
 - uid: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX*
   name: IsMaxDeltaX
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsMaxDeltaX_
@@ -590,13 +504,13 @@ references:
   fullName: gfoidl.DataCompression.DataPointIterator.IsMaxDeltaX
   nameWithType: DataPointIterator.IsMaxDeltaX
 - uid: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
-  name: IsPointToArchive(DataPoint, DataPoint)
+  name: IsPointToArchive(in DataPoint, in DataPoint)
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_IsPointToArchive_gfoidl_DataCompression_DataPoint__gfoidl_DataCompression_DataPoint__
   commentId: M:gfoidl.DataCompression.DataPointIterator.IsPointToArchive(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
   name.vb: IsPointToArchive(ByRef DataPoint, ByRef DataPoint)
-  fullName: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(gfoidl.DataCompression.DataPoint, gfoidl.DataCompression.DataPoint)
+  fullName: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(in gfoidl.DataCompression.DataPoint, in gfoidl.DataCompression.DataPoint)
   fullName.vb: gfoidl.DataCompression.DataPointIterator.IsPointToArchive(ByRef gfoidl.DataCompression.DataPoint, ByRef gfoidl.DataCompression.DataPoint)
-  nameWithType: DataPointIterator.IsPointToArchive(DataPoint, DataPoint)
+  nameWithType: DataPointIterator.IsPointToArchive(in DataPoint, in DataPoint)
   nameWithType.vb: DataPointIterator.IsPointToArchive(ByRef DataPoint, ByRef DataPoint)
 - uid: gfoidl.DataCompression.DataPointIterator.IsPointToArchive*
   name: IsPointToArchive
@@ -770,13 +684,13 @@ references:
   fullName: gfoidl.DataCompression.DataPointIterator.ToListAsync
   nameWithType: DataPointIterator.ToListAsync
 - uid: gfoidl.DataCompression.DataPointIterator.UpdateFilters(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
-  name: UpdateFilters(DataPoint, DataPoint)
+  name: UpdateFilters(in DataPoint, in DataPoint)
   href: api/gfoidl.DataCompression.DataPointIterator.html#gfoidl_DataCompression_DataPointIterator_UpdateFilters_gfoidl_DataCompression_DataPoint__gfoidl_DataCompression_DataPoint__
   commentId: M:gfoidl.DataCompression.DataPointIterator.UpdateFilters(gfoidl.DataCompression.DataPoint@,gfoidl.DataCompression.DataPoint@)
   name.vb: UpdateFilters(ByRef DataPoint, ByRef DataPoint)
-  fullName: gfoidl.DataCompression.DataPointIterator.UpdateFilters(gfoidl.DataCompression.DataPoint, gfoidl.DataCompression.DataPoint)
+  fullName: gfoidl.DataCompression.DataPointIterator.UpdateFilters(in gfoidl.DataCompression.DataPoint, in gfoidl.DataCompression.DataPoint)
   fullName.vb: gfoidl.DataCompression.DataPointIterator.UpdateFilters(ByRef gfoidl.DataCompression.DataPoint, ByRef gfoidl.DataCompression.DataPoint)
-  nameWithType: DataPointIterator.UpdateFilters(DataPoint, DataPoint)
+  nameWithType: DataPointIterator.UpdateFilters(in DataPoint, in DataPoint)
   nameWithType.vb: DataPointIterator.UpdateFilters(ByRef DataPoint, ByRef DataPoint)
 - uid: gfoidl.DataCompression.DataPointIterator.UpdateFilters*
   name: UpdateFilters
@@ -811,11 +725,11 @@ references:
   name: Write(String, IEnumerable<DataPoint>, Nullable<Char>, Nullable<(String X, String Y)>, String)
   href: api/gfoidl.DataCompression.DataPointSerializer.html#gfoidl_DataCompression_DataPointSerializer_Write_System_String_System_Collections_Generic_IEnumerable_gfoidl_DataCompression_DataPoint__System_Nullable_System_Char__System_Nullable_System_ValueTuple_System_String_System_String___System_String_
   commentId: M:gfoidl.DataCompression.DataPointSerializer.Write(System.String,System.Collections.Generic.IEnumerable{gfoidl.DataCompression.DataPoint},System.Nullable{System.Char},System.Nullable{System.ValueTuple{System.String,System.String}},System.String)
-  name.vb: Write(String, IEnumerable(Of DataPoint), Nullable(Of Char), Nullable(Of (X As String, Y As String)), String)
+  name.vb: Write(String, IEnumerable(Of DataPoint), Nullable(Of Char), Nullable(Of (X As String, Y As String)(Of String, String)), String)
   fullName: gfoidl.DataCompression.DataPointSerializer.Write(System.String, System.Collections.Generic.IEnumerable<gfoidl.DataCompression.DataPoint>, System.Nullable<System.Char>, System.Nullable<System.ValueTuple<System.String, System.String>>, System.String)
   fullName.vb: gfoidl.DataCompression.DataPointSerializer.Write(System.String, System.Collections.Generic.IEnumerable(Of gfoidl.DataCompression.DataPoint), System.Nullable(Of System.Char), System.Nullable(Of System.ValueTuple(Of System.String, System.String)), System.String)
   nameWithType: DataPointSerializer.Write(String, IEnumerable<DataPoint>, Nullable<Char>, Nullable<(String X, String Y)>, String)
-  nameWithType.vb: DataPointSerializer.Write(String, IEnumerable(Of DataPoint), Nullable(Of Char), Nullable(Of (X As String, Y As String)), String)
+  nameWithType.vb: DataPointSerializer.Write(String, IEnumerable(Of DataPoint), Nullable(Of Char), Nullable(Of (X As String, Y As String)(Of String, String)), String)
 - uid: gfoidl.DataCompression.DataPointSerializer.Write*
   name: Write
   href: api/gfoidl.DataCompression.DataPointSerializer.html#gfoidl_DataCompression_DataPointSerializer_Write_
@@ -854,6 +768,19 @@ references:
   isSpec: "True"
   fullName: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression
   nameWithType: DeadBandCompression.DeadBandCompression
+- uid: gfoidl.DataCompression.DeadBandCompression.ArchiveIncoming
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_ArchiveIncoming
+  commentId: P:gfoidl.DataCompression.DeadBandCompression.ArchiveIncoming
+  fullName: gfoidl.DataCompression.DeadBandCompression.ArchiveIncoming
+  nameWithType: DeadBandCompression.ArchiveIncoming
+- uid: gfoidl.DataCompression.DeadBandCompression.ArchiveIncoming*
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_ArchiveIncoming_
+  commentId: Overload:gfoidl.DataCompression.DeadBandCompression.ArchiveIncoming
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.DeadBandCompression.ArchiveIncoming
+  nameWithType: DeadBandCompression.ArchiveIncoming
 - uid: gfoidl.DataCompression.DeadBandCompression.InstrumentPrecision
   name: InstrumentPrecision
   href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression_InstrumentPrecision
@@ -1043,6 +970,19 @@ references:
   commentId: T:gfoidl.DataCompression.ICompression
   fullName: gfoidl.DataCompression.ICompression
   nameWithType: ICompression
+- uid: gfoidl.DataCompression.ICompression.ArchiveIncoming
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_ArchiveIncoming
+  commentId: P:gfoidl.DataCompression.ICompression.ArchiveIncoming
+  fullName: gfoidl.DataCompression.ICompression.ArchiveIncoming
+  nameWithType: ICompression.ArchiveIncoming
+- uid: gfoidl.DataCompression.ICompression.ArchiveIncoming*
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_ArchiveIncoming_
+  commentId: Overload:gfoidl.DataCompression.ICompression.ArchiveIncoming
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.ICompression.ArchiveIncoming
+  nameWithType: ICompression.ArchiveIncoming
 - uid: gfoidl.DataCompression.ICompression.MaxDeltaX
   name: MaxDeltaX
   href: api/gfoidl.DataCompression.ICompression.html#gfoidl_DataCompression_ICompression_MaxDeltaX
@@ -1107,6 +1047,19 @@ references:
   commentId: T:gfoidl.DataCompression.NoCompression
   fullName: gfoidl.DataCompression.NoCompression
   nameWithType: NoCompression
+- uid: gfoidl.DataCompression.NoCompression.ArchiveIncoming
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ArchiveIncoming
+  commentId: P:gfoidl.DataCompression.NoCompression.ArchiveIncoming
+  fullName: gfoidl.DataCompression.NoCompression.ArchiveIncoming
+  nameWithType: NoCompression.ArchiveIncoming
+- uid: gfoidl.DataCompression.NoCompression.ArchiveIncoming*
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ArchiveIncoming_
+  commentId: Overload:gfoidl.DataCompression.NoCompression.ArchiveIncoming
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.NoCompression.ArchiveIncoming
+  nameWithType: NoCompression.ArchiveIncoming
 - uid: gfoidl.DataCompression.NoCompression.ProcessAsyncCore(System.Collections.Generic.IAsyncEnumerable{gfoidl.DataCompression.DataPoint})
   name: ProcessAsyncCore(IAsyncEnumerable<DataPoint>)
   href: api/gfoidl.DataCompression.NoCompression.html#gfoidl_DataCompression_NoCompression_ProcessAsyncCore_System_Collections_Generic_IAsyncEnumerable_gfoidl_DataCompression_DataPoint__
@@ -1170,6 +1123,19 @@ references:
   isSpec: "True"
   fullName: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression
   nameWithType: SwingingDoorCompression.SwingingDoorCompression
+- uid: gfoidl.DataCompression.SwingingDoorCompression.ArchiveIncoming
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_ArchiveIncoming
+  commentId: P:gfoidl.DataCompression.SwingingDoorCompression.ArchiveIncoming
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.ArchiveIncoming
+  nameWithType: SwingingDoorCompression.ArchiveIncoming
+- uid: gfoidl.DataCompression.SwingingDoorCompression.ArchiveIncoming*
+  name: ArchiveIncoming
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_ArchiveIncoming_
+  commentId: Overload:gfoidl.DataCompression.SwingingDoorCompression.ArchiveIncoming
+  isSpec: "True"
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.ArchiveIncoming
+  nameWithType: SwingingDoorCompression.ArchiveIncoming
 - uid: gfoidl.DataCompression.SwingingDoorCompression.CompressionDeviation
   name: CompressionDeviation
   href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression_CompressionDeviation
