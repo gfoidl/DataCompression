@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using System.Linq;
+using System.IO;
 
 #if NETCOREAPP
 using System.Threading.Tasks;
@@ -36,7 +37,16 @@ namespace gfoidl.DataCompression.Tests.Compression
             yield return new TestCaseData(KnownSequence()  .Take(2), KnownSequence()  .Take(2).ToList()).SetName("{m} known sequence");
             yield return new TestCaseData(RawDataForTrend().Take(2), RawDataForTrend().Take(2).ToList()).SetName("{m} raw data for trend");
 
-            static IEnumerable<DataPoint> RawDataForTrend() => s_ser.Read("data/dead-band/trend_raw.csv");
+            static IEnumerable<DataPoint> RawDataForTrend()
+            {
+#if NETCOREAPP
+                return s_ser.Read("data/dead-band/trend_raw.csv");
+#else
+                string basePath = TestContext.CurrentContext.TestDirectory;
+                basePath        = Path.Combine(basePath, "data", "dead-band", "trend_raw.csv");
+                return s_ser.Read(basePath);
+#endif
+            }
         }
         //-------------------------------------------------------------------------
         protected static IEnumerable<DataPoint> Empty()
