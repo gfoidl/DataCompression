@@ -38,6 +38,7 @@ namespace gfoidl.DataCompression
             switch (_state)
             {
                 case StartOfDataState:
+                {
                     if (!_enumerator.MoveNext()) return false;
                     _incoming     = _enumerator.Current;
                     _lastArchived = _incoming;
@@ -45,7 +46,9 @@ namespace gfoidl.DataCompression
                     _state        = IterateState;
                     this.Init(_incoming);
                     return true;
+                }
                 case IterateState:
+                {
                     while (_enumerator.MoveNext())
                     {
                         _incoming       = _enumerator.Current;
@@ -77,28 +80,39 @@ namespace gfoidl.DataCompression
                         return true;
                     }
                     goto default;
+                }
                 case ArchiveIncomingState:
+                {
                     _lastArchived = _incoming;
                     _state        = PostArchiveState;
                     return true;
+                }
                 case PostArchiveState:
+                {
                     this.Init(_incoming);
                     this.UpdateFilters(_incoming, _lastArchived);
                     this.HandleSkipMinDeltaX(_enumerator);
                     goto case IterateState;
+                }
                 case ArchivePointState:
+                {
                     _lastArchived = _incoming;
                     _snapShot     = _incoming;
                     _state        = IterateState;
                     this.Init(_incoming);
                     this.HandleSkipMinDeltaX(_enumerator);
                     return true;
+                }
                 case InitialState:
+                {
                     ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                     return false;
+                }
                 case DisposedState:
+                {
                     ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                     return false;
+                }
                 default:
                     return false;
             }
@@ -184,7 +198,9 @@ namespace gfoidl.DataCompression
             }
 
             if (incoming != _lastArchived)          // sentinel-check
+            {
                 builder.Add(incoming);
+            }
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

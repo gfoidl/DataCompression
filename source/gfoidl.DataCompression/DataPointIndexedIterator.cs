@@ -46,6 +46,7 @@ namespace gfoidl.DataCompression
             switch (_state)
             {
                 case StartOfDataState:
+                {
                     _incoming     = _list[0];
                     _lastArchived = _incoming;
 
@@ -61,7 +62,9 @@ namespace gfoidl.DataCompression
                     _state                 = IterateState;
                     _incomingIndex         = 1;
                     return true;
+                }
                 case IterateState:
+                {
                     TList source           = _list;
                     int snapShotIndex      = _snapShotIndex;
                     int incomingIndex      = _incomingIndex;
@@ -111,34 +114,45 @@ namespace gfoidl.DataCompression
                         return true;
                     }
                     goto default;
+                }
                 case ArchiveIncomingState:
-                    incomingIndex      = _incomingIndex;
+                {
+                    int incomingIndex  = _incomingIndex;
                     _lastArchived      = _list[incomingIndex];
                     _lastArchivedIndex = incomingIndex;
                     _state             = PostArchiveState;
                     return true;
+                }
                 case PostArchiveState:
-                    incomingIndex  = _incomingIndex;
+                {
+                    int incomingIndex = _incomingIndex;
                     this.Init(_incoming);
                     this.UpdateFilters(_incoming, _lastArchived);
                     _incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
                     goto case IterateState;
+                }
                 case ArchivePointState:
-                    incomingIndex      = _incomingIndex;
+                {
+                    int incomingIndex  = _incomingIndex;
                     _lastArchived      = _list[incomingIndex];
                     _lastArchivedIndex = incomingIndex;
                     _snapShotIndex     = incomingIndex;
                     _state             = IterateState;
                     this.Init(_incoming);
-                    incomingIndex  = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
-                    _incomingIndex = incomingIndex + 1;
+                    incomingIndex      = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
+                    _incomingIndex     = incomingIndex + 1;
                     return true;
+                }
                 case InitialState:
+                {
                     ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                     return false;
+                }
                 case DisposedState:
+                {
                     ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                     return false;
+                }
                 default:
                     return false;
             }
