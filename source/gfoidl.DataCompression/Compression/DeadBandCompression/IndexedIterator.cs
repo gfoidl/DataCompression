@@ -51,7 +51,6 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         }
         //---------------------------------------------------------------------
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => this.UpdatePoints(incomingIndex, incoming, ref snapShotIndex);
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();

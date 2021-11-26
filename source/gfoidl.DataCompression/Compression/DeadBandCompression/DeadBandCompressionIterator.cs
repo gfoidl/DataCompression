@@ -26,7 +26,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        protected internal sealed override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
@@ -49,6 +49,10 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         //---------------------------------------------------------------------
         protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(incoming, ref snapShot);
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
+
+        // Override even if empty body, but this type is sealed so the virtual dispatch could be
+        // eliminated by the JIT.
+        protected internal sealed override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {

@@ -14,7 +14,7 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         protected (double Max, double Min) _slope;
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        protected internal sealed override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
@@ -68,9 +68,9 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         protected void OpenNewDoor() => _slope = s_newDoor;
         //---------------------------------------------------------------------
         // TODO: check arguments if they are needed
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor();
+        protected internal sealed override void Init(in DataPoint incoming, ref DataPoint snapShot)             => this.OpenNewDoor();
+        protected internal sealed override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) => this.CloseTheDoor(incoming, lastArchived);
         protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
-        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)       => this.CloseTheDoor(incoming, lastArchived);
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {
