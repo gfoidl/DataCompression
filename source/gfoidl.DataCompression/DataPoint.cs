@@ -9,7 +9,8 @@ namespace gfoidl.DataCompression
     /// <summary>
     /// A (x,y) point.
     /// </summary>
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    // TODO: .NET 6
+    //[DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public readonly struct DataPoint : IEquatable<DataPoint>
     {
         private static readonly DataPoint s_origin = new();

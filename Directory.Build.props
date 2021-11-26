@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>9</LangVersion>
         <StandardTfms>net5.0</StandardTfms>
     </PropertyGroup>
 
