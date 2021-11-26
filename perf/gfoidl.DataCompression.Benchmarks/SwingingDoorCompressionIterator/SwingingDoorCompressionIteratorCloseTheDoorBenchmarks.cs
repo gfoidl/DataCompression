@@ -33,7 +33,6 @@ namespace gfoidl.DataCompression.Benchmarks
         {
             Debug.Assert(_swingingDoorCompression is not null);
 
-            // TODO: vectorize
             double upperSlope = lastArchived.Gradient(incoming,  _swingingDoorCompression.CompressionDeviation);
             double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
 

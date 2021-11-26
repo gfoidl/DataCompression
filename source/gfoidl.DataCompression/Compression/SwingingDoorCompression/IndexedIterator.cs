@@ -41,8 +41,6 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         public override List<DataPoint> ToList()          => _inner!.ToList();
         public override bool MoveNext()                   => throw new InvalidOperationException("Should operate on _inner");
         //---------------------------------------------------------------------
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => this.OpenNewDoor();
-        //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();
         public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => throw new NotSupportedException();

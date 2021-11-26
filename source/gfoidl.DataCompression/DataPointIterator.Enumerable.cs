@@ -37,15 +37,15 @@ namespace gfoidl.DataCompression
 
             switch (_state)
             {
-                case 0:
+                case StartOfDataState:
                     if (!_enumerator.MoveNext()) return false;
                     _incoming     = _enumerator.Current;
                     _lastArchived = _incoming;
                     _snapShot     = _incoming;
-                    _state        = 1;
-                    this.Init(_incoming, ref _snapShot);
+                    _state        = IterateState;
+                    this.Init(_incoming);
                     return true;
-                case 1:
+                case IterateState:
                     while (_enumerator.MoveNext())
                     {
                         _incoming       = _enumerator.Current;
@@ -62,7 +62,7 @@ namespace gfoidl.DataCompression
                         {
                             _lastArchived = _snapShot;
                             _snapShot     = _incoming;
-                            _state        = _archiveIncoming ? 2 : 3;   // TODO: optimize by storing state and the bool flag
+                            _state        = _archiveIncomingState;
                             return true;
                         }
 
@@ -77,20 +77,20 @@ namespace gfoidl.DataCompression
                         return true;
                     }
                     goto default;
-                case 2:
+                case ArchiveIncomingState:
                     _lastArchived = _incoming;
-                    _state        = 3;
+                    _state        = PostArchiveState;
                     return true;
-                case 3:
-                    this.Init(_incoming, ref _snapShot);
+                case PostArchiveState:
+                    this.Init(_incoming);
                     this.UpdateFilters(_incoming, _lastArchived);
                     this.HandleSkipMinDeltaX(_enumerator);
-                    goto case 1;
+                    goto case IterateState;
                 case ArchivePointState:
                     _lastArchived = _incoming;
                     _snapShot     = _incoming;
-                    _state        = 1;
-                    this.Init(_incoming, ref _snapShot);
+                    _state        = IterateState;
+                    this.Init(_incoming);
                     this.HandleSkipMinDeltaX(_enumerator);
                     return true;
                 case InitialState:
@@ -143,7 +143,7 @@ namespace gfoidl.DataCompression
             _lastArchived      = incoming;
             DataPoint snapShot = incoming;
 
-            this.Init(incoming, ref snapShot);
+            this.Init(incoming);
             builder.Add(incoming);
 
             while (enumerator.MoveNext())
@@ -170,7 +170,7 @@ namespace gfoidl.DataCompression
                         _lastArchived = incoming;
                     }
 
-                    this.Init(incoming, ref snapShot);
+                    this.Init(incoming);
                     this.UpdateFilters(incoming, _lastArchived);
                     this.HandleSkipMinDeltaX(enumerator);
                     continue;
@@ -179,7 +179,7 @@ namespace gfoidl.DataCompression
                 _lastArchived = incoming;
                 snapShot      = incoming;
                 builder.Add(incoming);
-                this.Init(incoming, ref snapShot);
+                this.Init(incoming);
                 this.HandleSkipMinDeltaX(enumerator);
             }
 

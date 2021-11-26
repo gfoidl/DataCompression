@@ -64,12 +64,10 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
             }
         }
         //---------------------------------------------------------------------
-        protected void OpenNewDoor() => _slope = s_newDoor;
+        private void OpenNewDoor() => _slope = s_newDoor;
         //---------------------------------------------------------------------
-        // TODO: check arguments if they are needed
-        protected internal sealed override void Init(in DataPoint incoming, ref DataPoint snapShot)             => this.OpenNewDoor();
+        protected internal sealed override void Init(in DataPoint incoming)                                     => this.OpenNewDoor();
         protected internal sealed override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) => this.CloseTheDoor(incoming, lastArchived);
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {

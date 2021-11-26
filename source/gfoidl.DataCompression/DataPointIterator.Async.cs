@@ -77,7 +77,7 @@ namespace gfoidl.DataCompression
 
                     _lastArchived = incoming;
                     _snapShot     = incoming;
-                    this.Init(incoming, ref _snapShot);
+                    this.Init(incoming);
                     continue;
                 }
 
@@ -116,7 +116,7 @@ namespace gfoidl.DataCompression
                         _lastArchived = incoming;
                     }
 
-                    this.Init(incoming, ref _snapShot);
+                    this.Init(incoming);
                     this.UpdateFilters(incoming, _lastArchived);
                     isSkipMinDeltaX = _minDeltaX.HasValue;
 
@@ -129,7 +129,7 @@ namespace gfoidl.DataCompression
                 _lastArchived   = incoming;
                 _snapShot       = incoming;
                 isSkipMinDeltaX = _minDeltaX.HasValue;
-                this.Init(incoming, ref _snapShot);
+                this.Init(incoming);
             }
 
             cancellationToken.ThrowIfCancellationRequested();

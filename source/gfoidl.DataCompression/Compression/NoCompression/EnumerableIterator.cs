@@ -48,8 +48,7 @@ namespace gfoidl.DataCompression.Internal.NoCompression
         //---------------------------------------------------------------------
         public override List<DataPoint> ToList() => new List<DataPoint>(_source);
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)                           => throw new NotSupportedException();
+        protected internal override void Init(in DataPoint incoming)                                                                     => throw new NotSupportedException();
         protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1

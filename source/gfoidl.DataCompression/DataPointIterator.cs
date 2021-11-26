@@ -17,10 +17,14 @@ namespace gfoidl.DataCompression
     /// </remarks>
     public abstract partial class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
     {
-        private protected const int InitialState      = -2;
-        private protected const int DisposedState     = -3;
-        private protected const int EndOfDataState    = -1;
-        private protected const int ArchivePointState = -4;
+        private protected const int DisposedState        = -3;
+        private protected const int InitialState         = -2;
+        private protected const int EndOfDataState       = -1;
+        private protected const int StartOfDataState     =  0;
+        private protected const int IterateState         =  1;
+        private protected const int ArchiveIncomingState =  2;
+        private protected const int PostArchiveState     =  3;
+        private protected const int ArchivePointState    =  4;
         //---------------------------------------------------------------------
         private protected Compression?                  _algorithm;
         private protected int                           _state = InitialState;
@@ -36,6 +40,7 @@ namespace gfoidl.DataCompression
         private protected double? _maxDeltaX;
         private protected double? _minDeltaX;
         private protected bool    _archiveIncoming;
+        private protected int     _archiveIncomingState;
         //---------------------------------------------------------------------
         /// <summary>
         /// Sets the algorithm for this <see cref="DataPointIterator" />.
@@ -44,12 +49,13 @@ namespace gfoidl.DataCompression
         {
             if (algorithm is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.algorithm);
 
-            _state           = InitialState;
-            _threadId        = Environment.CurrentManagedThreadId;
-            _algorithm       = algorithm;
-            _maxDeltaX       = algorithm.MaxDeltaX;
-            _minDeltaX       = algorithm.MinDeltaX;
-            _archiveIncoming = algorithm.ArchiveIncoming;
+            _state                = InitialState;
+            _threadId             = Environment.CurrentManagedThreadId;
+            _algorithm            = algorithm;
+            _maxDeltaX            = algorithm.MaxDeltaX;
+            _minDeltaX            = algorithm.MinDeltaX;
+            _archiveIncoming      = algorithm.ArchiveIncoming;
+            _archiveIncomingState = _archiveIncoming ? ArchiveIncomingState : PostArchiveState;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -107,7 +113,7 @@ namespace gfoidl.DataCompression
                 ? this
                 : this.Clone();
 
-            enumerator._state = 0;
+            enumerator._state = StartOfDataState;
             return enumerator;
         }
         //---------------------------------------------------------------------
@@ -118,19 +124,7 @@ namespace gfoidl.DataCompression
         /// <param name="incoming">
         /// The <see cref="DataPoint" /> on which the initialisation is based on.
         /// </param>
-        /// <param name="snapShot">The last snapshot.</param>
-        protected internal abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Prepares the algorithm for new data, e.g. opens a new door in the
-        /// <see cref="SwingingDoorCompression" />.
-        /// </summary>
-        /// <param name="incomingIndex">
-        /// The index of the <see cref="DataPoint" /> on which the initialisation is based on.
-        /// </param>
-        /// <param name="incoming">The incoming <see cref="DataPoint" />.</param>
-        /// <param name="snapShotIndex">The index of the last snapshot.</param>
-        protected internal abstract void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex);
+        protected internal abstract void Init(in DataPoint incoming);
         //---------------------------------------------------------------------
         /// <summary>
         /// Updates the filters.
