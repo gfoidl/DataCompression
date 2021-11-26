@@ -101,9 +101,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1C82E921-BE23-460B-A330-84DC5A37E209}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\automerge.yml = .github\workflows\automerge.yml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
