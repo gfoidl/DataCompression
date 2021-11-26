@@ -3,8 +3,7 @@
     <Import Project="../Directory.Build.props" />
 
     <PropertyGroup>
-        <DeveloperBuildTestTfms>net5.0</DeveloperBuildTestTfms>
-        <StandardTestTfms>$(DeveloperBuildTestTfms)</StandardTestTfms>
+        <StandardTestTfms>$(StandardTfms)</StandardTestTfms>
         <StandardTestTfms Condition="'$(OS)' == 'Windows_NT'">$(StandardTestTfms);net48</StandardTestTfms>
     </PropertyGroup>
 
@@ -13,16 +12,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-        <PackageReference Include="NUnit" Version="3.12.0" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+        <PackageReference Include="NUnit" Version="3.13.2" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.2.0" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.msbuild" Version="2.9.0">
+        <PackageReference Include="coverlet.msbuild" Version="3.1.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     </ItemGroup>
 
 </Project>
