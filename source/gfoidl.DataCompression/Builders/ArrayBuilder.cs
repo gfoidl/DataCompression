@@ -17,13 +17,13 @@ namespace gfoidl.DataCompression.Builders
     {
         private const int StartCapacity   = 4;
         private const int ResizeThreshold = 8;
-        private readonly int       _maxCapacity;
-        private readonly List<T[]> _buffers;
+        private readonly int _maxCapacity;
 
-        private T[] _firstBuffer;
-        private T[] _currentBuffer;
-        private int _index;
-        private int _count;
+        private List<T[]>? _buffers;
+        private T[]        _firstBuffer;
+        private T[]        _currentBuffer;
+        private int        _index;
+        private int        _count;
         //---------------------------------------------------------------------
         public ArrayBuilder(bool initialize) : this(int.MaxValue) { }
         //---------------------------------------------------------------------
@@ -31,7 +31,7 @@ namespace gfoidl.DataCompression.Builders
         {
             _maxCapacity = maxCapacity;
             _firstBuffer = _currentBuffer = new T[StartCapacity];
-            _buffers     = new List<T[]>();
+            _buffers     = null;
         }
         //---------------------------------------------------------------------
         public readonly int Count => _count;
@@ -110,8 +110,8 @@ namespace gfoidl.DataCompression.Builders
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void AddWithBufferAllocation(T item, ref T[] destination, ref int index)
         {
-            _count               += index - _index;
-            _index                = index;
+            _count += index - _index;
+            _index  = index;
             this.AllocateBuffer();
             destination           = _currentBuffer;
             index                 = _index;
@@ -166,7 +166,7 @@ namespace gfoidl.DataCompression.Builders
                 int newCapacity = Math.Min(_count == 0 ? StartCapacity : _count * 2, _maxCapacity);
                 _currentBuffer  = new T[newCapacity];
                 Array.Copy(_firstBuffer, 0, _currentBuffer, 0, _count);
-                _firstBuffer    = _currentBuffer;
+                _firstBuffer = _currentBuffer;
             }
             else
             {
@@ -181,6 +181,7 @@ namespace gfoidl.DataCompression.Builders
                     // doing min(64, 100 - 64). The lhs represents double the last buffer,
                     // the rhs the limit minus the amount we've already allocated.
 
+                    _buffers ??= new List<T[]>();
                     _buffers.Add(_currentBuffer);
                     newCapacity = Math.Min(_count, _maxCapacity - _count);
                 }
@@ -194,7 +195,7 @@ namespace gfoidl.DataCompression.Builders
         {
             return index == 0
                 ? _firstBuffer
-                : index <= _buffers.Count
+                : index <= _buffers?.Count
                     ? _buffers[index - 1]       // first "buffer" is _firstBuffer resized
                     : _currentBuffer;
         }

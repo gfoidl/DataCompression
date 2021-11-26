@@ -178,7 +178,7 @@ namespace gfoidl.DataCompression
         {
             Debug.Assert(_list is not null);
 
-            TList source = _list;
+            TList source = _list!;
 
             Debug.Assert(source.Count > 0);
             if (source.Count == 1 && 0 < (uint)source.Count)
