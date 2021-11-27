@@ -33,6 +33,14 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Creates a new instance of dead band compression.
         /// </summary>
+        /// <remarks>
+        /// Precision isn't set, so it must be set via <see cref="InstrumentPrecision" />.
+        /// </remarks>
+        public DeadBandCompression() { }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Creates a new instance of dead band compression.
+        /// </summary>
         /// <param name="instrumentPrecision">
         /// (Absolut) precision of the instrument. Cf. ExDev in documentation.
         /// </param>
