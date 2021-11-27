@@ -102,6 +102,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1C82E921-BE23-460B-A330-84DC5A37E209}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockerfiles", "Dockerfiles", "{71D2C17A-2E54-4EC2-AF40-8DB176AAF608}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-gnuplot5", "dotnet-gnuplot5", "{42D16757-4E4A-41FB-BAD7-B93A71153A0B}"
+	ProjectSection(SolutionItems) = preProject
+		demos\Dockerfiles\dotnet-gnuplot5\.dockerignore = demos\Dockerfiles\dotnet-gnuplot5\.dockerignore
+		demos\Dockerfiles\dotnet-gnuplot5\build.sh = demos\Dockerfiles\dotnet-gnuplot5\build.sh
+		demos\Dockerfiles\dotnet-gnuplot5\Dockerfile = demos\Dockerfiles\dotnet-gnuplot5\Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -170,6 +179,8 @@ Global
 		{D84524A8-1A5B-4486-96AB-B1303B1B0243} = {5EC3A886-352D-490B-90F0-F0EEA56C959F}
 		{5E13DF71-137A-4207-A6ED-A7EC363EF036} = {D84524A8-1A5B-4486-96AB-B1303B1B0243}
 		{1C82E921-BE23-460B-A330-84DC5A37E209} = {D84524A8-1A5B-4486-96AB-B1303B1B0243}
+		{71D2C17A-2E54-4EC2-AF40-8DB176AAF608} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{42D16757-4E4A-41FB-BAD7-B93A71153A0B} = {71D2C17A-2E54-4EC2-AF40-8DB176AAF608}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}
