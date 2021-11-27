@@ -7,7 +7,7 @@ set output 'agt_zyl_6.png'
 set grid
 set title 'AGT Zyl. 6'
 set xlabel 'Time'
-set ylabel '[°C]'
+set ylabel '[Â°C]'
 #set key bottom right
 
 #set yrange [14:25]

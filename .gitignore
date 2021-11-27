@@ -217,13 +217,3 @@ FakesAssemblies/
 _Pvt_Extensions
 /source/packages
 /NuGet-packed
-/demos/gfoidl.DataCompression.Demos.DeadBand.Stats/data/*.csv
-/demos/gfoidl.DataCompression.Demos.DeadBand/data/coolant-temp.png
-/demos/gfoidl.DataCompression.Demos.DeadBand/data/coolant-temp_compressed.csv
-/demos/gfoidl.DataCompression.Demos.DeadBand.Stats/data/coolant-temp.png
-/demos/gfoidl.DataCompression.Demos.DeadBand.Stats/data/error.png
-/demos/gfoidl.DataCompression.Demos.SwingingDoor/data/coolant-temp.png
-/demos/gfoidl.DataCompression.Demos.SwingingDoor/data/coolant-temp_compressed.csv
-/demos/gfoidl.DataCompression.Demos.SwingingDoor.Stats/data/error.png
-/demos/gfoidl.DataCompression.Demos.SwingingDoor.Stats/data/*.csv
-/demos/gfoidl.DataCompression.Demos.LiveData/data/*
