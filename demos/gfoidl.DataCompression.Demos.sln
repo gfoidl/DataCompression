@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.Async", "gfoidl.DataCompression.Demos.Async\gfoidl.DataCompression.Demos.Async.csproj", "{D9662E32-CEE1-47B8-AACC-8D6FADF41121}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand", "gfoidl.DataCompression.Demos.DeadBand\gfoidl.DataCompression.Demos.DeadBand.csproj", "{310E373C-54FD-4CCC-91E3-D999E449859E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand.Stats", "gfoidl.DataCompression.Demos.DeadBand.Stats\gfoidl.DataCompression.Demos.DeadBand.Stats.csproj", "{A7471318-F09A-4AC2-A181-B9C7A1F27739}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.LiveData", "gfoidl.DataCompression.Demos.LiveData\gfoidl.DataCompression.Demos.LiveData.csproj", "{2B04A40F-467C-438C-A843-1EC7079FD2BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.SwingingDoor", "gfoidl.DataCompression.Demos.SwingingDoor\gfoidl.DataCompression.Demos.SwingingDoor.csproj", "{D2DE4DB7-D5EC-4298-8049-324E14928ACC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.SwingingDoor.Stats", "gfoidl.DataCompression.Demos.SwingingDoor.Stats\gfoidl.DataCompression.Demos.SwingingDoor.Stats.csproj", "{11D990F1-F5F6-477B-996A-E23831A83BD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F997A4D9-475F-48CC-8957-3DC5D0F31603}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9662E32-CEE1-47B8-AACC-8D6FADF41121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9662E32-CEE1-47B8-AACC-8D6FADF41121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9662E32-CEE1-47B8-AACC-8D6FADF41121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9662E32-CEE1-47B8-AACC-8D6FADF41121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310E373C-54FD-4CCC-91E3-D999E449859E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310E373C-54FD-4CCC-91E3-D999E449859E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310E373C-54FD-4CCC-91E3-D999E449859E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310E373C-54FD-4CCC-91E3-D999E449859E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7471318-F09A-4AC2-A181-B9C7A1F27739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7471318-F09A-4AC2-A181-B9C7A1F27739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7471318-F09A-4AC2-A181-B9C7A1F27739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7471318-F09A-4AC2-A181-B9C7A1F27739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B04A40F-467C-438C-A843-1EC7079FD2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B04A40F-467C-438C-A843-1EC7079FD2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B04A40F-467C-438C-A843-1EC7079FD2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B04A40F-467C-438C-A843-1EC7079FD2BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2DE4DB7-D5EC-4298-8049-324E14928ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2DE4DB7-D5EC-4298-8049-324E14928ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2DE4DB7-D5EC-4298-8049-324E14928ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2DE4DB7-D5EC-4298-8049-324E14928ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D990F1-F5F6-477B-996A-E23831A83BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D990F1-F5F6-477B-996A-E23831A83BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D990F1-F5F6-477B-996A-E23831A83BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D990F1-F5F6-477B-996A-E23831A83BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A04F36F-BC47-406D-A517-00D459A809DC}
+	EndGlobalSection
+EndGlobal
