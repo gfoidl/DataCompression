@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -34,6 +34,11 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {
+            if (_state == DisposedState)
+            {
+                return;
+            }
+
             Debug.Assert(_deadBandCompression is not null);
 
             ref SequentialEnumerableIterator? cache = ref _deadBandCompression._cachedSequentialEnumerableIterator;
