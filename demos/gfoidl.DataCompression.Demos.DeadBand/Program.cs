@@ -40,7 +40,7 @@ namespace gfoidl.DataCompression.Demos.DeadBand
 #if !SKIP_PLOT_DISPLAY
             var png                       = new Process();
             png.StartInfo.UseShellExecute = true;       // defaults to false in in .NET (Core)
-            png.StartInfo.FileName        = "coolant-temp.png";
+            png.StartInfo.FileName        = "coolant-temp-deadband.png";
             png.Start();
 #endif
         }

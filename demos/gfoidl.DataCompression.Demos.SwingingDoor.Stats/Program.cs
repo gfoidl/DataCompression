@@ -97,7 +97,7 @@ namespace gfoidl.DataCompression.Demos.SwingingDoor.Stats
 #if !SKIP_PLOT_DISPLAY
             var png                       = new Process();
             png.StartInfo.UseShellExecute = true;       // defaults to false in .NET (Core)
-            png.StartInfo.FileName        = "error.png";
+            png.StartInfo.FileName        = "error-swingingdoor.png";
             png.Start();
 #endif
         }

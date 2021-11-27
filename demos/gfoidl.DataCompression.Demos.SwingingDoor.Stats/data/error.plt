@@ -1,7 +1,7 @@
 reset
 
 set term pngcairo size 1200,1000 enhanced
-set output 'error.png'
+set output 'error-swingingdoor.png'
 
 set multiplot layout 4, 1 title "Error for swinging door compression\n"
 

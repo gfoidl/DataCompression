@@ -97,7 +97,7 @@ namespace gfoidl.DataCompression.Demos.DeadBand.Stats
 #if !SKIP_PLOT_DISPLAY
             var png                       = new Process();
             png.StartInfo.UseShellExecute = true;       // defaults to false in in .NET (Core)
-            png.StartInfo.FileName        = "error.png";
+            png.StartInfo.FileName        = "error-deadband.png";
             png.Start();
 #endif
         }
