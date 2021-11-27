@@ -1,66 +1,60 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 
-namespace gfoidl.DataCompression.Benchmarks
+namespace gfoidl.DataCompression.Benchmarks;
+
+[MemoryDiagnoser]
+public abstract class Base
 {
-    [MemoryDiagnoser]
-    public abstract class Base
+    private const int Count = 1_000_000;
+
+    private readonly Random _rnd = new(Seed: 42);
+    //-------------------------------------------------------------------------
+    protected IEnumerable<DataPoint> Source(int count = Count)
     {
-        private const int Count = 1_000_000;
-        private Random? _rnd;
-        //---------------------------------------------------------------------
-        [GlobalSetup]
-        public void GlobalSetup()
+        for (int i = 0; i < count; ++i)
         {
-            _rnd = new Random(42);
+            double x = i;
+            double y = _rnd!.NextDouble();
+
+            yield return (x, y);
         }
-        //---------------------------------------------------------------------
-        protected IEnumerable<DataPoint> Source(int count = Count)
+    }
+    //-------------------------------------------------------------------------
+    protected async IAsyncEnumerable<DataPoint> SourceAsync(int count = Count)
+    {
+        foreach (DataPoint dataPoint in this.Source(count))
         {
-            for (int i = 0; i < count; ++i)
-            {
-                double x = i;
-                double y = _rnd!.NextDouble();
-
-                yield return (x, y);
-            }
+            await Task.Yield();
+            yield return dataPoint;
         }
-        //---------------------------------------------------------------------
-        protected async IAsyncEnumerable<DataPoint> SourceAsync(int count = Count)
+    }
+    //-------------------------------------------------------------------------
+    protected static double Consume(DataPointIterator iterator)
+    {
+        double sum = 0;
+
+        foreach (DataPoint dataPoint in iterator)
         {
-            foreach (DataPoint dataPoint in this.Source(count))
-            {
-                await Task.Yield();
-                yield return dataPoint;
-            }
+            sum += dataPoint.Y;
         }
-        //---------------------------------------------------------------------
-        protected double Consume(DataPointIterator iterator)
+
+        return sum;
+    }
+    //-------------------------------------------------------------------------
+    protected static async ValueTask<double> ConsumeAsync(DataPointIterator iterator)
+    {
+        double sum = 0;
+
+        await foreach (DataPoint dataPoint in iterator)
         {
-            double sum = 0;
-
-            foreach (DataPoint dataPoint in iterator)
-            {
-                sum += dataPoint.Y;
-            }
-
-            return sum;
+            sum += dataPoint.Y;
         }
-        //---------------------------------------------------------------------
-        protected async ValueTask<double> ConsumeAsync(DataPointIterator iterator)
-        {
-            double sum = 0;
 
-            await foreach (DataPoint dataPoint in iterator)
-            {
-                sum += dataPoint.Y;
-            }
-
-            return sum;
-        }
+        return sum;
     }
 }
