@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,7 +6,8 @@ using BenchmarkDotNet.Attributes;
 
 namespace gfoidl.DataCompression.Benchmarks
 {
-    public class DeadBandCompressionBenchmarksAsync : Base
+    [BenchmarkCategory("Compression")]
+    public class DeadBandCompressionAsync : Base
     {
         [Benchmark]
         public async ValueTask<double> Enumerate()

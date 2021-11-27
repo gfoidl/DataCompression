@@ -1,10 +1,11 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 
 namespace gfoidl.DataCompression.Benchmarks
 {
+    [BenchmarkCategory("Compression")]
     public class SwingingDoorCompression : Base
     {
         [Benchmark]

@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,6 +6,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace gfoidl.DataCompression.Benchmarks
 {
+    [BenchmarkCategory("Compression")]
     public class SwingingDoorCompressionAsync : Base
     {
         [Benchmark]

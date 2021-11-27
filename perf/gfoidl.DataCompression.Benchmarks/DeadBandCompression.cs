@@ -1,11 +1,12 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 
 namespace gfoidl.DataCompression.Benchmarks
 {
-    public class DeadBandCompressionBenchmarks : Base
+    [BenchmarkCategory("Compression")]
+    public class DeadBandCompression : Base
     {
         [Benchmark]
         public double Enumerate()

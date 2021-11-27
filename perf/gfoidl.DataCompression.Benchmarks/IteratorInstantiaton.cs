@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,18 @@ using gfoidl.DataCompression.Benchmarks.Infrastructure;
 
 namespace gfoidl.DataCompression.Benchmarks
 {
+    [BenchmarkCategory("Instantiation")]
     [ShortRunJob]
     [GenericTypeArguments(typeof(DeadBandCompressionFactory))]
     [GenericTypeArguments(typeof(SwingingDoorCompressionFactory))]
-    public class IteratorInstantiatonBenchmark<TFactory> : Base where TFactory : ICompressionFactory, new()
+    public class IteratorInstantiaton<TFactory> : Base where TFactory : ICompressionFactory, new()
     {
         private const int Count = 2;
 
         private readonly DataPoint[]  _dataPoints = { new DataPoint((0, 1)), new DataPoint((1, 0)) };
         private readonly ICompression _compression;
         //---------------------------------------------------------------------
-        public IteratorInstantiatonBenchmark()
+        public IteratorInstantiaton()
         {
             TFactory factory = new();
             _compression     = factory.Create();

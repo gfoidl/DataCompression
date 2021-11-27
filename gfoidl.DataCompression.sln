@@ -61,6 +61,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "perf", "perf", "{CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}"
 	ProjectSection(SolutionItems) = preProject
 		perf\Directory.Build.props = perf\Directory.Build.props
+		perf\run-benchmarks.sh = perf\run-benchmarks.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Benchmarks", "perf\gfoidl.DataCompression.Benchmarks\gfoidl.DataCompression.Benchmarks.csproj", "{81D55029-F85F-4624-BAA1-7128A6FA1A66}"
@@ -73,12 +74,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".azure", ".azure", "{6BBD83
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{9F113C33-ED91-434B-815D-FA25182E45DA}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\ci-benchmarks.yml = .azure\pipelines\ci-benchmarks.yml
 		.azure\pipelines\ci-demos.yml = .azure\pipelines\ci-demos.yml
 		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{EA029C4A-19E7-400F-B9B5-30B64D2F8A13}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\jobs\benchmarks.yml = .azure\pipelines\jobs\benchmarks.yml
 		.azure\pipelines\jobs\build_and_test.yml = .azure\pipelines\jobs\build_and_test.yml
 		.azure\pipelines\jobs\build_docs.yml = .azure\pipelines\jobs\build_docs.yml
 		.azure\pipelines\jobs\coverage.yml = .azure\pipelines\jobs\coverage.yml
