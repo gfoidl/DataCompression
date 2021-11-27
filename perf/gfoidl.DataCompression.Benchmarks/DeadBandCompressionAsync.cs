@@ -6,7 +6,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace gfoidl.DataCompression.Benchmarks
 {
-    [BenchmarkCategory("Compression")]
+    [BenchmarkCategory(Categories.Compression, Categories.Async, Categories.Deadband)]
     public class DeadBandCompressionAsync : Base
     {
         [Benchmark]

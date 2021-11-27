@@ -32,7 +32,7 @@ namespace gfoidl.DataCompression.Benchmarks
             return this.Consume(iterator);
         }
         //---------------------------------------------------------------------
-        //[Benchmark]
+        [Benchmark]
         public async ValueTask<double> SingleIterationASync()
         {
             IAsyncEnumerable<DataPoint> source = this.SourceAsync(Count);
@@ -56,7 +56,7 @@ namespace gfoidl.DataCompression.Benchmarks
             return sum;
         }
         //---------------------------------------------------------------------
-        //[Benchmark]
+        [Benchmark]
         [Arguments(100)]
         [Arguments(1_000)]
         public async ValueTask<double> MultipleIterationsAsync(int n)
