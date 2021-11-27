@@ -45,6 +45,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}"
 	ProjectSection(SolutionItems) = preProject
 		demos\Directory.Build.props = demos\Directory.Build.props
+		demos\run.sh = demos\run.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand", "demos\gfoidl.DataCompression.Demos.DeadBand\gfoidl.DataCompression.Demos.DeadBand.csproj", "{28907718-5258-47D9-BBFA-2B3F86E7E3C4}"
@@ -72,6 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".azure", ".azure", "{6BBD83
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{9F113C33-ED91-434B-815D-FA25182E45DA}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\ci-demos.yml = .azure\pipelines\ci-demos.yml
 		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
 	EndProjectSection
 EndProject
@@ -80,6 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{EA029C4A-1
 		.azure\pipelines\jobs\build_and_test.yml = .azure\pipelines\jobs\build_and_test.yml
 		.azure\pipelines\jobs\build_docs.yml = .azure\pipelines\jobs\build_docs.yml
 		.azure\pipelines\jobs\coverage.yml = .azure\pipelines\jobs\coverage.yml
+		.azure\pipelines\jobs\demos.yml = .azure\pipelines\jobs\demos.yml
 		.azure\pipelines\jobs\deploy_docs.yml = .azure\pipelines\jobs\deploy_docs.yml
 		.azure\pipelines\jobs\deploy_nuget.yml = .azure\pipelines\jobs\deploy_nuget.yml
 	EndProjectSection
