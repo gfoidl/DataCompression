@@ -7,6 +7,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(SKIP_PLOT_DISPLAY)' != ''">
+        <DefineConstants>$(DefineConstants);SKIP_PLOT_DISPLAY;CI_BUILD</DefineConstants>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\source\gfoidl.DataCompression\gfoidl.DataCompression.csproj" />
     </ItemGroup>

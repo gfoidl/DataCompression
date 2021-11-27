@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -12,16 +12,22 @@ namespace gfoidl.DataCompression.Demos.Async
     {
         static async Task Main(string[] args)
         {
-            var cts                            = new CancellationTokenSource();
+#if CI_BUILD
+            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+#else
+            var cts = new CancellationTokenSource();
+#endif
             IAsyncEnumerable<DataPoint> source = Source(cts.Token);
             //DataPointIterator filtered         = source.DeadBandCompressionAsync(0.01);
             DataPointIterator filtered         = source.SwingingDoorCompressionAsync(0.01);
             ValueTask<double> sinkTask         = Sink(filtered, cts.Token);
 
+#if !CI_BUILD
             Console.WriteLine("any key to stop...");
             Console.ReadKey();
-
             cts.Cancel();
+#endif
+
             double sum = default;
             try
             {
@@ -34,6 +40,8 @@ namespace gfoidl.DataCompression.Demos.Async
         //---------------------------------------------------------------------
         private static async IAsyncEnumerable<DataPoint> Source([EnumeratorCancellation] CancellationToken ct = default)
         {
+            await Task.Yield();
+
             int i   = 0;
             var rnd = new Random(42);
 
@@ -49,6 +57,8 @@ namespace gfoidl.DataCompression.Demos.Async
         //---------------------------------------------------------------------
         private static async ValueTask<double> Sink(DataPointIterator data, CancellationToken ct = default)
         {
+            await Task.Yield();
+
             double sum = 0;
             uint count = 0;
 

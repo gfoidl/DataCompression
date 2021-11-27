@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -14,16 +14,22 @@ namespace gfoidl.DataCompression.Demos.LiveData
             Environment.CurrentDirectory = Path.Combine(Directory.GetCurrentDirectory(), "data");
 
             Run("agt_n_awt1", 0.25, 0.5);
+#if !CI_BUILD
             Console.WriteLine("hit key to continue...");
             Console.ReadKey();
+#endif
 
             Run("agt_zyl_6", 0.75, 1.5);
+#if !CI_BUILD
             Console.WriteLine("hit key to continue...");
             Console.ReadKey();
+#endif
 
             Run("erregerspannung", 0.4, 0.8);
+#if !CI_BUILD
             Console.WriteLine("hit key to continue...");
             Console.ReadKey();
+#endif
         }
         //---------------------------------------------------------------------
         private static void Run(string name, double instrumentPrecision, double compressionDeviation)
@@ -53,10 +59,12 @@ namespace gfoidl.DataCompression.Demos.LiveData
         //---------------------------------------------------------------------
         private static void ShowChart(string name)
         {
+#if !SKIP_PLOT_DISPLAY
             var png                       = new Process();
-            png.StartInfo.UseShellExecute = true;       // defaults to false in .net Core
+            png.StartInfo.UseShellExecute = true;       // defaults to false in .NET (Core)
             png.StartInfo.FileName        = $"{name}.png";
             png.Start();
+#endif
         }
     }
 }

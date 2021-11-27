@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 #define INTERPOLATE
 
@@ -41,7 +41,7 @@ namespace gfoidl.DataCompression.Demos.SwingingDoor.Stats
         //---------------------------------------------------------------------
         private static IEnumerable<DataPoint> CreateData()
         {
-            var rnd = new Random();
+            var rnd = new Random(42);
 
             for (int i = 0; i < 1_000; ++i)
             {
@@ -57,9 +57,7 @@ namespace gfoidl.DataCompression.Demos.SwingingDoor.Stats
             var compressedEnum = compressed.GetEnumerator();
             var rawEnum        = raw.GetEnumerator();
 
-#if INTERPOLATE
             double x = default;
-#endif
             double y = default;
 
             while (compressedEnum.MoveNext() && rawEnum.MoveNext())
@@ -96,10 +94,12 @@ namespace gfoidl.DataCompression.Demos.SwingingDoor.Stats
         //---------------------------------------------------------------------
         private static void ShowChart()
         {
+#if !SKIP_PLOT_DISPLAY
             var png                       = new Process();
-            png.StartInfo.UseShellExecute = true;       // defaults to false in .net Core
+            png.StartInfo.UseShellExecute = true;       // defaults to false in .NET (Core)
             png.StartInfo.FileName        = "error.png";
             png.Start();
+#endif
         }
     }
 }
