@@ -48,6 +48,11 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {
+            if (_state == DisposedState)
+            {
+                return;
+            }
+
             Debug.Assert(_swingingDoorCompression is not null);
 
             //_inner?.Dispose();        !!! don't dispose _inner, as _inner disposes this instance

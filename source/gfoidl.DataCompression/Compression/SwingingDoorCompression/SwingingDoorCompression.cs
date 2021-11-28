@@ -34,6 +34,14 @@ namespace gfoidl.DataCompression
         /// <summary>
         /// Creates a new instance of swinging door compression.
         /// </summary>
+        /// <remarks>
+        ///  Compression deviation isn't set, so it must be set via <see cref="CompressionDeviation" />.
+        /// </remarks>
+        public SwingingDoorCompression() { }
+        //---------------------------------------------------------------------
+        /// <summary>
+        /// Creates a new instance of swinging door compression.
+        /// </summary>
         /// <param name="compressionDeviation">
         /// (Absolut) Compression deviation applied to the y values to calculate the
         /// min and max slopes. Cf. CompDev in documentation.

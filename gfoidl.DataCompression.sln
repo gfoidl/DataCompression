@@ -45,6 +45,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}"
 	ProjectSection(SolutionItems) = preProject
 		demos\Directory.Build.props = demos\Directory.Build.props
+		demos\run.sh = demos\run.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Demos.DeadBand", "demos\gfoidl.DataCompression.Demos.DeadBand\gfoidl.DataCompression.Demos.DeadBand.csproj", "{28907718-5258-47D9-BBFA-2B3F86E7E3C4}"
@@ -60,6 +61,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "perf", "perf", "{CEFBCCE8-6F5E-483A-97D2-58907F7BCE24}"
 	ProjectSection(SolutionItems) = preProject
 		perf\Directory.Build.props = perf\Directory.Build.props
+		perf\run-benchmarks.sh = perf\run-benchmarks.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gfoidl.DataCompression.Benchmarks", "perf\gfoidl.DataCompression.Benchmarks\gfoidl.DataCompression.Benchmarks.csproj", "{81D55029-F85F-4624-BAA1-7128A6FA1A66}"
@@ -72,14 +74,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".azure", ".azure", "{6BBD83
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{9F113C33-ED91-434B-815D-FA25182E45DA}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\ci-benchmarks.yml = .azure\pipelines\ci-benchmarks.yml
+		.azure\pipelines\ci-demos.yml = .azure\pipelines\ci-demos.yml
 		.azure\pipelines\ci.yml = .azure\pipelines\ci.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{EA029C4A-19E7-400F-B9B5-30B64D2F8A13}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\jobs\benchmarks.yml = .azure\pipelines\jobs\benchmarks.yml
 		.azure\pipelines\jobs\build_and_test.yml = .azure\pipelines\jobs\build_and_test.yml
 		.azure\pipelines\jobs\build_docs.yml = .azure\pipelines\jobs\build_docs.yml
 		.azure\pipelines\jobs\coverage.yml = .azure\pipelines\jobs\coverage.yml
+		.azure\pipelines\jobs\demos.yml = .azure\pipelines\jobs\demos.yml
 		.azure\pipelines\jobs\deploy_docs.yml = .azure\pipelines\jobs\deploy_docs.yml
 		.azure\pipelines\jobs\deploy_nuget.yml = .azure\pipelines\jobs\deploy_nuget.yml
 	EndProjectSection
@@ -101,6 +107,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1C82E921-BE23-460B-A330-84DC5A37E209}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockerfiles", "Dockerfiles", "{71D2C17A-2E54-4EC2-AF40-8DB176AAF608}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-gnuplot5", "dotnet-gnuplot5", "{42D16757-4E4A-41FB-BAD7-B93A71153A0B}"
+	ProjectSection(SolutionItems) = preProject
+		demos\Dockerfiles\dotnet-gnuplot5\.dockerignore = demos\Dockerfiles\dotnet-gnuplot5\.dockerignore
+		demos\Dockerfiles\dotnet-gnuplot5\build.sh = demos\Dockerfiles\dotnet-gnuplot5\build.sh
+		demos\Dockerfiles\dotnet-gnuplot5\Dockerfile = demos\Dockerfiles\dotnet-gnuplot5\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,6 +185,8 @@ Global
 		{D84524A8-1A5B-4486-96AB-B1303B1B0243} = {5EC3A886-352D-490B-90F0-F0EEA56C959F}
 		{5E13DF71-137A-4207-A6ED-A7EC363EF036} = {D84524A8-1A5B-4486-96AB-B1303B1B0243}
 		{1C82E921-BE23-460B-A330-84DC5A37E209} = {D84524A8-1A5B-4486-96AB-B1303B1B0243}
+		{71D2C17A-2E54-4EC2-AF40-8DB176AAF608} = {26C3FC5E-B8F2-4B7E-B264-7EC29772DC7C}
+		{42D16757-4E4A-41FB-BAD7-B93A71153A0B} = {71D2C17A-2E54-4EC2-AF40-8DB176AAF608}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB4A29EA-001D-4E57-BBF5-C442F27797AE}

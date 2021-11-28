@@ -9,20 +9,10 @@
 
 See `./demos` for code.
 
+_Note_: the graphs in the documentation are created by the code from `./demos`, so you can see which config-values got used.
+
 ![](./articles/images/demo_01.png)
 
 ![](./articles/images/demo_02.png)
 
 ![](./articles/images/demo_03.png)
-
-## Development channel
-
-To get packages from the development channel use a `nuget.config` similar to this one:
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-    <packageSources>
-        <add key="gfoidl-public" value="https://pkgs.dev.azure.com/gh-gfoidl/github-Projects/_packaging/gfoidl-public/nuget/v3/index.json" />
-    </packageSources>
-</configuration>
-```

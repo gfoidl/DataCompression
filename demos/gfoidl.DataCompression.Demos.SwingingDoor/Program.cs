@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -37,10 +37,12 @@ namespace gfoidl.DataCompression.Demos.SwingingDoor
         //---------------------------------------------------------------------
         private static void ShowChart()
         {
+#if !SKIP_PLOT_DISPLAY
             var png                       = new Process();
-            png.StartInfo.UseShellExecute = true;       // defaults to false in .net Core
-            png.StartInfo.FileName        = "coolant-temp.png";
+            png.StartInfo.UseShellExecute = true;       // defaults to false in .NET (Core)
+            png.StartInfo.FileName        = "coolant-temp-swingingdoor.png";
             png.Start();
+#endif
         }
     }
 }

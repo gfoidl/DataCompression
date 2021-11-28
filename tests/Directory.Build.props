@@ -3,7 +3,7 @@
     <Import Project="../Directory.Build.props" />
 
     <PropertyGroup>
-        <StandardTestTfms>$(StandardTfms)</StandardTestTfms>
+        <StandardTestTfms>$(StandardTfm)</StandardTestTfms>
         <StandardTestTfms Condition="'$(OS)' == 'Windows_NT'">$(StandardTestTfms);net48</StandardTestTfms>
     </PropertyGroup>
 

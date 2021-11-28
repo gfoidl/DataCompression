@@ -2,7 +2,7 @@ reset
 
 #set terminal dumb
 set term pngcairo size 800,600 enhanced
-set output 'coolant-temp.png'
+set output 'coolant-temp-swingingdoor.png'
 
 set grid
 set title 'Coolant temp over Oh'

@@ -6,14 +6,14 @@ using BenchmarkDotNet.Attributes;
 
 namespace gfoidl.DataCompression.Benchmarks;
 
-[BenchmarkCategory(Categories.Compression, Categories.Async, Categories.SwingingDoor)]
-public class SwingingDoorCompressionAsync : Base
+[BenchmarkCategory(Categories.Compression, Categories.Async, Categories.Deadband)]
+public class DeadBandCompressionAsync : Base
 {
     [Benchmark]
     public async ValueTask<double> Enumerate()
     {
         IAsyncEnumerable<DataPoint> source = this.SourceAsync();
-        using DataPointIterator filtered   = source.SwingingDoorCompressionAsync(0.1);
+        using DataPointIterator filtered   = source.DeadBandCompressionAsync(0.1);
         return await ConsumeAsync(filtered);
     }
     //---------------------------------------------------------------------
@@ -21,7 +21,7 @@ public class SwingingDoorCompressionAsync : Base
     public async ValueTask<DataPoint[]> ToArray()
     {
         IAsyncEnumerable<DataPoint> source = this.SourceAsync();
-        using DataPointIterator filtered   = source.SwingingDoorCompressionAsync(0.1);
+        using DataPointIterator filtered   = source.DeadBandCompressionAsync(0.1);
         return await filtered.ToArrayAsync();
     }
     //---------------------------------------------------------------------
@@ -29,7 +29,7 @@ public class SwingingDoorCompressionAsync : Base
     public async ValueTask<List<DataPoint>> ToList()
     {
         IAsyncEnumerable<DataPoint> source = this.SourceAsync();
-        using DataPointIterator filtered   = source.SwingingDoorCompressionAsync(0.1);
+        using DataPointIterator filtered   = source.DeadBandCompressionAsync(0.1);
         return await filtered.ToListAsync();
     }
 }

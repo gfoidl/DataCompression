@@ -7,7 +7,7 @@ set output 'agt_n_awt1.png'
 set grid
 set title 'AGT n AWT1'
 set xlabel 'Time'
-set ylabel '[°C]'
+set ylabel '[Â°C]'
 #set key bottom right
 
 set xdata time

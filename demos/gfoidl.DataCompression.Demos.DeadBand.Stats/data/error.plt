@@ -1,7 +1,7 @@
 reset
 
 set term pngcairo size 1200,1000 enhanced
-set output 'error.png'
+set output 'error-deadband.png'
 
 set multiplot layout 4, 1 title "Error for dead band compression\n"
 
