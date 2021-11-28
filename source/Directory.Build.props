@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageProjectUrl>https://github.com/gfoidl/DataCompression</PackageProjectUrl>
+        <PackageProjectUrl>https://gfoidl.github.io/DataCompression</PackageProjectUrl>
         <RepositoryUrl>https://github.com/gfoidl/DataCompression</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
