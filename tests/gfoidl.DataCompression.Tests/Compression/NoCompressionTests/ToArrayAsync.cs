@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,8 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -32,6 +34,8 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 
             var actual = await sut.ProcessAsync(data).ToArrayAsync();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
@@ -49,6 +53,8 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
             await enumerator.MoveNextAsync();
             var actual = await dataPointIterator.ToArrayAsync();
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------

@@ -5,7 +5,8 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-        <NoWarn>$(NoWarn);CS8602;CS8604</NoWarn>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+        <NoWarn>$(NoWarn);CS8600;CS8602;CS8604</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Label="Package">
@@ -22,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="gfoidl.DataCompression.Benchmarks" />
         <InternalsVisibleTo Include="gfoidl.DataCompression.Tests" />
     </ItemGroup>
 

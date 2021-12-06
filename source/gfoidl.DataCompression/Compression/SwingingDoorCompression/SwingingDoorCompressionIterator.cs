@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Runtime.CompilerServices;
 using System;
@@ -14,11 +14,11 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         protected (double Max, double Min) _slope;
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        protected internal sealed override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-            if (!this.IsMaxDeltaX(ref archive, incoming.X, lastArchived.X))
+            if (!this.IsMaxDeltaX(ref archive, lastArchived.X, incoming.X))
             {
                 // Better to compare via gradient (1 calculation) than comparing to allowed y-values (2 calcuations)
                 // Obviously, the result should be the same ;-)
@@ -34,23 +34,40 @@ namespace gfoidl.DataCompression.Internal.SwingingDoor
         {
             Debug.Assert(_swingingDoorCompression is not null);
 
-            double upperSlope = lastArchived.Gradient(incoming,  _swingingDoorCompression.CompressionDeviation);
-            double lowerSlope = lastArchived.Gradient(incoming, -_swingingDoorCompression.CompressionDeviation);
+            double delta_x = incoming.X - lastArchived.X;
 
-            if (upperSlope < _slope.Max) _slope.Max = upperSlope;
-            if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
+            if (delta_x > 0)
+            {
+                double delta_y      = incoming.Y - lastArchived.Y;
+                double delta_yUpper = delta_y + _swingingDoorCompression.CompressionDeviation;
+                double delta_yLower = delta_y - _swingingDoorCompression.CompressionDeviation;
+
+                double upperSlope = delta_yUpper / delta_x;
+                double lowerSlope = delta_yLower / delta_x;
+
+                if (upperSlope < _slope.Max) _slope.Max = upperSlope;
+                if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
+            }
+            else
+            {
+                GradientEquality(incoming, lastArchived);
+            }
+
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            void GradientEquality(in DataPoint incoming, in DataPoint lastArchived)
+            {
+                double upperSlope = lastArchived.GradientEquality(incoming, return0OnEquality: true);
+                double lowerSlope = lastArchived.GradientEquality(incoming, return0OnEquality: true);
+
+                if (upperSlope < _slope.Max) _slope.Max = upperSlope;
+                if (lowerSlope > _slope.Min) _slope.Min = lowerSlope;
+            }
         }
         //---------------------------------------------------------------------
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void OpenNewDoor(in DataPoint incoming)
-        {
-            _lastArchived = incoming;
-            _slope        = s_newDoor;
-        }
+        private void OpenNewDoor() => _slope = s_newDoor;
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.OpenNewDoor(incoming);
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
-        protected internal override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived)       => this.CloseTheDoor(incoming, lastArchived);
+        protected internal sealed override void Init(in DataPoint incoming)                                     => this.OpenNewDoor();
+        protected internal sealed override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) => this.CloseTheDoor(incoming, lastArchived);
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {

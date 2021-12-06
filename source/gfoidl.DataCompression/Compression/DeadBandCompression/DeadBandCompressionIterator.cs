@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Diagnostics;
@@ -26,11 +26,11 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
+        protected internal sealed override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived)
         {
             ref (bool Archive, bool MaxDelta) archive = ref _archive;
 
-            if (!this.IsMaxDeltaX(ref archive, incoming.X, lastArchived.X))
+            if (!this.IsMaxDeltaX(ref archive, lastArchived.X, incoming.X))
             {
                 archive.Archive = incoming.Y < _bounding.Min || _bounding.Max < incoming.Y;
             }
@@ -39,16 +39,19 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void UpdatePoints(in DataPoint incoming, ref DataPoint snapShot)
+        private void UpdatePoints(in DataPoint incoming)
         {
-            _lastArchived = incoming;
-            snapShot      = incoming;
-
-            if (!_archive.MaxDelta) this.GetBounding(snapShot);
+            if (!_archive.MaxDelta)
+            {
+                this.GetBounding(incoming);
+            }
         }
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => this.UpdatePoints(incoming, ref snapShot);
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => throw new NotSupportedException();
+        protected internal sealed override void Init(in DataPoint incoming) => this.UpdatePoints(incoming);
+
+        // Override even if empty body, but this type is sealed so the virtual dispatch could be
+        // eliminated by the JIT.
+        protected internal sealed override void UpdateFilters(in DataPoint incoming, in DataPoint lastArchived) { }
         //---------------------------------------------------------------------
         protected override void DisposeCore()
         {

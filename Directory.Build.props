@@ -1,9 +1,9 @@
 <Project>
     <PropertyGroup>
         <VersionMajor Condition="'$(VersionMajor)' == ''">2</VersionMajor>
-        <VersionMinor Condition="'$(VersionMinor)' == ''">1</VersionMinor>
+        <VersionMinor Condition="'$(VersionMinor)' == ''">2</VersionMinor>
         <VersionPatch Condition="'$(VersionPatch)' == ''">0</VersionPatch>
-        <BuildNumber Condition="'$(BuildNumber)' == ''">137</BuildNumber>
+        <BuildNumber Condition="'$(BuildNumber)' == ''">150</BuildNumber>
         <VersionSuffix Condition="'$(Configuration)' == 'Debug' and '$(VersionSuffix)' == ''">dev</VersionSuffix>
         <Authors>gfoidl</Authors>
         <Company>Foidl Günther</Company>

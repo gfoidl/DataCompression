@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -22,6 +22,8 @@ namespace gfoidl.DataCompression.Tests.Compression.DeadBandCompressionTests
             await foreach (DataPoint dp in sut.ProcessAsync(data))
                 actual.Add(dp);
 
+            Print(expected, "expected");
+            Print(actual  , "actual");
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------

@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,10 +9,8 @@ namespace gfoidl.DataCompression
 {
     public abstract partial class DataPointIterator
     {
-#pragma warning disable CS1591
-        protected IEnumerable<DataPoint>? _source;
-        protected IEnumerator<DataPoint>? _enumerator;
-#pragma warning restore CS1591
+        private protected IEnumerable<DataPoint>? _source;
+        private protected IEnumerator<DataPoint>? _enumerator;
         //---------------------------------------------------------------------
         /// <summary>
         /// Sets the algorithm for this <see cref="DataPointIterator" />.
@@ -39,18 +37,21 @@ namespace gfoidl.DataCompression
 
             switch (_state)
             {
-                case 0:
+                case StartOfDataState:
+                {
                     if (!_enumerator.MoveNext()) return false;
                     _incoming     = _enumerator.Current;
-                    _lastArchived = _snapShot;
-                    _current      = _incoming;
-                    this.Init(_incoming, ref _snapShot);
-                    _state        = 1;
+                    _lastArchived = _incoming;
+                    _snapShot     = _incoming;
+                    _state        = IterateState;
+                    this.Init(_incoming);
                     return true;
-                case 1:
+                }
+                case IterateState:
+                {
                     while (_enumerator.MoveNext())
                     {
-                        _incoming = _enumerator.Current;
+                        _incoming       = _enumerator.Current;
                         ref var archive = ref this.IsPointToArchive(_incoming, _lastArchived);
 
                         if (!archive.Archive)
@@ -62,32 +63,56 @@ namespace gfoidl.DataCompression
 
                         if (!archive.MaxDelta && _lastArchived != _snapShot)
                         {
-                            _current = _snapShot;
-                            _state = 2;
+                            _lastArchived = _snapShot;
+                            _snapShot     = _incoming;
+                            _state        = _archiveIncomingState;
                             return true;
                         }
 
-                        goto case 2;
+                        // MaxDeltaX points reach here too.
+                        goto case ArchivePointState;
                     }
 
-                    _state = -1;
+                    _state = EndOfDataState;
                     if (_incoming != _lastArchived)     // sentinel check
                     {
-                        _current = _incoming;
+                        _lastArchived = _incoming;
                         return true;
                     }
-                    return false;
-                case 2:
-                    _current = this.HandleSkipMinDeltaX(_enumerator, ref _incoming, _snapShot.X);
-                    _state   = 1;
-                    this.Init(_incoming, ref _snapShot);
+                    goto default;
+                }
+                case ArchiveIncomingState:
+                {
+                    _lastArchived = _incoming;
+                    _state        = PostArchiveState;
                     return true;
+                }
+                case PostArchiveState:
+                {
+                    this.Init(_incoming);
+                    this.UpdateFilters(_incoming, _lastArchived);
+                    this.HandleSkipMinDeltaX(_enumerator);
+                    goto case IterateState;
+                }
+                case ArchivePointState:
+                {
+                    _lastArchived = _incoming;
+                    _snapShot     = _incoming;
+                    _state        = IterateState;
+                    this.Init(_incoming);
+                    this.HandleSkipMinDeltaX(_enumerator);
+                    return true;
+                }
                 case InitialState:
+                {
                     ThrowHelper.ThrowInvalidOperation(ThrowHelper.ExceptionResource.GetEnumerator_must_be_called_first);
                     return false;
+                }
                 case DisposedState:
+                {
                     ThrowHelper.ThrowIfDisposed(ThrowHelper.ExceptionArgument.iterator);
                     return false;
+                }
                 default:
                     return false;
             }
@@ -102,7 +127,7 @@ namespace gfoidl.DataCompression
             Debug.Assert(_source != null);
 
             IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
-            var arrayBuilder                  = new ArrayBuilder<DataPoint>(true);
+            var arrayBuilder                  = new ArrayBuilder<DataPoint>(initialize: true);
             this.BuildCollection(enumerator, ref arrayBuilder);
 
             return arrayBuilder.ToArray();
@@ -117,7 +142,7 @@ namespace gfoidl.DataCompression
             Debug.Assert(_source != null);
 
             IEnumerator<DataPoint> enumerator = _source.GetEnumerator();
-            var listBuilder                   = new ListBuilder<DataPoint>(true);
+            var listBuilder                   = new ListBuilder<DataPoint>(initialize: true);
             this.BuildCollection(enumerator, ref listBuilder);
 
             return listBuilder.ToList();
@@ -130,10 +155,10 @@ namespace gfoidl.DataCompression
 
             DataPoint incoming = enumerator.Current;
             _lastArchived      = incoming;
-            DataPoint snapShot = default;
+            DataPoint snapShot = incoming;
 
+            this.Init(incoming);
             builder.Add(incoming);
-            this.Init(incoming, ref snapShot);
 
             while (enumerator.MoveNext())
             {
@@ -150,45 +175,57 @@ namespace gfoidl.DataCompression
                 if (!archive.MaxDelta && _lastArchived != snapShot)
                 {
                     builder.Add(snapShot);
+                    _lastArchived = snapShot;
+                    snapShot      = incoming;
+
+                    if (_archiveIncoming)
+                    {
+                        builder.Add(incoming);
+                        _lastArchived = incoming;
+                    }
+
+                    this.Init(incoming);
+                    this.UpdateFilters(incoming, _lastArchived);
+                    this.HandleSkipMinDeltaX(enumerator);
+                    continue;
                 }
 
-                incoming = this.HandleSkipMinDeltaX(enumerator, ref incoming, snapShot.X);
-
+                _lastArchived = incoming;
+                snapShot      = incoming;
                 builder.Add(incoming);
-                this.Init(incoming, ref snapShot);
+                this.Init(incoming);
+                this.HandleSkipMinDeltaX(enumerator);
             }
 
             if (incoming != _lastArchived)          // sentinel-check
+            {
                 builder.Add(incoming);
+            }
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private ref DataPoint HandleSkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
+        private void HandleSkipMinDeltaX(IEnumerator<DataPoint> enumerator)
         {
-            Debug.Assert(_algorithm is not null);
-
-            if (_algorithm._minDeltaXHasValue)
+            if (_minDeltaX.HasValue)
             {
-                this.SkipMinDeltaX(enumerator, ref incoming, snapShotX);
+                this.SkipMinDeltaX(enumerator);
             }
-
-            return ref incoming;
         }
         //---------------------------------------------------------------------
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator, ref DataPoint incoming, double snapShotX)
+        private void SkipMinDeltaX(IEnumerator<DataPoint> enumerator)
         {
-            Debug.Assert(_algorithm is not null);
+            Debug.Assert(_minDeltaX.HasValue);
 
-            double minDeltaX = _algorithm._minDeltaX;
+            double minDeltaX = _minDeltaX.GetValueOrDefault();
+            double snapShotX = _snapShot.X;
 
             while (enumerator.MoveNext())
             {
                 DataPoint tmp = enumerator.Current;
 
-                if ((tmp.X - snapShotX) > minDeltaX)
+                if ((tmp.X - snapShotX) >= minDeltaX)
                 {
-                    incoming = tmp;
                     break;
                 }
             }

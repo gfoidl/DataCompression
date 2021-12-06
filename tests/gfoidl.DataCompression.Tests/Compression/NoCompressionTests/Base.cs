@@ -12,10 +12,8 @@ namespace gfoidl.DataCompression.Tests.Compression.NoCompressionTests
 {
     public abstract class Base : Compression.Base
     {
-        private static readonly DataPointSerializer s_ser = new DataPointSerializer();
-        //---------------------------------------------------------------------
-        protected static IEnumerable<DataPoint> RawDataForTrend()    => s_ser.Read("../../../../../data/dead-band/trend_raw.csv");
-        protected static IEnumerable<DataPoint> RawDataForMaxDelta() => s_ser.Read("../../../../../data/dead-band/maxDelta_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend()    => s_ser.Read("data/dead-band/trend_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForMaxDelta() => s_ser.Read("data/dead-band/maxDelta_raw.csv");
         //---------------------------------------------------------------------
 #if NETCOREAPP
         protected static async IAsyncEnumerable<DataPoint> RawDataForTrendAsync([EnumeratorCancellation] CancellationToken ct = default)

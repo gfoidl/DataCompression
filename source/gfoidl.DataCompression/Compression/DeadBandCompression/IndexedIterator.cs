@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace gfoidl.DataCompression.Internal.DeadBand
     internal sealed class IndexedIterator<TList> : DeadBandCompressionIterator
         where TList : IList<DataPoint>
     {
-        private readonly DataPointIndexedIterator<TList> _inner = new DataPointIndexedIterator<TList>();
+        private readonly DataPointIndexedIterator<TList> _inner = new();
         private TList? _list;
         //---------------------------------------------------------------------
         public void SetData(DeadBandCompression deadBandCompression, TList source)
@@ -41,17 +40,6 @@ namespace gfoidl.DataCompression.Internal.DeadBand
         public override DataPoint[] ToArray()             => _inner!.ToArray();
         public override List<DataPoint> ToList()          => _inner!.ToList();
         public override bool MoveNext()                   => throw new InvalidOperationException("Should operate on _inner");
-        //---------------------------------------------------------------------
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void UpdatePoints(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)
-        {
-            snapShotIndex = incomingIndex;
-
-            if (!_archive.MaxDelta) this.GetBounding(incoming);
-        }
-        //---------------------------------------------------------------------
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex) => this.UpdatePoints(incomingIndex, incoming, ref snapShotIndex);
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                   => throw new NotSupportedException();
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
         public override ValueTask<DataPoint[]> ToArrayAsync(CancellationToken ct)    => throw new NotSupportedException();

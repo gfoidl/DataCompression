@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -10,11 +10,8 @@ namespace gfoidl.DataCompression
     /// </summary>
     public abstract class Compression : ICompression
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        protected internal readonly double _maxDeltaX;
-        protected internal readonly bool   _minDeltaXHasValue;
-        protected internal readonly double _minDeltaX;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        private protected readonly double? _maxDeltaX;
+        private protected readonly double? _minDeltaX;
         //---------------------------------------------------------------------
         /// <summary>
         /// Creates a new instance of <see cref="Compression" />.
@@ -28,42 +25,20 @@ namespace gfoidl.DataCompression
         /// </param>
         protected Compression(double? maxDeltaX = null, double? minDeltaX = null)
         {
-            _maxDeltaX = maxDeltaX ?? double.MaxValue;
-
-            if (minDeltaX.HasValue)
-            {
-                _minDeltaXHasValue = true;
-                _minDeltaX         = minDeltaX.Value;
-            }
+            _maxDeltaX = maxDeltaX;
+            _minDeltaX = minDeltaX;
         }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Length of x before for sure a value gets recorded.
-        /// </summary>
-        /// <remarks>
-        /// Cf. ExMax in documentation.<br />
-        /// When specified as <see cref="DateTime" /> the <see cref="DateTime.Ticks" />
-        /// are used.
-        /// <para>
-        /// When value is <c>null</c>, no value -- except the first and last -- are
-        /// guaranteed to be recorded.
-        /// </para>
-        /// </remarks>
-        public double? MaxDeltaX => _maxDeltaX == double.MaxValue ? (double?)null : _maxDeltaX;
+        /// <inheritdoc />
+        public abstract bool ArchiveIncoming { get; }
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Length of x/time within no value gets recorded (after the last archived value)
-        /// </summary>
-        public double? MinDeltaX => _minDeltaXHasValue ? _minDeltaX : (double?)null;
+        /// <inheritdoc />
+        public double? MaxDeltaX => _maxDeltaX;
         //---------------------------------------------------------------------
-        /// <summary>
-        /// Performs the compression / filtering of the input data.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <paramref name="data" /> is <c>null</c>.
-        /// </exception>
+        /// <inheritdoc />
+        public double? MinDeltaX => _minDeltaX;
+        //---------------------------------------------------------------------
+        /// <inheritdoc />
         public DataPointIterator Process(IEnumerable<DataPoint> data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);
@@ -72,11 +47,7 @@ namespace gfoidl.DataCompression
         }
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
-        /// <summary>
-        /// Performs the compression / filtering of the input data.
-        /// </summary>
-        /// <param name="data">Input data</param>
-        /// <returns>The compressed / filtered data.</returns>
+        /// <inheritdoc />
         public DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint> data)
         {
             if (data is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.data);

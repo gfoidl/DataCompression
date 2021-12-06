@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -11,12 +11,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
 {
     public class ToListAsync : Base
     {
-        [Test]
-        public async Task Data_given_as_IAsyncEnumerable___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IAsyncEnumerableTestCases))]
+        public async Task Data_given_as_IAsyncEnumerable___OK(double compressionDeviation, IAsyncEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             var actual = await sut.ProcessAsync(data).ToListAsync();
 
@@ -27,7 +27,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Data_IAsyncEnumerable_with_maxDeltaX___OK()
         {
             var sut      = new SwingingDoorCompression(1d, 6d);
-            var data     = RawDataForMaxDeltaAsync();
+            var data     = RawDataAsync(RawDataForMaxDelta());
             var expected = ExpectedForMaxDelta().ToList();
 
             var actual = await sut.ProcessAsync(data).ToListAsync();
@@ -35,12 +35,12 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             CollectionAssert.AreEqual(expected, actual);
         }
         //---------------------------------------------------------------------
-        [Test]
-        public async Task IEnumerable_iterated_and_ToList___OK()
+        [Test, TestCaseSource(typeof(Base), nameof(Base.IAsyncEnumerableTestCases))]
+        public async Task IEnumerable_iterated_and_ToList___OK(double compressionDeviation, IAsyncEnumerable<DataPoint> rawData, IEnumerable<DataPoint> expectedData)
         {
-            var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
-            var expected = ExpectedForTrend().ToList();
+            var sut      = new SwingingDoorCompression(compressionDeviation);
+            var data     = rawData;
+            var expected = expectedData.ToList();
 
             DataPointIterator dataPointIterator = sut.ProcessAsync(data);
             var enumerator                      = dataPointIterator.GetAsyncEnumerator();
@@ -56,7 +56,7 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
         public async Task Cancellation___OK()
         {
             var sut      = new SwingingDoorCompression(1d);
-            var data     = RawDataForTrendAsync();
+            var data     = RawDataAsync(RawDataForTrend());
             var expected = ExpectedForTrend().Take(2).ToList();
 
             DataPointIterator dataPointIterator = sut.ProcessAsync(data);

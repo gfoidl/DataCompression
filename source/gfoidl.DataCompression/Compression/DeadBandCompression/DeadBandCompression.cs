@@ -14,7 +14,7 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// See documentation for further information.
     /// </remarks>
-    public class DeadBandCompression : Compression
+    public sealed class DeadBandCompression : Compression
     {
 #if NETSTANDARD2_1
         internal AsyncEnumerableIterator?      _cachedAsyncEnumerableIterator;
@@ -66,6 +66,9 @@ namespace gfoidl.DataCompression
         public DeadBandCompression(double instrumentPrecision, TimeSpan maxTime, TimeSpan? minTime)
             : this(instrumentPrecision, maxTime.Ticks, minTime?.Ticks)
         { }
+        //---------------------------------------------------------------------
+        /// <inheritdoc/>
+        public override bool ArchiveIncoming => true;
         //---------------------------------------------------------------------
         /// <inheritdoc />
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)

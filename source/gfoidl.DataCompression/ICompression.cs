@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,19 @@ namespace gfoidl.DataCompression
     /// </summary>
     public interface ICompression
     {
+        /// <summary>
+        /// When set to <c>true</c> the incoming is value archived in addition
+        /// to the last snapshot.
+        /// </summary>
+        /// <remarks>
+        /// For instance in the <see cref="DeadBandCompression" /> the last snapshot
+        /// is archived, as well as the current incoming value, therefore this property
+        /// is set to <c>true</c>.
+        /// In the <see cref="SwingingDoorCompression" /> only the last snapshot is
+        /// archived, so this property is set to <c>false</c>.
+        /// </remarks>
+        bool ArchiveIncoming { get; }
+        //-------------------------------------------------------------------------
         /// <summary>
         /// Length of x before for sure a value gets recorded.
         /// </summary>
@@ -34,6 +47,9 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="data" /> is <c>null</c>.
+        /// </exception>
         DataPointIterator Process(IEnumerable<DataPoint> data);
         //---------------------------------------------------------------------
 #if NETSTANDARD2_1
@@ -42,6 +58,9 @@ namespace gfoidl.DataCompression
         /// </summary>
         /// <param name="data">Input data</param>
         /// <returns>The compressed / filtered data.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="data" /> is <c>null</c>.
+        /// </exception>
         DataPointIterator ProcessAsync(IAsyncEnumerable<DataPoint> data);
 #endif
     }

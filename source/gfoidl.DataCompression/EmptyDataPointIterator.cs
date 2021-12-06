@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -19,8 +19,7 @@ namespace gfoidl.DataCompression
         public override ValueTask<List<DataPoint>> ToListAsync(CancellationToken ct) => new ValueTask<List<DataPoint>>(new List<DataPoint>());
 #endif
         //---------------------------------------------------------------------
-        protected internal override void Init(in DataPoint incoming, ref DataPoint snapShot)                                             => throw new NotSupportedException();
-        protected internal override void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex)                           => throw new NotSupportedException();
+        protected internal override void Init(in DataPoint incoming)                                                                     => throw new NotSupportedException();
         protected internal override ref (bool Archive, bool MaxDelta) IsPointToArchive(in DataPoint incoming, in DataPoint lastArchived) => throw new NotSupportedException();
     }
 }

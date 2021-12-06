@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,9 +10,7 @@ namespace gfoidl.DataCompression
 {
     public abstract partial class DataPointIterator : IAsyncEnumerable<DataPoint>
     {
-#pragma warning disable CS1591
-        protected IAsyncEnumerable<DataPoint>? _asyncSource;
-#pragma warning restore CS1591
+        private protected IAsyncEnumerable<DataPoint>? _asyncSource;
         //---------------------------------------------------------------------
         /// <summary>
         /// Sets the algorithm for this <see cref="DataPointIterator" />.
@@ -60,7 +58,6 @@ namespace gfoidl.DataCompression
         //---------------------------------------------------------------------
         private async IAsyncEnumerator<DataPoint> IterateCore(CancellationToken cancellationToken)
         {
-            Debug.Assert(_algorithm   is not null);
             Debug.Assert(_asyncSource is not null);
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -74,26 +71,26 @@ namespace gfoidl.DataCompression
 
                 if (isFirst)
                 {
-                    isFirst       = false;
-                    _lastArchived = incoming;
+                    isFirst = false;
                     yield return incoming;
                     cancellationToken.ThrowIfCancellationRequested();
-                    this.Init(incoming, ref _snapShot);
+
+                    _lastArchived = incoming;
+                    _snapShot     = incoming;
+                    this.Init(incoming);
                     continue;
                 }
 
                 if (isSkipMinDeltaX)
                 {
-                    if ((incoming.X - _snapShot.X) <= _algorithm._minDeltaX)
+                    if ((incoming.X - _snapShot.X) < _minDeltaX)
                         continue;
 
                     isSkipMinDeltaX = false;
-                    yield return incoming;
-                    cancellationToken.ThrowIfCancellationRequested();
-                    this.Init(incoming, ref _snapShot);
+                    continue;
                 }
 
-                _incoming = incoming;
+                _incoming = incoming;           // needed for the sentinel-check outside the loop
                 this.IsPointToArchive(incoming, _lastArchived);
 
                 if (!_archive.Archive)
@@ -107,17 +104,32 @@ namespace gfoidl.DataCompression
                 {
                     yield return _snapShot;
                     cancellationToken.ThrowIfCancellationRequested();
-                }
 
-                if (_algorithm._minDeltaXHasValue)
-                {
-                    isSkipMinDeltaX = true;
+                    _lastArchived = _snapShot;
+                    _snapShot     = incoming;
+
+                    if (_archiveIncoming)
+                    {
+                        yield return incoming;
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        _lastArchived = incoming;
+                    }
+
+                    this.Init(incoming);
+                    this.UpdateFilters(incoming, _lastArchived);
+                    isSkipMinDeltaX = _minDeltaX.HasValue;
+
                     continue;
                 }
 
                 yield return incoming;
                 cancellationToken.ThrowIfCancellationRequested();
-                this.Init(incoming, ref _snapShot);
+
+                _lastArchived   = incoming;
+                _snapShot       = incoming;
+                isSkipMinDeltaX = _minDeltaX.HasValue;
+                this.Init(incoming);
             }
 
             cancellationToken.ThrowIfCancellationRequested();

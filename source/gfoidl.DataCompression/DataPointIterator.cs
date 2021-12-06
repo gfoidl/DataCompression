@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections;
@@ -17,26 +17,30 @@ namespace gfoidl.DataCompression
     /// </remarks>
     public abstract partial class DataPointIterator : IEnumerable<DataPoint>, IEnumerator<DataPoint>
     {
-        /// <summary>
-        /// The state when the iterator is disposed.
-        /// </summary>
-        protected const int DisposedState = -3;
+        private protected const int DisposedState        = -3;
+        private protected const int InitialState         = -2;
+        private protected const int EndOfDataState       = -1;
+        private protected const int StartOfDataState     =  0;
+        private protected const int IterateState         =  1;
+        private protected const int ArchiveIncomingState =  2;
+        private protected const int PostArchiveState     =  3;
+        private protected const int ArchivePointState    =  4;
         //---------------------------------------------------------------------
-        /// <summary>
-        /// The initial state of the iterator.
-        /// </summary>
-        protected const int InitialState = -2;
-        //---------------------------------------------------------------------
-#pragma warning disable CS1591
-        protected Compression?                  _algorithm;
-        protected int                           _state = InitialState;
-        protected DataPoint                     _current;
-        protected DataPoint                     _snapShot;
-        protected DataPoint                     _lastArchived;
-        protected DataPoint                     _incoming;
-        protected (bool Archive, bool MaxDelta) _archive;
-#pragma warning restore CS1591
+        private protected Compression?                  _algorithm;
+        private protected int                           _state = InitialState;
+        private protected (bool Archive, bool MaxDelta) _archive;
+
+        private protected DataPoint _lastArchived;
+        private protected DataPoint _snapShot;
+        private protected DataPoint _incoming;
+
         private int _threadId;
+
+        // Cached here as fields to avoid repeated virtual dispatch for the properties.
+        private protected double? _maxDeltaX;
+        private protected double? _minDeltaX;
+        private protected bool    _archiveIncoming;
+        private protected int     _archiveIncomingState;
         //---------------------------------------------------------------------
         /// <summary>
         /// Sets the algorithm for this <see cref="DataPointIterator" />.
@@ -45,20 +49,24 @@ namespace gfoidl.DataCompression
         {
             if (algorithm is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.algorithm);
 
-            _state     = InitialState;
-            _threadId  = Environment.CurrentManagedThreadId;
-            _algorithm = algorithm;
+            _state                = InitialState;
+            _threadId             = Environment.CurrentManagedThreadId;
+            _algorithm            = algorithm;
+            _maxDeltaX            = algorithm.MaxDeltaX;
+            _minDeltaX            = algorithm.MinDeltaX;
+            _archiveIncoming      = algorithm.ArchiveIncoming;
+            _archiveIncomingState = _archiveIncoming ? ArchiveIncomingState : PostArchiveState;
         }
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets the current item.
         /// </summary>
-        public DataPoint Current => _current;
+        public DataPoint Current => _lastArchived;
         //---------------------------------------------------------------------
         /// <summary>
         /// Gets the current item by reference.
         /// </summary>
-        public ref DataPoint CurrentByRef => ref _current;
+        public ref DataPoint CurrentByRef => ref _lastArchived;
         //---------------------------------------------------------------------
         private static EmptyDataPointIterator? s_emptyIterator;
         /// <summary>
@@ -105,7 +113,7 @@ namespace gfoidl.DataCompression
                 ? this
                 : this.Clone();
 
-            enumerator._state = 0;
+            enumerator._state = StartOfDataState;
             return enumerator;
         }
         //---------------------------------------------------------------------
@@ -116,19 +124,7 @@ namespace gfoidl.DataCompression
         /// <param name="incoming">
         /// The <see cref="DataPoint" /> on which the initialisation is based on.
         /// </param>
-        /// <param name="snapShot">The last snapshot.</param>
-        protected internal abstract void Init(in DataPoint incoming, ref DataPoint snapShot);
-        //---------------------------------------------------------------------
-        /// <summary>
-        /// Prepares the algorithm for new data, e.g. opens a new door in the
-        /// <see cref="SwingingDoorCompression" />.
-        /// </summary>
-        /// <param name="incomingIndex">
-        /// The index of the <see cref="DataPoint" /> on which the initialisation is based on.
-        /// </param>
-        /// <param name="incoming">The incoming <see cref="DataPoint" />.</param>
-        /// <param name="snapShotIndex">The index of the last snapshot.</param>
-        protected internal abstract void Init(int incomingIndex, in DataPoint incoming, ref int snapShotIndex);
+        protected internal abstract void Init(in DataPoint incoming);
         //---------------------------------------------------------------------
         /// <summary>
         /// Updates the filters.
@@ -149,28 +145,24 @@ namespace gfoidl.DataCompression
         /// Determines if the incoming needs to be archived due <see cref="Compression.MaxDeltaX" />.
         /// </summary>
         /// <param name="archive">Archive state.</param>
-        /// <param name="incomingX">The x-value of the incoming (i.e. latest) <see cref="DataPoint" />.</param>
         /// <param name="lastArchivedX">The x-value of the last archived <see cref="DataPoint" />.</param>
+        /// <param name="incomingX">The x-value of the incoming (i.e. latest) <see cref="DataPoint" />.</param>
         /// <returns>
         /// <c>true</c> if <see cref="Compression.MaxDeltaX" /> is the reason for archiving,
         /// <c>false</c> otherwise.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double incomingX, double lastArchivedX)
+        protected bool IsMaxDeltaX(ref (bool Archive, bool MaxDelta) archive, double lastArchivedX, double incomingX)
         {
-            Debug.Assert(_algorithm is not null);
-
-            if ((incomingX - lastArchivedX) >= _algorithm._maxDeltaX)
+            if (_maxDeltaX.HasValue && (incomingX - lastArchivedX) >= _maxDeltaX.GetValueOrDefault())
             {
                 archive.Archive  = true;
                 archive.MaxDelta = true;
                 return true;
             }
-            else
-            {
-                archive.MaxDelta = false;
-                return false;
-            }
+
+            archive.MaxDelta = false;
+            return false;
         }
         //---------------------------------------------------------------------
         /// <summary>
@@ -195,7 +187,6 @@ namespace gfoidl.DataCompression
             _threadId = -1;
             _state    = DisposedState;
 
-            _current      = default;
             _snapShot     = default;
             _lastArchived = default;
             _incoming     = default;

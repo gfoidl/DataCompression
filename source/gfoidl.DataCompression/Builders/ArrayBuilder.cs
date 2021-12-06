@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -43,11 +43,15 @@ namespace gfoidl.DataCompression.Builders
             int index  = _index;
 
             if ((uint)index >= (uint)buffer.Length)
+            {
                 this.AddWithBufferAllocation(item);
+            }
             else
+            {
                 buffer[index] = item;
+                _index        = index + 1;
+            }
 
-            _index++;
             _count++;
         }
         //---------------------------------------------------------------------
@@ -56,7 +60,9 @@ namespace gfoidl.DataCompression.Builders
         private void AddWithBufferAllocation(T item)
         {
             this.AllocateBuffer();
-            _currentBuffer[_index] = item;
+            int index             = _index;
+            _currentBuffer[index] = item;
+            _index                = index + 1;
         }
         //---------------------------------------------------------------------
         public void AddRange(IEnumerable<T> items)

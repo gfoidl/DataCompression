@@ -14,7 +14,7 @@ namespace gfoidl.DataCompression
     /// <remarks>
     /// See documentation for further information.
     /// </remarks>
-    public class SwingingDoorCompression : Compression
+    public sealed class SwingingDoorCompression : Compression
     {
 #if NETSTANDARD2_1
         internal AsyncEnumerableIterator?      _cachedAsyncEnumerableIterator;
@@ -69,6 +69,9 @@ namespace gfoidl.DataCompression
         public SwingingDoorCompression(double compressionDeviation, TimeSpan maxTime, TimeSpan? minTime)
             : this(compressionDeviation, maxTime.Ticks, minTime?.Ticks)
         { }
+        //---------------------------------------------------------------------
+        /// <inheritdoc/>
+        public override bool ArchiveIncoming => false;
         //---------------------------------------------------------------------
         /// <inheritdoc />
         protected override DataPointIterator ProcessCore(IEnumerable<DataPoint> data)

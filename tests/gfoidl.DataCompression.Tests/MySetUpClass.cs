@@ -1,4 +1,4 @@
-﻿// (c) gfoidl, all rights reserved
+// (c) gfoidl, all rights reserved
 
 #if !NETCOREAPP
 
@@ -14,6 +14,7 @@ namespace gfoidl.DataCompression.Tests
         public void OneTimeSetUp()
         {
             Environment.CurrentDirectory = TestContext.CurrentContext.TestDirectory;
+            TestContext.Progress.WriteLine($"Directory set to {Environment.CurrentDirectory}");
         }
     }
 }
