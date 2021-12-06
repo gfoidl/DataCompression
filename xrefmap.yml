@@ -743,6 +743,12 @@ references:
   commentId: T:gfoidl.DataCompression.DeadBandCompression
   fullName: gfoidl.DataCompression.DeadBandCompression
   nameWithType: DeadBandCompression
+- uid: gfoidl.DataCompression.DeadBandCompression.#ctor
+  name: DeadBandCompression()
+  href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression__ctor
+  commentId: M:gfoidl.DataCompression.DeadBandCompression.#ctor
+  fullName: gfoidl.DataCompression.DeadBandCompression.DeadBandCompression()
+  nameWithType: DeadBandCompression.DeadBandCompression()
 - uid: gfoidl.DataCompression.DeadBandCompression.#ctor(System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
   name: DeadBandCompression(Double, Nullable<Double>, Nullable<Double>)
   href: api/gfoidl.DataCompression.DeadBandCompression.html#gfoidl_DataCompression_DeadBandCompression__ctor_System_Double_System_Nullable_System_Double__System_Nullable_System_Double__
@@ -1098,6 +1104,12 @@ references:
   commentId: T:gfoidl.DataCompression.SwingingDoorCompression
   fullName: gfoidl.DataCompression.SwingingDoorCompression
   nameWithType: SwingingDoorCompression
+- uid: gfoidl.DataCompression.SwingingDoorCompression.#ctor
+  name: SwingingDoorCompression()
+  href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression__ctor
+  commentId: M:gfoidl.DataCompression.SwingingDoorCompression.#ctor
+  fullName: gfoidl.DataCompression.SwingingDoorCompression.SwingingDoorCompression()
+  nameWithType: SwingingDoorCompression.SwingingDoorCompression()
 - uid: gfoidl.DataCompression.SwingingDoorCompression.#ctor(System.Double,System.Nullable{System.Double},System.Nullable{System.Double})
   name: SwingingDoorCompression(Double, Nullable<Double>, Nullable<Double>)
   href: api/gfoidl.DataCompression.SwingingDoorCompression.html#gfoidl_DataCompression_SwingingDoorCompression__ctor_System_Double_System_Nullable_System_Double__System_Nullable_System_Double__

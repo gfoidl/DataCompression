@@ -69,15 +69,13 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="swinging-door">Swinging Door</h1>
 
-<p>[TOC]</p>
 <h2 id="purpose">Purpose</h2>
 <p>Data reduction by using the swinging door algorithm.</p>
 <h2 id="description">Description</h2>
 <p><img src="images/swinging-door_02.png" alt=""></p>
-<p>Beginning at the last archived value (1) and the next snapshots (2, 3, ...) a <em>swinging door</em> is constructed,
-that is only allowed to close and not to open. Green area in the figure below.</p>
+<p>Beginning at the last archived value (1) and the next snapshots (2, 3, ...) a <em>swinging door</em> is constructed, that is only allowed to close and not to open. Green area in the figure below.</p>
 <p><img src="images/swinging-door_01.png" alt=""></p>
-<p>When an incoming value (6) lies outside the allowed aread, so the last snapshot and the new value get stored.
+<p>When an incoming value (6) lies outside the allowed area, so the last snapshot (5) get stored, and beginning at this snapshot (5) a new <em>swinging door</em> to the incoming (6) value gets opened.<br>
 Therefore maintaining the trend in the data.</p>
 <h2 id="parameters">Parameters</h2>
 <table>
@@ -139,8 +137,7 @@ Therefore maintaining the trend in the data.</p>
 </tr>
 </tbody>
 </table>
-<p>As can be seen statistics didn't change significantally, but the count of recorded datapoints was
-reduced -- by filtering noise -- by 58%.</p>
+<p>As can be seen statistics didn't change significantally, but the count of recorded datapoints was reduced -- by filtering noise -- by 58%.</p>
 <h2 id="literature">Literature</h2>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=89hg2mme7S0">OSIsoft: Exception and Compression Full Details</a></li>
@@ -153,7 +150,7 @@ reduced -- by filtering noise -- by 58%.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gfoidl/DataCompression/blob/v2.2.0-preview-1/api-doc/articles/SwingingDoor.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gfoidl/DataCompression/blob/v2.1.2/api-doc/articles/SwingingDoor.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

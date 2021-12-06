@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Compression.html",
-          "hash": "VKANJTgGMyk92yImVbZvCVs/nYYW1tZC2yZg3vp//sI="
+          "hash": "wZcbu0qsHSix55H9Yix+C1bOIa+jRRJ3KDtD7w645xg="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPoint.html",
-          "hash": "J67OhbFEnVSFpd0TxOVK9eMdH0OppWnTiFErLrVEdVw="
+          "hash": "+mBHv4bKh57F1YqireM7uaGrn9E2AF/Q26YI09LMStg="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointIterator.html",
-          "hash": "hCh5tY9zP32GQiMlUneWqX2JC/HBr6Cd4KwRJXmMUlw="
+          "hash": "/+DfWxRyiWixIOCpDotvcwBMpya+GLJwxTPmaeny5fk="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DataPointSerializer.html",
-          "hash": "sWrBrC19OyimCTMHRw2kduJW8BKg+GPfSsgIKrocaX0="
+          "hash": "NV3CvAxuecuUF+/7i1nJtYuVutWX17KLnZnASgzqJDw="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.DeadBandCompression.html",
-          "hash": "ZkU+uXmtP91KOvWepGz9RFrplFcSQ8nEQucjqqpCpN4="
+          "hash": "tVTmSdwljqwQvMXre4AWqxos7HEX2ufnZXpuGoPVk9g="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ExtensionMethods.html",
-          "hash": "gkyNTtHUyCFhmKr/pQwoQoUXauwSQ27RUPXVy9i5bz8="
+          "hash": "kuXJ5+IwzT2QWaUDxbl1iQjbb4WJ65uNM9bpTC3utbY="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.ICompression.html",
-          "hash": "KaH8CIzmAxp6BRT46PfuT8W3Ocxo1HGA6Xzb9Oivns8="
+          "hash": "kfTjPempXG+egcZfimx3vB5/QKdacgt8XA+bOgEVYHA="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.NoCompression.html",
-          "hash": "MhljVYLwy2zITUXXZTbKLPpX8ktpZ/N443aEKr/sZQ4="
+          "hash": "8DuQ9loYzHisGAJcbQxOrp9RRgrT/1X9l2SeXBevhkA="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.SwingingDoorCompression.html",
-          "hash": "mATM1bFeiIf5aRGSHaFVxY+8M1KHLS0lfLfrvCW9dL0="
+          "hash": "aZNWkiABfkzMelbE6IcX/v+aJrpo74ZqeCJ0XsX/5/g="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ArrayWrapper-1.html",
-          "hash": "occWccYS9dF70dJNrGNZp1ofj9rSGhE1dTSXYNCCLfE="
+          "hash": "YBVeQDVOKE7NBNV99N6s07xVEGE1oWUzhFAM18YQ+aw="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gfoidl.DataCompression.Wrappers.ListWrapper-1.html",
-          "hash": "+q5ed3lEheXBjEfBtMMCSjfcsXl3uYS+BM3say69Rf8="
+          "hash": "qQqVqLfSIRxQEkbmy/JQCKo7aQb5JPfhUmtX4EfCwF8="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "C6hSQLHqEYfvZY7b9/ADP/S+X2hWmNGz5Ivfi9ANzME="
+          "hash": "LtqR1HaqMYXqQxHX3zjvT+V50kGtqDf92GpWOa+tEfY="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/DeadBand.html",
-          "hash": "314UsbtXIOM11q3NlLMaVKU/W+0RVNAKf1uuvXkEkgc="
+          "hash": "cCvgVaGFNX1aELiIufoT0fNH7Lve527A6A+FDu1F4oU="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/SwingingDoor.html",
-          "hash": "JuEBjEWxbR/7aaKivA4fioyBd+bFv66cStRZjG0Be6s="
+          "hash": "GDSc9wFFrcxGW4c322/4KTYL6ImExVDxIQtGzWTQ3cU="
         }
       },
       "is_incremental": false,
@@ -379,7 +379,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "XBeVwZj/ezSaFY/4BkkJApgWejv5U2HVsdDCXCMeNdQ="
+          "hash": "dFTcOVPdVzNvHQkTEFmk1K6u9TxeCXfoNQ76lpoww+w="
         }
       },
       "is_incremental": false,
