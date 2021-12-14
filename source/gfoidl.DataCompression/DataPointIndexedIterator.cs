@@ -13,9 +13,20 @@ namespace gfoidl.DataCompression
         private DataPointIterator? _wrapperIterator;
         private TList?             _list;
         private int                _snapShotIndex;
+        private int                _previousSnapshotIndex;
         private int                _lastArchivedIndex;
         private int                _incomingIndex;
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
+        private int SnapShotIndex
+        {
+            get => _snapShotIndex;
+            set
+            {
+                _previousSnapshotIndex = _snapShotIndex;
+                _snapShotIndex         = value;
+            }
+        }
+        //---------------------------------------------------------------------
         public void SetData(Compression compression, DataPointIterator wrappedIterator, TList source)
         {
             Debug.Assert(wrappedIterator is not null);
@@ -37,7 +48,7 @@ namespace gfoidl.DataCompression
 
             return clone;
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         public override bool MoveNext()
         {
             Debug.Assert(_list is not null);
@@ -58,17 +69,16 @@ namespace gfoidl.DataCompression
 
                     this.Init(_incoming);
                     _lastArchivedIndex     = 0;
-                    _snapShotIndex         = 0;
+                    this.SnapShotIndex     = 0;
                     _state                 = IterateState;
                     _incomingIndex         = 1;
                     return true;
                 }
                 case IterateState:
                 {
-                    TList source           = _list;
-                    int snapShotIndex      = _snapShotIndex;
-                    int incomingIndex      = _incomingIndex;
-                    int lastArchivedIndex  = _lastArchivedIndex;
+                    TList source          = _list;
+                    int incomingIndex     = _incomingIndex;
+                    int lastArchivedIndex = _lastArchivedIndex;
 
                     while (true)
                     {
@@ -87,32 +97,50 @@ namespace gfoidl.DataCompression
                         if (!archive.Archive)
                         {
                             this.UpdateFilters(_incoming, _lastArchived);
-                            snapShotIndex = incomingIndex++;
+                            this.SnapShotIndex = incomingIndex++;
                             continue;
                         }
 
-                        if (!archive.MaxDelta && _lastArchivedIndex != snapShotIndex && (uint)snapShotIndex < (uint)source.Count)
+                        if (!archive.MaxDelta && _lastArchivedIndex != this.SnapShotIndex && (uint)this.SnapShotIndex < (uint)source.Count)
                         {
-                            _lastArchived      = source[snapShotIndex];
-                            _lastArchivedIndex = snapShotIndex;
-                            _snapShotIndex     = incomingIndex;
+                            _lastArchived      = source[this.SnapShotIndex];
+                            _lastArchivedIndex = this.SnapShotIndex;
+                            this.SnapShotIndex = incomingIndex;
                             _incomingIndex     = incomingIndex;
                             _state             = _stateAfterArchive;
                             return true;
                         }
 
-                        _snapShotIndex = snapShotIndex;
                         _incomingIndex = incomingIndex;
                         goto case ArchivePointState;
                     }
 
-                    _state = EndOfDataState;
                     incomingIndex--;
                     if (incomingIndex != _lastArchivedIndex)    // sentinel check
                     {
-                        _lastArchived = source[incomingIndex];
-                        return true;
+                        _incomingIndex = incomingIndex;
+
+                        if (_previousSnapshotIndex != _lastArchivedIndex)
+                        {
+                            // Construct a door from the last archived point to the
+                            // incoming (final point), and check whether the penultimate
+                            // point is to archive or not.
+                            this.Init(_incoming);
+                            this.UpdateFilters(_incoming, _lastArchived);
+                            _previousSnapShot = _list[_previousSnapshotIndex];
+                            ref var archive   = ref this.IsPointToArchive(_previousSnapShot, _lastArchived);
+
+                            if (archive.Archive)
+                            {
+                                _lastArchived = _previousSnapShot;
+                                _state        = EndOfDataState;
+                                return true;
+                            }
+                        }
+
+                        goto case EndOfDataState;
                     }
+
                     goto default;
                 }
                 case ArchiveIncomingState:
@@ -128,7 +156,7 @@ namespace gfoidl.DataCompression
                     int incomingIndex = _incomingIndex;
                     this.Init(_incoming);
                     this.UpdateFilters(_incoming, _lastArchived);
-                    _incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
+                    _incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, this.SnapShotIndex);
                     goto case IterateState;
                 }
                 case ArchivePointState:
@@ -136,12 +164,27 @@ namespace gfoidl.DataCompression
                     int incomingIndex  = _incomingIndex;
                     _lastArchived      = _list[incomingIndex];
                     _lastArchivedIndex = incomingIndex;
-                    _snapShotIndex     = incomingIndex;
+                    this.SnapShotIndex = incomingIndex;
                     _state             = IterateState;
                     this.Init(_incoming);
-                    incomingIndex      = this.HandleSkipMinDeltaX(incomingIndex, _snapShotIndex);
+                    incomingIndex      = this.HandleSkipMinDeltaX(incomingIndex, this.SnapShotIndex);
                     _incomingIndex     = incomingIndex + 1;
                     return true;
+                }
+                case EndOfDataState:
+                {
+                    if ((uint)_incomingIndex < (uint)_list.Count)
+                    {
+                        DataPoint incoming = _list[_incomingIndex];
+                        if (incoming != _lastArchived)      // sentinel check
+                        {
+                            _lastArchived = _list[_incomingIndex];
+                            _state = FinalState;
+                            return true;
+                        }
+                    }
+
+                    goto default;
                 }
                 case InitialState:
                 {
@@ -173,7 +216,7 @@ namespace gfoidl.DataCompression
 
             return arrayBuilder.ToArray();
         }
-        //-----------------------------------------------------------------
+        //---------------------------------------------------------------------
         public override List<DataPoint> ToList()
         {
             Debug.Assert(_list is not null);
@@ -198,7 +241,7 @@ namespace gfoidl.DataCompression
             where TBuilder : ICollectionBuilder<DataPoint>
         {
             int incomingIndex     = 0;
-            int snapShotIndex     = 0;
+            this.SnapShotIndex    = 0;
             int lastArchivedIndex = 0;
 
             if ((uint)incomingIndex >= (uint)source.Count) return;
@@ -227,16 +270,16 @@ namespace gfoidl.DataCompression
                 if (!archive.Archive)
                 {
                     this.UpdateFilters(incoming, _lastArchived);
-                    snapShotIndex = incomingIndex++;
+                    this.SnapShotIndex = incomingIndex++;
                     continue;
                 }
 
-                if (!archive.MaxDelta && lastArchivedIndex != snapShotIndex && (uint)snapShotIndex < (uint)source.Count)
+                if (!archive.MaxDelta && lastArchivedIndex != this.SnapShotIndex && (uint)this.SnapShotIndex < (uint)source.Count)
                 {
-                    DataPoint snapShot = source[snapShotIndex];
+                    DataPoint snapShot = source[this.SnapShotIndex];
                     _lastArchived      = snapShot;
-                    lastArchivedIndex  = snapShotIndex;
-                    snapShotIndex      = incomingIndex;
+                    lastArchivedIndex  = this.SnapShotIndex;
+                    this.SnapShotIndex = incomingIndex;
                     builder.Add(snapShot);
 
                     if (_archiveIncoming)
@@ -249,22 +292,38 @@ namespace gfoidl.DataCompression
                     this.Init(incoming);
                     this.UpdateFilters(incoming, _lastArchived);
                     incomingIndex++;
-                    incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, snapShotIndex);
+                    incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, this.SnapShotIndex);
                     continue;
                 }
 
-                _lastArchived     = incoming;
-                lastArchivedIndex = incomingIndex;
-                snapShotIndex     = incomingIndex;
+                _lastArchived      = incoming;
+                lastArchivedIndex  = incomingIndex;
+                this.SnapShotIndex = incomingIndex;
                 builder.Add(incoming);
                 this.Init(incoming);
-                incomingIndex     = this.HandleSkipMinDeltaX(incomingIndex, snapShotIndex);
+                incomingIndex = this.HandleSkipMinDeltaX(incomingIndex, this.SnapShotIndex);
                 incomingIndex++;
             }
 
             incomingIndex--;
             if (incomingIndex != lastArchivedIndex && (uint)incomingIndex < (uint)source.Count)
             {
+                if (_previousSnapshotIndex != lastArchivedIndex && (uint)_previousSnapshotIndex < (uint)source.Count)
+                {
+                    // Construct a door from the last archived point to the
+                    // incoming (final point), and check whether the penultimate
+                    // point is to archive or not.
+                    this.Init(incoming);
+                    this.UpdateFilters(incoming, _lastArchived);
+                    _previousSnapShot = source[_previousSnapshotIndex];
+                    ref var archive = ref this.IsPointToArchive(_previousSnapShot, _lastArchived);
+
+                    if (archive.Archive)
+                    {
+                        builder.Add(_previousSnapShot);
+                    }
+                }
+
                 builder.Add(source[incomingIndex]);
             }
         }
@@ -322,9 +381,10 @@ namespace gfoidl.DataCompression
                 _wrapperIterator = null;
             }
 
-            _snapShotIndex     = -1;
-            _lastArchivedIndex = -1;
-            _incomingIndex     = -1;
+            _snapShotIndex         = -1;
+            _previousSnapshotIndex = -1;
+            _lastArchivedIndex     = -1;
+            _incomingIndex         = -1;
 
             base.DisposeCore();
         }

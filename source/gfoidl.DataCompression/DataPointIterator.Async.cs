@@ -134,7 +134,24 @@ namespace gfoidl.DataCompression
 
             cancellationToken.ThrowIfCancellationRequested();
             if (_incoming != _lastArchived)     // sentinel-check
+            {
+                if (_previousSnapShot != _lastArchived)
+                {
+                    // Construct a door from the last archived point to the
+                    // incoming (final point), and check whether the penultimate
+                    // point is to archive or not.
+                    this.Init(_incoming);
+                    this.UpdateFilters(_incoming, _lastArchived);
+                    this.IsPointToArchive(_previousSnapShot, _lastArchived);
+
+                    if (_archive.Archive)
+                    {
+                        yield return _previousSnapShot;
+                    }
+                }
+
                 yield return _incoming;
+            }
         }
         //---------------------------------------------------------------------
         private protected virtual async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder, CancellationToken cancellationToken)

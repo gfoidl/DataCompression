@@ -73,12 +73,28 @@ namespace gfoidl.DataCompression
                         goto case ArchivePointState;
                     }
 
-                    _state = EndOfDataState;
                     if (_incoming != _lastArchived)     // sentinel check
                     {
-                        _lastArchived = _incoming;
-                        return true;
+                        if (_previousSnapShot != _lastArchived)
+                        {
+                            // Construct a door from the last archived point to the
+                            // incoming (final point), and check whether the penultimate
+                            // point is to archive or not.
+                            this.Init(_incoming);
+                            this.UpdateFilters(_incoming, _lastArchived);
+                            ref var archive = ref this.IsPointToArchive(_previousSnapShot, _lastArchived);
+
+                            if (archive.Archive)
+                            {
+                                _lastArchived = _previousSnapShot;
+                                _state        = EndOfDataState;
+                                return true;
+                            }
+                        }
+
+                        goto case EndOfDataState;
                     }
+
                     goto default;
                 }
                 case ArchiveIncomingState:
@@ -105,7 +121,9 @@ namespace gfoidl.DataCompression
                 }
                 case EndOfDataState:
                 {
-                    goto default;
+                    _lastArchived = _incoming;
+                    _state        = FinalState;
+                    return true;
                 }
                 case InitialState:
                 {
@@ -159,7 +177,7 @@ namespace gfoidl.DataCompression
 
             DataPoint incoming = enumerator.Current;
             _lastArchived      = incoming;
-            DataPoint snapShot = incoming;
+            this.SnapShot      = incoming;
 
             this.Init(incoming);
             builder.Add(incoming);
@@ -172,15 +190,15 @@ namespace gfoidl.DataCompression
                 if (!archive.Archive)
                 {
                     this.UpdateFilters(incoming, _lastArchived);
-                    snapShot = incoming;
+                    this.SnapShot = incoming;
                     continue;
                 }
 
-                if (!archive.MaxDelta && _lastArchived != snapShot)
+                if (!archive.MaxDelta && _lastArchived != this.SnapShot)
                 {
-                    builder.Add(snapShot);
-                    _lastArchived = snapShot;
-                    snapShot      = incoming;
+                    builder.Add(this.SnapShot);
+                    _lastArchived = this.SnapShot;
+                    this.SnapShot = incoming;
 
                     if (_archiveIncoming)
                     {
@@ -195,7 +213,7 @@ namespace gfoidl.DataCompression
                 }
 
                 _lastArchived = incoming;
-                snapShot      = incoming;
+                this.SnapShot = incoming;
                 builder.Add(incoming);
                 this.Init(incoming);
                 this.HandleSkipMinDeltaX(enumerator);
@@ -203,6 +221,21 @@ namespace gfoidl.DataCompression
 
             if (incoming != _lastArchived)          // sentinel-check
             {
+                if (_previousSnapShot != _lastArchived)
+                {
+                    // Construct a door from the last archived point to the
+                    // incoming (final point), and check whether the penultimate
+                    // point is to archive or not.
+                    this.Init(incoming);
+                    this.UpdateFilters(incoming, _lastArchived);
+                    ref var archive = ref this.IsPointToArchive(_previousSnapShot, _lastArchived);
+
+                    if (archive.Archive)
+                    {
+                        builder.Add(_previousSnapShot);
+                    }
+                }
+
                 builder.Add(incoming);
             }
         }
