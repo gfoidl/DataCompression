@@ -42,7 +42,7 @@ namespace gfoidl.DataCompression
                     if (!_enumerator.MoveNext()) return false;
                     _incoming     = _enumerator.Current;
                     _lastArchived = _incoming;
-                    _snapShot     = _incoming;
+                    this.SnapShot = _incoming;
                     _state        = IterateState;
                     this.Init(_incoming);
                     return true;
@@ -57,14 +57,14 @@ namespace gfoidl.DataCompression
                         if (!archive.Archive)
                         {
                             this.UpdateFilters(_incoming, _lastArchived);
-                            _snapShot = _incoming;
+                            this.SnapShot = _incoming;
                             continue;
                         }
 
-                        if (!archive.MaxDelta && _lastArchived != _snapShot)
+                        if (!archive.MaxDelta && _lastArchived != this.SnapShot)
                         {
-                            _lastArchived = _snapShot;
-                            _snapShot     = _incoming;
+                            _lastArchived = this.SnapShot;
+                            this.SnapShot = _incoming;
                             _state        = _stateAfterArchive;
                             return true;
                         }
@@ -97,11 +97,15 @@ namespace gfoidl.DataCompression
                 case ArchivePointState:
                 {
                     _lastArchived = _incoming;
-                    _snapShot     = _incoming;
+                    this.SnapShot = _incoming;
                     _state        = IterateState;
                     this.Init(_incoming);
                     this.HandleSkipMinDeltaX(_enumerator);
                     return true;
+                }
+                case EndOfDataState:
+                {
+                    goto default;
                 }
                 case InitialState:
                 {
@@ -218,7 +222,7 @@ namespace gfoidl.DataCompression
             Debug.Assert(_minDeltaX.HasValue);
 
             double minDeltaX = _minDeltaX.GetValueOrDefault();
-            double snapShotX = _snapShot.X;
+            double snapShotX = this.SnapShot.X;
 
             while (enumerator.MoveNext())
             {
