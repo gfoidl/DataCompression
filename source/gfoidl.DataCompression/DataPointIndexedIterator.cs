@@ -97,7 +97,7 @@ namespace gfoidl.DataCompression
                             _lastArchivedIndex = snapShotIndex;
                             _snapShotIndex     = incomingIndex;
                             _incomingIndex     = incomingIndex;
-                            _state             = _archiveIncomingState;
+                            _state             = _stateAfterArchive;
                             return true;
                         }
 

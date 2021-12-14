@@ -40,7 +40,7 @@ namespace gfoidl.DataCompression
         private protected double? _maxDeltaX;
         private protected double? _minDeltaX;
         private protected bool    _archiveIncoming;
-        private protected int     _archiveIncomingState;
+        private protected int     _stateAfterArchive;
         //---------------------------------------------------------------------
         /// <summary>
         /// Sets the algorithm for this <see cref="DataPointIterator" />.
@@ -49,13 +49,13 @@ namespace gfoidl.DataCompression
         {
             if (algorithm is null) ThrowHelper.ThrowArgumentNull(ThrowHelper.ExceptionArgument.algorithm);
 
-            _state                = InitialState;
-            _threadId             = Environment.CurrentManagedThreadId;
-            _algorithm            = algorithm;
-            _maxDeltaX            = algorithm.MaxDeltaX;
-            _minDeltaX            = algorithm.MinDeltaX;
-            _archiveIncoming      = algorithm.ArchiveIncoming;
-            _archiveIncomingState = _archiveIncoming ? ArchiveIncomingState : PostArchiveState;
+            _state             = InitialState;
+            _threadId          = Environment.CurrentManagedThreadId;
+            _algorithm         = algorithm;
+            _maxDeltaX         = algorithm.MaxDeltaX;
+            _minDeltaX         = algorithm.MinDeltaX;
+            _archiveIncoming   = algorithm.ArchiveIncoming;
+            _stateAfterArchive = _archiveIncoming ? ArchiveIncomingState : PostArchiveState;
         }
         //---------------------------------------------------------------------
         /// <summary>

@@ -65,7 +65,7 @@ namespace gfoidl.DataCompression
                         {
                             _lastArchived = _snapShot;
                             _snapShot     = _incoming;
-                            _state        = _archiveIncomingState;
+                            _state        = _stateAfterArchive;
                             return true;
                         }
 
