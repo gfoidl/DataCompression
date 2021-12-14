@@ -21,16 +21,23 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             yield return new TestCaseData(1.0, RawDataForTrend() , ExpectedForTrend()) .SetName("{m} trend");
             yield return new TestCaseData(0.1, RawDataForTrend1(), ExpectedForTrend1()).SetName("{m} trend1");
             yield return new TestCaseData(0.1, RawDataForTrend2(), ExpectedForTrend2()).SetName("{m} trend2");
+            yield return new TestCaseData(2.0, RawDataForTrend3(), ExpectedForTrend3()).SetName("{m} trend3");
+            yield return new TestCaseData(2.0, RawDataForTrend3Mini(), ExpectedForTrend3Mini()).SetName("{m} trend3_mini");
         }
         //---------------------------------------------------------------------
-        protected static IEnumerable<DataPoint> RawDataForTrend()     => s_ser.Read("data/swinging-door/trend_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForTrend()    => s_ser.Read("data/swinging-door/trend_compressed.csv");
-        protected static IEnumerable<DataPoint> RawDataForTrend1()    => s_ser.Read("data/swinging-door/trend1_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForTrend1()   => s_ser.Read("data/swinging-door/trend1_compressed.csv");
-        protected static IEnumerable<DataPoint> RawDataForTrend2()    => s_ser.Read("data/swinging-door/trend2_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForTrend2()   => s_ser.Read("data/swinging-door/trend2_compressed.csv");
-        protected static IEnumerable<DataPoint> RawDataForMaxDelta()  => s_ser.Read("data/swinging-door/maxDelta_raw.csv");
-        protected static IEnumerable<DataPoint> ExpectedForMaxDelta() => s_ser.Read("data/swinging-door/maxDelta_compressed.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend()      => s_ser.Read("data/swinging-door/trend_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend1()     => s_ser.Read("data/swinging-door/trend1_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend2()     => s_ser.Read("data/swinging-door/trend2_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend3()     => s_ser.Read("data/swinging-door/trend3_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForTrend3Mini() => s_ser.Read("data/swinging-door/trend3_mini_raw.csv");
+        protected static IEnumerable<DataPoint> RawDataForMaxDelta()   => s_ser.Read("data/swinging-door/maxDelta_raw.csv");
+
+        protected static IEnumerable<DataPoint> ExpectedForTrend()      => s_ser.Read("data/swinging-door/trend_compressed.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend1()     => s_ser.Read("data/swinging-door/trend1_compressed.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend2()     => s_ser.Read("data/swinging-door/trend2_compressed.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend3()     => s_ser.Read("data/swinging-door/trend3_compressed.csv");
+        protected static IEnumerable<DataPoint> ExpectedForTrend3Mini() => s_ser.Read("data/swinging-door/trend3_mini_compressed.csv");
+        protected static IEnumerable<DataPoint> ExpectedForMaxDelta()   => s_ser.Read("data/swinging-door/maxDelta_compressed.csv");
         //---------------------------------------------------------------------
         protected static IEnumerable<DataPoint> RawMinDeltaX()
         {
@@ -64,6 +71,8 @@ namespace gfoidl.DataCompression.Tests.Compression.SwingingDoorCompressionTests
             yield return new TestCaseData(1.0, RawDataAsync(RawDataForTrend()) , ExpectedForTrend()) .SetName("{m} trend");
             yield return new TestCaseData(0.1, RawDataAsync(RawDataForTrend1()), ExpectedForTrend1()).SetName("{m} trend1");
             yield return new TestCaseData(0.1, RawDataAsync(RawDataForTrend2()), ExpectedForTrend2()).SetName("{m} trend2");
+            yield return new TestCaseData(2.0, RawDataAsync(RawDataForTrend3()), ExpectedForTrend3()).SetName("{m} trend3");
+            yield return new TestCaseData(2.0, RawDataAsync(RawDataForTrend3Mini()), ExpectedForTrend3Mini()).SetName("{m} trend3_mini");
         }
         //---------------------------------------------------------------------
         protected static async IAsyncEnumerable<DataPoint> RawDataAsync(IEnumerable<DataPoint> rawData, [EnumeratorCancellation] CancellationToken ct = default)
