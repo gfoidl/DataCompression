@@ -76,14 +76,14 @@ namespace gfoidl.DataCompression
                     cancellationToken.ThrowIfCancellationRequested();
 
                     _lastArchived = incoming;
-                    _snapShot     = incoming;
+                    this.SnapShot = incoming;
                     this.Init(incoming);
                     continue;
                 }
 
                 if (isSkipMinDeltaX)
                 {
-                    if ((incoming.X - _snapShot.X) < _minDeltaX)
+                    if ((incoming.X - this.SnapShot.X) < _minDeltaX)
                         continue;
 
                     isSkipMinDeltaX = false;
@@ -96,17 +96,17 @@ namespace gfoidl.DataCompression
                 if (!_archive.Archive)
                 {
                     this.UpdateFilters(incoming, _lastArchived);
-                    _snapShot = incoming;
+                    this.SnapShot = incoming;
                     continue;
                 }
 
-                if (!_archive.MaxDelta && _lastArchived != _snapShot)
+                if (!_archive.MaxDelta && _lastArchived != this.SnapShot)
                 {
-                    yield return _snapShot;
+                    yield return this.SnapShot;
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    _lastArchived = _snapShot;
-                    _snapShot     = incoming;
+                    _lastArchived = this.SnapShot;
+                    this.SnapShot = incoming;
 
                     if (_archiveIncoming)
                     {
@@ -127,14 +127,31 @@ namespace gfoidl.DataCompression
                 cancellationToken.ThrowIfCancellationRequested();
 
                 _lastArchived   = incoming;
-                _snapShot       = incoming;
+                this.SnapShot = incoming;
                 isSkipMinDeltaX = _minDeltaX.HasValue;
                 this.Init(incoming);
             }
 
             cancellationToken.ThrowIfCancellationRequested();
             if (_incoming != _lastArchived)     // sentinel-check
+            {
+                if (_previousSnapShot != _lastArchived)
+                {
+                    // Construct a door from the last archived point to the
+                    // incoming (final point), and check whether the penultimate
+                    // point is to archive or not.
+                    this.Init(_incoming);
+                    this.UpdateFilters(_incoming, _lastArchived);
+                    this.IsPointToArchive(_previousSnapShot, _lastArchived);
+
+                    if (_archive.Archive)
+                    {
+                        yield return _previousSnapShot;
+                    }
+                }
+
                 yield return _incoming;
+            }
         }
         //---------------------------------------------------------------------
         private protected virtual async ValueTask BuildCollectionAsync<TBuilder>(TBuilder builder, CancellationToken cancellationToken)

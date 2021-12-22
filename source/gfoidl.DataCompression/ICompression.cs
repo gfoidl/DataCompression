@@ -11,13 +11,13 @@ namespace gfoidl.DataCompression
     public interface ICompression
     {
         /// <summary>
-        /// When set to <c>true</c> the incoming is value archived in addition
+        /// When set to <c>true</c> the incoming value is archived in addition
         /// to the last snapshot.
         /// </summary>
         /// <remarks>
         /// For instance in the <see cref="DeadBandCompression" /> the last snapshot
         /// is archived, as well as the current incoming value, therefore this property
-        /// is set to <c>true</c>.
+        /// is set to <c>true</c>.<br />
         /// In the <see cref="SwingingDoorCompression" /> only the last snapshot is
         /// archived, so this property is set to <c>false</c>.
         /// </remarks>
